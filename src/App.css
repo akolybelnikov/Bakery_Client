@@ -33,3 +33,7 @@
 .ant-layout-sider, .ant-layout-sider-zero-width-trigger, .ant-layout-sider-zero-width-trigger:hover {
   background: #e09a00;
 }
+
+.ant-layout-sider-zero-width-trigger, .ant-layout-sider-zero-width-trigger:hover {
+  top: -54px;
+}

@@ -8,11 +8,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Affix style={{ position: 'absolute', top: 70, right: 5}}>
-          <Button className="is-pulled-right is-size-7-mobile is-size-6"><Icon type="phone" /> 8 (095) 124-53-67</Button>
-        </Affix>
         <Layout>
-            <Header className="header" style={{ position: 'fixed', width: '100%' }}>
+            <Header className="header">
               <div className="logo"><img className="image is-64x64" src={logo} alt="logo"/></div> 
               <Menu className="is-hidden-mobile"
                 theme="light"
@@ -38,11 +35,18 @@ class App extends Component {
                   <Menu.Item key="6"><Icon type="mail" />Contact</Menu.Item>
                 </Menu>
               </Sider>
-            <Layout>
-              <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>Content</Content>
-              <Footer>Footer</Footer>
-            </Layout>
-          </Layout>
+              <Layout>
+                <Content>
+                  <div className="scrollable-container" ref={(node => { this.container = node; })}>               Content
+                    <Button type="primary">Content</Button>
+                    <Affix target={ () => this.container} style={{ position: 'absolute', top: 70, right: 5}}>
+                      <Button type="primary" className="is-pulled-right is-size-7-mobile is-size-6"><Icon type="phone" /> 8 (095) 124-53-67</Button>
+                    </Affix>
+                  </div>
+                </Content>
+                <Footer>Footer</Footer>
+              </Layout>
+           </Layout>
         </Layout>
       </div>
     );
