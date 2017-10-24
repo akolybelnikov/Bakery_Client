@@ -1,29 +1,35 @@
-.Logo {
-  display: inline-block;
+#Content {
+  margin: 20px 0;
 }
 
 .Slogan {
   color: #E3BF3F;
 }
 
-.Telephone {
-  text-align: left;
-}
-
-.Address {
-  color: lightgray;
-}
-
-#Header {
+.header {
   -webkit-transition: opacity .5s;
   transition: opacity .5s;
   background: #fff;
-  margin-bottom: 24px;
-  padding: 0 25px;
-  width: 100%;
+  padding: 0 15px 15px 50px;
+  /* margin-bottom: 24px;
+  width: 100%; */
+}
+
+.image {
+  display: inline;
 }
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.logo {
+  height: 65px;
+  width: 65px;
+  float: right;
+}
+
+.ant-layout-sider, .ant-layout-sider-zero-width-trigger, .ant-layout-sider-zero-width-trigger:hover {
+  background: #e09a00;
 }

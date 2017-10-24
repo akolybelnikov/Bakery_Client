@@ -1,61 +1,48 @@
 import React, { Component } from 'react';
-import { Layout, Menu, Icon, Button, Row, Col } from 'antd';
+import { Layout, Menu, Icon, Button, Row, Col, Affix } from 'antd';
 import './App.css';
 const logo = require(`./mstile-150x150.png`);
-const { Header, Footer, Content } = Layout;
+const { Header, Footer, Content, Sider } = Layout;
 
 class App extends Component {
-  state = {
-    collapsed: true,
-  }
-  toggleCollapsed = () => {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
-  }
   render() {
     return (
       <div className="App">
+        <Affix style={{ position: 'absolute', top: 70, right: 5}}>
+          <Button className="is-pulled-right is-size-7-mobile is-size-6"><Icon type="phone" /> 8 (095) 124-53-67</Button>
+        </Affix>
         <Layout>
-          <Header id="Header">
-            <div>
-              <Row>
-                <Col xs={6} sm={6} md={2} lg={2}>
-                  <figure className="image is-64x64 Logo">
-                    <img src={logo} alt="logo"/>
-                  </figure> 
-                  <span className="Slogan">Vse Bulki Tut</span>
-                </Col>
-                <Col xs={18} sm={18} md={22} lg={22} className="is-hidden-tablet"> 
-                  <div style={{ width: 240 }}>
-                  <Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>
-                    <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
-                  </Button>
-                  <Menu defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline"       theme="dark" inlineCollapsed={this.state.collapsed}>
-                    <Menu.Item>
-                      <Icon type="coffee" />
-                      <span>Coffee</span>
-                    </Menu.Item>
-                    <Menu.Item>
-                      <Icon type="shop" />
-                      <span>Bread</span>
-                    </Menu.Item>
-                    <Menu.Item>
-                      <Icon type="gift" />
-                      <span>Cakes</span>
-                    </Menu.Item>
-                  </Menu>
-                  </div>
-                </Col>
-              </Row>
-              <p className="Telephone">Tel. 8 (095) 124-53-67, <span className="Address">Moscow, Berezhnyi pr-d, 167</span></p>
-            </div>
-          </Header>
-          <Content>
-            <p>Content</p>        
-            <Button type="default" size="large">Our Assortment</Button>
-          </Content>
-          <Footer>Footer</Footer>
+            <Header className="header" style={{ position: 'fixed', width: '100%' }}>
+              <div className="logo"><img className="image is-64x64" src={logo} alt="logo"/></div> 
+              <Menu className="is-hidden-mobile"
+                theme="light"
+                mode="horizontal"
+                defaultSelectedKeys={['1']}
+                style={{ lineHeight: '64px', color: '#E3BF3F' }}>
+                <Menu.Item key="1">Coffee</Menu.Item>
+                <Menu.Item key ="2">Bread</Menu.Item>
+                <Menu.Item key="3">Cakes</Menu.Item>
+                <Menu.Item key="4">Order</Menu.Item>
+                <Menu.Item key="5">About Us</Menu.Item>
+                <Menu.Item key="6">Contact</Menu.Item>
+              </Menu>    
+            </Header>
+            <Layout>
+              <Sider className="is-hidden-tablet" breakpoint="xl" collapsedWidth="0" onCollapse={(collapsed, type) => { console.log(collapsed, type); }}>
+                <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>
+                  <Menu.Item key="1"><Icon type="coffee" />Coffee</Menu.Item>
+                  <Menu.Item key="2"><Icon type="shop" />Bread</Menu.Item>
+                  <Menu.Item key="3"><Icon type="gift" />Cakes</Menu.Item>
+                  <Menu.Item key="4"><Icon type="shopping-cart" />Order</Menu.Item>
+                  <Menu.Item key="5"><Icon type="trademark" />About Us</Menu.Item>
+                  <Menu.Item key="6"><Icon type="mail" />Contact</Menu.Item>
+                </Menu>
+              </Sider>
+            <Layout>
+              <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>Content</Content>
+              <Footer>Footer</Footer>
+            </Layout>
+          </Layout>
         </Layout>
       </div>
     );
