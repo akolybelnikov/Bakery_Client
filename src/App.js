@@ -37,8 +37,7 @@ class App extends Component {
               </Sider>
               <Layout>
                 <Content>
-                  <div className="scrollable-container" ref={(node => { this.container = node; })}>               Content
-                    <Button type="primary">Content</Button>
+                  <div className="scrollable-container" ref={(node => { this.container = node; })}>          
                     <Affix target={ () => this.container} style={{ position: 'absolute', top: 70, right: 5}}>
                       <Button type="primary" className="is-pulled-right is-size-7-mobile is-size-6"><Icon type="phone" /> 8 (095) 124-53-67</Button>
                     </Affix>
