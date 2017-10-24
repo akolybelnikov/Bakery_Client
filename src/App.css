@@ -1,7 +1,9 @@
-@import '~antd/dist/antd.css';
+.Logo {
+  display: inline-block;
+}
 
-.App {
-  text-align: center;
+.Slogan {
+  color: #E3BF3F;
 }
 
 .Telephone {
@@ -17,6 +19,7 @@
   transition: opacity .5s;
   background: #fff;
   margin-bottom: 24px;
+  padding: 0 25px;
   width: 100%;
 }
 
