@@ -47,3 +47,11 @@
 .trigger:hover {
   color: #e09a00;
 }
+
+.ant-menu-horizontal > .ant-menu-item > a {
+  color: #E3BF3F
+}
+
+.ant-menu-horizontal > .ant-menu-item > a:hover, .ant-menu-horizontal > .ant-menu-item-selected > a {
+  color: #E09A00
+}
