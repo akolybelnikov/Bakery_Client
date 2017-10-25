@@ -4,8 +4,8 @@ import "./Cakes.css";
 export default class Cakes extends Component {
     render() {
       return (
-        <div className="Home">
-          <div className="lander">
+        <div className="Cakes">
+          <div className="cakes-lander">
             <h1>Cakes</h1>
             <p>All cakes come here</p>
           </div>
