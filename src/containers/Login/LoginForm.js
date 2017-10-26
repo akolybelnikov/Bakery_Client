@@ -23,6 +23,7 @@ class LoginForm extends Component {
           }
         });
         this.props.form.resetFields();
+        this.props.form.validateFields();
     }
 
     render() {

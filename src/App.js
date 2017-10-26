@@ -22,7 +22,6 @@ class App extends Component {
     this.setState({
       current: e.key,
     });
-    console.log(e.key)
   }
 
   render() {
