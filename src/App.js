@@ -10,6 +10,9 @@ const Container = styled.div`
   max-width: 1010px;
   margin: 0 auto;
 `;
+const Level = styled.div`
+  background-color: rgba(220, 44, 44, 0.15)
+`;
 
 class App extends Component {
 
@@ -39,7 +42,7 @@ class App extends Component {
     return (
 
         <Layout>
-          <Sider style={{ overflow: 'visible', position: 'fixed', left: 10, zIndex: 20 }} className="is-hidden-tablet" breakpoint="xl" collapsedWidth="0">
+          <Sider style={{ overflow: 'visible', position: 'fixed', left: 10, zIndex: 20, top: 20 }} className="is-hidden-tablet" breakpoint="xl" collapsedWidth="0">
             <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} theme="light" mode="inline">
               <Menu.Item key="0"><NavLink to="/"><Icon type="home" />Home</NavLink></Menu.Item>
               <Menu.Item key="1"><NavLink to="/coffee"><Icon type="coffee" />Coffee</NavLink></Menu.Item>
@@ -53,7 +56,7 @@ class App extends Component {
           </Sider>
             
           <Layout>
-            <Header className="header has-text-centered">
+            <Header className="header">
               <Container>
                 <NavLink onClick={this.handleLogoClick} to="/"><div className="logo"><img className="image is-64x64" src={logo} alt="logo"/></div></NavLink> 
                 <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} className="is-hidden-mobile" theme="light" mode="horizontal" style={{ lineHeight: '64px' }}>
@@ -69,24 +72,26 @@ class App extends Component {
               </Container>
             </Header>
             <Content style={{ overflow: 'initial', zIndex: 10 }}>     
-              <Affix style={{ position: 'absolute', top: 70, right: '25%', zIndex: 20}}>
+              <Affix style={{ position: 'absolute', top: 70, right: '5%', zIndex: 20}}>
                 <Button type="primary" className="is-pulled-right is-size-7-mobile is-size-6"><Icon type="phone" /> 8 (095) 124-53-67</Button>
               </Affix>
               <Container><Routes /></Container>          
             </Content>
             <Affix offsetBottom={0}>
               <Container>
-                <nav className="level is-mobile Level has-text-centered">               
-                  <div className="level-item ">
-                      <a><i class="fa fa-instagram fa-4x" aria-hidden="true"></i></a>
-                  </div>
-                  <div className="level-item">
-                      <a><i class="fa fa-facebook fa-4x" aria-hidden="true"></i></a>
-                  </div>
-                  <div className="level-item">
-                      <a><i class="fa fa-vk fa-4x" aria-hidden="true"></i></a>                 
-                  </div>
-                </nav>
+                <Level>
+                  <nav className="level is-mobile">            
+                    <div className="level-item">
+                        <a className="has-text-danger"><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a>
+                    </div>
+                    <div className="level-item">
+                        <a className="has-text-info"><i class="fa fa-facebook fa-2x" aria-hidden="true"></i></a>
+                    </div>
+                    <div className="level-item">
+                        <a className="has-text-black-ter"><i class="fa fa-vk fa-2x" aria-hidden="true"></i></a>
+                    </div>
+                  </nav>
+                </Level>
               </Container>
             </Affix>
           </Layout>
