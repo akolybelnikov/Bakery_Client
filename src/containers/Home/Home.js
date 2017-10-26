@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import { Row, Col } from 'antd';
 import Center from 'react-center';
-import ProcessImage from 'react-imgpro';
 import "./Home.css";
+import styled from 'styled-components';
+import ProgressiveImage from 'react-progressive-bg-image';
+
 const bgImg = require(`./bg.jpg`);
-const divStyle = {
-  backgroundImage: `url(${bgImg})`, 
-  backgroundSize: "cover",  
-}; 
+const StyledProgressiveImage = styled(ProgressiveImage)`
+  height: 100%;
+  background-size: contain;
+  background-position: center center;
+`;
 
 export default class Home extends Component {
 
@@ -16,28 +19,24 @@ export default class Home extends Component {
     this.state = {
       src: '',
       err: null,
-      image: 'https://source.unsplash.com/eEKgcdGZhzs'
+      image: 'https://source.unsplash.com/eEKgcdGZhzs/500x750'
     }
   }  
 
   render() {
     return (
       <Row>
-        <Col className="is-hidden-mobile" sm={17}>
+        <Col className="" sm={17}>
           <div className="Home">    
             <Center>
               <div className="lander">
-                <h1>Main page</h1>
-                <p>This is the lander.</p>
+                <StyledProgressiveImage src={this.state.image} placeholder={bgImg} transition="all 1s linear"><Center>Let's try to put sme text in here</Center></StyledProgressiveImage>          
               </div>
             </Center>           
           </div>
         </Col>
         <Col sm={6}>
-          <figure>
-            <ProcessImage image={this.state.image} resize={{ width: 500, height: 800, mode: 'bilinear' }} processedImage={(src, err) => this.setState({ src, err, })}
-          />    
-          </figure>
+         
         </Col>
       </Row>
     );
