@@ -6,12 +6,8 @@ import "./Home.css";
 const bgImg = require(`./bg.jpg`);
 const divStyle = {
   backgroundImage: `url(${bgImg})`, 
-  backgroundSize: "cover",
-  
+  backgroundSize: "cover",  
 }; 
-
-
-
 
 export default class Home extends Component {
 
