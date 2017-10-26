@@ -10,7 +10,8 @@
   -webkit-transition: opacity .5s;
   transition: opacity .5s;
   background: #fff;
-  padding: 0 15px 15px 50px;
+  padding: 2px 15px 15px 50px;
+  height: 70px;
 }
 
 .image {

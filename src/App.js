@@ -8,11 +8,8 @@ const { Header, Footer, Content, Sider } = Layout;
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
+  state = {
       current: '0',
-    }
   }
 
   handleLogoClick = (e) => {
@@ -25,6 +22,7 @@ class App extends Component {
     this.setState({
       current: e.key,
     });
+    console.log(e.key)
   }
 
   render() {
@@ -32,7 +30,7 @@ class App extends Component {
       <div className="App">
         <Layout>
           <Sider style={{ overflow: 'visible', position: 'fixed', left: 10, zIndex: 20 }} className="is-hidden-tablet" breakpoint="xl" collapsedWidth="0">
-            <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} theme="light" mode="inline" defaultSelectedKeys={['1']}>
+            <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} theme="light" mode="inline">
               <Menu.Item key="1"><NavLink to="/coffee"><Icon type="coffee" />Coffee</NavLink></Menu.Item>
               <Menu.Item key="2"><NavLink to="/coffee"><Icon type="shop" />Bread</NavLink></Menu.Item>
               <Menu.Item key="3"><NavLink to="/cakes"><Icon type="gift" />Cakes</NavLink></Menu.Item>
@@ -46,7 +44,7 @@ class App extends Component {
           <Layout>
             <Header className="header">
               <NavLink onClick={this.handleLogoClick} to="/"><div className="logo"><img className="image is-64x64" src={logo} alt="logo"/></div></NavLink> 
-              <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} className="is-hidden-mobile Menu" theme="light" mode="horizontal" style={{ lineHeight: '64px' }}>
+              <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} className="is-hidden-mobile" theme="light" mode="horizontal" style={{ lineHeight: '64px' }}>
                 <Menu.Item key="1"><NavLink to="/coffee">Coffee</NavLink></Menu.Item>
                 <Menu.Item key ="2"><NavLink to="/coffee">Bread</NavLink></Menu.Item>
                 <Menu.Item key="3"><NavLink to="/cakes">Cakes</NavLink></Menu.Item>
