@@ -39,6 +39,7 @@ class App extends Component {
               <Menu.Item key="4"><NavLink to="/coffee"><Icon type="shopping-cart" />Order</NavLink></Menu.Item>
               <Menu.Item key="5"><NavLink to="/coffee"><Icon type="trademark" />About Us</NavLink></Menu.Item>
               <Menu.Item key="6"><NavLink to="/coffee"><Icon type="mail" />Contact</NavLink></Menu.Item>
+              <Menu.Item key="7"><NavLink to="/login"><Icon type="user" />Login</NavLink></Menu.Item>
             </Menu>
           </Sider>
             
@@ -52,6 +53,7 @@ class App extends Component {
                 <Menu.Item key="4"><NavLink to="/coffee">Order</NavLink></Menu.Item>
                 <Menu.Item key="5"><NavLink to="/coffee">About Us</NavLink></Menu.Item>
                 <Menu.Item key="6"><NavLink to="/coffee">Contact</NavLink></Menu.Item>
+                <Menu.Item key="7"><NavLink to="/login">Login</NavLink></Menu.Item>
               </Menu>  
             </Header>
             <Content style={{ overflow: 'initial', zIndex: 10, background: 'pink' }}>     

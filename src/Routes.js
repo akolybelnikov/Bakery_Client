@@ -12,7 +12,7 @@ export default () =>
     <Route path="/" exact component={Home} />
     <Route path="/coffee" exact component={Coffee} />
     <Route path="/cakes" exact component={Cakes} />
-    <Route path="/admin" exact component={LoginForm} />
+    <Route path="/login" exact component={LoginForm} />
     { /* Finally, catch all unmatched routes */ }
     <Route component={NotFound} />
   </Switch>;
