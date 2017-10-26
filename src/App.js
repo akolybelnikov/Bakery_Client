@@ -120,7 +120,6 @@ class App extends Component {
             </Affix>
           </Layout>
         </Layout>
-
     );
   }
 }
