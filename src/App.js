@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { authUser } from "./libs/awsLib";
 import { NavLink, Link } from "react-router-dom";
 import { Layout, Menu, Icon, Button, Affix } from 'antd';
 import './App.css';
 import Routes from "./Routes";
 import styled from 'styled-components';
+
 const logo = require(`./mstile-150x150.png`);
 const { Header, Content, Sider } = Layout;
+
 const Container = styled.div`
     max-width: 1010px;
     margin: 0 auto;
@@ -28,7 +31,12 @@ export default class App extends Component {
 
   constructor(props) {
       super(props);
-      this.state = { current: '0', height: window.innerHeight - 103, isAuthenticated: false };
+      this.state = { 
+        current: '0', 
+        height: window.innerHeight - 103, 
+        isAuthenticated: false,
+        isAuthenticating: true
+  };
       this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
 
@@ -71,6 +79,17 @@ export default class App extends Component {
       this.setState({ height: window.innerHeight - 103 });
   }
 
+  async componentDidMount() {
+    try {
+      if (await authUser()) {
+        this.userHasAuthenticated(true);
+      }
+    } catch(e) {
+      console.log(e);
+    }
+    this.setState({ isAuthenticating: false });
+  }
+
   render() {
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
@@ -78,6 +97,7 @@ export default class App extends Component {
     };
     const isLoggedIn = this.state.isAuthenticated;
     return (
+      !this.state.isAuthenticating &&
         <Layout>
           <Sider style={{ overflow: 'visible', position: 'fixed', left: 10, zIndex: 20, top: 20 }} className="is-hidden-tablet" breakpoint="xl" collapsedWidth="0">
             <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} theme="light" mode="inline">

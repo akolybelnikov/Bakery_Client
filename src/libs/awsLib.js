@@ -15,12 +15,11 @@ export async function authUser() {
 
 function getUserToken(currentUser) {
     return new Promise((resolve, reject) => {
-        currentUser.getSession(function(err, sessiom) {
+        currentUser.getSession(function(err, session) {
             if (err) {
                 reject(err);
                 return;
             }
-
             resolve(session.getIdToken().getJwtToken());
         });
     });
