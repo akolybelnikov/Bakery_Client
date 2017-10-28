@@ -12,7 +12,6 @@ const Container = styled.div`
 `;
 const Level = styled.div`
     background-color: rgba(220, 44, 44, 0.25);
-    padding: 10px 0;
 `;
 const OuterContent = styled(Content)`
     z-index: 10;
@@ -108,8 +107,8 @@ export default class App extends Component {
               </Container>
             </Header>
             <OuterContent>     
-              <Affix style={{ position: 'absolute', top: 70, right: '10%', zIndex: 20}}>
-                <Button type="primary" className="is-pulled-right is-size-7-mobile is-size-6"><Icon type="phone" /> 8 (095) 124-53-67</Button>
+              <Affix style={{ position: 'absolute', top: 70, right: '5%', zIndex: 20}}>
+                <Button type="primary" className="is-size-7-mobile is-size-6"><Icon type="phone" /> 8 (095) 124-53-67</Button>
               </Affix>
               <InnerContainer height={this.state.height}><Routes childProps={childProps} /></InnerContainer>         
             </OuterContent>
