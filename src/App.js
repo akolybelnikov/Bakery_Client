@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { authUser, signOutUser } from "./libs/awsLib";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, withRouter } from "react-router-dom";
 import { Layout, Menu, Icon, Button, Affix } from 'antd';
 import './App.css';
 import Routes from "./Routes";
@@ -27,7 +27,7 @@ const InnerContainer = styled.div.attrs({
   min-height: ${props => props.height}px;
 `;
 
-export default class App extends Component {
+class App extends Component {
 
   constructor(props) {
       super(props);
@@ -73,8 +73,10 @@ export default class App extends Component {
 
   handleLogout = (e) => {
     signOutUser();
-    
+
     this.userHasAuthenticated(false);
+    
+    this.props.history.push('/login');
   }
 
   updateWindowDimensions() {
@@ -161,3 +163,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default withRouter(App);
