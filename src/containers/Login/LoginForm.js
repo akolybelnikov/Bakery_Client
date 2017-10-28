@@ -1,7 +1,10 @@
 import React, { Component } from "react";
+import { CognitoUserPool, AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
 import { Form, Icon, Input, Button } from 'antd';
 import Center from 'react-center';
+import config from "../../config";
 import "./LoginForm.css";
+
 const FormItem = Form.Item;   
 
 function hasErrors(fieldsError) {
@@ -9,19 +12,49 @@ function hasErrors(fieldsError) {
 }
 
 class LoginForm extends Component {
+    constructor(props) {
+        super(props);
+    
+        this.state = {
+          isLoading: false,
+          email: "",
+          password: ""
+        };
+    }
+
+    login(email, password) {
+        const userPool = new CognitoUserPool({
+            UserPoolId: config.cognito.USER_POOL_ID,
+            ClientId: config.cognito.APP_CLIENT_ID
+        });
+        const user = new CognitoUser({ Username: email, Pool: userPool });
+        const authenticationData = { Username: email, Password: password };
+        const authenticationDetails = new AuthenticationDetails(authenticationData);
+
+        return new Promise((resolve, reject) => 
+            user.authenticateUser(authenticationDetails, {
+                onSuccess: result => resolve(),
+                onFailure: err => {reject(err); alert(err.message)}
+            })
+        );
+    }
 
     componentDidMount() {
         // To disabled submit button at the beginning.
         this.props.form.validateFields();
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = async e => {
         e.preventDefault();
-        this.props.form.validateFields((err, values) => {
-          if (!err) {
-            console.log('Received values of form: ', values);
-          }
-        });
+        try {
+            await this.props.form.validateFields((err, values) => {
+                if (!err) {
+                    this.login(values['userName'], values['password']);       
+                  }
+            })
+        } catch (e) {
+            alert(e);
+        }  
         this.props.form.resetFields();
         this.props.form.validateFields();
     }
