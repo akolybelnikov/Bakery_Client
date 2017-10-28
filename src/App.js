@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { authUser } from "./libs/awsLib";
+import { authUser, signOutUser } from "./libs/awsLib";
 import { NavLink, Link } from "react-router-dom";
 import { Layout, Menu, Icon, Button, Affix } from 'antd';
 import './App.css';
@@ -72,6 +72,8 @@ export default class App extends Component {
   }
 
   handleLogout = (e) => {
+    signOutUser();
+    
     this.userHasAuthenticated(false);
   }
 
