@@ -3,6 +3,7 @@ import { CognitoUserPool, AuthenticationDetails, CognitoUser } from "amazon-cogn
 import { Form, Icon, Input, Button } from 'antd';
 import Center from 'react-center';
 import config from "../../config";
+import LoaderButton from "../../components/LoaderButton";
 import "./LoginForm.css";
 
 const FormItem = Form.Item;   
@@ -16,7 +17,7 @@ class LoginForm extends Component {
         super(props);
     
         this.state = {
-          isLoading: false
+          loading: false,
         };
     }
 
@@ -44,7 +45,9 @@ class LoginForm extends Component {
 
     handleSubmit = async e => {
         e.preventDefault();
-        this.setState({ isLoading: true });
+
+        this.setState({ loading: true });
+
         try {
             await this.props.form.validateFields((err, values) => {
                 if (!err) {
@@ -52,12 +55,15 @@ class LoginForm extends Component {
                     this.props.userHasAuthenticated(true);
                     this.props.history.push("/admin");                   
                 }
-            })
+            });
+
         } catch (e) {
             alert(e.message);
-            this.setState({ isLoading: false });
+            this.setState({ loading: false });
         }  
+
         this.props.form.resetFields();
+        
         this.props.form.validateFields();
     }
 
@@ -87,7 +93,7 @@ class LoginForm extends Component {
                                 )}
                             </FormItem>
                             <FormItem>
-                                <Button type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())}>Log in</Button>
+                                <LoaderButton type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Login" loadingText="Logging in ..." />
                             </FormItem>
                         </Form>
                     </div>
