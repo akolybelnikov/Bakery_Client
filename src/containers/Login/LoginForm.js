@@ -16,9 +16,7 @@ class LoginForm extends Component {
         super(props);
     
         this.state = {
-          isLoading: false,
-          email: "",
-          password: ""
+          isLoading: false
         };
     }
 
@@ -46,14 +44,17 @@ class LoginForm extends Component {
 
     handleSubmit = async e => {
         e.preventDefault();
+        this.setState({ isLoading: true });
         try {
             await this.props.form.validateFields((err, values) => {
                 if (!err) {
-                    this.login(values['userName'], values['password']);       
-                  }
+                    this.login(values['userName'], values['password']);  
+                    this.props.userHasAuthenticated(true);                   
+                }
             })
         } catch (e) {
-            alert(e);
+            alert(e.message);
+            this.setState({ isLoading: false });
         }  
         this.props.form.resetFields();
         this.props.form.validateFields();
@@ -65,29 +66,32 @@ class LoginForm extends Component {
         const userNameError = isFieldTouched('userName') && getFieldError('userName');
         const passwordError = isFieldTouched('password') && getFieldError('password');
         return (
-            <Center>
-                <div className="form">
-                    <Form onSubmit={this.handleSubmit}>
-                        <FormItem validateStatus={userNameError ? 'error' : ''} help={userNameError || ''}>
-                            {getFieldDecorator('userName', {
-                                rules: [{ required: true, message: 'Please provide your email!' }],
-                            })(
-                                <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} type="email" placeholder="Username" autoFocus/>
-                            )}
-                        </FormItem>
-                        <FormItem validateStatus={passwordError ? 'error' : ''} help={passwordError || ''}>
-                            {getFieldDecorator('password', {
-                                rules: [{ required: true, message: 'Please provide your password!' }],
-                            })(
-                                <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password" />
-                            )}
-                        </FormItem>
-                        <FormItem>
-                            <Button type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())}>Log in</Button>
-                        </FormItem>
-                    </Form>
-                </div>
-            </Center>
+            <div>
+                <Center><p className="is-size-4 has-text-dark title Admin">Login</p></Center>
+                <Center>
+                    <div className="Form">
+                        <Form onSubmit={this.handleSubmit}>
+                            <FormItem validateStatus={userNameError ? 'error' : ''} help={userNameError || ''}>
+                                {getFieldDecorator('userName', {
+                                    rules: [{ required: true, message: 'Please provide your email!' }],
+                                })(
+                                    <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} type="email" placeholder="Username" autoFocus/>
+                                )}
+                            </FormItem>
+                            <FormItem validateStatus={passwordError ? 'error' : ''} help={passwordError || ''}>
+                                {getFieldDecorator('password', {
+                                    rules: [{ required: true, message: 'Please provide your password!' }],
+                                })(
+                                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password" />
+                                )}
+                            </FormItem>
+                            <FormItem>
+                                <Button type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())}>Log in</Button>
+                            </FormItem>
+                        </Form>
+                    </div>
+                </Center>
+            </div>
         );
     }
 }
