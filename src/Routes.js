@@ -13,6 +13,7 @@ export default ({ childProps }) =>
     <Route path="/coffee" exact component={Coffee} />
     <Route path="/cakes" exact component={Cakes} />
     <AppliedRoute path="/login" exact component={LoginForm} props={childProps} />
+    <AppliedRoute path="/admin" exact component={Coffee} props={childProps} />
     { /* Finally, catch all unmatched routes */ }
     <Route component={NotFound} />
   </Switch>;

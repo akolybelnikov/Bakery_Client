@@ -49,7 +49,8 @@ class LoginForm extends Component {
             await this.props.form.validateFields((err, values) => {
                 if (!err) {
                     this.login(values['userName'], values['password']);  
-                    this.props.userHasAuthenticated(true);                   
+                    this.props.userHasAuthenticated(true);
+                    this.props.history.push("/admin");                   
                 }
             })
         } catch (e) {
