@@ -5,6 +5,7 @@ import "./Home.css";
 import styled from 'styled-components';
 import ProgressiveImage from 'react-progressive-bg-image';
 import Instafeed from 'react-instafeed';
+import config from "../../config";
 
 const bgImg = require(`./bg.jpg`);
 
@@ -17,13 +18,13 @@ const Background = styled(ProgressiveImage).attrs({
   min-height: ${props => props.height}px;
 `;
 
-const feed = new Instafeed({
-  get: 'tagged',
-  tagName: 'awesome',
-  clientId: 'baf04cdf77e041f387e8d758920c9e22'
-});
-
-feed.run();
+const Template = `
+  <a href='{{link}}' target='_blank' class='instafeed__item'>
+    <div class="tile is-child">
+      <img class='instafeed__item__background' src='{{image}}' />
+    </div>
+  </a>
+`
 
 export default class Home extends Component {
 
@@ -52,13 +53,28 @@ export default class Home extends Component {
   }
 
   render() {
+    const instafeedTarget = 'instafeed';    
     return (
-      <Row>
-        <Col className="is-hidden-mobile" sm={12}><div id="instafeed"></div></Col>
-        <Col className="" xs={24} sm={12}>  
+      <div className="columns">
+        <div className="column is-hidden-mobile">
+          <div className="tile is-ancestor">
+            <div className="tile is-parent is-12" id={instafeedTarget}>
+                <Instafeed
+                  limit='6'
+                  resolution='thumbnail'
+                  sortBy='most-recent'
+                  template={Template}
+                  userId={`${config.instagram.REACT_APP_INSTAGRAM_USER_ID}`}
+                  clientId={`${config.instagram.REACT_APP_INSTAGRAM_CLIENT_ID}`}
+                  accessToken={`${config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN}`}
+                />
+            </div>
+          </div>
+        </div>
+        <div className="column">  
             <Background height={this.state.windowHeight} src={this.state.image} placeholder={bgImg} transition="all 1s linear"><Center>Let's try to put sme text in here</Center></Background>
-        </Col>
-      </Row>
+        </div>
+      </div>
     );
   }
 }
