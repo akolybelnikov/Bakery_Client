@@ -22,7 +22,7 @@ const OuterContent = styled(Content)`
 const InnerContainer = styled.div.attrs({
   height: props => props.height
 })`
-  max-width: 910px;
+  max-width: 1010px;
   margin: 0 auto;
   min-height: ${props => props.height}px;
 `;
@@ -31,17 +31,18 @@ class App extends Component {
 
   constructor(props) {
       super(props);
+
       this.state = { 
-        current: '0', 
-        height: window.innerHeight - 103, 
-        isAuthenticated: false,
-        isAuthenticating: true
-  };
+          current: '0', 
+          height: window.innerHeight - 103, 
+          isAuthenticated: false,
+          isAuthenticating: true
+      };
       this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
 
   userHasAuthenticated = authenticated => {
-    this.setState({ isAuthenticated: authenticated });    
+      this.setState({ isAuthenticated: authenticated });    
   }
 
   componentDidMount() {
@@ -51,6 +52,10 @@ class App extends Component {
   
   componentWillUnmount() {
       window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions() {
+      this.setState({ height: window.innerHeight - 103 });
   }
 
   handleLogoClick = (e) => {
@@ -79,10 +84,6 @@ class App extends Component {
     this.props.history.push('/login');
   }
 
-  updateWindowDimensions() {
-      this.setState({ height: window.innerHeight - 103 });
-  }
-
   async componentDidMount() {
     try {
       if (await authUser()) {
@@ -97,7 +98,8 @@ class App extends Component {
   render() {
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated
+      userHasAuthenticated: this.userHasAuthenticated,
+      windowHeight: this.state.height
     };
     const isLoggedIn = this.state.isAuthenticated;
     return (
@@ -113,8 +115,7 @@ class App extends Component {
               <Menu.Item key="5"><NavLink to="/coffee"><Icon type="trademark" />About Us</NavLink></Menu.Item>
               <Menu.Item key="6"><NavLink to="/coffee"><Icon type="mail" />Contact</NavLink></Menu.Item>
             </Menu>
-          </Sider>
-            
+          </Sider>            
           <Layout style={{ background: "white" }} >
             <Header className="header">
               <Container>
