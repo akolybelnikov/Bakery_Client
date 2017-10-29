@@ -5,6 +5,7 @@ import Home from "./containers/Home/Home";
 import Coffee from "./containers/Coffee/Coffee";
 import Cakes from "./containers/Cakes/Cakes";
 import LoginForm from "./containers/Login/LoginForm";
+import Signup from "./containers/Signup/Signup";
 import NotFound from "./containers/NotFound";
 
 export default ({ childProps }) =>
@@ -14,6 +15,7 @@ export default ({ childProps }) =>
     <Route path="/cakes" exact component={Cakes} />
     <AppliedRoute path="/login" exact component={LoginForm} props={childProps} />
     <AppliedRoute path="/admin" exact component={Coffee} props={childProps} />
+    <AppliedRoute path="/signup" exact component={Signup} props={childProps} />
     { /* Finally, catch all unmatched routes */ }
     <Route component={NotFound} />
   </Switch>;

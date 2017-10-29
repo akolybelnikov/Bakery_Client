@@ -80,14 +80,14 @@ class LoginForm extends Component {
                         <Form onSubmit={this.handleSubmit}>
                             <FormItem validateStatus={userNameError ? 'error' : ''} help={userNameError || ''}>
                                 {getFieldDecorator('userName', {
-                                    rules: [{ required: true, message: 'Please provide your email!' }],
+                                    rules: [{ required: true, message: 'Please provide your email' }],
                                 })(
                                     <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} type="email" placeholder="Username" autoFocus/>
                                 )}
                             </FormItem>
                             <FormItem validateStatus={passwordError ? 'error' : ''} help={passwordError || ''}>
                                 {getFieldDecorator('password', {
-                                    rules: [{ required: true, message: 'Please provide your password!' }],
+                                    rules: [{ required: true, message: 'Please provide your password' }],
                                 })(
                                     <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password" />
                                 )}
