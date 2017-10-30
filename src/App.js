@@ -4,17 +4,28 @@ import { NavLink, Link, withRouter } from "react-router-dom";
 import { Layout, Menu, Icon, Button, Affix } from 'antd';
 import './App.css';
 import Routes from "./Routes";
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import { bounceInUp } from 'react-animations';
 
 const logo = require(`./mstile-150x150.png`);
 const { Header, Content, Sider } = Layout;
+
+const bounceAnimation = keyframes`${bounceInUp}`;
+
+const AffixBounce = styled(Affix)`
+  animation: 1.5s ${bounceAnimation};
+  position: absolute;
+  top: 70;
+  right: 5%;
+  zIndex: 20;
+`;
 
 const Container = styled.div`
     max-width: 1010px;
     margin: 0 auto;
 `;
 const Level = styled.div`
-    background-color: rgba(220, 44, 44, 0.25);
+    background-color: rgba(220, 44, 44, 0.5);
 `;
 const OuterContent = styled(Content)`
     z-index: 10;
@@ -22,9 +33,10 @@ const OuterContent = styled(Content)`
 const InnerContainer = styled.div.attrs({
   height: props => props.height
 })`
-  max-width: 1010px;
+  max-width: 960px;
   margin: 0 auto;
   min-height: ${props => props.height}px;
+  padding-top: 35px;
 `;
 
 class App extends Component {
@@ -45,11 +57,6 @@ class App extends Component {
       this.setState({ isAuthenticated: authenticated });    
   }
 
-  componentDidMount() {
-      this.updateWindowDimensions();
-      window.addEventListener('resize', this.updateWindowDimensions);
-  }
-  
   componentWillUnmount() {
       window.removeEventListener('resize', this.updateWindowDimensions);
   }
@@ -88,6 +95,8 @@ class App extends Component {
     try {
       if (await authUser()) {
         this.userHasAuthenticated(true);
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
       }
     } catch(e) {
       console.log(e);
@@ -132,9 +141,9 @@ class App extends Component {
               </Container>
             </Header>
             <OuterContent>     
-              <Affix style={{ position: 'absolute', top: 70, right: '5%', zIndex: 20}}>
+              <AffixBounce>
                 <Button type="primary" className="is-size-7-mobile is-size-6"><Icon type="phone" /> 8 (095) 124-53-67</Button>
-              </Affix>
+              </AffixBounce>
               <InnerContainer height={this.state.height}><Routes childProps={childProps} /></InnerContainer>         
             </OuterContent>
             <Affix offsetBottom={0} style={{ zIndex: 20 }}>
@@ -142,7 +151,7 @@ class App extends Component {
                 <Level>
                   <nav className="level is-mobile">            
                     <div className="level-item">
-                        <Link to="/coffee" className="has-text-danger"><i className="fa fa-instagram fa-2x" aria-hidden="true"></i></Link>
+                        <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer" className="has-text-danger"><i className="fa fa-instagram fa-2x" aria-hidden="true"></i></a>
                     </div>
                     <div className="level-item">
                         <Link to="/coffee" className="has-text-info"><i className="fa fa-facebook fa-2x" aria-hidden="true"></i></Link>

@@ -5712,6 +5712,10 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-animations@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-animations/-/react-animations-0.1.0.tgz#519b6f4fe0f90b49fbfd4fcd73d978c5087130b1"
+
 react-app-rewire-less@^2.0.7:
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/react-app-rewire-less/-/react-app-rewire-less-2.0.7.tgz#5912c4e07f326a91c161ee8b01adc55e537a151a"

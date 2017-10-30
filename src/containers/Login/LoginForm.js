@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { CognitoUserPool, AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
-import { Form, Icon, Input, Button } from 'antd';
+import { Form, Icon, Input } from 'antd';
 import Center from 'react-center';
 import config from "../../config";
 import LoaderButton from "../../components/LoaderButton";
