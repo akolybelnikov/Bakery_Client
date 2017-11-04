@@ -25,7 +25,8 @@ const Container = styled.div`
     margin: 0 auto;
 `;
 const Level = styled.div`
-    background-color: rgba(220, 44, 44, 0.5);
+    background-color: rgba(224, 154, 0, 0.8);
+    padding: 5px;
 `;
 const OuterContent = styled(Content)`
     z-index: 10;
@@ -46,7 +47,7 @@ class App extends Component {
 
       this.state = { 
           current: '0', 
-          height: window.innerHeight - 103, 
+          height: window.innerHeight - 162, 
           isAuthenticated: false,
           isAuthenticating: true
       };
@@ -62,7 +63,7 @@ class App extends Component {
   }
 
   updateWindowDimensions() {
-      this.setState({ height: window.innerHeight - 103 });
+      this.setState({ height: window.innerHeight - 162 });
   }
 
   handleLogoClick = (e) => {
