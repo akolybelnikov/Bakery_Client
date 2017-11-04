@@ -11,3 +11,20 @@
 .Home .lander p {
     color: #999;
 }
+
+.ant-card-head-title {
+    color: #fa90ba;
+    font-size: 1.3rem;
+    font-weight: bolder;
+}
+
+.ProductButton {
+    background-color: #fa90ba;
+    border-color: #fa90ba;
+}
+
+.ProductButton :hover {
+    background-color: white;
+    border-color: #fa90ba;
+    color: #fa90ba;
+}

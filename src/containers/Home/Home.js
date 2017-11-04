@@ -1,11 +1,14 @@
 import React, { Component } from "react";
-import { Row, Col, Card } from 'antd';
+import { Row, Col, Card, Button, Icon } from 'antd';
 import Center from 'react-center';
 import "./Home.css";
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import { bounceInUp } from 'react-animations';
 import ProgressiveImage from 'react-progressive-bg-image';
 import Instafeed from 'react-instafeed';
 import config from "../../config";
+
+const bounceAnimation = keyframes`${bounceInUp}`;
 
 const bgImg = require(`./bg.jpg`);
 
@@ -24,6 +27,17 @@ const Template = `
       <img class='instafeed__item__background' src='{{image}}' style="padding-right: 5px;"/>
     </a>
   </div>
+`
+const InstaCard = styled(Card)`
+  color: white;
+`
+
+const InstaLoad = styled(Row)`
+  animation: 2s ${bounceAnimation};
+`
+
+const ButtonCard = styled(Card)`
+  margin-top: 20px;
 `
 
 export default class Home extends Component {
@@ -49,10 +63,10 @@ export default class Home extends Component {
     return (
       <Row>
         <Col sm={14}>
-            <Card title="Instagram" bordered="false">
-              <Row gutter={16} type="flex" justify="start" ref={instafeed => this.instafeed = instafeed} id='instafeed'>              
+            <InstaCard title="Instagram" bordered="false">
+              <InstaLoad type="flex" justify="start" ref={instafeed => this.instafeed = instafeed} id='instafeed'>              
                 <Instafeed
-                  limit='8'
+                  limit='16 '
                   resolution='thumbnail'
                   sortBy='most-recent'
                   template={Template}
@@ -61,19 +75,16 @@ export default class Home extends Component {
                   accessToken={`${config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN}`}
                   success={this.onSuccess(Instafeed)}
                 />  
-              </Row>
-            </Card>
-            <Card title="News">     
-                <Card.Grid>news 1</Card.Grid>
-                <Card.Grid>news 2</Card.Grid>
-                <Card.Grid>news3</Card.Grid>
-                <Card.Grid>news4</Card.Grid>
-                <Card.Grid>news5</Card.Grid>
-                <Card.Grid>news6</Card.Grid>    
-            </Card>
+              </InstaLoad>
+            </InstaCard> 
+            <ButtonCard>
+              <Center><Button className="ProductButton has-text-white is-size-7-mobile is-size-6"><Icon type="caret-down" />Go to products<Icon type="caret-down" /></Button></Center>
+            </ButtonCard>          
         </Col>
         <Col sm={10}>  
+            <Card>
             <Background height={this.state.windowHeight} src={this.state.image} placeholder={bgImg} transition="all 1s linear"><Center>Let's try to put sme text in here</Center></Background>
+            </Card>
         </Col>
       </Row>
     );
