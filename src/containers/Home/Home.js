@@ -63,7 +63,7 @@ export default class Home extends Component {
     return (
       <Row>
         <Col sm={14}>
-            <InstaCard title="Instagram" bordered="false">
+            <InstaCard title="Our news on Instagram" bordered="false">
               <InstaLoad type="flex" justify="start" ref={instafeed => this.instafeed = instafeed} id='instafeed'>              
                 <Instafeed
                   limit='16 '
@@ -78,7 +78,8 @@ export default class Home extends Component {
               </InstaLoad>
             </InstaCard> 
             <ButtonCard>
-              <Center><Button className="ProductButton has-text-white is-size-7-mobile is-size-6"><Icon type="caret-down" />Go to products<Icon type="caret-down" /></Button></Center>
+              <Center><Button className="ProductButton has-text-white is-size-7-mobile is-size-6">
+              <Icon type="caret-down" />Go to products<Icon type="caret-down" /></Button></Center>
             </ButtonCard>          
         </Col>
         <Col sm={10}>  

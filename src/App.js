@@ -26,7 +26,6 @@ const Container = styled.div`
 `;
 const Level = styled.div`
     background-color: rgba(224, 154, 0, 0.8);
-    padding: 5px;
 `;
 const OuterContent = styled(Content)`
     z-index: 10;
@@ -36,7 +35,7 @@ const InnerContainer = styled.div.attrs({
 })`
   max-width: 960px;
   margin: 0 auto;
-  min-height: ${props => props.height}px;
+  height: ${props => props.height}px;
   padding-top: 35px;
 `;
 
@@ -145,7 +144,7 @@ class App extends Component {
               <AffixBounce>
                 <Button type="primary" className="is-size-7-mobile is-size-6"><Icon type="phone" /> 8 (095) 124-53-67</Button>
               </AffixBounce>
-              <InnerContainer height={this.state.height}><Routes childProps={childProps} /></InnerContainer>         
+              <InnerContainer height={this.state.height}><Routes childProps={childProps} /></InnerContainer>
             </OuterContent>
             <Affix offsetBottom={0} style={{ zIndex: 20 }}>
               <Container>

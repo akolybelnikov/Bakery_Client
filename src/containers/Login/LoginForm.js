@@ -89,7 +89,7 @@ class LoginForm extends Component {
                                 {getFieldDecorator('password', {
                                     rules: [{ required: true, message: 'Please provide your password' }],
                                 })(
-                                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password" />
+                                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="string" placeholder="Password" />
                                 )}
                             </FormItem>
                             <FormItem>
