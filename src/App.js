@@ -151,7 +151,7 @@ class App extends Component {
                 <Level>
                   <nav className="level is-mobile">            
                     <div className="level-item">
-                        <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer" className="has-text-danger"><i className="fa fa-instagram fa-2x" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer" className="has-text-danger"><i className="fa fa-instagram fa-2x"></i></a>
                     </div>
                     <div className="level-item">
                         <Link to="/coffee" className="has-text-info"><i className="fa fa-facebook fa-2x" aria-hidden="true"></i></Link>
