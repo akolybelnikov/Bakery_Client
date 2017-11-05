@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Card, Button, Icon } from 'antd';
+import { Row, Col, Card } from 'antd';
 import Center from 'react-center';
 import "./Home.css";
 import styled, { keyframes } from 'styled-components';
@@ -30,14 +30,11 @@ const Template = `
 `
 const InstaCard = styled(Card)`
   color: white;
+  margin-right: 10px;
 `
 
 const InstaLoad = styled(Row)`
   animation: 2s ${bounceAnimation};
-`
-
-const ButtonCard = styled(Card)`
-  margin-top: 20px;
 `
 
 export default class Home extends Component {
@@ -51,12 +48,25 @@ export default class Home extends Component {
     }
   }
 
-  onSuccess(object) {
-    console.log(this.instafeed);
+  beforeLoad() {
+    console.log('going to fetch');
+  }
+
+  afterLoad() {
+    console.log('loaded');
+  }
+
+  onSuccess() {
+    console.log('success!');
+    //this.setState({loaded: true});
   }
 
   componentDidMount() {
-    console.log(this.instafeed.props.children);
+    //console.log(this.state.loaded);
+  }
+
+  componentWillUnmount() {
+    console.log('unmounting');
   }
 
   render() {   
@@ -64,27 +74,25 @@ export default class Home extends Component {
       <Row>
         <Col sm={14}>
             <InstaCard title="Our news on Instagram" bordered="false">
-              <InstaLoad type="flex" justify="start" ref={instafeed => this.instafeed = instafeed} id='instafeed'>              
-                <Instafeed
-                  limit='16 '
+              <InstaLoad type="flex" justify="start" id='instafeed'>              
+                <Instafeed ref={instafeed => this.instafeed = instafeed}
+                  limit='20'
                   resolution='thumbnail'
                   sortBy='most-recent'
                   template={Template}
                   userId={`${config.instagram.REACT_APP_INSTAGRAM_USER_ID}`}
                   clientId={`${config.instagram.REACT_APP_INSTAGRAM_CLIENT_ID}`}
                   accessToken={`${config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN}`}
-                  success={this.onSuccess(Instafeed)}
+                  before={this.beforeLoad()}
+                  after={this.afterLoad()}
+                  success={this.onSuccess()}
                 />  
               </InstaLoad>
-            </InstaCard> 
-            <ButtonCard>
-              <Center><Button className="ProductButton has-text-white is-size-7-mobile is-size-6">
-              <Icon type="caret-down" />Go to products<Icon type="caret-down" /></Button></Center>
-            </ButtonCard>          
+            </InstaCard>          
         </Col>
         <Col sm={10}>  
             <Card>
-            <Background height={this.state.windowHeight} src={this.state.image} placeholder={bgImg} transition="all 1s linear"><Center>Let's try to put sme text in here</Center></Background>
+              <Background height={this.state.windowHeight} src={this.state.image} placeholder={bgImg} transition="all 1s linear"><Center>Let's try to put sme text in here</Center></Background>
             </Card>
         </Col>
       </Row>

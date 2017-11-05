@@ -4,7 +4,7 @@ import { Form, Icon, Input, Upload, message, Button, Select } from 'antd';
 import Center from 'react-center';
 import config from "../../config";
 import LoaderButton from "../../components/LoaderButton";
-import { invokeApig } from "../../libs/awsLib";
+import { invokeApig, s3Upload } from "../../libs/awsLib";
 import "./NewProduct.css";
 
 const FormItem = Form.Item;   
@@ -15,30 +15,15 @@ function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
-const props = {
-  name: 'file',
-  action: '',
-  headers: {
-    authorization: 'authorization-text',
-  },
-  onChange(info) {
-    if (info.file.status !== 'uploading') {
-      console.log(info.file, info.fileList);
-    }
-    if (info.file.status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully`);
-    } else if (info.file.status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-};
-
 class NewProduct extends Component {
     constructor(props) {
         super(props);
-    
+
+        this.file = null;
+        
         this.state = {
-          loading: false
+            uploading: false,
+            loading: false
         };
     }
 
@@ -55,14 +40,19 @@ class NewProduct extends Component {
             return;
         }
 
+        this.setState({ loading: true });
+
         try {
+            const uploadedFilename = this.file ? (await s3Upload(this.file)).Location : null;
+
             await this.props.form.validateFields((err, values) => {
                 if (!err) {
                     this.createProduct({
                         category: values['category'],
                         productname: values['name'],
                         content: values['content'],
-                        price: values['price']
+                        price: values['price'],
+                        attachment: uploadedFilename
                     });
                     this.props.history.push("/admin");
                 }
@@ -71,9 +61,7 @@ class NewProduct extends Component {
         } catch (e) {
             alert(e.message);
             this.setState({ loading: false });
-        }  
-
-        this.setState({ loading: true });
+        } 
 
         this.props.form.resetFields();
         
@@ -89,6 +77,12 @@ class NewProduct extends Component {
     }
 
     render() {
+        const props = {
+            beforeUpload: (file) => {
+                this.file = file;
+                console.log(this.file);
+            }
+        }
         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
         // Show errors only if a field was touched.
         const categoryError = isFieldTouched('category') && getFieldError('category');
@@ -97,7 +91,7 @@ class NewProduct extends Component {
         const priceError = isFieldTouched('price') && getFieldError('price');
         return (
             <div>
-                <Center style={{'margin-bottom': '20px'}}><p className="is-size-4 has-text-dark title">Create new product</p></Center>
+                <Center style={{'marginBottom': '20px'}}><p className="is-size-4 has-text-dark title">Create new product</p></Center>
                 <Center>
                     <div className="Form">
                         <Form onSubmit={this.handleSubmit}>
@@ -133,9 +127,9 @@ class NewProduct extends Component {
                                     <Input  type="number" placeholder="Product price: 00.00" />
                                 )}
                             </FormItem>
-                            <FormItem>
+                            <FormItem >
                                 <Upload {...props}>
-                                    <Button><Icon type="upload" /> Click to Upload</Button>
+                                    <Button><Icon type="upload" />Select image</Button>
                                 </Upload>
                             </FormItem>
                             <FormItem>
