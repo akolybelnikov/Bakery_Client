@@ -53,7 +53,7 @@ export function signOutUser() {
 function getAWSCredentials(userToken) {
     const authenticator = `cognito-idp.${config.cognito.REGION}.amazonaws.com/${config.cognito.USER_POOL_ID}`;
 
-    AWS.config.update({ region: config.config.REGION });
+    AWS.config.update({ region: config.cognito.REGION });
 
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
         IdentityPoolId: config.cognito.IDENTITY_POOL_ID,
@@ -84,7 +84,7 @@ export async function invokeApig({
             region: config.apiGateway.REGION,
             endpoint: config.apiGateway.URL
         })
-        .signedRequest({
+        .signRequest({
             method,
             path,
             headers,
@@ -104,6 +104,6 @@ export async function invokeApig({
     if (results.status !== 200) {
         throw new Error(await results.text());
     }
-
+    
     return results.json();
 }
