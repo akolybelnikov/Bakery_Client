@@ -80,7 +80,7 @@ class NewProduct extends Component {
         const props = {
             beforeUpload: (file) => {
                 this.file = file;
-                console.log(this.file);
+                return false;
             }
         }
         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
