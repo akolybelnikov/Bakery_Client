@@ -12,13 +12,11 @@ const bounceAnimation = keyframes`${bounceInUp}`;
 
 const bgImg = require(`./bg.jpg`);
 
-const Background = styled(ProgressiveImage).attrs({
-  height: props => props.height
-})`
-  background-color: pink;
+const Background = styled(ProgressiveImage)`
   background-size: cover;
   background-position: center center;
-  min-height: ${props => props.height}px;
+  min-height: 670px;
+  margin-left:5px;
 `;
 
 const Template = ` 
@@ -30,7 +28,6 @@ const Template = `
 `
 const InstaCard = styled(Card)`
   color: white;
-  margin-right: 10px;
 `
 
 const InstaLoad = styled(Row)`
@@ -43,8 +40,7 @@ export default class Home extends Component {
     super(props);
 
     this.state = {
-      image: 'https://source.unsplash.com/eEKgcdGZhzs/500x750',
-      windowHeight: this.props.windowHeight
+      image: 'https://source.unsplash.com/eEKgcdGZhzs/500x750'
     }
   }
 
@@ -62,7 +58,7 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
-    //console.log(this.state.loaded);
+    
   }
 
   componentWillUnmount() {
@@ -71,31 +67,34 @@ export default class Home extends Component {
 
   render() {   
     return (
-      <Row>
-        <Col sm={14}>
-            <InstaCard title="Our news on Instagram" bordered="false">
-              <InstaLoad type="flex" justify="start" id='instafeed'>              
-                <Instafeed ref={instafeed => this.instafeed = instafeed}
-                  limit='20'
-                  resolution='thumbnail'
-                  sortBy='most-recent'
-                  template={Template}
-                  userId={`${config.instagram.REACT_APP_INSTAGRAM_USER_ID}`}
-                  clientId={`${config.instagram.REACT_APP_INSTAGRAM_CLIENT_ID}`}
-                  accessToken={`${config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN}`}
-                  before={this.beforeLoad()}
-                  after={this.afterLoad()}
-                  success={this.onSuccess()}
-                />  
-              </InstaLoad>
-            </InstaCard>          
-        </Col>
-        <Col sm={10}>  
-            <Card>
-              <Background height={this.state.windowHeight} src={this.state.image} placeholder={bgImg} transition="all 1s linear"><Center>Let's try to put sme text in here</Center></Background>
-            </Card>
-        </Col>
-      </Row>
+
+        
+          <Row>
+            <Col sm={14}>
+                <InstaCard title="Our news on Instagram" bordered="false">
+                  <InstaLoad type="flex" justify="start" id='instafeed'>              
+                    <Instafeed ref={instafeed => this.instafeed = instafeed}
+                      limit='16'
+                      resolution='thumbnail'
+                      sortBy='most-recent'
+                      template={Template}
+                      userId={`${config.instagram.REACT_APP_INSTAGRAM_USER_ID}`}
+                      clientId={`${config.instagram.REACT_APP_INSTAGRAM_CLIENT_ID}`}
+                      accessToken={`${config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN}`}
+                      before={this.beforeLoad()}
+                      after={this.afterLoad()}
+                      success={this.onSuccess()}
+                    />  
+                  </InstaLoad>
+                </InstaCard>          
+            </Col> 
+            <Col sm={10}>
+              <Background src={this.state.image} placeholder={bgImg} transition="all 1s linear">
+              </Background>
+            </Col> 
+          </Row>         
+        
+
     );
   }
 }

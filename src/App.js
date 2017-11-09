@@ -25,17 +25,14 @@ const Container = styled.div`
     margin: 0 auto;
 `;
 const Level = styled.div`
-    background-color: rgba(224, 154, 0, 0.8);
+    background-color: rgba(224, 154, 0, 0.9);
 `;
 const OuterContent = styled(Content)`
     z-index: 10;
 `;
-const InnerContainer = styled.div.attrs({
-  height: props => props.height
-})`
+const InnerContainer = styled.div`
   max-width: 960px;
   margin: 0 auto;
-  height: ${props => props.height}px;
   padding-top: 35px;
 `;
 
@@ -46,24 +43,23 @@ class App extends Component {
 
       this.state = { 
           current: '0', 
-          height: window.innerHeight - 162, 
           isAuthenticated: false,
           isAuthenticating: true
       };
-      this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+      // this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
 
   userHasAuthenticated = authenticated => {
       this.setState({ isAuthenticated: authenticated });    
   }
 
-  componentWillUnmount() {
-      window.removeEventListener('resize', this.updateWindowDimensions);
-  }
+  // componentWillUnmount() {
+  //     window.removeEventListener('resize', this.updateWindowDimensions);
+  // }
 
-  updateWindowDimensions() {
-      this.setState({ height: window.innerHeight - 162 });
-  }
+  // updateWindowDimensions() {
+  //     this.setState({ height: window.innerHeight - 162 });
+  // }
 
   handleLogoClick = (e) => {
       this.setState({
@@ -91,24 +87,31 @@ class App extends Component {
     this.props.history.push('/login');
   }
 
+  // calcHeight() {
+    
+  //   return rect.height;
+  // }
+
   async componentDidMount() {
     try {
       if (await authUser()) {
         this.userHasAuthenticated(true);
-        this.updateWindowDimensions();
-        window.addEventListener('resize', this.updateWindowDimensions);
+        //this.updateWindowDimensions();
+       // window.addEventListener('resize', this.updateWindowDimensions);
       }
     } catch(e) {
       console.log(e);
     }
     this.setState({ isAuthenticating: false });
+    //window.addEventListener('resize', this.calcHeight());
+    // const rect = this.container.getBoundingClientRect();
+    //console.log(this.container.getBoundingClientRect());
   }
 
   render() {
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated,
-      windowHeight: this.state.height
+      userHasAuthenticated: this.userHasAuthenticated
     };
     const isLoggedIn = this.state.isAuthenticated;
     return (
@@ -140,11 +143,11 @@ class App extends Component {
                 </Menu>  
               </Container>
             </Header>
-            <OuterContent>     
+            <OuterContent ref={div => this.container = div}>     
               <AffixBounce>
                 <Button type="primary" className="is-size-7-mobile is-size-6"><Icon type="phone" /> 8 (095) 124-53-67</Button>
               </AffixBounce>
-              <InnerContainer height={this.state.height}><Routes childProps={childProps} /></InnerContainer>
+              <InnerContainer><Routes childProps={childProps} /></InnerContainer>
             </OuterContent>
             <Affix offsetBottom={0} style={{ zIndex: 20 }}>
               <Container>
