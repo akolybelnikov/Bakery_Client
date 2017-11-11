@@ -15,7 +15,12 @@
 .ant-card-head-title {
     color: #fa90ba;
     font-size: 1.2rem;
+    text-align: center;
 }
+
+.ant-card-head:hover, .ant-card-head-title:hover {
+    background: #feeff5;
+};
 
 .ProductButton {
     background-color: #fa90ba;

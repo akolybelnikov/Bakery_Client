@@ -16,7 +16,7 @@ const bgImg = require(`./bg.jpg`);
 const Background = styled(ProgressiveImage)`
   background-size: cover;
   background-position: center center;
-  min-height: 690px;
+  min-height: 710px;
 `;
 
 const Template = ` 
@@ -27,7 +27,9 @@ const Template = `
   </div>
 `
 const InstaCard = styled(Card)`
-  color: white;
+  :hover {
+    background: #feeff5;
+  };
 `
 
 const InstaLoad = styled(Row)`
@@ -37,10 +39,10 @@ const InstaLoad = styled(Row)`
 const GoButton = styled(Card)`
   cursor: pointer;
   animation: 1s ${slideInAnimation};
+  :hover {
+    background: #feeff5;
+  };
 `
-function goToProducts() {
-  console.log('clicked');
-}
 
 export default class Home extends Component {
 
@@ -61,7 +63,7 @@ export default class Home extends Component {
     return (        
       <Row>
         <Col sm={14}>
-            <InstaCard title="Our news and offers on Instagram" bordered="false">
+            <InstaCard title="Наши новинки на Instagram" bordered="false">
               <InstaLoad type="flex" justify="start" id='instafeed'>              
                 <Instafeed ref={instafeed => this.instafeed = instafeed}
                   limit='16'
@@ -74,10 +76,12 @@ export default class Home extends Component {
                 />  
               </InstaLoad>
             </InstaCard>
-            <GoButton onClick={ goToProducts }>
-              <Center>
-                  <p><span className="ant-card-head-title">Go to the products<Icon type="right" /></span></p>
-              </Center>
+            <GoButton>
+              <a href="/products">
+                <Center>
+                  <p><span className="ant-card-head-title">Наш ассортимент<Icon type="right" /></span></p>
+                </Center>
+              </a>
             </GoButton>          
         </Col> 
         <Col sm={10}>

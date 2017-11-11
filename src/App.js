@@ -29,6 +29,7 @@ const Level = styled.div`
 `;
 const OuterContent = styled(Content)`
     z-index: 10;
+    padding: 0 24px;
 `;
 const InnerContainer = styled.div`
   max-width: 960px;
@@ -103,6 +104,12 @@ class App extends Component {
       console.log(e);
     }
     this.setState({ isAuthenticating: false });
+    if (this.props.location.pathname === '/products') {
+      this.setState({ current: "1"})
+    }
+    if (this.props.location.pathname === '/products') {
+      this.setState({ current: "1"})
+    }
     //window.addEventListener('resize', this.calcHeight());
     // const rect = this.container.getBoundingClientRect();
     //console.log(this.container.getBoundingClientRect());
@@ -119,13 +126,13 @@ class App extends Component {
         <Layout>
           <Sider style={{ overflow: 'visible', position: 'fixed', left: 10, zIndex: 20, top: 20 }} className="is-hidden-tablet" breakpoint="xl" collapsedWidth="0">
             <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} theme="light" mode="inline">
-              <Menu.Item key="0"><NavLink to="/"><Icon type="home" />Home</NavLink></Menu.Item>
-              <Menu.Item key="1"><NavLink to="/coffee"><Icon type="coffee" />Coffee</NavLink></Menu.Item>
-              <Menu.Item key="2"><NavLink to="/coffee"><Icon type="shop" />Bread</NavLink></Menu.Item>
-              <Menu.Item key="3"><NavLink to="/cakes"><Icon type="gift" />Cakes</NavLink></Menu.Item>
-              <Menu.Item key="4"><NavLink to="/coffee"><Icon type="shopping-cart" />Order</NavLink></Menu.Item>
-              <Menu.Item key="5"><NavLink to="/coffee"><Icon type="trademark" />About Us</NavLink></Menu.Item>
-              <Menu.Item key="6"><NavLink to="/coffee"><Icon type="mail" />Contact</NavLink></Menu.Item>
+              <Menu.Item key="0"><NavLink to="/"><Icon type="home" />Новинки</NavLink></Menu.Item>
+              <Menu.Item key="1"><NavLink to="/coffee"><Icon type="coffee" />Кофе</NavLink></Menu.Item>
+              <Menu.Item key="2"><NavLink to="/coffee"><Icon type="shop" />Хлеб</NavLink></Menu.Item>
+              <Menu.Item key="3"><NavLink to="/cakes"><Icon type="gift" />Кондитерка</NavLink></Menu.Item>
+              <Menu.Item key="4"><NavLink to="/coffee"><Icon type="shopping-cart" />На заказ</NavLink></Menu.Item>
+              <Menu.Item key="5"><NavLink to="/coffee"><Icon type="trademark" />О нас</NavLink></Menu.Item>
+              <Menu.Item key="6"><NavLink to="/coffee"><Icon type="mail" />Контакт</NavLink></Menu.Item>
             </Menu>
           </Sider>            
           <Layout style={{ background: "white" }} >
@@ -133,13 +140,10 @@ class App extends Component {
               <Container>
                 <NavLink onClick={this.handleLogoClick} to="/"><div className="logo"><img className="image is-64x64" src={logo} alt="logo"/></div></NavLink> 
                 <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} className="is-hidden-mobile" theme="light" mode="horizontal" style={{ lineHeight: '64px' }}>
-                  <Menu.Item key="0"><NavLink to="/">Home</NavLink></Menu.Item>
-                  <Menu.Item key="1"><NavLink to="/coffee">Coffee</NavLink></Menu.Item>
-                  <Menu.Item key="2"><NavLink to="/coffee">Bread</NavLink></Menu.Item>
-                  <Menu.Item key="3"><NavLink to="/cakes">Cakes</NavLink></Menu.Item>
-                  <Menu.Item key="4"><NavLink to="/coffee">Order</NavLink></Menu.Item>
-                  <Menu.Item key="5"><NavLink to="/coffee">About Us</NavLink></Menu.Item>
-                  <Menu.Item key="6"><NavLink to="/coffee">Contact</NavLink></Menu.Item>
+                  <Menu.Item key="0"><NavLink to="/">Новинки</NavLink></Menu.Item>
+                  <Menu.Item key="1"><NavLink to="/products">Ассортимент</NavLink></Menu.Item>
+                  <Menu.Item key="2"><NavLink to="/coffee">О нас</NavLink></Menu.Item>
+                  <Menu.Item key="3"><NavLink to="/coffee">Контакт</NavLink></Menu.Item>
                 </Menu>  
               </Container>
             </Header>
