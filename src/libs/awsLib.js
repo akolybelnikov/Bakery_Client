@@ -134,3 +134,26 @@ export async function s3Upload(file) {
         })
         .promise();
 }
+
+export async function listAll({
+    path,
+    method = "GET",
+    headers = {},
+    queryParams = {},
+    body
+}) {
+
+    body = body ? JSON.stringify(body) : body;
+
+    const results = await fetch(config.apiGateway.URL + path, {'mode': 'no-cors'}, {
+        method,
+        headers,
+        body
+    });
+
+    if (results.status !== 200) {
+        throw new Error(await results.text());
+    }
+    
+    return results.json();
+}

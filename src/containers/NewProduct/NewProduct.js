@@ -100,8 +100,8 @@ class NewProduct extends Component {
                                     rules: [{ required: true, message: 'Please choose a product category' }],
                                 })(
                                     <Select placeholder="Category">
-                                        <Option value="bread">Coffee</Option>
-                                        <Option value="coffee">Bread</Option>
+                                        <Option value="coffee">Coffee</Option>
+                                        <Option value="bread">Bread</Option>
                                         <Option value="cakes">Cakes</Option>
                                     </Select>
                                 )}

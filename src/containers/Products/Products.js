@@ -5,6 +5,8 @@ import "./Products.css";
 import styled, { keyframes } from 'styled-components';
 import { bounceIn } from 'react-animations';
 import ProgressiveImage from 'react-progressive-bg-image';
+import { listAll, invokeApig } from "../../libs/awsLib";
+import config from "../../config";
 
 const bounceAnimation = keyframes`${bounceIn}`;
 
@@ -12,28 +14,37 @@ const CategoryCard = styled(Col)`
     animation: 2s ${bounceAnimation};
 `
 
-const breadImage = require(`./bread.jpg`);
-const breadPlaceholder = require(`./bread-small.jpg`);
-const coffeeImage = require(`./coffee.jpg`);
-const coffeePlaceholder = require(`./coffee-small.jpg`);
-const cakesImage = require(`./cakes.jpg`);
-const cakesPlaceholder = require(`./cakes-small.jpg`);
-const orderImage = require(`./order.jpg`);
-const orderPlaceholder = require(`./order-small.jpg`);
-
 export default class Products extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            loading: false,
+            loading: true,
             categories: [
-                {id: 1, title: 'Хлеб и Булки', image: breadImage, placeholder: breadPlaceholder}, 
-                {id: 2, title: 'Кофе и другие напитки', image: coffeeImage, placeholder: coffeePlaceholder}, 
-                {id: 3, title: 'Кондитерские изделия', image: cakesImage, placeholder: cakesPlaceholder}, 
-                {id: 4, title: 'Торты на заказ', image: orderImage, placeholder: orderPlaceholder}]
+                {id: 1, title: 'Хлеб и Булки', image: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/bread.jpg', placeholder: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/bread-small.jpg'}, 
+                {id: 2, title: 'Кофе и другие напитки', image: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/coffee.jpg', placeholder: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/coffee-small.jpg'},
+                {id: 3, title: 'Кондитерские изделия', image: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/cakes.jpg', placeholder: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/cakes-small.jpg'}, 
+                {id: 4, title: 'Торты на заказ', image: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/order.jpg', placeholder: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/order-small.jpg'}
+            ],
+            products: []
         }
+    }
+
+    async componentDidMount() {
+      
+        try {
+          const results = await this.products();
+          this.setState({ products: results });
+        } catch (e) {
+          console.log(e);
+        }
+      
+        this.setState({ isLoading: false });
+    }
+    
+    products() {
+        return invokeApig({ path: "/categories"});
     }
 
     handleCategoryClick = event => {
@@ -46,7 +57,7 @@ export default class Products extends Component {
             (category) =>
             <CategoryCard key={category.id} xs={24} sm={12} xl={6}>
                 <Card
-                    href={`/products/${category.id}`}
+                    href={`/categories/${category.id}`}
                     onClick={this.handleCategoryClick}
                     title={category.title}
                     ><img style={{}} src={category.image} />
