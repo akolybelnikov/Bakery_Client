@@ -145,7 +145,7 @@ export async function listAll({
 
     body = body ? JSON.stringify(body) : body;
 
-    const results = await fetch(config.apiGateway.URL + path, {'mode': 'no-cors'}, {
+    const results = await fetch(config.apiGateway.URL + path, {
         method,
         headers,
         body

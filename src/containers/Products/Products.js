@@ -21,21 +21,22 @@ export default class Products extends Component {
 
         this.state = {
             loading: true,
-            categories: [
-                {id: 1, title: 'Хлеб и Булки', image: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/bread.jpg', placeholder: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/bread-small.jpg'}, 
-                {id: 2, title: 'Кофе и другие напитки', image: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/coffee.jpg', placeholder: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/coffee-small.jpg'},
-                {id: 3, title: 'Кондитерские изделия', image: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/cakes.jpg', placeholder: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/cakes-small.jpg'}, 
-                {id: 4, title: 'Торты на заказ', image: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/order.jpg', placeholder: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/order-small.jpg'}
-            ],
-            products: []
+            // categories: [
+            //     {id: 1, title: 'Хлеб и Булки', image: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/bread.jpg', placeholder: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/bread-small.jpg'}, 
+            //     {id: 2, title: 'Кофе и другие напитки', image: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/coffee.jpg', placeholder: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/coffee-small.jpg'},
+            //     {id: 3, title: 'Кондитерские изделия', image: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/cakes.jpg', placeholder: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/cakes-small.jpg'}, 
+            //     {id: 4, title: 'Торты на заказ', image: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/order.jpg', placeholder: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/order-small.jpg'}
+            // ],
+            categories: []
         }
     }
 
     async componentDidMount() {
       
         try {
-          const results = await this.products();
-          this.setState({ products: results });
+          const results = await this.categories();
+          this.setState({ categories: results });
+          console.log(this.state.categories);
         } catch (e) {
           console.log(e);
         }
@@ -43,8 +44,8 @@ export default class Products extends Component {
         this.setState({ isLoading: false });
     }
     
-    products() {
-        return invokeApig({ path: "/categories"});
+    categories() {
+        return listAll({ path: "/categories"});
     }
 
     handleCategoryClick = event => {
@@ -55,12 +56,12 @@ export default class Products extends Component {
     renderCategories(categories) {
         return categories.map(
             (category) =>
-            <CategoryCard key={category.id} xs={24} sm={12} xl={6}>
+            <CategoryCard key={category.categoryId} xs={24} sm={12} xl={6}>
                 <Card
-                    href={`/categories/${category.id}`}
+                    href={`/categories/${category.categoryId}`}
                     onClick={this.handleCategoryClick}
                     title={category.title}
-                    ><img style={{}} src={category.image} />
+                    ><img style={{}} src={category.attachment} />
                 </Card>
             </CategoryCard>
         )
