@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { authUser, signOutUser } from "./libs/awsLib";
 import { NavLink, Link, withRouter } from "react-router-dom";
-import { Layout, Menu, Icon, Button, Affix } from 'antd';
+import { Layout, Menu, Icon, Button, Affix, Input } from 'antd';
 import './App.css';
 import Routes from "./Routes";
 import styled, { keyframes } from 'styled-components';
@@ -9,7 +9,7 @@ import { bounceInUp } from 'react-animations';
 
 const logo = require(`./mstile-150x150.png`);
 const { Header, Content, Sider } = Layout;
-
+const Search = Input.Search;
 const bounceAnimation = keyframes`${bounceInUp}`;
 
 const AffixBounce = styled(Affix)`
@@ -25,7 +25,7 @@ const Container = styled.div`
     margin: 0 auto;
 `;
 const Level = styled.div`
-    background-color: rgba(224, 154, 0, 0.9);
+    background-color: rgba(250, 144, 186, .8);
 `;
 const OuterContent = styled(Content)`
     z-index: 10;
@@ -138,6 +138,8 @@ class App extends Component {
           <Layout style={{ background: "white" }} >
             <Header className="header">
               <Container>
+              <Search placeholder="поиск по сайту" style={{ width: 150, position: "absolute", right: "30%" }} onSearch={value => console.log(value)}
+            />
                 <NavLink onClick={this.handleLogoClick} to="/"><div className="logo"><img className="image is-64x64" src={logo} alt="logo"/></div></NavLink> 
                 <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} className="is-hidden-mobile" theme="light" mode="horizontal" style={{ lineHeight: '64px' }}>
                   <Menu.Item key="0"><NavLink to="/">Новинки</NavLink></Menu.Item>
@@ -164,7 +166,7 @@ class App extends Component {
                         <Link to="/coffee" className="has-text-info"><i className="fa fa-facebook fa-2x" aria-hidden="true"></i></Link>
                     </div>
                     <div className="level-item">
-                        <Link to="/coffee" className="has-text-black-ter"><i className="fa fa-vk fa-2x" aria-hidden="true"></i></Link>
+                        <Link to="/coffee" className="has-text-black-ter"><i className="fa fa-envelope-o fa-2x" aria-hidden="true"></i></Link>
                     </div>
                     <div className="level-item">
                       <Link to="/login" className="has-text-black-ter">{

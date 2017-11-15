@@ -30,7 +30,7 @@
 }
 
 .ant-layout-sider, .ant-layout-sider-zero-width-trigger, .ant-layout-sider-zero-width-trigger:hover {
-  background: #e09a00;
+  background: #FA90BA;
 }
 
 .ant-layout-sider-zero-width-trigger, .ant-layout-sider-zero-width-trigger:hover {
@@ -46,13 +46,22 @@
 }
 
 .trigger:hover {
-  color: #e09a00;
+  color: #fa90ba;
 }
 
 .ant-menu-horizontal > .ant-menu-item > a {
-  color: #E3BF3F
+  color: #fa90ba
 }
 
 .ant-menu-horizontal > .ant-menu-item > a:hover, .ant-menu-horizontal > .ant-menu-item-selected > a {
-  color: #E09A00
+  color: #fa90ba
+}
+
+.ant-input-affix-wrapper .ant-input-suffix {
+  color: #00d1b2;
+}
+
+.ant-input {
+  color: #00d1b2;
+  border: 1px solid #00d1b2;
 }

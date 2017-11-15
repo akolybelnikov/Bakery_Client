@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Card, Icon } from 'antd';
+import { Row, Col, Card, Icon, Carousel, Affix, Button } from 'antd';
 import Center from 'react-center';
 import "./Home.css";
 import styled, { keyframes } from 'styled-components';
@@ -16,11 +16,17 @@ const bgImg = require(`./bg.jpg`);
 const Background = styled(ProgressiveImage)`
   background-size: cover;
   background-position: center center;
-  min-height: 710px;
+  min-height: 730px;
+  position: relative;
+  @media only screen and (max-width: 480px) {
+    min-height: 355px;
+    background-size: cover;
+    background-position: top;
+  } 
 `;
 
 const Template = ` 
-  <div class="ant-col-xs-3 ant-col-sm-6">    
+  <div class="ant-col-xs-6 ant-col-sm-12">    
     <a href='{{link}}' target='_blank' class='instafeed__item'>
       <img class='instafeed__item__background' src='{{image}}' style="padding-right: 5px;"/>
     </a>
@@ -39,9 +45,6 @@ const InstaLoad = styled(Row)`
 const GoButton = styled(Card)`
   cursor: pointer;
   animation: 1s ${slideInAnimation};
-  :hover {
-    background: #feeff5;
-  };
 `
 
 export default class Home extends Component {
@@ -62,32 +65,39 @@ export default class Home extends Component {
   render() {   
     return (        
       <Row>
-        <Col sm={14}>
-            <InstaCard title="Наши новинки на Instagram" bordered="false">
-              <InstaLoad type="flex" justify="start" id='instafeed'>              
-                <Instafeed ref={instafeed => this.instafeed = instafeed}
-                  limit='16'
-                  resolution='thumbnail'
-                  sortBy='most-recent'
-                  template={Template}
-                  userId={`${config.instagram.REACT_APP_INSTAGRAM_USER_ID}`}
-                  clientId={`${config.instagram.REACT_APP_INSTAGRAM_CLIENT_ID}`}
-                  accessToken={`${config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN}`}
-                />  
-              </InstaLoad>
-            </InstaCard>
-            <GoButton>
-              <a href="/products">
-                <Center>
-                  <p><span className="ant-card-head-title">Наш ассортимент<Icon type="right" /></span></p>
-                </Center>
-              </a>
-            </GoButton>          
+        <Col sm={12}>
+        <Card title="Наши новости">
+          <Carousel effect="fade" autoplay autoplaySpeed={5000}>
+            <div><h3>1</h3></div>
+            <div><h3>2</h3></div>
+            <div><h3>3</h3></div>
+            <div><h3>4</h3></div>
+          </Carousel>
+        </Card>       
+        <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer">
+          <InstaCard title="Мы на Instagram" bordered="false">
+            <InstaLoad type="flex" justify="start" id='instafeed'>              
+              <Instafeed ref={instafeed => this.instafeed = instafeed}
+                limit='4'
+                resolution='low_resolution'
+                sortBy='most-recent'
+                template={Template}
+                userId={`${config.instagram.REACT_APP_INSTAGRAM_USER_ID}`}
+                clientId={`${config.instagram.REACT_APP_INSTAGRAM_CLIENT_ID}`}
+                accessToken={`${config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN}`}
+              />  
+            </InstaLoad>
+          </InstaCard>
+        </a> 
         </Col> 
-        <Col sm={10}>
-          <Background src={this.state.image} placeholder={bgImg} transition="all 1s linear">
-          </Background>
+        <Col sm={12}>
+          <Background src={this.state.image} placeholder={bgImg} transition="all 1s linear"></Background>
         </Col> 
+        <Affix className="is-hidden-tablet" offsetBottom={40}>
+          <a href="/products" className="button is-primary">
+            <span> Наш ассортимент<Icon type="right" /></span>
+          </a>
+        </Affix>
       </Row>       
     );
   }

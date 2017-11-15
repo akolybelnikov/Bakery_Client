@@ -12,23 +12,64 @@
     color: #999;
 }
 
+.ant-card-body {
+    padding: 2px;
+}
+
 .ant-card-head-title {
-    color: #fa90ba;
-    font-size: 1.2rem;
+    color: #00d1b2;
     text-align: center;
 }
 
-.ant-card-head:hover, .ant-card-head-title:hover {
-    background: #feeff5;
-};
+@media only screen and (min-width: 460px) {
+    .ant-card-head-title {
+        font-size: 1.2rem;
+    }
+} 
 
-.ProductButton {
-    background-color: #fa90ba;
-    border-color: #fa90ba;
+.ant-carousel .slick-slider {
+    text-align: center;
+    height: 160px;
+    line-height: 160px;
+    background: #00d1b2;
+    overflow: hidden;
+  }
+
+  .slick-track {
+      height: 160px;
+  }
+  
+  .ant-carousel .slick-slide h3 {
+    color: #fff;
+  }
+
+  @media only screen and (max-width: 460px) {
+    .ant-carousel .slick-slider {
+        height: 100px;
+        line-height: 100px;
+    }
+    .ant-card-head {
+        line-height: 28px;
+        height: 28px;
+    }
+
+    .button {
+        font-size: .8em
+    }
+} 
+
+input::-webkit-input-placeholder {
+    color: rgba(0, 209, 178, .4) !important;
 }
-
-.ProductButton :hover {
-    background-color: white;
-    border-color: #fa90ba;
-    color: #fa90ba;
+    
+input:-moz-placeholder { /* Firefox 18- */
+    color: rgba(0, 209, 178, .4) !important;
+}
+    
+input::-moz-placeholder {  /* Firefox 19+ */
+    color: rgba(0, 209, 178, .4) !important; 
+}
+    
+input:-ms-input-placeholder {  
+    color: rgba(0, 209, 178, .4) !important; 
 }
