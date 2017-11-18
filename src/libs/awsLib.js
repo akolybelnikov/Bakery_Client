@@ -135,7 +135,7 @@ export async function s3Upload(file) {
         .promise();
 }
 
-export async function listAll({
+export async function invokeOpenApi({
     path,
     method = "GET",
     headers = {},

@@ -7,13 +7,17 @@ import Cakes from "./containers/Cakes/Cakes";
 import LoginForm from "./containers/Login/LoginForm";
 import Signup from "./containers/Signup/Signup";
 import NewProduct from "./containers/NewProduct/NewProduct";
+import Category from "./containers/Category/Category";
+import Categories from "./containers/Categories/Categories";
+import Product from "./containers/Product/Product";
 import NotFound from "./containers/NotFound";
-import Products from "./containers/Products/Products";
 
 export default ({ childProps }) =>
   <Switch>
     <AppliedRoute path="/" exact component={Home} props={childProps} />
-    <AppliedRoute path="/products" exact component={Products} />
+    <AppliedRoute path="/products" exact component={Categories} />
+    <AppliedRoute path="/products/:category" exact component={Category} props={childProps} />
+    <AppliedRoute path="/products/:id" exact component={Product} props={childProps} />
     <Route path="/coffee" exact component={Coffee} />
     <Route path="/cakes" exact component={Cakes} />
     <AppliedRoute path="/login" exact component={LoginForm} props={childProps} />

@@ -1,32 +1,27 @@
 import React, { Component } from "react";
 import { Row, Col, Card } from 'antd';
 // import Center from 'react-center';
-import "./Products.css";
+import "./Categories.css";
 import styled, { keyframes } from 'styled-components';
 import { bounceIn } from 'react-animations';
 // import ProgressiveImage from 'react-progressive-bg-image';
-import { listAll } from "../../libs/awsLib";
+import { invokeOpenApi } from "../../libs/awsLib";
 // import config from "../../config";
 
 const bounceAnimation = keyframes`${bounceIn}`;
 
 const CategoryCard = styled(Col)`
-    animation: 2s ${bounceAnimation};
+    animation: 1.5s ${bounceAnimation};
+    padding: 10px;
 `
 
-export default class Products extends Component {
+export default class Categories extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
             loading: true,
-            // categories: [
-            //     {id: 1, title: 'Хлеб и Булки', image: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/bread.jpg', placeholder: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/bread-small.jpg'}, 
-            //     {id: 2, title: 'Кофе и другие напитки', image: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/coffee.jpg', placeholder: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/coffee-small.jpg'},
-            //     {id: 3, title: 'Кондитерские изделия', image: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/cakes.jpg', placeholder: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/cakes-small.jpg'}, 
-            //     {id: 4, title: 'Торты на заказ', image: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/order.jpg', placeholder: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/order-small.jpg'}
-            // ],
             categories: []
         }
     }
@@ -36,7 +31,6 @@ export default class Products extends Component {
         try {
           const results = await this.categories();
           this.setState({ categories: results });
-          // console.log(this.state.categories);
         } catch (e) {
           console.log(e);
         }
@@ -45,7 +39,7 @@ export default class Products extends Component {
     }
     
     categories() {
-        return listAll({ path: "/categories"});
+        return invokeOpenApi({ path: "/categories"});
     }
 
     handleCategoryClick = event => {
@@ -58,7 +52,7 @@ export default class Products extends Component {
             (category) =>
             <CategoryCard key={category.categoryId} xs={24} sm={12} xl={6}>
                 <Card
-                    href={`/categories/${category.categoryId}`}
+                    href={`/products/${category.categoryName}`}
                     onClick={this.handleCategoryClick}
                     title={category.title}
                     ><img style={{}} alt="attachment" src={category.attachment} />
