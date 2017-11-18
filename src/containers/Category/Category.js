@@ -18,7 +18,6 @@ export default class Product extends Component {
 
     async componentDidMount() {
         try {
-            console.log(this.props.match.params.category)
             const results = await this.getProducts();
             this.setState({
                 products: results,

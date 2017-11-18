@@ -89,7 +89,7 @@ export default class Home extends Component {
             </InstaLoad>
           </InstaCard>
         </a> 
-        </Col> 
+        </Col>
         <Col sm={12}>
           <Background src={this.state.image} placeholder={bgImg} transition="all 1s linear"></Background>
         </Col> 
