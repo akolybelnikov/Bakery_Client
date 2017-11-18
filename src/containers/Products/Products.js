@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Row, Col, Card, Icon } from 'antd';
-import Center from 'react-center';
+import { Row, Col, Card } from 'antd';
+// import Center from 'react-center';
 import "./Products.css";
 import styled, { keyframes } from 'styled-components';
 import { bounceIn } from 'react-animations';
-import ProgressiveImage from 'react-progressive-bg-image';
-import { listAll, invokeApig } from "../../libs/awsLib";
-import config from "../../config";
+// import ProgressiveImage from 'react-progressive-bg-image';
+import { listAll } from "../../libs/awsLib";
+// import config from "../../config";
 
 const bounceAnimation = keyframes`${bounceIn}`;
 
@@ -36,7 +36,7 @@ export default class Products extends Component {
         try {
           const results = await this.categories();
           this.setState({ categories: results });
-          console.log(this.state.categories);
+          // console.log(this.state.categories);
         } catch (e) {
           console.log(e);
         }
@@ -61,7 +61,7 @@ export default class Products extends Component {
                     href={`/categories/${category.categoryId}`}
                     onClick={this.handleCategoryClick}
                     title={category.title}
-                    ><img style={{}} src={category.attachment} />
+                    ><img style={{}} alt="attachment" src={category.attachment} />
                 </Card>
             </CategoryCard>
         )

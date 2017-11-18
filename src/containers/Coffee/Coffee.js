@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row } from 'antd';
 import Center from 'react-center';
-import ProductCard from "../../components/ProductCard";
+// import ProductCard from "../../components/ProductCard";
 
 export default class Coffee extends Component {
     render() {

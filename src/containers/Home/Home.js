@@ -1,22 +1,22 @@
 import React, { Component } from "react";
-import { Row, Col, Card, Icon, Carousel, Affix, Button } from 'antd';
-import Center from 'react-center';
+import { Row, Col, Card, Icon, Carousel, Affix } from 'antd';
+// import Center from 'react-center';
 import "./Home.css";
 import styled, { keyframes } from 'styled-components';
-import { bounceInUp, slideInLeft } from 'react-animations';
+import { bounceInUp } from 'react-animations';
 import ProgressiveImage from 'react-progressive-bg-image';
 import Instafeed from 'react-instafeed';
 import config from "../../config";
 
 const bounceAnimation = keyframes`${bounceInUp}`;
-const slideInAnimation = keyframes`${slideInLeft}`;
+// const slideInAnimation = keyframes`${slideInLeft}`;
 
 const bgImg = require(`./bg.jpg`);
 
 const Background = styled(ProgressiveImage)`
   background-size: cover;
   background-position: center center;
-  min-height: 730px;
+  min-height: 700px;
   position: relative;
   @media only screen and (max-width: 480px) {
     min-height: 355px;
@@ -42,10 +42,10 @@ const InstaLoad = styled(Row)`
   animation: 2s ${bounceAnimation};
 `
 
-const GoButton = styled(Card)`
-  cursor: pointer;
-  animation: 1s ${slideInAnimation};
-`
+// const GoButton = styled(Card)`
+//   cursor: pointer;
+//   animation: 1s ${slideInAnimation};
+// `
 
 export default class Home extends Component {
 
@@ -77,7 +77,7 @@ export default class Home extends Component {
         <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer">
           <InstaCard title="Мы на Instagram" bordered="false">
             <InstaLoad type="flex" justify="start" id='instafeed'>              
-              <Instafeed ref={instafeed => this.instafeed = instafeed}
+              <Instafeed
                 limit='4'
                 resolution='low_resolution'
                 sortBy='most-recent'

@@ -29,14 +29,14 @@
 
 .ant-carousel .slick-slider {
     text-align: center;
-    height: 160px;
-    line-height: 160px;
+    height: 130px;
+    line-height: 130px;
     background: #00d1b2;
     overflow: hidden;
   }
 
   .slick-track {
-      height: 160px;
+      height: 130px;
   }
   
   .ant-carousel .slick-slide h3 {
