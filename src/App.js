@@ -7,8 +7,8 @@ import Routes from "./Routes";
 import styled, { keyframes } from 'styled-components';
 import { bounceInUp } from 'react-animations';
 // import { win32 } from 'path';
-
-const logo = require(`./mstile-150x150.png`);
+const SubMenu = Menu.SubMenu;
+const logo = require(`./public/mstile-150x150.png`);
 const { Header, Content, Sider } = Layout;
 const Search = Input.Search;
 const bounceAnimation = keyframes`${bounceInUp}`;
@@ -137,14 +137,18 @@ class App extends Component {
       !this.state.isAuthenticating &&
         <Layout>
           <Sider style={{ overflow: 'visible', position: 'fixed', left: 10, zIndex: 20, top: 20 }} className="is-hidden-tablet" breakpoint="xl" collapsedWidth="0">
-            <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} theme="light" mode="inline">
+            <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} theme="light" mode="vertical">
               <Menu.Item key="0"><NavLink to="/"><Icon type="home" />Новинки</NavLink></Menu.Item>
-              <Menu.Item key="1"><NavLink to="/coffee"><Icon type="coffee" />Кофе</NavLink></Menu.Item>
-              <Menu.Item key="2"><NavLink to="/coffee"><Icon type="shop" />Хлеб</NavLink></Menu.Item>
-              <Menu.Item key="3"><NavLink to="/cakes"><Icon type="gift" />Кондитерка</NavLink></Menu.Item>
-              <Menu.Item key="4"><NavLink to="/coffee"><Icon type="shopping-cart" />На заказ</NavLink></Menu.Item>
-              <Menu.Item key="5"><NavLink to="/coffee"><Icon type="trademark" />О нас</NavLink></Menu.Item>
-              <Menu.Item key="6"><NavLink to="/coffee"><Icon type="mail" />Контакт</NavLink></Menu.Item>
+
+              <SubMenu key="sub1" title={<span><Icon type="appstore-o" /><span>Наш ассортимент</span></span>}>
+              <Menu.Item key="1"><NavLink to="/products/bread"><Icon type="shop" />Хлеб и булки</NavLink></Menu.Item>
+              <Menu.Item key="2"><NavLink to="/products/coffee"><Icon type="coffee" />Кофе и другие напитки</NavLink></Menu.Item>
+              <Menu.Item key="3"><NavLink to="/products/cakes"><Icon type="gift" />Кондитерские изделия</NavLink></Menu.Item>
+              <Menu.Item key="4"><NavLink to="/products/order"><Icon type="shopping-cart" />Торты на заказ</NavLink></Menu.Item>
+              </SubMenu>
+              
+              <Menu.Item key="5"><NavLink to="/about-us"><Icon type="trademark" />О нас</NavLink></Menu.Item>
+              <Menu.Item key="6"><NavLink to="/contact"><Icon type="mail" />Контакт</NavLink></Menu.Item>
             </Menu>
           </Sider>            
           <Layout style={{ background: "white" }} >
@@ -156,8 +160,8 @@ class App extends Component {
                 <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} className="is-hidden-mobile" theme="light" mode="horizontal" style={{ lineHeight: '64px' }}>
                   <Menu.Item key="0"><NavLink to="/">Новинки</NavLink></Menu.Item>
                   <Menu.Item key="1"><NavLink to="/products">Ассортимент</NavLink></Menu.Item>
-                  <Menu.Item key="2"><NavLink to="/coffee">О нас</NavLink></Menu.Item>
-                  <Menu.Item key="3"><NavLink to="/coffee">Контакт</NavLink></Menu.Item>
+                  <Menu.Item key="2"><NavLink to="/about-us">О нас</NavLink></Menu.Item>
+                  <Menu.Item key="3"><NavLink to="/contact">Контакт</NavLink></Menu.Item>
                 </Menu>  
               </Container>
             </Header>

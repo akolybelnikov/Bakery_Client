@@ -11,13 +11,12 @@ import config from "../../config";
 const bounceAnimation = keyframes`${bounceInUp}`;
 // const slideInAnimation = keyframes`${slideInLeft}`;
 
-const bgImg = require(`./bg.jpg`);
+const bgImg = require(`../../public/bg.jpg`);
 
 const Background = styled(ProgressiveImage)`
   background-size: cover;
   background-position: center center;
   min-height: 700px;
-  position: relative;
   @media only screen and (max-width: 480px) {
     min-height: 355px;
     background-size: cover;
@@ -41,11 +40,6 @@ const InstaCard = styled(Card)`
 const InstaLoad = styled(Row)`
   animation: 2s ${bounceAnimation};
 `
-
-// const GoButton = styled(Card)`
-//   cursor: pointer;
-//   animation: 1s ${slideInAnimation};
-// `
 
 export default class Home extends Component {
 
@@ -94,7 +88,7 @@ export default class Home extends Component {
           <Background src={this.state.image} placeholder={bgImg} transition="all 1s linear"></Background>
         </Col> 
         <Affix className="is-hidden-tablet" offsetBottom={40}>
-          <a href="/products" className="button is-primary">
+          <a href="/products" style={{ color: 'white', border: '1px solid #7A6B71', background: '#7A6B71'}} className="button">
             <span> Наш ассортимент<Icon type="right" /></span>
           </a>
         </Affix>

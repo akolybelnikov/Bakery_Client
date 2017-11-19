@@ -4,16 +4,25 @@ import { Row, Col, Card } from 'antd';
 import "./Categories.css";
 import styled, { keyframes } from 'styled-components';
 import { bounceIn } from 'react-animations';
-// import ProgressiveImage from 'react-progressive-bg-image';
+import ProgressiveImage from 'react-progressive-bg-image';
 import { invokeOpenApi } from "../../libs/awsLib";
 // import config from "../../config";
-
+const bread = require(`../../public/categories/bread.jpg`);
+const coffee = require(`../../public/categories/coffee.jpg`);
+const cakes = require(`../../public/categories/cakes.jpg`);
+const order = require(`../../public/categories/order.jpg`);
 const bounceAnimation = keyframes`${bounceIn}`;
 
 const CategoryCard = styled(Col)`
     animation: 1.5s ${bounceAnimation};
     padding: 10px;
 `
+const Image = styled(ProgressiveImage)`
+    min-height: 300px;
+    background-size: cover;
+    background-position: center center;
+`
+const bgImg = require(`../../public/bg.jpg`);
 
 export default class Categories extends Component {
 
@@ -35,7 +44,7 @@ export default class Categories extends Component {
           console.log(e);
         }
       
-        this.setState({ isLoading: false });
+        this.setState({ loading: false });
     }
     
     categories() {
@@ -50,12 +59,12 @@ export default class Categories extends Component {
     renderCategories(categories) {
         return categories.map(
             (category) =>
-            <CategoryCard key={category.categoryId} xs={24} sm={12} xl={6}>
+            <CategoryCard key={category.categoryId} xs={24} sm={12}>
                 <Card
                     href={`/products/${category.categoryName}`}
                     onClick={this.handleCategoryClick}
                     title={category.title}
-                    ><img style={{}} alt="attachment" src={category.attachment} />
+                    ><Image placeholder={bgImg} src={category.attachment} transition="all 1s linear"/>
                 </Card>
             </CategoryCard>
         )
@@ -64,7 +73,7 @@ export default class Categories extends Component {
     render() {
         return (
             <Row>
-               {this.renderCategories(this.state.categories)}
+               {this.state.categories && this.renderCategories(this.state.categories)}
             </Row>
         );
     }

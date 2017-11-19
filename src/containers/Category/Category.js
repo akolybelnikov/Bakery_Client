@@ -40,8 +40,8 @@ export default class Product extends Component {
         return products.map(
             (product) =>
             <Col key={product.productId} xs={12} sm={6} xl={6}>
-                <Card                    
-                    href={`/products/${product.productId}`}
+                <Card style={{ cursor: 'pointer'}}                   
+                    href={`/products/${this.props.match.params.category}/${product.productId}`}
                     onClick={this.handleProductClick}
                     title={product.productName}
                     ><div><img alt="product" src={product.attachment} /></div>
