@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Card, Spin } from 'antd';
+import { Row, Col, Card } from 'antd';
 import styled, { keyframes } from 'styled-components';
 import { zoomIn } from 'react-animations';
 import ProgressiveImage from 'react-progressive-bg-image';

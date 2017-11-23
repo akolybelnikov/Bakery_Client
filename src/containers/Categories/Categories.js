@@ -7,10 +7,10 @@ import { bounceIn } from 'react-animations';
 import ProgressiveImage from 'react-progressive-bg-image';
 import { invokeOpenApi } from "../../libs/awsLib";
 // import config from "../../config";
-const bread = require(`../../public/categories/bread.jpg`);
-const coffee = require(`../../public/categories/coffee.jpg`);
-const cakes = require(`../../public/categories/cakes.jpg`);
-const order = require(`../../public/categories/order.jpg`);
+// const bread = require(`../../public/categories/bread.jpg`);
+// const coffee = require(`../../public/categories/coffee.jpg`);
+// const cakes = require(`../../public/categories/cakes.jpg`);
+// const order = require(`../../public/categories/order.jpg`);
 const bounceAnimation = keyframes`${bounceIn}`;
 
 const CategoryCard = styled(Col)`

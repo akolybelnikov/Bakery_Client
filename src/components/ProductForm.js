@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { Form, Icon, Input, Upload, Button, Select } from 'antd';
+import LoaderButton from "../components/LoaderButton";
 import Center from 'react-center';
-import config from "../../config";
-import LoaderButton from "../../components/LoaderButton";
-import { invokeApig, s3Upload } from "../../libs/awsLib";
-import "./NewProduct.css";
+import config from "../config";
 
 const FormItem = Form.Item;   
 const TextArea = Input;
@@ -14,65 +12,45 @@ function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
-class NewProduct extends Component {
+class ProductForm extends React.Component {
     constructor(props) {
         super(props);
 
-        this.file = null;
-        
         this.state = {
-            uploading: false,
+            deleting: false,
             loading: false
         };
     }
 
     componentDidMount() {
         // To disabled submit button at the beginning.
+        console.log(this.props);
         this.props.form.validateFields();
     }
 
-    handleSubmit = async e => {
-        e.preventDefault();
-
+    handleSubmit = async event => {
+        event.preventDefault();
+      
         if (this.file && this.file.size > config.MAX_ATTACHMENT_SIZE) {
-            alert("Please pick a file smaller than 5MB");
-            return;
+          alert("Please pick a file smaller than 5MB");
+          return;
         }
-
-        this.setState({ loading: true });
-
-        try {
-            const uploadedFilename = this.file ? (await s3Upload(this.file)).Location : null;
-
-            await this.props.form.validateFields((err, values) => {
-                if (!err) {
-                    this.createProduct({
-                        category: values['category'],
-                        productname: values['name'],
-                        content: values['content'],
-                        price: values['price'],
-                        attachment: uploadedFilename
-                    });
-                    this.props.history.push("/admin");
-                }
-            });
-
-        } catch (e) {
-            alert(e.message);
-            this.setState({ loading: false });
-        } 
-
-        this.props.form.resetFields();
-        
-        this.props.form.validateFields();
+      
+        this.setState({ isLoading: true });
     }
 
-    createProduct(product) {
-        return invokeApig({
-            path: "/products",
-            method: "POST",
-            body: product
-        });
+    handleDelete = async event => {
+        event.preventDefault();
+      
+        const confirmed = window.confirm(
+          "Are you sure you want to delete this note?"
+        );
+      
+        if (!confirmed) {
+          return;
+        }
+      
+        this.setState({ isDeleting: true });
     }
 
     render() {
@@ -90,7 +68,7 @@ class NewProduct extends Component {
         const priceError = isFieldTouched('price') && getFieldError('price');
         return (
             <div>
-                <Center style={{'marginBottom': '20px'}}><p className="is-size-4 has-text-dark title">Create new product</p></Center>
+                <Center style={{'marginBottom': '20px'}}><p className="is-size-4 has-text-dark title">Update product</p></Center>
                 <Center>
                     <div className="Form">
                         <Form onSubmit={this.handleSubmit}>
@@ -132,13 +110,20 @@ class NewProduct extends Component {
                                 </Upload>
                             </FormItem>
                             <FormItem>
-                                <LoaderButton type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Create product" loadingText="Logging in ..." />
+                                <LoaderButton type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Save changes" loadingText="Logging in ..." />
+                                <LoaderButton type="danger" loading={this.state.deleting} text="Delete" loadingText="Deleting ..." 
+                                onClick={this.handleDelete}/>
                             </FormItem>
                         </Form>
                     </div>
+                    <figure class="image is-128x128">
+                    <img src={this.state.product.attachment} />
+                  </figure>
                 </Center>
             </div>
         );
     }
+
 }
-export default Form.create()(NewProduct);
+
+export default Form.create()(ProductForm);
