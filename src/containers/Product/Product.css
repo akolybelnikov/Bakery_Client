@@ -1,0 +1,13 @@
+.ant-breadcrumb-link {
+    color: #C3A430;
+}
+
+.ant-breadcrumb a {
+    color: #C3A430;
+}
+
+@media only screen and (min-width: 480px) {
+    .ant-breadcrumb a, .ant-breadcrumb-link {
+        font-size: 1.2em;
+    }
+} 

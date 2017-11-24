@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Card } from 'antd';
+import { Row, Col, Card, Breadcrumb } from 'antd';
 import styled, { keyframes } from 'styled-components';
 import { zoomIn } from 'react-animations';
 import ProgressiveImage from 'react-progressive-bg-image';
@@ -34,7 +34,8 @@ export default class Product extends Component {
         super(props);
     
         this.state = {
-          product: null
+          product: null,
+          category: null
         };
     }
 
@@ -42,7 +43,7 @@ export default class Product extends Component {
         try {
             const results = await this.getProduct();
             this.setState({
-                product: results,
+                product: results
             });
         } catch (e) {
             console.log(e);
@@ -67,10 +68,23 @@ export default class Product extends Component {
 
     render() {
         return (
-            <ProductRow>
-                {this.state.product && this.renderProduct(this.state.product)}
-            </ProductRow>
+            <div>
+                <Row>
+                    <Breadcrumb separator=">">
+                        <Breadcrumb.Item href="/">Новинки</Breadcrumb.Item>
+                        <Breadcrumb.Item href="/products">Ассортимент</Breadcrumb.Item>
+                        <Breadcrumb.Item href={`/products/${this.props.match.params.category}`}>{this.props.match.params.category === "bread" ? "Хлеб и булки" : this.props.match.params.category === "coffee" ?  "Кофе и другие напитки" : this.props.match.params.category === "cakes" ? "Кондитерские изделия" : "Торты на заказ"}</Breadcrumb.Item>
+                        <Breadcrumb.Item>{this.state.product &&  this.state.product.productName}</Breadcrumb.Item>
+                    </Breadcrumb>
+                </Row>
+                <ProductRow>
+                    {this.state.product && this.renderProduct(this.state.product)}
+                </ProductRow>
+            </div>
         );
     }
 
 }
+
+// 
+// 

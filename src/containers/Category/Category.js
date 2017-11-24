@@ -1,11 +1,19 @@
 import React, { Component } from "react";
-// import { CognitoUserPool, AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
-import { Row, Col, Card } from 'antd';
-// import Center from 'react-center';
-// import config from "../../config";
-// import ProductCard from "../../components/ProductCard";
+import { Row, Col, Card, Breadcrumb } from 'antd';
+import styled from 'styled-components';
 import { invokeOpenApi } from "../../libs/awsLib";
 import "./Category.css";
+
+const ProductsRow = styled(Row)`
+    margin: 5% 0;
+    @media only screen and (max-width: 768px) {
+        
+    } 
+`
+
+const BreadCrumbs = styled(Row)`
+    margin: 5% 0;
+`
 
 export default class Product extends Component {
     constructor(props) {
@@ -40,7 +48,7 @@ export default class Product extends Component {
         return products.map(
             (product) =>
             <Col key={product.productId} xs={12} sm={6} xl={6}>
-                <Card style={{ cursor: 'pointer'}}                   
+                <Card style={{ cursor: 'pointer'}}              
                     href={`/products/${this.props.match.params.category}/${product.productId}`}
                     onClick={this.handleProductClick}
                     title={product.productName}
@@ -53,9 +61,18 @@ export default class Product extends Component {
 
     render() {
         return (
-            <Row>
-                {this.renderProducts(this.state.products)}
-            </Row>
+            <div>
+                <BreadCrumbs>
+                    <Breadcrumb separator=">">
+                        <Breadcrumb.Item href="/">Новинки</Breadcrumb.Item>
+                        <Breadcrumb.Item href="/products">Ассортимент</Breadcrumb.Item>
+                        <Breadcrumb.Item>{this.props.match.params.category === "bread" ? "Хлеб и булки" : this.props.match.params.category === "coffee" ?  "Кофе и другие напитки" : this.props.match.params.category === "cakes" ? "Кондитерские изделия" : "Торты на заказ"}</Breadcrumb.Item>
+                    </Breadcrumb>
+                </BreadCrumbs>
+                <ProductsRow>
+                    {this.renderProducts(this.state.products)}
+                </ProductsRow>
+            </div>
         );
     }
 
