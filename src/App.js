@@ -154,7 +154,7 @@ class App extends Component {
           <Layout style={{ background: "white" }} >
             <Header className="header">
               <Container>
-              <Search placeholder="поиск по сайту" style={{ width: 150, position: "absolute", right: "30%" }} onSearch={value => console.log(value)}
+              <Search placeholder="поиск по сайту" onSearch={value => console.log(value)}
             />
                 <NavLink onClick={this.handleLogoClick} to="/"><div className="logo"><img className="image is-64x64" src={logo} alt="logo"/></div></NavLink> 
                 <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} className="is-hidden-mobile" theme="light" mode="horizontal" style={{ lineHeight: '64px' }}>

@@ -20,7 +20,6 @@ const CardImage = styled(ProgressiveImage)`
     } 
 `
 const ProductRow = styled(Row)`
-    margin: 5% 0;
     @media only screen and (max-width: 768px) {
         margin: 25% 0;
     } 
@@ -70,7 +69,7 @@ export default class Product extends Component {
         return (
             <div>
                 <Row>
-                    <Breadcrumb separator=">">
+                    <Breadcrumb style={{margin: "5% 0"}} separator=">">
                         <Breadcrumb.Item href="/">Новинки</Breadcrumb.Item>
                         <Breadcrumb.Item href="/products">Ассортимент</Breadcrumb.Item>
                         <Breadcrumb.Item href={`/products/${this.props.match.params.category}`}>{this.props.match.params.category === "bread" ? "Хлеб и булки" : this.props.match.params.category === "coffee" ?  "Кофе и другие напитки" : this.props.match.params.category === "cakes" ? "Кондитерские изделия" : "Торты на заказ"}</Breadcrumb.Item>

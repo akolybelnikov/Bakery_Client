@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Form, Icon, Input, Upload, Button, Select } from 'antd';
+import React from "react";
+import { Form, Icon, Input, Upload, Button, Select, Col, Modal } from 'antd';
 import LoaderButton from "../components/LoaderButton";
 import Center from 'react-center';
 import config from "../config";
@@ -16,15 +16,21 @@ class ProductForm extends React.Component {
     constructor(props) {
         super(props);
 
+        this.file = null;
+
         this.state = {
             deleting: false,
-            loading: false
+            loading: false,
+            previewImage: this.props.product.attachment
         };
     }
 
     componentDidMount() {
+        this.props.form.setFieldsValue({category: this.props.product.category});
+        this.props.form.setFieldsValue({name: this.props.product.productName});
+        this.props.form.setFieldsValue({content: this.props.product.content});
+        this.props.form.setFieldsValue({price: this.props.product.price})
         // To disabled submit button at the beginning.
-        console.log(this.props);
         this.props.form.validateFields();
     }
 
@@ -37,6 +43,11 @@ class ProductForm extends React.Component {
         }
       
         this.setState({ isLoading: true });
+    }
+
+    handleCancel = () => {
+        this.file = null;
+        this.setState({ previewImage: '' });
     }
 
     handleDelete = async event => {
@@ -54,9 +65,18 @@ class ProductForm extends React.Component {
     }
 
     render() {
+        const { previewImage } = this.state;
         const props = {
             beforeUpload: (file) => {
                 this.file = file;
+                console.log(file);
+                var reader = new FileReader();
+                var url = reader.readAsDataURL(file);
+                reader.onloadend = function (e) {
+                    this.setState({
+                        previewImage: [reader.result]
+                    })
+                  }.bind(this);
                 return false;
             }
         }
@@ -67,19 +87,20 @@ class ProductForm extends React.Component {
         const contentError = isFieldTouched('content') && getFieldError('content');
         const priceError = isFieldTouched('price') && getFieldError('price');
         return (
-            <div>
-                <Center style={{'marginBottom': '20px'}}><p className="is-size-4 has-text-dark title">Update product</p></Center>
+            <Col xs={{span: 14, offset: 5}} md={{ span: 12, offset: 6 }} lg={{ span: 10, offset: 7 }}>
+                <Center style={{'margin': '20px 0'}}><p className="is-size-4 has-text-dark title">Изменить продукт</p></Center>
                 <Center>
-                    <div className="Form">
+                    <div style={{width: "100%"}} >
                         <Form onSubmit={this.handleSubmit}>
                             <FormItem validateStatus={categoryError ? 'error' : ''} help={categoryError || ''}>
                                 {getFieldDecorator('category', {
                                     rules: [{ required: true, message: 'Please choose a product category' }],
                                 })(
                                     <Select placeholder="Category">
-                                        <Option value="coffee">Coffee</Option>
-                                        <Option value="bread">Bread</Option>
-                                        <Option value="cakes">Cakes</Option>
+                                        <Option value="coffee">Хлеб и булки</Option>
+                                        <Option value="bread">Кофе и другие напитки</Option>
+                                        <Option value="cakes">Кондитерские изделия</Option>
+                                        <Option value="order">Торты на заказ</Option>
                                     </Select>
                                 )}
                             </FormItem>
@@ -104,23 +125,25 @@ class ProductForm extends React.Component {
                                     <Input  type="number" placeholder="Product price: 00.00" />
                                 )}
                             </FormItem>
+                            <figure>
+                                <img alt="preview" src={previewImage} />
+                            </figure>
                             <FormItem >
-                                <Upload {...props}>
-                                    <Button><Icon type="upload" />Select image</Button>
+                                <Upload onRemove={this.handleCancel} {...props}>
+                                    <Button className="button is-info is-outlined"><Icon type="upload" />Изменить изображение</Button>
                                 </Upload>
                             </FormItem>
                             <FormItem>
-                                <LoaderButton type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Save changes" loadingText="Logging in ..." />
-                                <LoaderButton type="danger" loading={this.state.deleting} text="Delete" loadingText="Deleting ..." 
-                                onClick={this.handleDelete}/>
+                                <LoaderButton style={{width: "100%", color: "black"}} className="button is-warning" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Сохранить изменения" loadingText="Logging in ..." />
                             </FormItem>
                         </Form>
+                        <LoaderButton style={{width: "100%"}} className="button is-danger is-outlined" loading={this.state.deleting} text="Удалить продукт" loadingText="Deleting ..." 
+                        onClick={this.handleDelete}/>
+                        <LoaderButton style={{width: "100%"}} className="button is-danger is-outlined" loading={this.state.deleting} text="Удалить продукт" loadingText="Deleting ..." 
+                        onClick={this.handleDelete}/>
                     </div>
-                    <figure class="image is-128x128">
-                    <img src={this.state.product.attachment} />
-                  </figure>
                 </Center>
-            </div>
+            </Col>
         );
     }
 

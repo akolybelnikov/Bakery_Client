@@ -14,11 +14,12 @@ const bounceAnimation = keyframes`${bounceInUp}`;
 const bgImg = require(`../../public/bg.jpg`);
 
 const Background = styled(ProgressiveImage)`
-  background-size: cover;
-  background-position: center center;
+  background-size: contain;
+  background-position: right;
+  background-color: lightgrey;
   min-height: 700px;
   @media only screen and (max-width: 480px) {
-    min-height: 355px;
+    max-height: 700px;
     background-size: cover;
     background-position: top;
   } 
@@ -32,9 +33,10 @@ const Template = `
   </div>
 `
 const InstaCard = styled(Card)`
-  :hover {
-    background: #feeff5;
-  };
+    margin-top: 50px;
+    @media only screen and (max-width: 480px) {
+      margin-top: 200px;
+    } 
 `
 
 const InstaLoad = styled(Row)`
@@ -59,6 +61,7 @@ export default class Home extends Component {
   render() {   
     return (        
       <Row>
+      <Background src={this.state.image} placeholder={bgImg} transition="all 1s linear">
         <Col sm={12}>
         <Card title="Наши новости">
           <Carousel effect="fade" autoplay autoplaySpeed={5000}>
@@ -84,14 +87,14 @@ export default class Home extends Component {
           </InstaCard>
         </a> 
         </Col>
-        <Col sm={12}>
-          <Background src={this.state.image} placeholder={bgImg} transition="all 1s linear"></Background>
-        </Col> 
+          
+
         <Affix className="is-hidden-tablet" offsetBottom={40}>
           <a href="/products" style={{ color: 'white', border: '1px solid #7A6B71', background: '#7A6B71'}} className="button">
             <span> Наш ассортимент<Icon type="right" /></span>
           </a>
         </Affix>
+        </Background>
       </Row>       
     );
   }

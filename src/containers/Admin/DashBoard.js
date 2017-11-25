@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { invokeOpenApi } from "../../libs/awsLib";
 import { Row, Col, Card } from 'antd';
 
@@ -48,13 +48,13 @@ export default class AdminDashBoard extends React.Component {
     renderProducts(products) {
         return products.map(
             (product) =>
-            <Col key={product.productId} xs={6} sm={4} xl={3}>
+            <Col key={product.productId} xs={8} sm={4} xl={3}>
                 <Card style={{ cursor: 'pointer'}}             
-                    href={`/products/${this.props.match.params.category}/${product.productId}`}
+                    href={`/admin/${product.productId}`}
                     onClick={this.handleProductClick}
                     title={product.productName}
                     ><div><img alt="product" src={product.attachment} /></div>
-                    <div><p className="is-size-5-desktop is-size-6-mobile is-size-6-tablet">{product.content}</p></div>
+                    <div><p className="is-size-6-desktop is-size-7-mobile is-size-6-tablet">{product.content}</p></div>
                     <div>{product.price}</div>
                 </Card>
             </Col>

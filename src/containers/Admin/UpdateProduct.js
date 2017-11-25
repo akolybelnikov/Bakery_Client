@@ -1,12 +1,7 @@
-import React, { Component } from "react";
-import { Form, Icon, Input, Upload, Button, Select } from 'antd';
-import LoaderButton from "../../components/LoaderButton";
-import Center from 'react-center';
+import React from "react";
+import { Row } from 'antd';
+import { invokeOpenApi } from "../../libs/awsLib";
 import ProductForm from "../../components/ProductForm";
-
-function hasErrors(fieldsError) {
-    return Object.keys(fieldsError).some(field => fieldsError[field]);
-}
 
 export default class UpdateProduct extends React.Component {
     constructor(props) {
@@ -22,10 +17,27 @@ export default class UpdateProduct extends React.Component {
 
     }
 
+    async componentDidMount() {
+        try {
+            const results = await this.getProduct();
+            this.setState({
+                product: results
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    getProduct() {
+        return invokeOpenApi({ path: `/products/${this.props.match.params.id}` });
+    }
+
     render() {
         const isLoggedIn = this.props.isAuthenticated;
         if (isLoggedIn) {
-            return this.state.product && <ProductForm />;
+            return this.state.product && <Row>
+            <ProductForm product={this.state.product}/>;
+            </Row>
         } else { this.props.history.push('/login') }
     }
 
