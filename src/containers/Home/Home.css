@@ -21,11 +21,17 @@
     text-align: center;
 }
 
-@media only screen and (min-width: 460px) {
+@media only screen and (min-width: 480px) {
     .ant-card-head-title {
         font-size: 1.2rem;
     }
 } 
+
+@media only screen and (max-width: 480px) {
+    .ant-card-head-title {
+        font-size: .6rem;
+    }
+}
 
 .ant-carousel .slick-slider {
     text-align: center;
@@ -41,6 +47,10 @@
   
   .ant-carousel .slick-slide h3 {
     color: #fff;
+  }
+
+  .slick-list {
+      height: 130px;
   }
 
   @media only screen and (max-width: 460px) {

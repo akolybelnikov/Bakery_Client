@@ -6,7 +6,7 @@ import './App.css';
 import Routes from "./Routes";
 import styled, { keyframes } from 'styled-components';
 import { bounceInUp } from 'react-animations';
-// import { win32 } from 'path';
+
 const SubMenu = Menu.SubMenu;
 const logo = require(`./public/mstile-150x150.png`);
 const { Header, Content, Sider } = Layout;
@@ -31,6 +31,7 @@ const Level = styled.div`
 const OuterContent = styled(Content)`
     z-index: 10;
     padding: 0 24px;
+    min-height: 700px;
 `;
 const InnerContainer = styled.div`
   max-width: 960px;

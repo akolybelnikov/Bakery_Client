@@ -139,8 +139,6 @@ class ProductForm extends React.Component {
                         </Form>
                         <LoaderButton style={{width: "100%"}} className="button is-danger is-outlined" loading={this.state.deleting} text="Удалить продукт" loadingText="Deleting ..." 
                         onClick={this.handleDelete}/>
-                        <LoaderButton style={{width: "100%"}} className="button is-danger is-outlined" loading={this.state.deleting} text="Удалить продукт" loadingText="Deleting ..." 
-                        onClick={this.handleDelete}/>
                     </div>
                 </Center>
             </Col>
