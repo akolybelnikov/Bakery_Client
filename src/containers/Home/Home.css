@@ -12,6 +12,10 @@
     color: #7A6B71;
 }
 
+.ant-card {
+    margin: 10px 5px 10px 5px;
+}
+
 .ant-card-body {
     padding: 2px;
 }
@@ -55,12 +59,12 @@
 
   @media only screen and (max-width: 460px) {
     .ant-carousel .slick-slider {
-        height: 100px;
-        line-height: 100px;
+        height: 90px;
+        line-height: 90px;
     }
     .ant-card-head {
-        line-height: 28px;
-        height: 28px;
+        line-height: 22px;
+        height: 22px;
     }
 
     .button {

@@ -69,9 +69,9 @@ export default class Home extends Component {
       <Row>
         <Background src={this.state.image} placeholder={bgImg} transition="all 1s linear">
           <Row>
-            <Col xs={12}> 
+            <Col xs={14}> 
               
-              <Card title="Special Offer">
+              <Card title="Спецпредложение">
                 <OfferCard src={this.state.offerimage} placeholder={offerImg} transition="all 1s linear" />
               </Card>
               
@@ -102,7 +102,7 @@ export default class Home extends Component {
           </Row>
         </Background>
         <Affix offsetBottom={0}>
-          <Row style={{paddingBottom: "20px"}}>
+          <Row style={{paddingBottom: "10px"}}>
             <Col className="is-hidden-tablet" xs={24}>
               <Card title="Наши новости" bordered="false">
                 <Carousel effect="fade" autoplay autoplaySpeed={5000}>
