@@ -1,6 +1,7 @@
 import React from "react";
 import { invokeOpenApi } from "../../libs/awsLib";
 import { Row, Col, Card } from 'antd';
+import { Link } from "react-router-dom";
 
 export default class AdminDashBoard extends React.Component {
 
@@ -77,7 +78,8 @@ export default class AdminDashBoard extends React.Component {
         if (isLoggedIn) {
             return (
                 <div>
-                <Row><p className="has-text-grey-light title">Управление продуктами</p><p className="has-text-grey-lighter subtitle">Выберите продукт и внесите изменения. Либо удалите продукт из категории.</p></Row>
+                    <Row style={{marginTop: "10px"}}><p className="has-text-info is-size-7-mobile is-size-5-tablet">Управление продуктами</p><p className="has-text-grey-light is-size-7-mobile is-size-5-tablet">Выберите продукт и внесите изменения. Либо удалите продукт из категории.</p></Row>
+                    <Row style={{marginTop: "10px"}}><Link to="/create" className="button is-small-mobile is-outlined is-warning is-medium-tablet"><i className="fa fa-plus" style={{marginRight: "5px"}}></i>Создать продукт</Link></Row>
                     {this.state.categories && this.renderCategories(this.state.categories)}
                 </div>
             );

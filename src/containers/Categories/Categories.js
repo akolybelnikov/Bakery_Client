@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Row, Col, Card } from 'antd';
+import { Link } from "react-router-dom";
+import { Row, Col, Card, Breadcrumb } from 'antd';
 import "./Categories.css";
 import styled, { keyframes } from 'styled-components';
 import { bounceIn } from 'react-animations';
@@ -7,6 +8,10 @@ import ProgressiveImage from 'react-progressive-bg-image';
 import { invokeOpenApi } from "../../libs/awsLib";
 
 const bounceAnimation = keyframes`${bounceIn}`;
+
+const BreadCrumbs = styled(Row)`
+    margin: 5% 0;
+`
 
 const CategoryCard = styled(Col)`
     animation: 1.5s ${bounceAnimation};
@@ -67,9 +72,17 @@ export default class Categories extends Component {
 
     render() {
         return (
-            <Row>
-               {this.state.categories && this.renderCategories(this.state.categories)}
-            </Row>
+           <div>
+                <BreadCrumbs>
+                    <Breadcrumb separator=">">
+                        <Breadcrumb.Item><Link to="/">Новинки</Link></Breadcrumb.Item>
+                        <Breadcrumb.Item>Ассортимент</Breadcrumb.Item>
+                    </Breadcrumb>
+                </BreadCrumbs>
+                <Row>
+                    {this.state.categories && this.renderCategories(this.state.categories)}
+                </Row>
+           </div>
         );
     }
 

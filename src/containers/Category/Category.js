@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { Row, Col, Card, Breadcrumb } from 'antd';
 import styled from 'styled-components';
 import { invokeOpenApi } from "../../libs/awsLib";
@@ -53,7 +54,7 @@ export default class Product extends Component {
                     onClick={this.handleProductClick}
                     title={product.productName}
                     ><div><img alt="product" src={product.attachment} /></div>
-                    <div>{product.price}</div>
+                    <div>{product.price} руб.</div>
                 </Card>
             </Col>
         )
@@ -64,8 +65,8 @@ export default class Product extends Component {
             <div>
                 <BreadCrumbs>
                     <Breadcrumb separator=">">
-                        <Breadcrumb.Item href="/">Новинки</Breadcrumb.Item>
-                        <Breadcrumb.Item href="/products">Ассортимент</Breadcrumb.Item>
+                        <Breadcrumb.Item><Link to="/">Новинки</Link></Breadcrumb.Item>
+                        <Breadcrumb.Item><Link to="/products">Ассортимент</Link></Breadcrumb.Item>
                         <Breadcrumb.Item>{this.props.match.params.category === "bread" ? "Хлеб и булки" : this.props.match.params.category === "coffee" ?  "Кофе и другие напитки" : this.props.match.params.category === "cakes" ? "Кондитерские изделия" : "Торты на заказ"}</Breadcrumb.Item>
                     </Breadcrumb>
                 </BreadCrumbs>

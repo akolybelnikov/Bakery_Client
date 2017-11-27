@@ -23,6 +23,7 @@ export default ({ childProps }) =>
     <AppliedRoute path="/admin" exact component={AdminDashBoard} props={childProps} />
     <AppliedRoute path="/signup" component={Signup} props={childProps} />
     <AppliedRoute path="/create" component={NewProduct} props={childProps} />
+    
     { /* Finally, catch all unmatched routes */ }
     <Route component={NotFound} />
   </Switch>;

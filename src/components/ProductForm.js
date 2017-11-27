@@ -1,11 +1,12 @@
 import React from "react";
-import { Form, Icon, Input, Upload, Button, Select, Col, Modal } from 'antd';
+import { Form, Icon, Input, Upload, Button, Select, Col } from 'antd';
 import LoaderButton from "../components/LoaderButton";
 import Center from 'react-center';
 import config from "../config";
+import { invokeApig, s3Upload } from "../libs/awsLib";
 
 const FormItem = Form.Item;   
-const TextArea = Input;
+const {TextArea} = Input;
 const Option = Select.Option;
 
 function hasErrors(fieldsError) {
@@ -34,15 +35,49 @@ class ProductForm extends React.Component {
         this.props.form.validateFields();
     }
 
+    saveProduct(product) {
+        
+        return invokeApig({
+            path: `/products/${this.props.product.productId}`,
+            method: "PUT",
+            body: product
+        });
+    }
+
     handleSubmit = async event => {
+      
+        let uploadedFileName;
         event.preventDefault();
       
         if (this.file && this.file.size > config.MAX_ATTACHMENT_SIZE) {
-          alert("Please pick a file smaller than 5MB");
+          alert("Размер изображения не должен превышать 5МБ");
           return;
         }
       
-        this.setState({ isLoading: true });
+        this.setState({ loading: true });
+
+        try {
+            if (this.file) {
+                uploadedFileName = (await s3Upload(this.file)).Location;
+            }
+
+            await this.props.form.validateFields((err, values) => {
+                if (!err) {
+                    this.saveProduct({
+                        category: values['category'],
+                        productname: values['name'],
+                        content: values['content'],
+                        price: values['price'],
+                        attachment: uploadedFileName || this.props.product.attachment
+                    });
+                    this.props.history.push("/admin");
+                }
+            });
+
+        } catch (e) {
+            console.log(e.message);
+            this.setState({ loading: false});
+        }
     }
 
     handleCancel = () => {
@@ -69,7 +104,6 @@ class ProductForm extends React.Component {
         const props = {
             beforeUpload: (file) => {
                 this.file = file;
-                console.log(file);
                 var reader = new FileReader();
                 var url = reader.readAsDataURL(file);
                 reader.onloadend = function (e) {
@@ -88,17 +122,17 @@ class ProductForm extends React.Component {
         const priceError = isFieldTouched('price') && getFieldError('price');
         return (
             <Col xs={{span: 14, offset: 5}} md={{ span: 12, offset: 6 }} lg={{ span: 10, offset: 7 }}>
-                <Center style={{'margin': '20px 0'}}><p className="is-size-4 has-text-dark title">Изменить продукт</p></Center>
+                <Center style={{'margin': '20px 0'}}><p className="is-size-6-mobile is-size-5-tablet has-text-dark title">Изменить продукт</p></Center>
                 <Center>
                     <div style={{width: "100%"}} >
                         <Form onSubmit={this.handleSubmit}>
                             <FormItem validateStatus={categoryError ? 'error' : ''} help={categoryError || ''}>
                                 {getFieldDecorator('category', {
-                                    rules: [{ required: true, message: 'Please choose a product category' }],
+                                    rules: [{ required: true, message: 'Выберите категорию продукта' }],
                                 })(
-                                    <Select placeholder="Category">
-                                        <Option value="coffee">Хлеб и булки</Option>
-                                        <Option value="bread">Кофе и другие напитки</Option>
+                                    <Select placeholder="Категория">
+                                        <Option value="bread">Хлеб и булки</Option>
+                                        <Option value="coffee">Кофе и другие напитки</Option>
                                         <Option value="cakes">Кондитерские изделия</Option>
                                         <Option value="order">Торты на заказ</Option>
                                     </Select>
@@ -106,27 +140,27 @@ class ProductForm extends React.Component {
                             </FormItem>
                             <FormItem validateStatus={nameError ? 'error' : ''} help={nameError || ''}>
                                 {getFieldDecorator('name', {
-                                    rules: [{ required: true, message: 'Please provide a product name' }],
+                                    rules: [{ required: true, message: 'Внесите название продукта' }],
                                 })(
-                                    <Input type="string" placeholder="Product name" />
+                                    <Input type="string" placeholder="Название продукта" />
                                 )}
                             </FormItem>
                             <FormItem validateStatus={contentError ? 'error' : ''} help={contentError || ''}>
                                 {getFieldDecorator('content', {
-                                    rules: [{ required: true, message: 'Please provide a product description' }],
+                                    rules: [{ required: true, message: 'Внесите описание продукта' }],
                                 })(
-                                    <TextArea type="string" rows={4} placeholder="Product description" />
+                                    <TextArea type="string" rows={4} placeholder="Описание продукта" />
                                 )}
                             </FormItem>
                             <FormItem validateStatus={priceError ? 'error' : ''} help={priceError || ''}>
                                 {getFieldDecorator('price', {
-                                    rules: [{ required: true, message: 'Please provide a product price' }],
+                                    rules: [{ required: true, message: 'Внесите цену продукта' }],
                                 })(
-                                    <Input  type="number" placeholder="Product price: 00.00" />
+                                    <Input type="number" placeholder="Цена продукта: 00.00" />
                                 )}
                             </FormItem>
                             <figure>
-                                <img alt="preview" src={previewImage} />
+                                <img alt="" src={previewImage} />
                             </figure>
                             <FormItem >
                                 <Upload onRemove={this.handleCancel} {...props}>

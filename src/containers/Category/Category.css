@@ -1,0 +1,5 @@
+@media only screen and (max-width: 769px) and (min-width: 481px) {
+    .ant-card-head-title {
+        font-size: .8rem;
+    }
+}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Card, Icon, Carousel, Affix } from 'antd';
+import { Row, Col, Card, Carousel, Affix } from 'antd';
 // import Center from 'react-center';
 import "./Home.css";
 import styled, { keyframes } from 'styled-components';
@@ -7,7 +7,7 @@ import { bounceInUp } from 'react-animations';
 import ProgressiveImage from 'react-progressive-bg-image';
 import Instafeed from 'react-instafeed';
 import config from "../../config";
-import { StickyContainer, Sticky } from 'react-sticky';
+// import { StickyContainer, Sticky } from 'react-sticky';
 
 const bounceAnimation = keyframes`${bounceInUp}`;
 // const slideInAnimation = keyframes`${slideInLeft}`;

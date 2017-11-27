@@ -187,7 +187,7 @@ class App extends Component {
                     </div>
                     <div className="level-item">
                       <Link to="/login" className="has-text-black-ter">{
-                        isLoggedIn ? <i onClick={this.handleLogout} className="fa fa-unlock fa-2x" aria-hidden="true"></i> : <i onClick={this.handleIconClick} className="fa fa-lock" aria-hidden="true"></i>
+                        isLoggedIn ? <i className="fa fa-unlock fa-2x" aria-hidden="true"></i> : <i onClick={this.handleIconClick} className="fa fa-lock" aria-hidden="true"></i>
                       }</Link>
                     </div>
                   </nav>
