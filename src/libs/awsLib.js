@@ -115,7 +115,7 @@ export async function invokeApig({
 
 export async function s3Upload(file) {
     if (!await authUser()) {
-        throw new Error("User is not logged in");
+        throw new Error("Для выполнения данного действия пользователь должен войти в систему как администратор");
     }
 
     const s3 = new AWS.S3({
@@ -133,6 +133,25 @@ export async function s3Upload(file) {
             ACL: "public-read"
         })
         .promise();
+}
+
+export async function s3Delete(filename) {
+    if (!await authUser()) {
+        throw new Error("Для выполнения данного действия пользователь должен войти в систему как администратор");
+    }
+
+    const s3 = new AWS.S3({
+        params: {
+            Bucket: config.s3.BUCKET
+        }
+    });
+
+    return s3
+        .deleteObject({
+            Key: filename
+        })
+        .promise();
+    
 }
 
 export async function invokeOpenApi({

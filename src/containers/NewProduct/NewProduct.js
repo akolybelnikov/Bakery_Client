@@ -75,6 +75,7 @@ class NewProduct extends Component {
 
 
     createProduct(product) {
+        console.log(product);
         return invokeApig({
             path: "/products",
             method: "POST",
@@ -115,8 +116,8 @@ class NewProduct extends Component {
                                     rules: [{ required: true, message: 'Выберите категорию продукта' }],
                                 })(
                                     <Select placeholder="Категория">
-                                    <Option value="coffee">Хлеб и булки</Option>
-                                    <Option value="bread">Кофе и другие напитки</Option>
+                                    <Option value="bread">Хлеб и булки</Option>
+                                    <Option value="coffee">Кофе и другие напитки</Option>
                                     <Option value="cakes">Кондитерские изделия</Option>
                                     <Option value="order">Торты на заказ</Option>
                                 </Select>

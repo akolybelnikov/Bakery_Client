@@ -55,7 +55,7 @@ export default class AdminDashBoard extends React.Component {
                     onClick={this.handleProductClick}
                     title={product.productName}
                     ><div><img alt="product" src={product.attachment} /></div>
-                    <div><p className="is-size-6-desktop is-size-7-mobile is-size-6-tablet">{product.content}</p></div>
+                    <div><p style={{overflow: "hidden"}} className="is-size-6-desktop is-size-7-mobile is-size-6-tablet">{product.content}</p></div>
                     <div>{product.price}</div>
                 </Card>
             </Col>
@@ -65,7 +65,7 @@ export default class AdminDashBoard extends React.Component {
     renderCategories(categories) {
         return categories.map(
             (category) =>
-            <Row className="section" key={category.title}>
+            <Row className="section" key={category.title} style={{padding: ".5rem .5rem"}}>
                 <Col>
                     <Card title={category.title}>{category.products && this.renderProducts(category.products)}</Card>
                 </Col>

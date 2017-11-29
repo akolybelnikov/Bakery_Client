@@ -180,15 +180,14 @@ class App extends Component {
                         <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer" className="has-text-danger"><i ref={instaicon => this.instaicon = instaicon} className="fa fa-instagram"></i></a>
                     </div>
                     <div className="level-item">
-                        <a href="https://www.facebook.com/Confert.ru?hc_ref=ARQwxWrZK8Qop0XtLeqPjPcqJ1wPtua1EdfzTK52K7tmK-2nGd4iaI_rXNi733RwaCA&fref=nf" target='_blank' rel="noopener noreferrer" className="has-text-info"><i className="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://www.facebook.com/Confert.ru?hc_ref=ARQwxWrZK8Qop0XtLeqPjPcqJ1wPtua1EdfzTK52K7tmK-2nGd4iaI_rXNi733RwaCA&fref=nf" target='_blank' rel="noopener noreferrer" className="has-text-info"><i className="fa fa-facebook"></i></a>
                     </div>
                     <div className="level-item">
                         <Link to="/coffee" className="has-text-black-ter"><i className="fa fa-envelope-o" aria-hidden="true"></i></Link>
                     </div>
                     <div className="level-item">
-                      <Link to="/login" className="has-text-black-ter">{
-                        isLoggedIn ? <i className="fa fa-unlock fa-2x" aria-hidden="true"></i> : <i onClick={this.handleIconClick} className="fa fa-lock" aria-hidden="true"></i>
-                      }</Link>
+                        <Link to="/login" className="has-text-black-ter">{
+                          isLoggedIn ? <i className="fa fa-unlock fa-2x" aria-hidden="true"></i> : <i onClick={this.handleIconClick} className="fa fa-lock" aria-hidden="true"></i>}</Link>
                     </div>
                   </nav>
                 </Level>

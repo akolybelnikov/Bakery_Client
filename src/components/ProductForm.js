@@ -3,7 +3,7 @@ import { Form, Icon, Input, Upload, Button, Select, Col } from 'antd';
 import LoaderButton from "../components/LoaderButton";
 import Center from 'react-center';
 import config from "../config";
-import { invokeApig, s3Upload } from "../libs/awsLib";
+import { invokeApig, s3Upload, s3Delete } from "../libs/awsLib";
 
 const FormItem = Form.Item;   
 const {TextArea} = Input;
@@ -36,7 +36,6 @@ class ProductForm extends React.Component {
     }
 
     saveProduct(product) {
-        
         return invokeApig({
             path: `/products/${this.props.product.productId}`,
             method: "PUT",
@@ -59,6 +58,10 @@ class ProductForm extends React.Component {
         try {
             if (this.file) {
                 uploadedFileName = (await s3Upload(this.file)).Location;
+                if (this.props.product.attachment) {
+                    const s3File = this.props.product.attachment.match(/(?:.*?\/){3}(.*)/);
+                    await s3Delete(unescape(s3File[1]));
+                }
             }
 
             await this.props.form.validateFields((err, values) => {
@@ -70,7 +73,9 @@ class ProductForm extends React.Component {
                         price: values['price'],
                         attachment: uploadedFileName || this.props.product.attachment
                     });
-                    this.props.history.push("/admin");
+                    setTimeout(() => {
+                        this.props.history.push("/admin");
+                    }, 500);
                 }
             });
 
@@ -85,18 +90,40 @@ class ProductForm extends React.Component {
         this.setState({ previewImage: '' });
     }
 
+    deleteProduct() {
+        return invokeApig({
+            path: `/products/${this.props.product.productId}`,
+            method: "DELETE"
+        });
+    }
+
     handleDelete = async event => {
         event.preventDefault();
       
         const confirmed = window.confirm(
-          "Are you sure you want to delete this note?"
+          "Удалить продукт из базы данных?"
         );
       
         if (!confirmed) {
           return;
         }
       
-        this.setState({ isDeleting: true });
+        this.setState({ deleting: true });
+
+        try {
+
+            if (this.props.product.attachment) {
+                const s3File = this.props.product.attachment.match(/(?:.*?\/){3}(.*)/);
+                await s3Delete(unescape(s3File[1]));
+            }
+
+            await this.deleteProduct();
+            this.props.history.push("/admin");
+
+        } catch (e) {
+            console.log(e);
+            this.setState({ deleting: false});
+        }
     }
 
     render() {
