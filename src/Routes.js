@@ -1,6 +1,8 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import AppliedRoute from "./components/AppliedRoute";
+import AuthenticatedRoute from "./components/AuthenticatedRoute";
+import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 import Home from "./containers/Home/Home";
 import LoginForm from "./containers/Login/LoginForm";
 import Signup from "./containers/Signup/Signup";
@@ -18,11 +20,11 @@ export default ({ childProps }) =>
     <AppliedRoute path="/products/:category/:id" exact component={Product} />
     <AppliedRoute path="/products/:category" exact component={Category} />
     <AppliedRoute path="/products" exact component={Categories} />
-    <AppliedRoute path="/login" component={LoginForm} props={childProps} />
-    <AppliedRoute path="/admin/:id" exact component={UpdateProduct} props={childProps} />
-    <AppliedRoute path="/admin" exact component={AdminDashBoard} props={childProps} />
-    <AppliedRoute path="/signup" component={Signup} props={childProps} />
-    <AppliedRoute path="/create" component={NewProduct} props={childProps} />
+    <UnauthenticatedRoute path="/login" component={LoginForm} props={childProps} />
+    <UnauthenticatedRoute path="/signup" component={Signup} props={childProps} />
+    <AuthenticatedRoute path="/admin/:id" exact component={UpdateProduct} props={childProps} />
+    <AuthenticatedRoute path="/admin" exact component={AdminDashBoard} props={childProps} />
+    <AuthenticatedRoute path="/create" component={NewProduct} props={childProps} />
     
     { /* Finally, catch all unmatched routes */ }
     <Route component={NotFound} />

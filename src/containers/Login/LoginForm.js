@@ -73,40 +73,34 @@ class LoginForm extends Component {
         const userNameError = isFieldTouched('userName') && getFieldError('userName');
         const passwordError = isFieldTouched('password') && getFieldError('password');
         const isLoggedIn = this.props.isAuthenticated;
-        if (isLoggedIn) {
-            this.props.history.push('/admin');
-            return null;
-        } else 
-            {
-                return (
-                    <div>
-                        <Center><p className="is-size-7-mobile is-size-5-tablet has-text-grey title Admin">Войти как администратор</p></Center>
-                        <Center>
-                            <div className="Form">
-                                <Form onSubmit={this.handleSubmit}>
-                                    <FormItem validateStatus={userNameError ? 'error' : ''} help={userNameError || ''}>
-                                        {getFieldDecorator('userName', {
-                                            rules: [{ required: true, message: 'Please provide your email' }],
-                                        })(
-                                            <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} type="email" placeholder="Username" autoFocus/>
-                                        )}
-                                    </FormItem>
-                                    <FormItem validateStatus={passwordError ? 'error' : ''} help={passwordError || ''}>
-                                        {getFieldDecorator('password', {
-                                            rules: [{ required: true, message: 'Please provide your password' }],
-                                        })(
-                                            <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="string" placeholder="Password" />
-                                        )}
-                                    </FormItem>
-                                    <FormItem>
-                                        <LoaderButton type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Login" loadingText="Logging in ..." />
-                                    </FormItem>
-                                </Form>
-                            </div>
-                        </Center>
+        return (
+            <div>
+                <Center><p className="is-size-7-mobile is-size-5-tablet has-text-grey title Admin">Войти как администратор</p></Center>
+                <Center>
+                    <div className="Form">
+                        <Form onSubmit={this.handleSubmit}>
+                            <FormItem validateStatus={userNameError ? 'error' : ''} help={userNameError || ''}>
+                                {getFieldDecorator('userName', {
+                                    rules: [{ required: true, message: 'Please provide your email' }],
+                                })(
+                                    <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} type="email" placeholder="Username" autoFocus/>
+                                )}
+                            </FormItem>
+                            <FormItem validateStatus={passwordError ? 'error' : ''} help={passwordError || ''}>
+                                {getFieldDecorator('password', {
+                                    rules: [{ required: true, message: 'Please provide your password' }],
+                                })(
+                                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="string" placeholder="Password" />
+                                )}
+                            </FormItem>
+                            <FormItem>
+                                <LoaderButton type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Login" loadingText="Logging in ..." />
+                            </FormItem>
+                        </Form>
                     </div>
-                );
-            }         
+                </Center>
+            </div>
+        );                 
     }
 }
 export default Form.create()(LoginForm);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { authUser, signOutUser } from "./libs/awsLib";
+import { authUser } from "./libs/awsLib";
 import { NavLink, Link, withRouter } from "react-router-dom";
 import { Layout, Menu, Icon, Button, Affix, Input } from 'antd';
 import './App.css';
@@ -99,14 +99,6 @@ class App extends Component {
     });
   }
 
-  handleLogout = (e) => {
-    signOutUser();
-
-    this.userHasAuthenticated(false);
-    
-    this.props.history.push('/login');
-  }
-
   async componentDidMount() {
     try {
       if (await authUser()) {
@@ -187,7 +179,7 @@ class App extends Component {
                     </div>
                     <div className="level-item">
                         <Link to="/login" className="has-text-black-ter">{
-                          isLoggedIn ? <i className="fa fa-unlock fa-2x" aria-hidden="true"></i> : <i onClick={this.handleIconClick} className="fa fa-lock" aria-hidden="true"></i>}</Link>
+                          isLoggedIn ? <i className="fa fa-unlock" aria-hidden="true"></i> : <i onClick={this.handleIconClick} className="fa fa-lock" aria-hidden="true"></i>}</Link>
                     </div>
                   </nav>
                 </Level>
