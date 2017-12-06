@@ -26,12 +26,13 @@ const Container = styled.div`
     margin: 0 auto;
 `;
 const Level = styled.div`
-    background-color: rgba(250, 144, 186, 1);
+    background-color: rgba(74, 6, 39, .9);
 `;
 const OuterContent = styled(Content)`
     z-index: 10;
     padding: 0 24px;
     min-height: 700px;
+    background: #EAE2C8
 `;
 const InnerContainer = styled.div`
   max-width: 960px;
@@ -175,10 +176,10 @@ class App extends Component {
                         <a href="https://www.facebook.com/Confert.ru?hc_ref=ARQwxWrZK8Qop0XtLeqPjPcqJ1wPtua1EdfzTK52K7tmK-2nGd4iaI_rXNi733RwaCA&fref=nf" target='_blank' rel="noopener noreferrer" className="has-text-info"><i className="fa fa-facebook"></i></a>
                     </div>
                     <div className="level-item">
-                        <Link to="/coffee" className="has-text-black-ter"><i className="fa fa-envelope-o" aria-hidden="true"></i></Link>
+                        <Link to="/coffee" className="has-text-white"><i className="fa fa-envelope-o" aria-hidden="true"></i></Link>
                     </div>
                     <div className="level-item">
-                        <Link to="/login" className="has-text-black-ter">{
+                        <Link to="/login" className="has-text-white">{
                           isLoggedIn ? <i className="fa fa-unlock" aria-hidden="true"></i> : <i onClick={this.handleIconClick} className="fa fa-lock" aria-hidden="true"></i>}</Link>
                     </div>
                   </nav>

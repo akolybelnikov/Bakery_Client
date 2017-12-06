@@ -11,6 +11,7 @@ const bounceAnimation = keyframes`${bounceIn}`;
 
 const BreadCrumbs = styled(Row)`
     margin: 5% 0;
+    color: #331507
 `
 
 const CategoryCard = styled(Col)`

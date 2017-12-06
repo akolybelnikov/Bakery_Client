@@ -21,7 +21,7 @@
 }
 
 .ant-card-head-title {
-    color: #7A6B71;
+    color: #331507;
     text-align: center;
 }
 
@@ -41,7 +41,7 @@
     text-align: center;
     height: 130px;
     line-height: 130px;
-    background: #7A6B71;
+    background: #331507;
     overflow: hidden;
   }
 
@@ -73,17 +73,17 @@
 } 
 
 input::-webkit-input-placeholder {
-    color: rgba(122, 107, 113, .4) !important;
+    color: rgba(51, 21, 7, .4) !important;
 }
     
 input:-moz-placeholder { /* Firefox 18- */
-    color: rgba(122, 107, 113, .4) !important;
+    color: rgba(51, 21, 7, .4) !important;
 }
     
 input::-moz-placeholder {  /* Firefox 19+ */
-    color: rgba(122, 107, 113, .4) !important; 
+    color: rgba(51, 21, 7, .4) !important; 
 }
     
 input:-ms-input-placeholder {  
-    color: rgba(122, 107, 113, .4) !important; 
+    color: rgba(51, 21, 7, .4) !important; 
 }

@@ -30,7 +30,7 @@
 }
 
 .ant-layout-sider, .ant-layout-sider-zero-width-trigger, .ant-layout-sider-zero-width-trigger:hover {
-  background: #FA90BA;
+  background: #4A0627;
 }
 
 .ant-layout-sider-zero-width-trigger, .ant-layout-sider-zero-width-trigger:hover {
@@ -46,15 +46,15 @@
 }
 
 .trigger:hover {
-  color: #fa90ba;
+  color: #4A0627;
 }
 
 .ant-menu-horizontal > .ant-menu-item > a {
-  color: #fa90ba
+  color: #4A0627
 }
 
 .ant-menu-horizontal > .ant-menu-item > a:hover, .ant-menu-horizontal > .ant-menu-item-selected > a {
-  color: #fa90ba
+  color: #4A0627
 }
 
 .ant-input-affix-wrapper .ant-input-suffix {
