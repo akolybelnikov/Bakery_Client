@@ -52,8 +52,7 @@ class LoginForm extends Component {
             await this.props.form.validateFields((err, values) => {
                 if (!err) {
                     this.login(values['userName'], values['password']);  
-                    this.props.userHasAuthenticated(true);
-                    this.props.history.push("/admin");                   
+                    this.props.userHasAuthenticated(true);                   
                 }
             });
 
@@ -72,7 +71,7 @@ class LoginForm extends Component {
         // Show errors only if a field was touched.
         const userNameError = isFieldTouched('userName') && getFieldError('userName');
         const passwordError = isFieldTouched('password') && getFieldError('password');
-        const isLoggedIn = this.props.isAuthenticated;
+
         return (
             <div>
                 <Center><p className="is-size-7-mobile is-size-5-tablet has-text-grey title Admin">Войти как администратор</p></Center>
