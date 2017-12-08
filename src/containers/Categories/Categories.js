@@ -10,7 +10,7 @@ import { invokeOpenApi } from "../../libs/awsLib";
 const bounceAnimation = keyframes`${bounceIn}`;
 
 const BreadCrumbs = styled(Row)`
-    margin: 5% 0;
+    margin: 0;
     color: #331507
 `
 

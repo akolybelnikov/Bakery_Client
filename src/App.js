@@ -17,27 +17,28 @@ const AffixBounce = styled(Affix)`
   animation: 1.5s ${bounceAnimation};
   position: absolute;
   top: 70;
-  right: 5%;
+  right: 25%;
   zIndex: 20;
 `;
 
 const Container = styled.div`
-    max-width: 1010px;
+    max-width: 1200px;
     margin: 0 auto;
 `;
 const Level = styled.div`
-    background-color: rgba(74, 6, 39, .9);
+    background-color: rgba(51, 5, 28, .9);
 `;
 const OuterContent = styled(Content)`
     z-index: 10;
     padding: 0 24px;
-    min-height: 700px;
-    background: #EAE2C8
 `;
 const InnerContainer = styled.div`
-  max-width: 960px;
-  margin: 0 auto;
-  padding-top: 15px;
+  max-width: 1200px;
+  @media only screen and (min-width: 992px) {
+      margin: 10px auto;
+      padding: 20px 100px;
+    }
+  }  
 `;
 
 class App extends Component {
@@ -164,6 +165,38 @@ class App extends Component {
                 <Button style={{ zIndex: 20 }}  type="primary" className="is-size-7-mobile is-size-6"><Icon type="phone" /> 8 (095) 124-53-67</Button>
               </AffixBounce>
               <InnerContainer><Routes childProps={childProps} /></InnerContainer>
+              <footer className="footer is-hidden-mobile">
+                <div className="container">
+                  <div className="content has-text-centered">
+                    <nav className="level">
+                      <div className="level-item has-text-centered">
+                        <div>
+                          <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer" className="has-text-danger"><i ref={instaicon => this.instaicon = instaicon} className="fa fa-instagram"></i></a>
+                        </div>
+                      </div>
+                      <div className="level-item has-text-centered">
+                        <div>
+                          <a href="https://www.facebook.com/Confert.ru?hc_ref=ARQwxWrZK8Qop0XtLeqPjPcqJ1wPtua1EdfzTK52K7tmK-2nGd4iaI_rXNi733RwaCA&fref=nf" target='_blank' rel="noopener noreferrer" className="facebook"><i className="fa fa-facebook"></i></a>
+                        </div>
+                      </div>
+                      <div className="level-item has-text-centered">
+                        <div>
+                          <Link to="/coffee" className="has-text-grey"><i className="fa fa-envelope-o" aria-hidden="true"></i></Link>
+                        </div>
+                      </div>
+                      <div className="level-item has-text-centered">
+                        <div>
+                          <Link to="/login" className="has-text-brown">{
+                            isLoggedIn ? <i className="fa fa-unlock" aria-hidden="true"></i> : <i onClick={this.handleIconClick} className="fa fa-lock" aria-hidden="true"></i>}</Link>
+                          </div>
+                      </div>
+                    </nav>
+                    <p>
+                      <strong>© 2014 VSE BULOCHKU TUT.</strong> by <a href="https://akolybelnikov.github.io/">Andrey Kolybelnikov</a>. The source code is licensed.
+                    </p>
+                  </div>
+                </div>
+              </footer>
             </OuterContent>
             <Affix offsetBottom={0} id="footer" style={{ zIndex: 20 }} className="is-hidden-tablet">
               <Container>

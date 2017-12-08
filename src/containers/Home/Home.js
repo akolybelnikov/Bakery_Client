@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Card, Carousel, Affix } from 'antd';
+import { Row, Card, Carousel } from 'antd';
 // import Center from 'react-center';
 import "./Home.css";
 import styled, { keyframes } from 'styled-components';
@@ -16,12 +16,18 @@ const bgImg = require(`../../public/bg.jpg`);
 const offerImg = require(`../../public/offer-min.jpg`);
 
 const Background = styled(ProgressiveImage)`
-  background-size: contain;
-  background-position: right;
+  background-size: cover;
+  background-position: center center;
   background-color: lightgrey;
-  height: 900px;
+  height: 550px;
   @media only screen and (max-width: 480px) {
-    height: 567px;
+    height: 267px;
+    background-size: cover;
+    background-position: top;
+    background-color: white;
+  } 
+  @media only screen and (max-width: 1024px) and (min-width: 480px) {
+    height: 500px;
     background-size: cover;
     background-position: top;
     background-color: white;
@@ -30,18 +36,15 @@ const Background = styled(ProgressiveImage)`
 const OfferCard = styled(ProgressiveImage)`
   background-size: cover;
   background-position: center;
-  min-height: 150px;
+  min-height: 200px;
 `
 
 const Template = ` 
-  <div class="ant-col-xs-12 ant-col-sm-12">    
+  <div class="ant-col-xs-12 ant-col-sm-6">    
     <a href='{{link}}' target='_blank' class='instafeed__item'>
       <img class='instafeed__item__background' src='{{image}}' style="padding-right: 5px;"/>
     </a>
   </div>
-`
-const InstaCard = styled(Card)`
-    
 `
 
 const InstaLoad = styled(Row)`
@@ -66,17 +69,12 @@ export default class Home extends Component {
 
   render() {   
     return (       
-      <Row>
-        <Background src={this.state.image} placeholder={bgImg} transition="all 1s linear">
-          <Row>
-            <Col xs={14}> 
-              
-              <Card title="Спецпредложение">
-                <OfferCard src={this.state.offerimage} placeholder={offerImg} transition="all 1s linear" />
-              </Card>
-              
+      <div className="tile is-ancestor">
+        <div className="tile is-vertical is-8">
+          <div className="tile is-parent">
+            <article className="tile is-child box">
               <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer">
-                <InstaCard title="Мы на Instagram" bordered="false">
+                <Card title="Мы на Instagram" bordered="false">
                   <InstaLoad type="flex" justify="start" id='instafeed'>              
                     <Instafeed
                       limit='4'
@@ -88,34 +86,41 @@ export default class Home extends Component {
                       accessToken={`${config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN}`}
                     />  
                   </InstaLoad>
-                </InstaCard>
+                </Card>
               </a> 
-              <Card className="is-hidden-mobile" title="Наши новости" bordered="false">
-                <Carousel effect="fade" autoplay autoplaySpeed={5000}>
-                  <div><h3>1</h3></div>
-                  <div><h3>2</h3></div>
-                  <div><h3>3</h3></div>
-                  <div><h3>4</h3></div>
-                </Carousel>
-              </Card>
-            </Col>
-          </Row>
-        </Background>
-        <Affix offsetBottom={0}>
-          <Row style={{paddingBottom: "10px"}}>
-            <Col className="is-hidden-tablet" xs={24}>
-              <Card title="Наши новости" bordered="false">
-                <Carousel effect="fade" autoplay autoplaySpeed={5000}>
-                  <div><h3>1</h3></div>
-                  <div><h3>2</h3></div>
-                  <div><h3>3</h3></div>
-                  <div><h3>4</h3></div>
-                </Carousel>
-              </Card>
-            </Col>
-          </Row>    
-        </Affix>
-      </Row> 
+            </article>
+          </div>
+          <div className="tile">
+            <div className="tile is-parent">
+              <article className="tile is-child box">
+                <Card title="Спецпредложение">
+                  <OfferCard src={this.state.offerimage} placeholder={offerImg} transition="all 1s linear" />
+                </Card>
+              </article>
+            </div>
+
+            <div className="tile is-parent">
+              <article className="tile is-child box">
+                <Card title="Наши новости" bordered="false">
+                  <Carousel effect="fade" autoplaySpeed={5000}>
+                    <div><img src='https://s3.eu-central-1.amazonaws.com/bakery-uploads/offer.JPG'/></div>
+                    <div><img src='https://s3.eu-central-1.amazonaws.com/bakery-uploads/offer.JPG'/></div>
+                    <div><img src='https://s3.eu-central-1.amazonaws.com/bakery-uploads/offer.JPG'/></div>
+                    <div><img src='https://s3.eu-central-1.amazonaws.com/bakery-uploads/offer.JPG'/></div>
+                  </Carousel>
+                </Card>
+              </article>
+            </div>
+          </div>       
+        </div>
+
+      
+        <div className="tile is-parent is-hidden-mobile">
+          <article className="tile is-child box">
+            <Background src={this.state.image} placeholder={bgImg} transition="all 1s linear" />  
+          </article>
+        </div>
+      </div>
     );
   }
 }

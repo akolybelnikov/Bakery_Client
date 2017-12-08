@@ -39,22 +39,26 @@
 
 .ant-carousel .slick-slider {
     text-align: center;
-    height: 130px;
-    line-height: 130px;
+    height: 200px;
+    line-height: 200px;
+    background: #331507;
+    overflow: hidden;
+  }
+
+  .ant-carousel .slick-slide {
+    text-align: center;
+    height: 200px;
+    line-height: 200px;
     background: #331507;
     overflow: hidden;
   }
 
   .slick-track {
-      height: 130px;
+      max-width: 150px !important;
   }
   
   .ant-carousel .slick-slide h3 {
     color: #fff;
-  }
-
-  .slick-list {
-      height: 130px;
   }
 
   @media only screen and (max-width: 460px) {
@@ -86,4 +90,8 @@ input::-moz-placeholder {  /* Firefox 19+ */
     
 input:-ms-input-placeholder {  
     color: rgba(51, 21, 7, .4) !important; 
+}
+
+.box {
+    background: #EAE2C8;
 }

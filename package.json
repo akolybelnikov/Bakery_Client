@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "amazon-cognito-identity-js": "^1.21.0",
-    "antd": "^2.13.7",
+    "antd": "^3.0.0",
     "aws-sdk": "^2.141.0",
     "crypto-js": "^3.1.9-1",
     "instafeed.js": "^1.4.1",
@@ -19,7 +19,6 @@
     "react-progressive-image": "^0.2.0",
     "react-router-dom": "4.2.2",
     "react-scripts": "1.0.14",
-    "react-sticky": "^6.0.1",
     "styled-components": "^2.2.2"
   },
   "scripts": {
