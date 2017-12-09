@@ -4,7 +4,7 @@ import { Row, Col, Card, Breadcrumb, Popover } from 'antd';
 import styled, { keyframes } from 'styled-components';
 import { zoomIn } from 'react-animations';
 import ProgressiveImage from 'react-progressive-bg-image';
-// import Center from 'react-center';
+import config from "../../config";
 import { invokeOpenApi } from "../../libs/awsLib";
 import "./Product.css";
 
@@ -69,7 +69,7 @@ export default class Product extends Component {
     getContent() {
         return(
             <div>
-                <img src={this.state.product.attachment} />
+                <img src={`${config.s3.URL}/750x750/${this.state.product.image}`} />
             </div>
         )
     }
@@ -79,7 +79,7 @@ export default class Product extends Component {
             <Col xs={{ span: 20, offset: 2 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }} >
                 <ProductCard title={product && product.productName}>
                     <Popover placement="top" content={this.getContent()} trigger="click">
-                        <CardImage src={product && product.attachment} placeholder={bgImg} transition="all 1s linear"/>
+                        <CardImage src={product && `${config.s3.URL}/650x650/${product.image}`} placeholder={bgImg} transition="all 1s linear"/>
                     </Popover>
                     <div>
                         <p style={{textAlign: 'center', color: '#52082D'}} className="is-size-6-desktop is-size-7-mobile">{product.content}</p>

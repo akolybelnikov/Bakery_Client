@@ -47,6 +47,7 @@ class ProductForm extends React.Component {
 
     handleSubmit = async event => {
       
+        let uploadedFileLocation;
         let uploadedFileName;
         event.preventDefault();
       
@@ -59,7 +60,8 @@ class ProductForm extends React.Component {
 
         try {
             if (this.file) {
-                uploadedFileName = (await s3Upload(this.file)).Location;
+                uploadedFileLocation = (await s3Upload(this.file)).Location;
+                uploadedFileName = uploadedFileLocation.split('/')[3];
                 if (this.props.product.attachment) {
                     const s3File = this.props.product.attachment.match(/(?:.*?\/){3}(.*)/);
                     await s3Delete(unescape(s3File[1]));
@@ -73,8 +75,9 @@ class ProductForm extends React.Component {
                         productname: values['name'],
                         content: values['content'],
                         price: values['price'],
-                        attachment: uploadedFileName || this.props.product.attachment,
-                        weight: values['weight']
+                        weight: values['weight'],
+                        attachment: uploadedFileLocation || this.props.product.attachment,
+                        image: uploadedFileName || this.props.product.image
                     });
                     setTimeout(() => {
                         this.props.history.push("/admin");
@@ -192,7 +195,7 @@ class ProductForm extends React.Component {
                             </FormItem>
                             <FormItem validateStatus={weightError ? 'error' : ''} help={weightError || ''}>
                                 {getFieldDecorator('weight', {
-                                    rules: [{ required: false, message: 'Внесите вес продукта' }],
+                                    rules: [{ required: true, message: 'Внесите вес продукта' }],
                                 })(
                                     <Input type="string" placeholder="Вес продукта: 130гр. / 150 мл." />
                                 )}

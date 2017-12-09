@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Row, Col, Card, Breadcrumb } from 'antd';
 import styled from 'styled-components';
 import { invokeOpenApi } from "../../libs/awsLib";
+import config from "../../config";
 import "./Category.css";
 
 const ProductsRow = styled(Row)`
@@ -52,7 +53,7 @@ export default class Product extends Component {
                     href={`/products/${this.props.match.params.category}/${product.productId}`}
                     onClick={this.handleProductClick}
                     title={product.productName}
-                    ><div><img alt="product" src={product.attachment} /></div>
+                    ><div><img alt="...loading product image" src={`${config.s3.URL}/250x250/${product.image}`} /></div>
                     <div>{product.price} руб.</div>
                 </Card>
             </Col>

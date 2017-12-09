@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Icon, Input, Upload, Button, Select, Row } from 'antd';
+import { Form, Icon, Input, Upload, Button, Select, Row, Col } from 'antd';
 import Center from 'react-center';
 import config from "../../config";
 import LoaderButton from "../../components/LoaderButton";
@@ -23,7 +23,9 @@ class NewProduct extends Component {
         this.state = {
             uploading: false,
             loading: false,
-            previewImage: ''
+            previewImage: '',
+            src: '',
+            err: null
         };
     }
 
@@ -43,8 +45,9 @@ class NewProduct extends Component {
         this.setState({ loading: true });
 
         try {
-            const uploadedFilename = this.file ? (await s3Upload(this.file)).Location : null;
-
+            const uploadedFileLocation = this.file ? (await s3Upload(this.file)).Location : null;
+            const uploadedFileName = uploadedFileLocation.split('/')[3];
+            console.log(uploadedFileName);
             await this.props.form.validateFields((err, values) => {
                 if (!err) {
                     this.createProduct({
@@ -53,7 +56,8 @@ class NewProduct extends Component {
                         content: values['content'],
                         price: values['price'],
                         weight: values['weight'],
-                        attachment: uploadedFilename
+                        attachment: uploadedFileLocation,
+                        image: uploadedFileName
                     });
                     this.props.history.push("/admin");
                 }
@@ -109,64 +113,68 @@ class NewProduct extends Component {
         return (
             <div>
                 <Row><Icon onClick={this.props.history.goBack} className="is-size-5-tablet is-size-6-mobile has-text-grey title" type="left-circle-o" /></Row>
-                <Center style={{'marginBottom': '20px'}}><p className="is-size-5-tablet is-size-6-mobile has-text-info title">Создать новый продукт</p></Center>
-                <Center>
-                    <div className="Form">
-                        <Form onSubmit={this.handleSubmit}>
-                            <FormItem validateStatus={categoryError ? 'error' : ''} help={categoryError || ''}>
-                                {getFieldDecorator('category', {
-                                    rules: [{ required: true, message: 'Выберите категорию продукта' }],
-                                })(
-                                    <Select placeholder="Категория">
-                                    <Option value="bread">Хлеб и булки</Option>
-                                    <Option value="coffee">Кофе и другие напитки</Option>
-                                    <Option value="cakes">Кондитерские изделия</Option>
-                                    <Option value="order">Торты на заказ</Option>
-                                </Select>
-                                )}
-                            </FormItem>
-                            <FormItem validateStatus={nameError ? 'error' : ''} help={nameError || ''}>
-                                {getFieldDecorator('name', {
-                                    rules: [{ required: true, message: 'Внесите название продукта' }],
-                                })(
-                                    <Input type="string" placeholder="Название продукта" />
-                                )}
-                            </FormItem>
-                            <FormItem validateStatus={contentError ? 'error' : ''} help={contentError || ''}>
-                                {getFieldDecorator('content', {
-                                    rules: [{ required: true, message: 'Внесите описание продукта' }],
-                                })(
-                                    <TextArea type="string" rows={4} placeholder="Описание продукта" />
-                                )}
-                            </FormItem>
-                            <FormItem validateStatus={priceError ? 'error' : ''} help={priceError || ''}>
-                                {getFieldDecorator('price', {
-                                    rules: [{ required: true, message: 'Внесите цену продукта' }],
-                                })(
-                                    <Input type="number" placeholder="Цена продукта: 00.00" />
-                                )}
-                            </FormItem>
-                            <FormItem validateStatus={weightError ? 'error' : ''} help={weightError || ''}>
-                                {getFieldDecorator('weight', {
-                                    rules: [{ required: false, message: 'Внесите вес продукта' }],
-                                })(
-                                    <Input type="string" placeholder="Вес продукта: 130гр. / 150 мл." />
-                                )}
-                            </FormItem>
-                            <figure>
-                                <img alt="" src={previewImage} />
-                            </figure>
-                            <FormItem >
-                                <Upload onRemove={this.handleCancel} {...props}>
-                                    <Button className="button is-info is-outlined"><Icon type="upload" />Выбрать изображение</Button>
-                                </Upload>
-                            </FormItem>
-                            <FormItem>
-                                <LoaderButton type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Создать продукт" loadingText="Logging in ..." />
-                            </FormItem>
-                        </Form>
-                    </div>
-                </Center>
+                <Center style={{'marginBottom': '20px'}}><p className="is-size-5-tablet is-size-6-mobile title">Создать новый продукт</p></Center>
+                <Row>
+                    <Col xs={{ span: 22, offset: 1 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }} >
+                        <Center>
+                            <div className="Form">
+                                <Form onSubmit={this.handleSubmit}>
+                                    <FormItem validateStatus={categoryError ? 'error' : ''} help={categoryError || ''}>
+                                        {getFieldDecorator('category', {
+                                            rules: [{ required: true, message: 'Выберите категорию продукта' }],
+                                        })(
+                                            <Select placeholder="Категория">
+                                            <Option value="bread">Хлеб и булки</Option>
+                                            <Option value="coffee">Кофе и другие напитки</Option>
+                                            <Option value="cakes">Кондитерские изделия</Option>
+                                            <Option value="order">Торты на заказ</Option>
+                                        </Select>
+                                        )}
+                                    </FormItem>
+                                    <FormItem validateStatus={nameError ? 'error' : ''} help={nameError || ''}>
+                                        {getFieldDecorator('name', {
+                                            rules: [{ required: true, message: 'Внесите название продукта' }],
+                                        })(
+                                            <Input type="string" placeholder="Название продукта" />
+                                        )}
+                                    </FormItem>
+                                    <FormItem validateStatus={contentError ? 'error' : ''} help={contentError || ''}>
+                                        {getFieldDecorator('content', {
+                                            rules: [{ required: true, message: 'Внесите описание продукта' }],
+                                        })(
+                                            <TextArea type="string" rows={4} placeholder="Описание продукта" />
+                                        )}
+                                    </FormItem>
+                                    <FormItem validateStatus={priceError ? 'error' : ''} help={priceError || ''}>
+                                        {getFieldDecorator('price', {
+                                            rules: [{ required: true, message: 'Внесите цену продукта' }],
+                                        })(
+                                            <Input type="number" placeholder="Цена продукта: 00.00" />
+                                        )}
+                                    </FormItem>
+                                    <FormItem validateStatus={weightError ? 'error' : ''} help={weightError || ''}>
+                                        {getFieldDecorator('weight', {
+                                            rules: [{ required: true, message: 'Внесите вес продукта' }],
+                                        })(
+                                            <Input type="string" placeholder="Вес продукта: 130гр. / 150 мл." />
+                                        )}
+                                    </FormItem>
+                                    <figure>
+                                        <img alt="preview" src={previewImage} />
+                                    </figure>
+                                    <FormItem >
+                                        <Upload onRemove={this.handleCancel} {...props}>
+                                            <Button className="button is-info is-outlined"><Icon type="upload" />Выбрать изображение</Button>
+                                        </Upload>
+                                    </FormItem>
+                                    <FormItem>
+                                        <LoaderButton type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Создать продукт" loadingText="Logging in ..." />
+                                    </FormItem>
+                                </Form>
+                            </div>
+                        </Center>
+                    </Col>
+                </Row>
             </div>
         );
     }
