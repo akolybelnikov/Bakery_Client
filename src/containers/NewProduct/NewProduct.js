@@ -52,6 +52,7 @@ class NewProduct extends Component {
                         productname: values['name'],
                         content: values['content'],
                         price: values['price'],
+                        weight: values['weight'],
                         attachment: uploadedFilename
                     });
                     this.props.history.push("/admin");
@@ -59,7 +60,8 @@ class NewProduct extends Component {
             });
 
         } catch (e) {
-            alert(e.message);
+            console.log(e);
+            alert("Ошибка при загрузке изображения. продукт не создан.");
             this.setState({ loading: false });
         } 
 
@@ -75,7 +77,6 @@ class NewProduct extends Component {
 
 
     createProduct(product) {
-        console.log(product);
         return invokeApig({
             path: "/products",
             method: "POST",
@@ -89,7 +90,7 @@ class NewProduct extends Component {
             beforeUpload: (file) => {
                 this.file = file;
                 var reader = new FileReader();
-                var url = reader.readAsDataURL(file);
+                reader.readAsDataURL(file);
                 reader.onloadend = function (e) {
                     this.setState({
                         previewImage: [reader.result]
@@ -104,6 +105,7 @@ class NewProduct extends Component {
         const nameError = isFieldTouched('name') && getFieldError('name');
         const contentError = isFieldTouched('content') && getFieldError('content');
         const priceError = isFieldTouched('price') && getFieldError('price');
+        const weightError = isFieldTouched('weight') && getFieldError('weight');
         return (
             <div>
                 <Row><Icon onClick={this.props.history.goBack} className="is-size-5-tablet is-size-6-mobile has-text-grey title" type="left-circle-o" /></Row>
@@ -142,6 +144,13 @@ class NewProduct extends Component {
                                     rules: [{ required: true, message: 'Внесите цену продукта' }],
                                 })(
                                     <Input type="number" placeholder="Цена продукта: 00.00" />
+                                )}
+                            </FormItem>
+                            <FormItem validateStatus={weightError ? 'error' : ''} help={weightError || ''}>
+                                {getFieldDecorator('weight', {
+                                    rules: [{ required: false, message: 'Внесите вес продукта' }],
+                                })(
+                                    <Input type="string" placeholder="Вес продукта: 130гр. / 150 мл." />
                                 )}
                             </FormItem>
                             <figure>

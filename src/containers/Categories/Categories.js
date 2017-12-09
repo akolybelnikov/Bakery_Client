@@ -10,19 +10,25 @@ import { invokeOpenApi } from "../../libs/awsLib";
 const bounceAnimation = keyframes`${bounceIn}`;
 
 const BreadCrumbs = styled(Row)`
-    margin: 0;
-    color: #331507
-`
+    color: #331507;
+    @media only screen and (max-width: 480px) {
+        margin-top: 35px;
+    }
+`;
 
 const CategoryCard = styled(Col)`
     animation: 1.5s ${bounceAnimation};
     padding: 10px;
-`
+`;
 const Image = styled(ProgressiveImage)`
     min-height: 300px;
     background-size: cover;
     background-position: center center;
-`
+    @media only screen and (max-width: 767px) {
+        min-height: 150px;
+    }
+`;
+
 const bgImg = require(`../../public/bg.jpg`);
 
 export default class Categories extends Component {

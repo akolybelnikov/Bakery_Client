@@ -16,10 +16,12 @@ const bounceAnimation = keyframes`${bounceInUp}`;
 const AffixBounce = styled(Affix)`
   animation: 1.5s ${bounceAnimation};
   position: absolute;
-  top: 70;
+  top: 70px;
   right: 25%;
   zIndex: 20;
-`;
+  @media only screen and (max-width: 480px) {
+    right: 25px;
+  }`;
 
 const Container = styled.div`
     max-width: 1200px;
@@ -192,7 +194,7 @@ class App extends Component {
                       </div>
                     </nav>
                     <p>
-                      <strong>© 2014 VSE BULOCHKU TUT.</strong> by <a href="https://akolybelnikov.github.io/">Andrey Kolybelnikov</a>. The source code is licensed.
+                      <strong>© 2014 VSE BULOCHKU TUT.</strong> by <a target='_blank' rel="noopener noreferrer" href="https://akolybelnikov.github.io/">Andrey Kolybelnikov</a>. The source code is licensed.
                     </p>
                   </div>
                 </div>

@@ -30,12 +30,14 @@ class ProductForm extends React.Component {
         this.props.form.setFieldsValue({category: this.props.product.category});
         this.props.form.setFieldsValue({name: this.props.product.productName});
         this.props.form.setFieldsValue({content: this.props.product.content});
-        this.props.form.setFieldsValue({price: this.props.product.price})
+        this.props.form.setFieldsValue({price: this.props.product.price});
+        this.props.form.setFieldsValue({weight: this.props.product.weight});
         // To disabled submit button at the beginning.
         this.props.form.validateFields();
     }
 
     saveProduct(product) {
+        console.log(product);
         return invokeApig({
             path: `/products/${this.props.product.productId}`,
             method: "PUT",
@@ -71,7 +73,8 @@ class ProductForm extends React.Component {
                         productname: values['name'],
                         content: values['content'],
                         price: values['price'],
-                        attachment: uploadedFileName || this.props.product.attachment
+                        attachment: uploadedFileName || this.props.product.attachment,
+                        weight: values['weight']
                     });
                     setTimeout(() => {
                         this.props.history.push("/admin");
@@ -132,7 +135,7 @@ class ProductForm extends React.Component {
             beforeUpload: (file) => {
                 this.file = file;
                 var reader = new FileReader();
-                var url = reader.readAsDataURL(file);
+                reader.readAsDataURL(file);
                 reader.onloadend = function (e) {
                     this.setState({
                         previewImage: [reader.result]
@@ -147,6 +150,7 @@ class ProductForm extends React.Component {
         const nameError = isFieldTouched('name') && getFieldError('name');
         const contentError = isFieldTouched('content') && getFieldError('content');
         const priceError = isFieldTouched('price') && getFieldError('price');
+        const weightError = isFieldTouched('weight') && getFieldError('weight');
         return (
             <Col xs={{span: 14, offset: 5}} md={{ span: 12, offset: 6 }} lg={{ span: 10, offset: 7 }}>
                 <Center style={{'margin': '20px 0'}}><p className="is-size-6-mobile is-size-5-tablet has-text-dark title">Изменить продукт</p></Center>
@@ -184,6 +188,13 @@ class ProductForm extends React.Component {
                                     rules: [{ required: true, message: 'Внесите цену продукта' }],
                                 })(
                                     <Input type="number" placeholder="Цена продукта: 00.00" />
+                                )}
+                            </FormItem>
+                            <FormItem validateStatus={weightError ? 'error' : ''} help={weightError || ''}>
+                                {getFieldDecorator('weight', {
+                                    rules: [{ required: false, message: 'Внесите вес продукта' }],
+                                })(
+                                    <Input type="string" placeholder="Вес продукта: 130гр. / 150 мл." />
                                 )}
                             </FormItem>
                             <figure>

@@ -1,13 +1,10 @@
 import React, { Component } from "react";
-import { Row, Card, Carousel } from 'antd';
-// import Center from 'react-center';
+import { Card, Carousel } from 'antd';
 import "./Home.css";
 import styled, { keyframes } from 'styled-components';
 import { bounceInUp } from 'react-animations';
 import ProgressiveImage from 'react-progressive-bg-image';
-import Instafeed from 'react-instafeed';
-import config from "../../config";
-// import { StickyContainer, Sticky } from 'react-sticky';
+import Instafeed from '../../components/Instafeed';
 
 const bounceAnimation = keyframes`${bounceInUp}`;
 // const slideInAnimation = keyframes`${slideInLeft}`;
@@ -39,15 +36,7 @@ const OfferCard = styled(ProgressiveImage)`
   min-height: 200px;
 `
 
-const Template = ` 
-  <div class="ant-col-xs-12 ant-col-sm-6">    
-    <a href='{{link}}' target='_blank' class='instafeed__item'>
-      <img class='instafeed__item__background' src='{{image}}' style="padding-right: 5px;"/>
-    </a>
-  </div>
-`
-
-const InstaLoad = styled(Row)`
+const Instacard = styled(Card)`
   animation: 2s ${bounceAnimation};
 `
 
@@ -58,13 +47,8 @@ export default class Home extends Component {
 
     this.state = {
       offerimage: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/offer.JPG',
-      image: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/bg-home.jpg',
-      loaded: false
+      image: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/bg-home.jpg'
     }
-  }
-
-  shouldComponentUpdate() {
-    return false;
   }
 
   render() {   
@@ -74,19 +58,9 @@ export default class Home extends Component {
           <div className="tile is-parent">
             <article className="tile is-child box">
               <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer">
-                <Card title="Мы на Instagram" bordered="false">
-                  <InstaLoad type="flex" justify="start" id='instafeed'>              
-                    <Instafeed
-                      limit='4'
-                      resolution='low_resolution'
-                      sortBy='most-recent'
-                      template={Template}
-                      userId={`${config.instagram.REACT_APP_INSTAGRAM_USER_ID}`}
-                      clientId={`${config.instagram.REACT_APP_INSTAGRAM_CLIENT_ID}`}
-                      accessToken={`${config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN}`}
-                    />  
-                  </InstaLoad>
-                </Card>
+                <Instacard title="Мы на Instagram" bordered="false">                         
+                    <Instafeed />  
+                </Instacard>
               </a> 
             </article>
           </div>
@@ -113,7 +87,6 @@ export default class Home extends Component {
             </div>
           </div>       
         </div>
-
       
         <div className="tile is-parent is-hidden-mobile">
           <article className="tile is-child box">

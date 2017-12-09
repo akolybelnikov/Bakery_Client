@@ -7,14 +7,13 @@ import "./Category.css";
 
 const ProductsRow = styled(Row)`
     margin: 5% 0;
-    @media only screen and (max-width: 768px) {
-        
-    } 
-`
+`;
 
 const BreadCrumbs = styled(Row)`
-    margin: 0;
-`
+    @media only screen and (max-width: 480px) {
+        margin-top: 35px;
+    }
+`;
 
 export default class Product extends Component {
     constructor(props) {
