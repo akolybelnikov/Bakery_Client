@@ -7,7 +7,6 @@ import Routes from "./Routes";
 import styled, { keyframes } from 'styled-components';
 import { bounceInUp } from 'react-animations';
 
-const SubMenu = Menu.SubMenu;
 const logo = require(`./public/mstile-150x150.png`);
 const { Header, Content, Sider } = Layout;
 const Search = Input.Search;

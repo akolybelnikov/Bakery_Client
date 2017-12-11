@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Card, Breadcrumb } from 'antd';
 import styled from 'styled-components';
@@ -16,7 +16,7 @@ const BreadCrumbs = styled(Row)`
     }
 `;
 
-export default class Product extends Component {
+export default class Product extends React.Component {
     constructor(props) {
         super(props);
     
@@ -53,7 +53,7 @@ export default class Product extends Component {
                     href={`/products/${this.props.match.params.category}/${product.productId}`}
                     onClick={this.handleProductClick}
                     title={product.productName}
-                    ><div><img alt="...loading product image" src={`${config.s3.URL}/250x250/${product.image}`} /></div>
+                    ><div><img alt="" src={`${config.s3.URL}/250x250/${product.image}`} /></div>
                     <div>{product.price} руб.</div>
                 </Card>
             </Col>

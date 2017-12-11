@@ -69,7 +69,7 @@ export default class Product extends Component {
     getContent() {
         return(
             <div>
-                <img src={`${config.s3.URL}/750x750/${this.state.product.image}`} />
+                <img alt="" src={`${config.s3.URL}/750x750/${this.state.product.image}`} />
             </div>
         )
     }

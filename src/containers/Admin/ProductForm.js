@@ -1,9 +1,9 @@
 import React from "react";
 import { Form, Icon, Input, Upload, Button, Select, Col } from 'antd';
-import LoaderButton from "../components/LoaderButton";
+import LoaderButton from "../../components/LoaderButton";
 import Center from 'react-center';
-import config from "../config";
-import { invokeApig, s3Upload, s3Delete } from "../libs/awsLib";
+import config from "../../config";
+import { invokeApig, s3Upload, s3Delete } from "../../libs/awsLib";
 
 const FormItem = Form.Item;   
 const {TextArea} = Input;

@@ -77,10 +77,7 @@ export default class Home extends Component {
               <article className="tile is-child box">
                 <Card title="Наши новости" bordered="false">
                   <Carousel effect="fade" autoplaySpeed={5000}>
-                    <div><img src='https://s3.eu-central-1.amazonaws.com/bakery-uploads/offer.JPG'/></div>
-                    <div><img src='https://s3.eu-central-1.amazonaws.com/bakery-uploads/offer.JPG'/></div>
-                    <div><img src='https://s3.eu-central-1.amazonaws.com/bakery-uploads/offer.JPG'/></div>
-                    <div><img src='https://s3.eu-central-1.amazonaws.com/bakery-uploads/offer.JPG'/></div>
+                    <div><img alt="" src='https://s3.eu-central-1.amazonaws.com/bakery-uploads/offer.JPG'/></div>
                   </Carousel>
                 </Card>
               </article>

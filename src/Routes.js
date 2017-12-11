@@ -12,6 +12,7 @@ import Categories from "./containers/Categories/Categories";
 import Product from "./containers/Product/Product";
 import UpdateProduct from "./containers/Admin/UpdateProduct";
 import AdminDashBoard from "./containers/Admin/DashBoard";
+import CategoryView from "./containers/Admin/CategoryView";
 import NotFound from "./containers/NotFound";
 
 export default ({ childProps }) =>
@@ -22,7 +23,8 @@ export default ({ childProps }) =>
     <AppliedRoute path="/products" exact component={Categories} />
     <UnauthenticatedRoute path="/login" component={LoginForm} props={childProps} />
     <UnauthenticatedRoute path="/signup" component={Signup} props={childProps} />
-    <AuthenticatedRoute path="/admin/:id" exact component={UpdateProduct} props={childProps} />
+    <AuthenticatedRoute path="/admin/:category" exact component={CategoryView} props={childProps} />
+    <AuthenticatedRoute path="/admin/:category/:id" exact component={UpdateProduct} props={childProps} />
     <AuthenticatedRoute path="/admin" exact component={AdminDashBoard} props={childProps} />
     <AuthenticatedRoute path="/create" component={NewProduct} props={childProps} />
     

@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Icon } from 'antd';
 import { invokeOpenApi } from "../../libs/awsLib";
-import ProductForm from "../../components/ProductForm";
+import ProductForm from "./ProductForm";
 
 export default class UpdateProduct extends React.Component {
     constructor(props) {
@@ -33,19 +33,15 @@ export default class UpdateProduct extends React.Component {
     }
 
     render() {
-        const isLoggedIn = this.props.isAuthenticated;
-        if (isLoggedIn) {
-            return this.state.product && 
+        return this.state.product && 
             <div>
-                <Row>
-                    <Icon onClick={this.props.history.goBack} className="is-size-5-tablet is-size-6-mobile has-text-grey title" type="left-circle-o" />
+                <Row style={{marginTop: "10px"}}>
+                    <Icon onClick={this.props.history.goBack} className="icon-back" type="left" />
                 </Row>
                 <Row>
                     <ProductForm history={this.props.history} product={this.state.product}/>
                 </Row>
             </div>
-            
-        } else { this.props.history.push('/login') }
     }
 
 }
