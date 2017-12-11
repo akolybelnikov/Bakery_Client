@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import { Card, Carousel } from 'antd';
-import "./Home.css";
+import { Card, Carousel, Modal } from 'antd';
+import config from "../../config";
+import { invokeOpenApi } from "../../libs/awsLib";
 import styled, { keyframes } from 'styled-components';
 import { bounceInUp } from 'react-animations';
 import ProgressiveImage from 'react-progressive-bg-image';
 import Instafeed from '../../components/Instafeed';
+import Center from 'react-center';
+import "./Home.css";
 
 const bounceAnimation = keyframes`${bounceInUp}`;
 // const slideInAnimation = keyframes`${slideInLeft}`;
@@ -40,15 +43,51 @@ const Instacard = styled(Card)`
   animation: 2s ${bounceAnimation};
 `
 
+const ModalImage = styled(ProgressiveImage)`
+  background-size: cover;
+  background-position: center;
+  height: 500px;
+  @media only screen and (max-width: 480px) {
+    width: 300px;
+    height: 300px;
+    background-size: cover;
+    background-position: top;
+  }
+`
+
 export default class Home extends Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
-      offerimage: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/offer.JPG',
-      image: 'https://s3.eu-central-1.amazonaws.com/bakery-uploads/bg-home.jpg'
+      offerimage: '',
+      offercontent: '',
+      image: `${config.s3.UPLOADS_BUCKET_URL}/bg-home.jpg`,
+      modalVisible: false
     }
+  }
+
+  async componentDidMount() {
+
+    try {
+      const offers = await this.getOffers();
+      const offer = offers[offers.length - 1];
+      this.setState({ 
+        offerimage: offer.image,
+        offercontent: offer.content
+       });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  getOffers() {
+      return invokeOpenApi({ path: "/offers"});
+  }
+
+  setModalVisible(modalVisible) {
+    this.setState({ modalVisible });
   }
 
   render() {   
@@ -64,20 +103,34 @@ export default class Home extends Component {
               </a> 
             </article>
           </div>
+
           <div className="tile">
             <div className="tile is-parent">
               <article className="tile is-child box">
-                <Card title="Спецпредложение">
-                  <OfferCard src={this.state.offerimage} placeholder={offerImg} transition="all 1s linear" />
-                </Card>
+                <a onClick={() => {this.setModalVisible(true)}}>
+                  <Card title="Спецпредложение">
+                    <OfferCard src={`${config.s3.URL}/250x250/${this.state.offerimage}`} placeholder={offerImg} transition="all 1s linear" />
+                  </Card>
+                </a>
               </article>
             </div>
+
+            <Modal 
+                title={this.state.offercontent && this.state.offercontent} 
+                wrapClassName="vertical-center-modal" 
+                visible={this.state.modalVisible}  
+                onOk={() => this.setModalVisible(false)} 
+                onCancel={() => this.setModalVisible(false)}> 
+                <Center>
+                  <ModalImage src={`${config.s3.URL}/500x500/${this.state.offerimage}`} placeholder={offerImg} transition="all 1s linear"  />
+                </Center>   
+            </Modal>
 
             <div className="tile is-parent">
               <article className="tile is-child box">
                 <Card title="Наши новости" bordered="false">
                   <Carousel effect="fade" autoplaySpeed={5000}>
-                    <div><img alt="" src='https://s3.eu-central-1.amazonaws.com/bakery-uploads/offer.JPG'/></div>
+                    <div><img alt="" src={`${config.s3.UPLOADS_BUCKET_URL}/offer.JPG`}/></div>
                   </Carousel>
                 </Card>
               </article>

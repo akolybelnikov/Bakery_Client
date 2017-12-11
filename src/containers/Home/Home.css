@@ -102,3 +102,15 @@ input:-ms-input-placeholder {
 .box {
     background: #EAE2C8;
 }
+
+.ant-modal-footer {
+    visibility: hidden;
+}
+
+.ant-modal-header {
+    text-align: center;
+}
+
+.ant-modal-title {
+    color: #52082D;
+}
