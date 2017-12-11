@@ -155,8 +155,8 @@ class ProductForm extends React.Component {
         const priceError = isFieldTouched('price') && getFieldError('price');
         const weightError = isFieldTouched('weight') && getFieldError('weight');
         return (
-            <Col xs={{span: 14, offset: 5}} md={{ span: 12, offset: 6 }} lg={{ span: 10, offset: 7 }}>
-                <Center style={{'margin': '20px 0'}}><p className="is-size-6-mobile is-size-5-tablet has-text-dark title">Изменить продукт</p></Center>
+            <Col xs={{span: 20, offset: 2}} md={{ span: 18, offset: 3 }} lg={{ span: 14, offset: 5 }}>
+                <Center style={{margin: '20px 0'}}><p style={{color: "#331507"}} className="is-size-6-mobile is-size-5-tablet title">Внесите изменения или удалите продукт из категории.</p></Center>
                 <Center>
                     <div style={{width: "100%"}} >
                         <Form onSubmit={this.handleSubmit}>
@@ -203,16 +203,16 @@ class ProductForm extends React.Component {
                             <figure>
                                 <img alt="" src={previewImage} />
                             </figure>
-                            <FormItem >
+                            <FormItem>
                                 <Upload onRemove={this.handleCancel} {...props}>
-                                    <Button className="button is-info is-outlined"><Icon type="upload" />Изменить изображение</Button>
+                                    <Button className="button is-info"><Icon type="upload" />Изменить изображение</Button>
                                 </Upload>
                             </FormItem>
                             <FormItem>
-                                <LoaderButton style={{width: "100%", color: "black"}} className="button is-warning" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Сохранить изменения" loadingText="Logging in ..." />
+                                <LoaderButton style={{width: "100%"}} className="button is-warning is-inverted" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Сохранить изменения" loadingText="Logging in ..." />
                             </FormItem>
                         </Form>
-                        <LoaderButton style={{width: "100%"}} className="button is-danger is-outlined" loading={this.state.deleting} text="Удалить продукт" loadingText="Deleting ..." 
+                        <LoaderButton style={{width: "100%"}} className="button is-danger" loading={this.state.deleting} text="Удалить продукт" loadingText="Deleting ..." 
                         onClick={this.handleDelete}/>
                     </div>
                 </Center>

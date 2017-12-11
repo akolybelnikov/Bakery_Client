@@ -1,7 +1,16 @@
 import React from "react";
-import { Row, Icon } from 'antd';
+import { Link } from "react-router-dom";
+import { Icon, Divider, Breadcrumb, Row } from 'antd';
+import styled from 'styled-components'
 import { invokeOpenApi } from "../../libs/awsLib";
 import ProductForm from "./ProductForm";
+
+const BreadCrumbs = styled(Row)`
+    margin-top: 20px;
+    @media only screen and (max-width: 480px) {
+        margin-top: 35px;
+    }
+`;
 
 export default class UpdateProduct extends React.Component {
     constructor(props) {
@@ -35,10 +44,17 @@ export default class UpdateProduct extends React.Component {
     render() {
         return this.state.product && 
             <div>
-                <Row style={{marginTop: "10px"}}>
+                <Row className="is-hidden-tablet" style={{marginTop: "10px"}}>
                     <Icon onClick={this.props.history.goBack} className="icon-back" type="left" />
                 </Row>
-                <Row>
+                <BreadCrumbs className="is-hidden-mobile">
+                    <Breadcrumb separator=">">
+                        <Breadcrumb.Item><Link to="/admin">Управление</Link></Breadcrumb.Item>
+                        <Breadcrumb.Item><Link to={`/admin/${this.props.match.params.category}`}>{this.props.match.params.category === "bread" ? "Хлеб и булки" : this.props.match.params.category === "coffee" ?  "Кофе и другие напитки" : this.props.match.params.category === "cakes" ? "Кондитерские изделия" : "Торты на заказ"}</Link></Breadcrumb.Item>
+                        <Breadcrumb.Item>{this.state.product && this.state.product.productName}</Breadcrumb.Item>
+                    </Breadcrumb>
+                </BreadCrumbs>
+                <Row style={{marginBottom: "30px"}}>
                     <ProductForm history={this.props.history} product={this.state.product}/>
                 </Row>
             </div>

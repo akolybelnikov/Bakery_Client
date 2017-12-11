@@ -47,7 +47,6 @@ class NewProduct extends Component {
         try {
             const uploadedFileLocation = this.file ? (await s3Upload(this.file)).Location : null;
             const uploadedFileName = uploadedFileLocation.split('/')[3];
-            console.log(uploadedFileName);
             await this.props.form.validateFields((err, values) => {
                 if (!err) {
                     this.createProduct({
@@ -65,7 +64,7 @@ class NewProduct extends Component {
 
         } catch (e) {
             console.log(e);
-            alert("Ошибка при загрузке изображения. продукт не создан.");
+            alert("Ошибка при загрузке изображения. Продукт не создан.");
             this.setState({ loading: false });
         } 
 

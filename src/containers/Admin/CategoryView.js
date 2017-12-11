@@ -94,13 +94,17 @@ export default class CategoryView extends React.Component {
     render() {
         return (
             <div>
-                <BreadCrumbs>
+                <Row className="is-hidden-tablet" style={{marginTop: "10px"}}>
+                    <Icon onClick={this.props.history.goBack} className="icon-back" type="left" />
+                </Row>
+                <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/admin">Управление</Link></Breadcrumb.Item>
                         <Breadcrumb.Item>{this.props.match.params.category === "bread" ? "Хлеб и булки" : this.props.match.params.category === "coffee" ?  "Кофе и другие напитки" : this.props.match.params.category === "cakes" ? "Кондитерские изделия" : "Торты на заказ"}</Breadcrumb.Item>
                     </Breadcrumb>
                 </BreadCrumbs>
                 <Row style={{marginTop: "20px"}}>
+                    <p style={{color: "#331507"}} className="is-size-7-mobile is-size-6-tablet">Выберите продукт.</p>
                     {this.state.products && this.renderProducts(this.state.products)}
                 </Row>
             </div>
