@@ -44,35 +44,8 @@
     }
 }
 
-.ant-carousel .slick-slider {
-    text-align: center;
-    height: 200px;
-    line-height: 200px;
-    background: #331507;
-    overflow: hidden;
-  }
+@media only screen and (max-width: 460px) {
 
-  .ant-carousel .slick-slide {
-    text-align: center;
-    height: 200px;
-    line-height: 200px;
-    background: #331507;
-    overflow: hidden;
-  }
-
-  .slick-track {
-      max-width: 150px !important;
-  }
-  
-  .ant-carousel .slick-slide h3 {
-    color: #fff;
-  }
-
-  @media only screen and (max-width: 460px) {
-    .ant-carousel .slick-slider {
-        height: 90px;
-        line-height: 90px;
-    }
     .ant-card-head {
         line-height: 22px;
         height: 22px;
@@ -80,6 +53,10 @@
 
     .button {
         font-size: .8em
+    }
+
+    .box {
+        padding: 0.5rem;
     }
 } 
 

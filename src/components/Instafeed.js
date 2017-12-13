@@ -10,7 +10,7 @@ const Image = styled(ProgressiveImage)`
     background-size: cover;
     background-position: center center;
     @media only screen and (max-width: 480px) {
-        min-height: 100px;
+        min-height: 65px;
     } 
 `
 const bgImg = require(`../public/bg.jpg`);
@@ -47,7 +47,7 @@ export default class Instafeed extends React.Component {
     renderPosts(posts) {
         return posts.map(
             (post) => 
-            <Col key={post.key} xs={12} sm={6}>
+            <Col key={post.key} xs={6}>
                 <div className="card" style={{padding: "5px"}}>
                     <div className="card-image">
                         <Image placeholder={bgImg} src={post.url} transition="all 1s linear" />

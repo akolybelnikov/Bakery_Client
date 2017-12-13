@@ -111,7 +111,7 @@ class NewProduct extends Component {
         const weightError = isFieldTouched('weight') && getFieldError('weight');
         return (
             <div>
-                <Row style={{marginTop: "10px"}}><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></Row>
+                <Row className="is-hidden-tablet" style={{marginTop: "10px"}}><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></Row>
                 <Center style={{marginBottom: '20px', marginTop: "10px"}}><p className="is-size-5-tablet is-size-6-mobile title">Создать новый продукт</p></Center>
                 <Row>
                     <Col xs={{ span: 22, offset: 1 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }} >

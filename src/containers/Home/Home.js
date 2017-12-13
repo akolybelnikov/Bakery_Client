@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Card, Carousel, Modal } from 'antd';
+import { Card, Modal, Row, Col } from "antd";
 import config from "../../config";
 import { invokeOpenApi } from "../../libs/awsLib";
-import styled, { keyframes } from 'styled-components';
-import { bounceInUp } from 'react-animations';
-import ProgressiveImage from 'react-progressive-bg-image';
-import Instafeed from '../../components/Instafeed';
-import Center from 'react-center';
+import styled, { keyframes } from "styled-components";
+import { bounceInUp } from "react-animations";
+import ProgressiveImage from "react-progressive-bg-image";
+import Instafeed from "../../components/Instafeed";
+import Center from "react-center";
 import "./Home.css";
 
 const bounceAnimation = keyframes`${bounceInUp}`;
@@ -22,13 +22,11 @@ const Background = styled(ProgressiveImage)`
   height: 550px;
   @media only screen and (max-width: 480px) {
     height: 267px;
-    background-size: cover;
     background-position: top;
     background-color: white;
   } 
   @media only screen and (max-width: 1024px) and (min-width: 480px) {
     height: 500px;
-    background-size: cover;
     background-position: top;
     background-color: white;
   } 
@@ -50,7 +48,16 @@ const ModalImage = styled(ProgressiveImage)`
   @media only screen and (max-width: 480px) {
     width: 300px;
     height: 300px;
-    background-size: cover;
+    background-position: top;
+  }
+`
+
+const NewsImage = styled(ProgressiveImage)`
+  background-size: cover;
+  background-position: center;
+  height: 200px;
+  @media only screen and (max-width: 480px) {
+    min-height: 65px;
     background-position: top;
   }
 `
@@ -63,6 +70,7 @@ export default class Home extends Component {
     this.state = {
       offerimage: '',
       offercontent: '',
+      news: [],
       image: `${config.s3.UPLOADS_BUCKET_URL}/bg-home.jpg`,
       modalVisible: false
     }
@@ -71,11 +79,26 @@ export default class Home extends Component {
   async componentDidMount() {
 
     try {
+
       const offers = await this.getOffers();
       const offer = offers[offers.length - 1];
+
       this.setState({ 
         offerimage: offer.image,
         offercontent: offer.content
+       });
+
+      const news = [];
+      const fetchedNews = await this.getNews();
+      fetchedNews.reverse();
+      for (let i = 0; i < 5; i++) {
+        if (fetchedNews[i] !== undefined) {
+          news.push(fetchedNews[i]);
+        }
+      }
+
+      this.setState({ 
+        news: news
        });
     } catch (e) {
       console.log(e);
@@ -84,6 +107,22 @@ export default class Home extends Component {
 
   getOffers() {
       return invokeOpenApi({ path: "/offers"});
+  }
+
+  getNews() {
+      return invokeOpenApi({ path: "/news"});
+  }
+
+  renderNews(news) {
+    return news.map(
+      (newsitem) => 
+        <div key={newsitem.newsId}>
+ 
+            <NewsImage src={`${config.s3.URL}/250x250/${newsitem.image}`} placeholder={offerImg} transition="all 1s linear"/>
+         
+         
+        </div>
+    )
   }
 
   setModalVisible(modalVisible) {
@@ -129,9 +168,9 @@ export default class Home extends Component {
             <div className="tile is-parent">
               <article className="tile is-child box">
                 <Card title="Наши новости" bordered="false">
-                  <Carousel effect="fade" autoplaySpeed={5000}>
-                    <div><img alt="" src={`${config.s3.UPLOADS_BUCKET_URL}/offer.JPG`}/></div>
-                  </Carousel>
+               
+                      {this.state.news && this.renderNews(this.state.news)}
+                 
                 </Card>
               </article>
             </div>

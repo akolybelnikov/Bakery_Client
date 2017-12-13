@@ -22,7 +22,7 @@ function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
-class NewOffer extends React.Component {
+class NewsForm extends React.Component {
     constructor(props) {
         super(props);
 
@@ -55,7 +55,7 @@ class NewOffer extends React.Component {
             const uploadedFileName = uploadedFileLocation.split('/')[3];
             await this.props.form.validateFields((err, values) => {
                 if (!err) {
-                    this.createOffer({
+                    this.createNews({
                         content: values['content'],
                         attachment: uploadedFileLocation,
                         image: uploadedFileName
@@ -76,6 +76,19 @@ class NewOffer extends React.Component {
         this.props.form.validateFields();
     }
 
+    handleCancel = () => {
+        this.file = null;
+        this.setState({ previewImage: '' });
+    }
+
+    createNews(news) {
+        return invokeApig({
+            path: "/news",
+            method: "POST",
+            body: news
+        });
+    }
+
     openNotification = () => {
         notification.open({
           message: 'Всё прошло успешно!',
@@ -83,19 +96,6 @@ class NewOffer extends React.Component {
           icon: <Icon type="smile-circle" style={{ color: "#52082D" }} />,
         });
     };
-
-    handleCancel = () => {
-        this.file = null;
-        this.setState({ previewImage: '' });
-    }
-
-    createOffer(offer) {
-        return invokeApig({
-            path: "/offers",
-            method: "POST",
-            body: offer
-        });
-    }
 
     render() {
         const { previewImage } = this.state;
@@ -121,10 +121,10 @@ class NewOffer extends React.Component {
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/admin">Управление</Link></Breadcrumb.Item>
-                        <Breadcrumb.Item>Новое спецредложение</Breadcrumb.Item>
+                        <Breadcrumb.Item>Актуальная новость</Breadcrumb.Item>
                     </Breadcrumb>
                 </BreadCrumbs>
-                <Center style={{marginBottom: '20px', marginTop: '20px'}}><p className="is-size-5-tablet is-size-6-mobile title">Создать новое спецпредложение</p></Center>
+                <Center style={{marginBottom: '20px', marginTop: '20px'}}><p className="is-size-5-tablet is-size-6-mobile title">Загрзить актуальную новость</p></Center>
                 <Row>
                     <Col xs={{ span: 22, offset: 1 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }} >
                         <Center>
@@ -132,9 +132,9 @@ class NewOffer extends React.Component {
                                 <Form onSubmit={this.handleSubmit}>
                                     <FormItem validateStatus={contentError ? 'error' : ''} help={contentError || ''}>
                                         {getFieldDecorator('content', {
-                                            rules: [{ required: true, message: 'Внесите описание спецпредложения' }],
+                                            rules: [{ required: true, message: 'Внесите описание' }],
                                         })(
-                                            <TextArea type="string" rows={4} placeholder="Описание спецпредложения" />
+                                            <TextArea type="string" rows={4} placeholder="Описаниe" />
                                         )}
                                     </FormItem>
                                     <figure>
@@ -146,7 +146,7 @@ class NewOffer extends React.Component {
                                         </Upload>
                                     </FormItem>
                                     <FormItem>
-                                        <LoaderButton style={{width: "100%"}} type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Сохранить спецпредложение" loadingText="Logging in ..." />
+                                        <LoaderButton style={{width: "100%"}} type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Сохранить" loadingText="Logging in ..." />
                                     </FormItem>
                                 </Form>
                             </div>
@@ -160,4 +160,4 @@ class NewOffer extends React.Component {
 
 }
 
-export default Form.create()(NewOffer);
+export default Form.create()(NewsForm);

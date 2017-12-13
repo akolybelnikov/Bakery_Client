@@ -163,7 +163,7 @@ export async function invokeOpenApi({
 }) {
 
     body = body ? JSON.stringify(body) : body;
-
+    console.log(path);
     const results = await fetch(config.apiGateway.URL + path, {
         method,
         headers,
