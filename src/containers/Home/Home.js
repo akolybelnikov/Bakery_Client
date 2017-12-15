@@ -45,6 +45,7 @@ const ModalImage = styled(ProgressiveImage)`
   background-size: cover;
   background-position: center;
   height: 500px;
+  width: 500px;
   @media only screen and (max-width: 480px) {
     width: 300px;
     height: 300px;

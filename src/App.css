@@ -50,11 +50,15 @@
 }
 
 .ant-menu-horizontal > .ant-menu-item > a {
-  color: #52082D
+  color: #331507
 }
 
 .ant-menu-horizontal > .ant-menu-item > a:hover, .ant-menu-horizontal > .ant-menu-item-selected > a {
-  color: #52082D
+  color: #331507
+}
+
+.ant-menu {
+  font-size: 1.1rem;
 }
 
 .ant-input-affix-wrapper .ant-input-suffix {
