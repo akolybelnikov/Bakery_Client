@@ -8,7 +8,10 @@ import styled from 'styled-components';
 const Image = styled(ProgressiveImage)`
     min-height: 150px;
     background-size: cover;
-    background-position: center center;
+    background-position: center top;
+    @media only screen and (max-width: 1300px) {
+        min-height: 125px;
+    }
     @media only screen and (max-width: 480px) {
         min-height: 65px;
     } 
@@ -30,6 +33,7 @@ export default class Instafeed extends React.Component {
        try {
            await axios.get(`https://api.instagram.com/v1/users/${config.instagram.REACT_APP_INSTAGRAM_USER_ID}/media/recent/?access_token=${config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN}&&count=4`)
                 .then(res => {
+                    console.log(res);
                     const posts = res.data.data.map(post => post.images.thumbnail);
                     for (let i = 0; i < posts.length; i++) {
                         posts[i]['key'] = i;

@@ -19,7 +19,6 @@
     "react-progressive-image": "^0.2.0",
     "react-router-dom": "4.2.2",
     "react-scripts": "1.0.14",
-    "react-slick": "^0.16.0",
     "styled-components": "^2.2.2"
   },
   "scripts": {
