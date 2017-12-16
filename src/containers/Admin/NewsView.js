@@ -47,7 +47,7 @@ const columns = [{
 
 
 
-export default class CategoryView extends React.Component {
+export default class NewsView extends React.Component {
 
     constructor(props) {
         super(props);

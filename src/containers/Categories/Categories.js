@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Row, Col, Card, Breadcrumb } from 'antd';
+import { Row, Col, Card, Breadcrumb, Icon } from 'antd';
 import "./Categories.css";
 import styled, { keyframes } from 'styled-components';
 import { bounceIn } from 'react-animations';
@@ -11,9 +11,7 @@ const bounceAnimation = keyframes`${bounceIn}`;
 
 const BreadCrumbs = styled(Row)`
     color: #331507;
-    @media only screen and (max-width: 480px) {
-        margin-top: 35px;
-    }
+    margin-top: 35px;
 `;
 
 const CategoryCard = styled(Col)`
@@ -80,7 +78,8 @@ export default class Categories extends Component {
     render() {
         return (
            <div>
-                <BreadCrumbs>
+                <Row className="is-hidden-tablet" style={{marginTop: "10px"}}><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></Row>
+                <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/">Новинки</Link></Breadcrumb.Item>
                         <Breadcrumb.Item>Ассортимент</Breadcrumb.Item>

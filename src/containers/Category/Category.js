@@ -14,17 +14,15 @@ const ProductsRow = styled(Row)`
 `;
 
 const BreadCrumbs = styled(Row)`
-    @media only screen and (max-width: 480px) {
-        margin-top: 35px;
-    }
+    margin-top: 35px;
 `;
 
 const ProductImage = styled(ProgressiveImage)`
     background-size: cover;
-    background-position: center;
+    background-position: top left;
     min-height: 200px;
     @media only screen and (max-width: 480px) {
-        min-height: 160px;
+        min-height: 100px;
     }
 `
 
@@ -60,7 +58,7 @@ export default class Product extends React.Component {
     renderProducts(products) {
         return products.map(
             (product) =>
-            <Col key={product.productId} xs={12} sm={6} xl={6}>
+            <Col key={product.productId} xs={8} sm={6} xl={6}>
                 <Card style={{ cursor: 'pointer'}}              
                     href={`/products/${this.props.match.params.category}/${product.productId}`}
                     onClick={this.handleProductClick}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Icon, Input, Upload, Button, Select, Row, Col } from 'antd';
+import { Form, Icon, Input, Upload, Button, Select, Row, Col, notification } from 'antd';
 import Center from 'react-center';
 import config from "../../config";
 import LoaderButton from "../../components/LoaderButton";
@@ -58,6 +58,7 @@ class NewProduct extends Component {
                         attachment: uploadedFileLocation,
                         image: uploadedFileName
                     });
+                    this.openNotification();
                     this.props.history.push("/admin");
                 }
             });
@@ -86,6 +87,14 @@ class NewProduct extends Component {
             body: product
         });
     }
+
+    openNotification = () => {
+        notification.open({
+          message: 'Всё прошло успешно!',
+          description: 'Загрузка завершена.',
+          icon: <Icon type="smile-circle" style={{ color: "#52082D" }} />,
+        });
+    };
 
     render() {
         const { previewImage } = this.state;

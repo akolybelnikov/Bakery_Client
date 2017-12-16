@@ -36,9 +36,7 @@ const ProductCard = styled(Card)`
     animation: 1s ${zoomInAnimation};
 `;
 const Breadcrumbs = styled(Row)`
-    @media only screen and (max-width: 768px) {
-        margin-top: 35px;
-    }
+    margin-top: 35px;
 `;
 
 export default class Product extends Component {
@@ -63,7 +61,7 @@ export default class Product extends Component {
     }
 
     getProduct() {
-        return invokeOpenApi({ path: `/products/${this.props.match.params.id}` });
+        return invokeOpenApi({ path: `/products/${this.props.match.params.id}/${this.props.location.pathname.split('/')[2]}` });
     }
 
     getContent() {

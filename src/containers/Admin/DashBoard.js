@@ -22,6 +22,9 @@ export default class AdminDashBoard extends React.Component {
             }, {
                 title: "Торты на заказ",
                 key: 'order'
+            }, {
+                title: "Новости",
+                key: 'news'
             }]
         };
     }

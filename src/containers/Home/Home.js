@@ -15,21 +15,12 @@ const bounceInAnimation = keyframes`${bounceIn}`;
 const bgImg = require(`../../public/bg.jpg`);
 const offerImg = require(`../../public/offer-min.jpg`);
 
-const Background = styled(ProgressiveImage)`
-  background-size: cover;
-  background-position: center center;
-  background-color: lightgrey;
-  height: 550px;
-  @media only screen and (max-width: 480px) {
-    height: 267px;
-    background-position: top;
-    background-color: white;
-  } 
-  @media only screen and (max-width: 1024px) and (min-width: 480px) {
-    height: 500px;
-    background-position: top;
-    background-color: white;
-  } 
+const { Meta } = Card;
+
+const ImageCard = styled(ProgressiveImage)`
+  background-size: contain;
+  background-position: right;
+  height: 250px;
 `
 const OfferCard = styled(ProgressiveImage)`
   background-size: cover;
@@ -54,14 +45,16 @@ const ModalImage = styled(ProgressiveImage)`
 `
 
 const NewsImage = styled(ProgressiveImage)`
+  padding-left: 5px;
   background-size: cover;
   background-position: center;
   min-width: 200px;
   min-height: 200px;
   @media only screen and (max-width: 480px) {
-    min-width: 65px;
-    min-height: 65px;
+    min-width: 75px;
+    min-height: 75px;
     background-position: top;
+    padding-left: 20px;
   }
 `
 const CategoryCard = styled(Col)`
@@ -96,8 +89,8 @@ export default class Home extends Component {
 
     try {
 
-      const offers = await this.getOffers();
-      const offer = offers[offers.length - 1];
+      const result = await this.getOffer();
+      const offer = result[result.length - 1];
       this.setState({ 
         offerimage: offer.image,
         offercontent: offer.content
@@ -132,7 +125,7 @@ export default class Home extends Component {
     return categories.map(
       (category) =>
         <CategoryCard key={category.categoryId} href={`/products/${category.categoryName}`} onClick={this.handleCategoryClick} xs={6}>
-          <Card id="category" title={category.categoryId == 1 ? "Хлеб" : category.categoryId == 2 ? "Кофе" : category.categoryId == 3 ? "Выпечка" : "Торты"}>
+          <Card hoverable id="category" title={category.categoryId == 1 ? "Хлеб" : category.categoryId == 2 ? "Кофе" : category.categoryId == 3 ? "Выпечка" : "Торты"}>
             <CategoryImage 
               placeholder={bgImg} 
               src={`${config.s3.URL}/250x250/${category.attachment.split('/')[4]}`} transition="all 1s linear" />
@@ -146,8 +139,13 @@ export default class Home extends Component {
       this.props.history.push(event.currentTarget.getAttribute("href"));
   }
 
-  getOffers() {
+  getOffer() {
       return invokeOpenApi({ path: "/offers"});
+  }
+
+  renderOffer() {
+    if (this.state.offercontent && this.state.offerimage) 
+      return <OfferCard src={`${config.s3.URL}/250x250/${this.state.offerimage}`} placeholder={offerImg} transition="all 1s linear" />;
   }
 
   getNews() {
@@ -158,10 +156,10 @@ export default class Home extends Component {
     if (this.state.news) 
       return news.map(
         (newsitem) => 
-          <article className="media" key={newsitem.newsId}>  
-            <NewsImage className="media-left" src={`${config.s3.URL}/250x250/${newsitem.image}`} placeholder={offerImg} transition="all 1s linear"/>
-            <div className="media-content"><div className="content">{newsitem.content}</div></div>
-          </article>
+          <Row key={newsitem.newsId} style={{paddingLeft: "10px", paddingBottom: "10px"}}>  
+            <Col style={{paddingLeft: "10px"}} xs={6}><NewsImage className="media-left" src={`${config.s3.URL}/250x250/${newsitem.image}`} placeholder={offerImg} transition="all 1s linear"/></Col>
+            <Col xs={{ span: 18 }}><p className="news-card-content" style={{textAlign: "center", paddingLeft: "5px"}}>{newsitem.content}</p></Col>
+          </Row>
       )
   }
 
@@ -183,7 +181,7 @@ export default class Home extends Component {
               <div className="tile is-child box">
                 <a onClick={() => {this.setModalVisible(true)}}>
                   <Card title="Спецпредложение">
-                    <OfferCard src={`${config.s3.URL}/250x250/${this.state.offerimage}`} placeholder={offerImg} transition="all 1s linear" />
+                    {this.renderOffer()}
                   </Card>
                 </a>
               </div>
@@ -201,9 +199,9 @@ export default class Home extends Component {
           </Modal>
         </div>
         <div className="tile is-ancestor">
-          <div className="tile is-parent is-4 is-hidden-mobile">
+          <div className="tile is-parent is-3 is-hidden-mobile">
             <article className="tile is-child box">
-              <Background src={this.state.image} placeholder={bgImg} transition="all 1s linear" />  
+              <ImageCard src={this.state.image} placeholder={bgImg} transition="all 1s linear" />  
             </article>
           </div>
           <div className="tile is-vertical is-parent">
@@ -214,12 +212,14 @@ export default class Home extends Component {
                 </Instacard>
               </a> 
             </article>
-            <div className="tile is-child box">
-              <Card title="Наши новости" bordered="false">            
-                {this.renderNews(this.state.news) }           
-              </Card>
-            </div>
           </div>
+        </div>
+        <div style={{marginBottom: "20px", background: "#EAE2C8", padding: ".7rem"}}>
+          <Card style={{cursor: "pointer"}} title="Наши новости" bordered="false">            
+            <Carousel autoplay autoplaySpeed={5000}>
+              {this.state.news && this.renderNews(this.state.news)}
+            </Carousel>           
+          </Card>
         </div>
       </div>
     );

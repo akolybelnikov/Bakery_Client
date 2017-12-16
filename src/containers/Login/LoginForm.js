@@ -77,7 +77,7 @@ class LoginForm extends Component {
                 <Center><p className="is-size-7-mobile is-size-5-tablet has-text-grey title Admin">Войти как администратор</p></Center>
                 <Center>
                     <div className="Form">
-                        <Form onSubmit={this.handleSubmit}>
+                        <Form style={{ width: "250px"}} onSubmit={this.handleSubmit}>
                             <FormItem validateStatus={userNameError ? 'error' : ''} help={userNameError || ''}>
                                 {getFieldDecorator('userName', {
                                     rules: [{ required: true, message: 'Please provide your email' }],

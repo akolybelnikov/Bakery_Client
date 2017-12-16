@@ -38,7 +38,7 @@ export default class UpdateProduct extends React.Component {
     }
 
     getProduct() {
-        return invokeOpenApi({ path: `/products/${this.props.match.params.id}` });
+        return invokeOpenApi({ path: `/products/${this.props.match.params.id}/${this.props.location.pathname.split('/')[2]}` });
     }
 
     render() {
@@ -55,7 +55,7 @@ export default class UpdateProduct extends React.Component {
                     </Breadcrumb>
                 </BreadCrumbs>
                 <Row style={{marginBottom: "30px"}}>
-                    <ProductForm history={this.props.history} product={this.state.product}/>
+                    <ProductForm location={this.props.location.pathname.split('/')[2]} history={this.props.history} product={this.state.product}/>
                 </Row>
             </div>
     }

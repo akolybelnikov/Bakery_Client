@@ -101,10 +101,62 @@ input:-ms-input-placeholder {
     #category .ant-card-head-title {
         font-size: .9rem;
     }
+
+    .news-card-content {
+        font-size: 18px;
+        color: #331507;
+    }
+
+    .ant-carousel .slick-slide {
+        text-align: center;
+        height: 200px;
+        line-height: 200px;
+        overflow: hidden;
+    }
+    
+    .slick-list {
+        height: 200px;
+        line-height: 200px;
+    }
+}
+
+.tile.is-ancestor:first-child { 
+    margin-top: 1.5rem;
+    margin-bottom: 0;
 }
 
 @media only screen and (max-width: 480px) {
     #category .ant-card-head-title {
         font-size: .7rem;
     }
+
+    #category .ant-card-head {
+        line-height: 16px;
+        height: 16px;
+        min-height: 22px;
+    }
+
+    .ant-card-head { 
+        line-height: 16px;
+        height: 16px;
+        min-height: 24px;
+    }
+
+    .ant-card {
+        margin: 5px 1px;
+    }
+
+    .tile.is-ancestor:last-child { 
+        margin-top: -2rem;
+        margin-bottom: 0;
+    }
+
+    .ant-card-head-title {
+        padding: 0;
+    }
 }
+
+.ant-carousel .slick-dots li.slick-active button, .ant-carousel .slick-dots li button {
+    background: #52082D;
+}
+

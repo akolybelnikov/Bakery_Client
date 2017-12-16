@@ -15,6 +15,8 @@ import AdminDashBoard from "./containers/Admin/DashBoard";
 import CategoryView from "./containers/Admin/CategoryView";
 import NewOffer from "./containers/Admin/NewOffer";
 import NewsForm from "./containers/Admin/NewsForm";
+import NewsView from "./containers/Admin/NewsView";
+import UpdateNews from "./containers/Admin/UpdateNews";
 import NotFound from "./containers/NotFound";
 
 export default ({ childProps }) =>
@@ -31,6 +33,8 @@ export default ({ childProps }) =>
     <AuthenticatedRoute path="/create" component={NewProduct} props={childProps} />
     <AuthenticatedRoute path="/newoffer" component={NewOffer} props={childProps} />
     <AuthenticatedRoute path="/createnews" component={NewsForm} props={childProps} />
+    <AuthenticatedRoute path="/admin/news" exact component={NewsView} props={childProps} />
+    <AuthenticatedRoute path="/updatenews" component={UpdateNews} props={childProps} />
     
     { /* Finally, catch all unmatched routes */ }
     <Route component={NotFound} />

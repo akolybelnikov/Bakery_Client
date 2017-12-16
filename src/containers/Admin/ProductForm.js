@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Icon, Input, Upload, Button, Select, Col } from 'antd';
+import { Form, Icon, Input, Upload, Button, Col } from 'antd';
 import LoaderButton from "../../components/LoaderButton";
 import Center from 'react-center';
 import config from "../../config";
@@ -7,7 +7,6 @@ import { invokeApig, s3Upload, s3Delete } from "../../libs/awsLib";
 
 const FormItem = Form.Item;   
 const {TextArea} = Input;
-const Option = Select.Option;
 
 function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
@@ -27,7 +26,6 @@ class ProductForm extends React.Component {
     }
 
     componentDidMount() {
-        this.props.form.setFieldsValue({category: this.props.product.category});
         this.props.form.setFieldsValue({name: this.props.product.productName});
         this.props.form.setFieldsValue({content: this.props.product.content});
         this.props.form.setFieldsValue({price: this.props.product.price});
@@ -37,9 +35,8 @@ class ProductForm extends React.Component {
     }
 
     saveProduct(product) {
-        console.log(product);
         return invokeApig({
-            path: `/products/${this.props.product.productId}`,
+            path: `/products/${this.props.product.productId}/${this.props.location}`,
             method: "PUT",
             body: product
         });
@@ -71,7 +68,6 @@ class ProductForm extends React.Component {
             await this.props.form.validateFields((err, values) => {
                 if (!err) {
                     this.saveProduct({
-                        category: values['category'],
                         productname: values['name'],
                         content: values['content'],
                         price: values['price'],
@@ -98,7 +94,7 @@ class ProductForm extends React.Component {
 
     deleteProduct() {
         return invokeApig({
-            path: `/products/${this.props.product.productId}`,
+            path: `/products/${this.props.product.productId}/${this.props.location}`,
             method: "DELETE"
         });
     }
@@ -148,8 +144,6 @@ class ProductForm extends React.Component {
             }
         }
         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
-        // Show errors only if a field was touched.
-        const categoryError = isFieldTouched('category') && getFieldError('category');
         const nameError = isFieldTouched('name') && getFieldError('name');
         const contentError = isFieldTouched('content') && getFieldError('content');
         const priceError = isFieldTouched('price') && getFieldError('price');
@@ -160,18 +154,6 @@ class ProductForm extends React.Component {
                 <Center>
                     <div style={{width: "100%"}} >
                         <Form onSubmit={this.handleSubmit}>
-                            <FormItem validateStatus={categoryError ? 'error' : ''} help={categoryError || ''}>
-                                {getFieldDecorator('category', {
-                                    rules: [{ required: true, message: 'Выберите категорию продукта' }],
-                                })(
-                                    <Select placeholder="Категория">
-                                        <Option value="bread">Хлеб и булки</Option>
-                                        <Option value="coffee">Кофе и другие напитки</Option>
-                                        <Option value="cakes">Кондитерские изделия</Option>
-                                        <Option value="order">Торты на заказ</Option>
-                                    </Select>
-                                )}
-                            </FormItem>
                             <FormItem validateStatus={nameError ? 'error' : ''} help={nameError || ''}>
                                 {getFieldDecorator('name', {
                                     rules: [{ required: true, message: 'Внесите название продукта' }],
