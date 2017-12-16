@@ -61,7 +61,7 @@ export default class Product extends Component {
     }
 
     getProduct() {
-        return invokeOpenApi({ path: `/products/${this.props.match.params.id}/${this.props.location.pathname.split('/')[4]}` });
+        return invokeOpenApi({ path: `/products/${this.props.match.params.id}/${this.props.location.pathname.split('/')[2]}` });
     }
 
     getContent() {
