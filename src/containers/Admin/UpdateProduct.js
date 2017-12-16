@@ -38,7 +38,7 @@ export default class UpdateProduct extends React.Component {
     }
 
     getProduct() {
-        return invokeOpenApi({ path: `/products/${this.props.match.params.id}/${this.props.location.pathname.split('/')[2]}` });
+        return invokeOpenApi({ path: `/products/${this.props.match.params.id}/${this.props.location.pathname.split('/')[4]}` });
     }
 
     render() {
