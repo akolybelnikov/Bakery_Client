@@ -126,7 +126,7 @@ export default class Home extends Component {
           <Card hoverable id="category" title={category.categoryId === "1" ? "Хлеб" : category.categoryId === "2" ? "Кофе" : category.categoryId === "3" ? "Выпечка" : "Торты"}>
             <CategoryImage 
               placeholder={bgImg} 
-              src={`${config.s3.URL}/250x250/${category.attachment.split('/')[4]}`} transition="all 1s linear" />
+              src={`${config.s3.URL}/250x250/${category.image}`} transition="all 1s linear" />
           </Card>
         </CategoryCard>
     )
