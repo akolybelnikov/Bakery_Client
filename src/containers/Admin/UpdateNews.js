@@ -1,18 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import styled from 'styled-components'
-import { Form, Icon, Input, Upload, Button, Select, Col, Divider, Breadcrumb, Row } from 'antd';
+import { Form, Icon, Input, Upload, Button, Select, Col } from 'antd';
 import LoaderButton from "../../components/LoaderButton";
 import Center from 'react-center';
 import config from "../../config";
 import { invokeOpenApi, invokeApig, s3Upload, s3Delete } from "../../libs/awsLib";
-
-const BreadCrumbs = styled(Row)`
-    margin-top: 20px;
-    @media only screen and (max-width: 480px) {
-        margin-top: 35px;
-    }
-`;
 
 const FormItem = Form.Item;   
 const {TextArea} = Input;

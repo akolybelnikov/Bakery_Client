@@ -1,27 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Row, Col, Card, Breadcrumb, Popover } from 'antd';
+import { Row, Col, Card, Breadcrumb, Icon } from 'antd';
 import styled, { keyframes } from 'styled-components';
 import { zoomIn } from 'react-animations';
-import ProgressiveImage from 'react-progressive-bg-image';
 import config from "../../config";
 import { invokeOpenApi } from "../../libs/awsLib";
 import "./Product.css";
 
 const zoomInAnimation = keyframes`${zoomIn}`;
-
-const bgImg = require(`../../public/bg.jpg`);
-
-const CardImage = styled(ProgressiveImage)`
-    background-size: cover;
-    background-position: center top;
-    min-height: 460px;
-    @media only screen and (max-width: 480px) {
-        background-size: cover;
-        background-position: top;
-        min-height: 250px;
-    } 
-`;
 
 const ProductRow = styled(Row)`
     @media only screen and (max-width: 480px) {
@@ -76,9 +62,6 @@ export default class Product extends Component {
         return(
             <Col xs={{ span: 20, offset: 2 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }} >
                 <ProductCard title={product && product.productName}>
-                    <Popover placement="top" content={this.getContent()} trigger="click">
-                        <CardImage src={product && `${config.s3.URL}/650x650/${product.image}`} placeholder={bgImg} transition="all 1s linear"/>
-                    </Popover>
                     <div>
                         <p style={{textAlign: 'center', color: '#52082D'}} className="is-size-6-desktop is-size-7-mobile">{product.content}</p>
                     </div>
@@ -96,7 +79,7 @@ export default class Product extends Component {
     render() {
         return (
             <div>
-                <Row className="is-hidden-tablet" style={{marginTop: "10px"}}><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></Row>
+                <Row style={{marginTop: "10px"}}><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></Row>
                 <Breadcrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/">Новинки</Link></Breadcrumb.Item>

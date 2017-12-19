@@ -1,11 +1,11 @@
 import React from 'react';
-import { Form, Icon, Input, Upload, Button, Row, Col, Divider, Breadcrumb, notification } from 'antd';
+import { Form, Icon, Input, Upload, Button, Row, Col, Breadcrumb, notification } from 'antd';
 import { Link } from "react-router-dom";
 import styled from 'styled-components'
 import config from "../../config";
 import LoaderButton from "../../components/LoaderButton";
 import Center from 'react-center';
-import { invokeApig, s3Upload, invokeOpenApi } from "../../libs/awsLib";
+import { invokeApig, s3Upload } from "../../libs/awsLib";
 import "./Admin.css";
 
 const BreadCrumbs = styled(Row)`

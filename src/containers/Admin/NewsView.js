@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Table, Icon, Divider, Breadcrumb, Row } from 'antd';
+import { Table, Icon, Breadcrumb, Row } from 'antd';
 import styled from 'styled-components';
 import config from "../../config";
 import { invokeOpenApi } from "../../libs/awsLib";

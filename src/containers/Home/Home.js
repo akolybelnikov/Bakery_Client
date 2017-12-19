@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Modal, Row, Col, Carousel, Divider } from "antd";
+import { Card, Modal, Row, Col, Carousel } from "antd";
 import config from "../../config";
 import { invokeOpenApi } from "../../libs/awsLib";
 import styled, { keyframes } from "styled-components";
@@ -14,8 +14,6 @@ const bounceInAnimation = keyframes`${bounceIn}`;
 
 const bgImg = require(`../../public/bg.jpg`);
 const offerImg = require(`../../public/offer-min.jpg`);
-
-const { Meta } = Card;
 
 const ImageCard = styled(ProgressiveImage)`
   background-size: contain;
@@ -125,7 +123,7 @@ export default class Home extends Component {
     return categories.map(
       (category) =>
         <CategoryCard key={category.categoryId} href={`/products/${category.categoryName}`} onClick={this.handleCategoryClick} xs={6}>
-          <Card hoverable id="category" title={category.categoryId == 1 ? "Хлеб" : category.categoryId == 2 ? "Кофе" : category.categoryId == 3 ? "Выпечка" : "Торты"}>
+          <Card hoverable id="category" title={category.categoryId === "1" ? "Хлеб" : category.categoryId === "2" ? "Кофе" : category.categoryId === "3" ? "Выпечка" : "Торты"}>
             <CategoryImage 
               placeholder={bgImg} 
               src={`${config.s3.URL}/250x250/${category.attachment.split('/')[4]}`} transition="all 1s linear" />
