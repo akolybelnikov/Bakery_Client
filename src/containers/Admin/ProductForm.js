@@ -21,7 +21,7 @@ class ProductForm extends React.Component {
         this.state = {
             deleting: false,
             loading: false,
-            previewImage: this.props.product.attachment
+            previewImage: `${config.s3.URL}/250x250/${this.props.product.image}`
         };
     }
 
@@ -191,10 +191,10 @@ class ProductForm extends React.Component {
                                 </Upload>
                             </FormItem>
                             <FormItem>
-                                <LoaderButton style={{width: "100%"}} className="button is-warning is-inverted" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Сохранить изменения" loadingText="Logging in ..." />
+                                <LoaderButton style={{width: "100%"}} className="button is-warning is-inverted" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Сохранить изменения" loadingText="Загрузка ..." />
                             </FormItem>
                         </Form>
-                        <LoaderButton style={{width: "100%"}} className="button is-danger" loading={this.state.deleting} text="Удалить продукт" loadingText="Deleting ..." 
+                        <LoaderButton style={{width: "100%"}} className="button is-danger" loading={this.state.deleting} text="Удалить продукт" loadingText="Удаляется ..." 
                         onClick={this.handleDelete}/>
                     </div>
                 </Center>

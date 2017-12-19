@@ -96,7 +96,8 @@ export default class Product extends Component {
     render() {
         return (
             <div>
-                <Breadcrumbs>
+                <Row className="is-hidden-tablet" style={{marginTop: "10px"}}><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></Row>
+                <Breadcrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/">Новинки</Link></Breadcrumb.Item>
                         <Breadcrumb.Item><Link to="/products">Ассортимент</Link></Breadcrumb.Item>

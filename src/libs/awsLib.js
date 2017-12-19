@@ -145,7 +145,6 @@ export async function s3Delete(filename) {
             Bucket: config.s3.BUCKET
         }
     });
-    console.log(s3, filename);
     return s3
         .deleteObject({
             Key: filename

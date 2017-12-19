@@ -19,8 +19,8 @@ export default class UpdateProduct extends React.Component {
         this.file = null;
 
         this.state = {
-            isLoading: null,
-            isDeleting: null,
+            loading: null,
+            deleting: null,
             product: null
         }
 
