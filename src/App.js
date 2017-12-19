@@ -153,7 +153,7 @@ class App extends Component {
             </Header>
             <OuterContent ref={div => this.container = div}>     
               <AffixBounce>
-                <Button style={{ zIndex: 20 }}  type="primary" className="is-size-7-mobile is-size-6"><Icon type="phone" /> 8 (095) 124-53-67</Button>
+                <Button style={{ zIndex: 20 }}  type="primary" className="is-size-7-mobile is-size-6"><Icon type="phone" /> +7 (926) 629 87 26</Button>
               </AffixBounce>
               <InnerContainer><Routes childProps={childProps} /></InnerContainer>
               <footer className="footer is-hidden-mobile">

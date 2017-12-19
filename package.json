@@ -27,7 +27,7 @@
     "test": "react-app-rewired test --env=jsdom",
     "predeploy": "yarn run build",
     "deploy": "aws s3 sync build/ s3://vse-bulochki-tut",
-    "postdeploy": "aws cloudfront create-invalidation --distribution-id EDW4ZEX7KR7BT --paths /* && aws cloudfront create-invalidation --distribution-id E2PED889VH1U9N --paths /*",
+    "postdeploy": "aws cloudfront create-invalidation --distribution-id EDW4ZEX7KR7BT --paths '/*' && aws cloudfront create-invalidation --distribution-id E2PED889VH1U9N --paths '/*'",
     "eject": "react-scripts eject"
   },
   "devDependencies": {

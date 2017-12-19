@@ -79,7 +79,7 @@ export default class Product extends Component {
     render() {
         return (
             <div>
-                <Row style={{marginTop: "10px"}}><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></Row>
+                <Row className="is-hidden-tablet" style={{marginTop: "10px"}}><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></Row>
                 <Breadcrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/">Новинки</Link></Breadcrumb.Item>
@@ -96,6 +96,3 @@ export default class Product extends Component {
     }
 
 }
-
-// 
-// 
