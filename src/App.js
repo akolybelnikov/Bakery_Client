@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
 import { authUser } from "./libs/awsLib";
-import { NavLink, Link, withRouter } from "react-router-dom";
-import { Layout, Menu, Icon, Button, Affix, Input } from 'antd';
+import Header from "./components/Header";
+import { Link, withRouter } from "react-router-dom";
+import { Layout, Icon, Button, Affix } from 'antd';
 import './App.css';
 import Routes from "./Routes";
 import styled, { keyframes } from 'styled-components';
 import { bounceInUp } from 'react-animations';
 
-const logo = require(`./public/mstile-150x150.png`);
-const { Header, Content, Sider } = Layout;
-const Search = Input.Search;
+const { Content } = Layout;
 const bounceAnimation = keyframes`${bounceInUp}`;
 
 const AffixBounce = styled(Affix)`
   animation: 1.5s ${bounceAnimation};
   position: absolute;
   top: 70px;
-  right: 25%;
-  zIndex: 20;
-  @media only screen and (max-width: 480px) {
-    right: 25px;
+  right: 20%;
+  @media only screen and (max-width: 768px) {
+    top: 10px;
+    right: 15%;
   }`;
 
 const Container = styled.div`
@@ -36,8 +35,8 @@ const OuterContent = styled(Content)`
 const InnerContainer = styled.div`
   max-width: 1200px;
   @media only screen and (min-width: 992px) {
-      margin: 10px auto;
-      padding: 20px 100px;
+      margin: 0 auto;
+      padding: 20px 0;
     }
   }  
 `;
@@ -131,31 +130,17 @@ class App extends Component {
     const isLoggedIn = this.state.isAuthenticated;
     return (
       !this.state.isAuthenticating &&
-        <Layout>
-          <Sider style={{ overflow: 'visible', position: 'fixed', left: 10, zIndex: 20, top: 20 }} className="is-hidden-tablet" breakpoint="xl" collapsedWidth="0">
-            <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} theme="light" mode="vertical">
-              <Menu.Item key="0"><NavLink to="/"><Icon type="home" />Новинки</NavLink></Menu.Item>
-              <Menu.Item key="1"><NavLink to="/products"><Icon type="shop" />Наш ассортимент</NavLink></Menu.Item>
-            </Menu>
-          </Sider>            
+        <Layout>           
           <Layout style={{ background: "white" }} >
-            <Header className="header">
-              <Container>
-              <Search placeholder="поиск по сайту" onSearch={value => console.log(value)} />
-                <NavLink onClick={this.handleLogoClick} to="/"><div className="logo"><img className="image is-64x64" src={logo} alt="logo"/></div></NavLink> 
-                <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} className="is-hidden-mobile" theme="light" mode="horizontal" style={{ lineHeight: '64px' }}>
-                  <Menu.Item key="0"><NavLink to="/">Новинки</NavLink></Menu.Item>
-                  <Menu.Item key="1"><NavLink to="/products">Ассортимент</NavLink></Menu.Item>
-                  <Menu.Item key="2"><NavLink to="/about-us">О нас</NavLink></Menu.Item>
-                  <Menu.Item key="3"><NavLink to="/contact">Контакт</NavLink></Menu.Item>
-                </Menu>  
-              </Container>
-            </Header>
+            
             <OuterContent ref={div => this.container = div}>     
               <AffixBounce>
-                <Button style={{ zIndex: 20 }}  type="primary" className="is-size-7-mobile is-size-6"><Icon type="phone" /> +7 (926) 629 87 26</Button>
+                <Button type="primary" className="is-size-7-mobile is-size-6" style={{zIndex: "50"}}><Icon type="phone" /> +7 (926) 629 87 26</Button>
               </AffixBounce>
-              <InnerContainer><Routes childProps={childProps} /></InnerContainer>
+              <InnerContainer>
+                <Header onClick={this.handleClick} selectedKeys={[this.state.current]} />
+                <Routes childProps={childProps} />
+              </InnerContainer>
               <footer className="footer is-hidden-mobile">
                 <div className="container">
                   <div className="content has-text-centered">

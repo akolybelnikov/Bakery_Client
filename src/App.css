@@ -2,51 +2,24 @@
   margin: 20px 0;
 }
 
-.Slogan {
-  color: #E3BF3F;
-}
-
-.header {
-  -webkit-transition: opacity .5s;
-  transition: opacity .5s;
-  background: #fff;
-  padding: 2px 15px 15px 50px;
-  height: 70px;
-}
-
-.image {
-  display: inline;
-}
-
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
-.logo {
-  height: 65px;
-  width: 65px;
-  float: right;
+.navbar-burger.button {
+  color: #52082D;
+  border-color: #52082D;
 }
 
-.ant-layout-sider, .ant-layout-sider-zero-width-trigger, .ant-layout-sider-zero-width-trigger:hover {
-  background: #52082D;
-}
-
-.ant-layout-sider-zero-width-trigger, .ant-layout-sider-zero-width-trigger:hover {
-  top: 0;
-}
-
-.trigger {
-  font-size: 18px;
-  line-height: 64px;
-  padding: 0 16px;
-  cursor: pointer;
+.navbar-burger:hover {
+  background-color: rgba(234,204,178,.5);
   transition: color .3s;
 }
 
-.trigger:hover {
-  color: #52082D;
+.button:focus:not(:active) {
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 .ant-menu-horizontal > .ant-menu-item > a {
@@ -72,9 +45,6 @@
 
 .ant-input-search.ant-input-affix-wrapper {
   width: 200px;
-  position: absolute;
-  right: 20%;
-  top: 20px;
 }
 
 @media only screen and (max-width: 480px) {
@@ -84,12 +54,6 @@
     right: 30%;
   }
 }  
-
-@media only screen and (min-width: 1200px) {
-  .ant-input-search.ant-input-affix-wrapper {
-    right: 40%;
-  }
-} 
 
 .footer {
   background-color: white;
