@@ -1,9 +1,19 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Input } from 'antd';
+import styled from "styled-components";
 
-const Search = Input.Search;
-const logo = require(`../public/mstile-150x150.png`);
+const logo = require(`../public/logo.png`);
+const Logo = styled.img`
+    max-width: 150px;
+    padding-top: 5px;
+    @media only screen and (max-width: 480px) {
+        max-width: 120px;
+    }
+`
+const Search = styled(Input.Search)`
+
+`
 
 export default class Header extends React.Component {
 
@@ -36,6 +46,7 @@ export default class Header extends React.Component {
         return (            
             <nav className="navbar is-fixed-top is-transparent" aria-label="main navigation" style={{zIndex: "30"}}>
                 <div className="navbar-brand">
+                    <NavLink to="/"><Logo className="image is-hidden-tablet navbar-item" src={logo} alt="logo"/></NavLink>
                     <button className="button navbar-burger" data-target="navMenu">
                         <span></span>
                         <span></span>
@@ -50,7 +61,7 @@ export default class Header extends React.Component {
                         <NavLink key="1" className="menu-item" to="/products">Ассортимент</NavLink>
                     </p>
                     <p className="level-item has-text-centered is-hidden-mobile">
-                        <NavLink onClick={this.handleLogoClick} to="/"><img className="image is-64x64" src={logo} alt="logo"/></NavLink> 
+                        <NavLink to="/"><Logo className="image" src={logo} alt="logo"/></NavLink> 
                     </p>
                     <p className="level-item has-text-centered">
                         <NavLink key="2" className="menu-item" to="/contact">Контакт</NavLink>

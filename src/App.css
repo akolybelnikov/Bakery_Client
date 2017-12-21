@@ -22,37 +22,17 @@
   box-shadow: none;
 }
 
-.ant-menu-horizontal > .ant-menu-item > a {
-  color: #331507
-}
-
-.ant-menu-horizontal > .ant-menu-item > a:hover, .ant-menu-horizontal > .ant-menu-item-selected > a {
-  color: #331507
-}
-
-.ant-menu {
-  font-size: 1.1rem;
-}
-
 .ant-input-affix-wrapper .ant-input-suffix {
-  color: #7A6B71;
+  color: #331507;
 }
 
 .ant-input {
-  color: #7A6B71;
-  border: 1px solid #7A6B71;
+  color: #331507;
+  border: 1px solid #331507;
 }
 
 .ant-input-search.ant-input-affix-wrapper {
-  width: 200px;
-}
-
-@media only screen and (max-width: 480px) {
-  .ant-input-search.ant-input-affix-wrapper {
-    width: 150px;
-    position: absolute;
-    right: 30%;
-  }
+  max-width: 200px;
 }  
 
 .footer {

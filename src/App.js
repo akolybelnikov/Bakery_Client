@@ -16,10 +16,19 @@ const AffixBounce = styled(Affix)`
   position: absolute;
   top: 70px;
   right: 20%;
+  `;
+const AffixMobile = styled(Affix)`
+  animation: 1.5s ${bounceAnimation};
+  position: absolute;
+  top: 60px;
+  right: 5%;
+`;
+const PhoneButton = styled(Button)`
+  z-index: 50;
   @media only screen and (max-width: 768px) {
-    top: 10px;
-    right: 15%;
-  }`;
+    z-index: 20;
+  }
+`
 
 const Container = styled.div`
     max-width: 1200px;
@@ -134,9 +143,12 @@ class App extends Component {
           <Layout style={{ background: "white" }} >
             
             <OuterContent ref={div => this.container = div}>     
-              <AffixBounce>
-                <Button type="primary" className="is-size-7-mobile is-size-6" style={{zIndex: "50"}}><Icon type="phone" /> +7 (926) 629 87 26</Button>
+              <AffixBounce className="is-hidden-mobile" offsetTop={105}>
+                <PhoneButton type="primary" className="is-size-6"><Icon type="phone" /> +7 (926) 629 87 26</PhoneButton>
               </AffixBounce>
+              <AffixMobile className="is-hidden-tablet" offsetTop={60}>
+                <PhoneButton type="primary" className="is-size-7"><Icon type="phone" /> +7 (926) 629 87 26</PhoneButton>
+              </AffixMobile>
               <InnerContainer>
                 <Header onClick={this.handleClick} selectedKeys={[this.state.current]} />
                 <Routes childProps={childProps} />

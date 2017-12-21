@@ -12,8 +12,8 @@ import "./Home.css";
 const bounceAnimation = keyframes`${bounceInUp}`;
 const bounceInAnimation = keyframes`${bounceIn}`;
 
-const bgImg = require(`../../public/bg.jpg`);
-const offerImg = require(`../../public/offer-min.jpg`);
+const bgImg = require(`../../public/logo.png`);
+const offerImg = require(`../../public/logo.png`);
 
 const ImageCard = styled(ProgressiveImage)`
   background-size: contain;
