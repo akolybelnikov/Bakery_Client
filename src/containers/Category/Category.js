@@ -7,7 +7,7 @@ import ProgressiveImage from 'react-progressive-bg-image';
 import config from "../../config";
 import "./Category.css";
 
-const bgImg = require(`../../public/bg.jpg`);
+const bgImg = require(`../../public/logo.png`);
 
 const ProductsRow = styled(Row)`
     margin: 5% 0;
@@ -19,7 +19,7 @@ const BreadCrumbs = styled(Row)`
 
 const ProductImage = styled(ProgressiveImage)`
     background-size: cover;
-    background-position: top left;
+    background-position: center center;
     min-height: 200px;
     @media only screen and (max-width: 480px) {
         min-height: 100px;
@@ -64,7 +64,6 @@ export default class Product extends React.Component {
                     onClick={this.handleProductClick}
                     title={product.productName}>
                     <ProductImage src={`${config.s3.URL}/200x200/${product.image}`} placeholder={bgImg} transition="all 1s linear" />
-                    <div>{product.price} руб.</div>
                 </Card>
             </Col>
         )
@@ -78,7 +77,7 @@ export default class Product extends React.Component {
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/">Новинки</Link></Breadcrumb.Item>
                         <Breadcrumb.Item><Link to="/products">Ассортимент</Link></Breadcrumb.Item>
-                        <Breadcrumb.Item>{this.props.match.params.category === "bread" ? "Хлеб и булки" : this.props.match.params.category === "coffee" ?  "Кофе и другие напитки" : this.props.match.params.category === "cakes" ? "Кондитерские изделия" : "Торты на заказ"}</Breadcrumb.Item>
+                        <Breadcrumb.Item><Link className="active-link" to='#'>{this.props.match.params.category === "bread" ? "Хлеб и булки" : this.props.match.params.category === "coffee" ?  "Кофе и другие напитки" : this.props.match.params.category === "cakes" ? "Кондитерские изделия" : "Торты на заказ"}</Link></Breadcrumb.Item>
                     </Breadcrumb>
                 </BreadCrumbs>
                 <ProductsRow>

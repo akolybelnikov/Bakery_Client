@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Icon, Input, Upload, Button, Row, Col, Breadcrumb, notification } from 'antd';
 import { Link } from "react-router-dom";
-import styled from 'styled-components'
+import styled from 'styled-components';
 import config from "../../config";
 import LoaderButton from "../../components/LoaderButton";
 import Center from 'react-center';
@@ -9,10 +9,7 @@ import { invokeApig, s3Upload } from "../../libs/awsLib";
 import "./Admin.css";
 
 const BreadCrumbs = styled(Row)`
-    margin-top: 20px;
-    @media only screen and (max-width: 480px) {
-        margin-top: 35px;
-    }
+    margin-top: 35px;
 `;
 
 const FormItem = Form.Item;   
@@ -121,11 +118,10 @@ class NewsForm extends React.Component {
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/admin">Управление</Link></Breadcrumb.Item>
-                        <Breadcrumb.Item>Актуальная новость</Breadcrumb.Item>
+                        <Breadcrumb.Item><Link className="active-link" to="#">Актуальная новость</Link></Breadcrumb.Item>
                     </Breadcrumb>
                 </BreadCrumbs>
-                <Center style={{marginBottom: '20px', marginTop: '20px'}}><p className="is-size-5-tablet is-size-6-mobile title">Загрзить актуальную новость</p></Center>
-                <Row>
+                <Row style={{marginTop: '35px'}}>
                     <Col xs={{ span: 22, offset: 1 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }} >
                         <Center>
                             <div className="Form">
@@ -138,7 +134,7 @@ class NewsForm extends React.Component {
                                         )}
                                     </FormItem>
                                     <figure>
-                                        <img alt="preview" src={previewImage} />
+                                        <img alt="" src={previewImage} />
                                     </figure>
                                     <FormItem >
                                         <Upload onRemove={this.handleCancel} {...props}>

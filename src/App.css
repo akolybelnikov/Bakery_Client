@@ -7,14 +7,18 @@
   to { transform: rotate(360deg); }
 }
 
+.navbar-burger {
+  height: 4rem;
+  width: 4rem;
+}
+
 .navbar-burger.button {
   color: #52082D;
-  border-color: #52082D;
+  border: none;
 }
 
 .navbar-burger:hover {
-  background-color: rgba(234,204,178,.5);
-  transition: color .3s;
+  background-color: white;
 }
 
 .button:focus:not(:active) {
@@ -42,4 +46,17 @@
 
 .facebook {
   color: #3b5998;
+}
+
+.ant-breadcrumb a.active-link {
+  color: #eaccb2;
+}
+
+.ant-breadcrumb a.active-link:focus{
+  text-decoration: none;
+}
+
+.ant-breadcrumb a.active-link:hover{
+  color: #eaccb2;
+  cursor: default;
 }

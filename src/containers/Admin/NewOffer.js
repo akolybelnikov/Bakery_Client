@@ -9,10 +9,7 @@ import { invokeApig, s3Upload } from "../../libs/awsLib";
 import "./Admin.css";
 
 const BreadCrumbs = styled(Row)`
-    margin-top: 20px;
-    @media only screen and (max-width: 480px) {
-        margin-top: 35px;
-    }
+    margin-top: 35px;
 `;
 
 const FormItem = Form.Item;   
@@ -121,11 +118,10 @@ class NewOffer extends React.Component {
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/admin">Управление</Link></Breadcrumb.Item>
-                        <Breadcrumb.Item>Новое спецредложение</Breadcrumb.Item>
+                        <Breadcrumb.Item><Link to='#' className="active-link">Новое спецредложение</Link></Breadcrumb.Item>
                     </Breadcrumb>
                 </BreadCrumbs>
-                <Center style={{marginBottom: '20px', marginTop: '20px'}}><p className="is-size-5-tablet is-size-6-mobile title">Создать новое спецпредложение</p></Center>
-                <Row>
+                <Row style={{marginTop: "35px"}}>
                     <Col xs={{ span: 22, offset: 1 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }} >
                         <Center>
                             <div className="Form">
@@ -138,7 +134,7 @@ class NewOffer extends React.Component {
                                         )}
                                     </FormItem>
                                     <figure>
-                                        <img alt="preview" src={previewImage} />
+                                        <img alt="" src={previewImage} />
                                     </figure>
                                     <FormItem >
                                         <Upload onRemove={this.handleCancel} {...props}>

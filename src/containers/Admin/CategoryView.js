@@ -98,7 +98,7 @@ export default class CategoryView extends React.Component {
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/admin">Управление</Link></Breadcrumb.Item>
-                        <Breadcrumb.Item>{this.props.match.params.category === "bread" ? "Хлеб и булки" : this.props.match.params.category === "coffee" ?  "Кофе и другие напитки" : this.props.match.params.category === "cakes" ? "Кондитерские изделия" : this.props.match.params.category === "order" ? "Торты на заказ" : "Новости"}</Breadcrumb.Item>
+                        <Breadcrumb.Item><Link to='#' className="active-link">{this.props.match.params.category === "bread" ? "Хлеб и булки" : this.props.match.params.category === "coffee" ?  "Кофе и другие напитки" : this.props.match.params.category === "cakes" ? "Кондитерские изделия" : this.props.match.params.category === "order" ? "Торты на заказ" : "Новости"}</Link></Breadcrumb.Item>
                     </Breadcrumb>
                 </BreadCrumbs>
                 <Row style={{marginTop: "20px"}}>

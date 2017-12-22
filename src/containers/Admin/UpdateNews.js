@@ -1,6 +1,8 @@
 import React from "react";
-import { Form, Icon, Input, Upload, Button, Select, Col } from 'antd';
+import { Form, Icon, Input, Upload, Button, Select, Col, Breadcrumb, Row, notification } from 'antd';
 import LoaderButton from "../../components/LoaderButton";
+import { Link } from "react-router-dom";
+import styled from 'styled-components';
 import Center from 'react-center';
 import config from "../../config";
 import { invokeOpenApi, invokeApig, s3Upload, s3Delete } from "../../libs/awsLib";
@@ -8,6 +10,10 @@ import { invokeOpenApi, invokeApig, s3Upload, s3Delete } from "../../libs/awsLib
 const FormItem = Form.Item;   
 const {TextArea} = Input;
 const Option = Select.Option;
+
+const BreadCrumbs = styled(Row)`
+    margin-top: 35px;
+`;
 
 function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
@@ -53,6 +59,14 @@ class UpdateNews extends React.Component {
         });
     }
 
+    openNotification = () => {
+        notification.open({
+          message: 'Всё прошло успешно!',
+          description: 'Загрузка завершена.',
+          icon: <Icon type="smile-circle" style={{ color: "#52082D" }} />,
+        });
+    };
+
     handleCancel = () => {
         this.file = null;
         this.setState({ previewImage: '' });
@@ -83,15 +97,14 @@ class UpdateNews extends React.Component {
   
               await this.props.form.validateFields((err, values) => {
                   if (!err) {
-                      this.saveNews({
-                          archived: values['archived'],
-                          content: values['content'],
-                          attachment: uploadedFileLocation || this.state.news.attachment,
-                          image: uploadedFileName || this.state.news.image
-                      });
-                      setTimeout(() => {
-                          this.props.history.push("/admin");
-                      }, 500);
+                        this.saveNews({
+                            archived: values['archived'],
+                            content: values['content'],
+                            attachment: uploadedFileLocation || this.state.news.attachment,
+                            image: uploadedFileName || this.state.news.image
+                        });
+                        this.openNotification();
+                        this.props.history.push("/admin");
                   }
               });
   
@@ -157,45 +170,56 @@ class UpdateNews extends React.Component {
         const archivedError = isFieldTouched('archived') && getFieldError('archived');
         const contentError = isFieldTouched('content') && getFieldError('content');
         return (
-            <Col xs={{span: 20, offset: 2}} md={{ span: 18, offset: 3 }} lg={{ span: 14, offset: 5 }}>
-                <Center style={{margin: '20px 0'}}><p style={{color: "#331507"}} className="is-size-6-mobile is-size-5-tablet title">Внесите изменения или удалите продукт из категории.</p></Center>
-                <Center>
-                    <div style={{width: "100%"}} >
-                        <Form onSubmit={this.handleSubmit}>
-                        <FormItem validateStatus={archivedError ? 'error' : ''} help={archivedError || ''}>
-                            {getFieldDecorator('archived', {
-                                rules: [{ required: true, message: 'Архивировать новость?' }],
-                            })(
-                                <Select placeholder="Статус">
-                                <Option value="false">Активировать</Option>
-                                <Option value="true">Деактивировать</Option>
-                            </Select>
-                            )}
-                        </FormItem>
-                            <FormItem validateStatus={contentError ? 'error' : ''} help={contentError || ''}>
-                                {getFieldDecorator('content', {
-                                    rules: [{ required: true, message: 'Внесите описание продукта' }],
-                                })(
-                                    <TextArea type="string" rows={4} placeholder="Описание продукта" />
-                                )}
-                            </FormItem>
-                            <figure>
-                                <img alt="" src={previewImage} />
-                            </figure>
-                            <FormItem>
-                                <Upload onRemove={this.handleCancel} {...props}>
-                                    <Button className="button is-info"><Icon type="upload" />Изменить изображение</Button>
-                                </Upload>
-                            </FormItem>
-                            <FormItem>
-                                <LoaderButton style={{width: "100%"}} className="button is-warning is-inverted" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Сохранить изменения" loadingText="Logging in ..." />
-                            </FormItem>
-                        </Form>
-                        <LoaderButton style={{width: "100%"}} className="button is-danger" loading={this.state.deleting} text="Удалить новость" loadingText="Deleting ..." 
-                        onClick={this.handleDelete}/>
-                    </div>
-                </Center>
-            </Col>
+            <div>
+                <Row style={{marginTop: "10px"}}><Icon onClick={this.props.history.goBack} className="icon-back is-hidden-tablet" type="left" /></Row>
+                <BreadCrumbs className="is-hidden-mobile">
+                    <Breadcrumb separator=">">
+                        <Breadcrumb.Item><Link to="/admin">Управление</Link></Breadcrumb.Item>
+                        <Breadcrumb.Item><Link className="active-link" to="#">Изменить продукт</Link></Breadcrumb.Item>
+                    </Breadcrumb>
+                </BreadCrumbs>
+                <Row style={{marginTop: '35px'}}>
+                    <Col xs={{span: 20, offset: 2}} md={{ span: 18, offset: 3 }} lg={{ span: 14, offset: 5 }}>
+                        <Center style={{margin: '20px 0'}}><p style={{color: "#331507"}} className="is-size-6-mobile is-size-5-tablet title">Внесите изменения или удалите продукт из категории.</p></Center>
+                        <Center>
+                            <div style={{width: "100%"}} >
+                                <Form onSubmit={this.handleSubmit}>
+                                <FormItem validateStatus={archivedError ? 'error' : ''} help={archivedError || ''}>
+                                    {getFieldDecorator('archived', {
+                                        rules: [{ required: true, message: 'Архивировать новость?' }],
+                                    })(
+                                        <Select placeholder="Статус">
+                                        <Option value="false">Активировать</Option>
+                                        <Option value="true">Деактивировать</Option>
+                                    </Select>
+                                    )}
+                                </FormItem>
+                                    <FormItem validateStatus={contentError ? 'error' : ''} help={contentError || ''}>
+                                        {getFieldDecorator('content', {
+                                            rules: [{ required: true, message: 'Внесите описание продукта' }],
+                                        })(
+                                            <TextArea type="string" rows={4} placeholder="Описание продукта" />
+                                        )}
+                                    </FormItem>
+                                    <figure>
+                                        <img alt="" src={previewImage} />
+                                    </figure>
+                                    <FormItem>
+                                        <Upload onRemove={this.handleCancel} {...props}>
+                                            <Button className="button is-info"><Icon type="upload" />Изменить изображение</Button>
+                                        </Upload>
+                                    </FormItem>
+                                    <FormItem>
+                                        <LoaderButton style={{width: "100%"}} className="button is-warning is-inverted" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Сохранить изменения" loadingText="Logging in ..." />
+                                    </FormItem>
+                                </Form>
+                                <LoaderButton style={{width: "100%"}} className="button is-danger" loading={this.state.deleting} text="Удалить новость" loadingText="Deleting ..." 
+                                onClick={this.handleDelete}/>
+                            </div>
+                        </Center>
+                    </Col>
+                </Row>
+            </div>
         );
     }
 

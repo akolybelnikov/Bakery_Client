@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { Form, Icon, Input, Upload, Button, Select, Row, Col, notification } from 'antd';
+import { Link } from "react-router-dom";
+import { Form, Icon, Input, Upload, Button, Select, Row, Col, notification, Breadcrumb } from 'antd';
 import Center from 'react-center';
 import config from "../../config";
+import styled from 'styled-components';
 import LoaderButton from "../../components/LoaderButton";
 import { invokeApig, s3Upload } from "../../libs/awsLib";
 import "./NewProduct.css";
@@ -9,6 +11,10 @@ import "./NewProduct.css";
 const FormItem = Form.Item;   
 const {TextArea} = Input;
 const Option = Select.Option;
+
+const BreadCrumbs = styled(Row)`
+    margin-top: 35px;
+`;
 
 function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
@@ -121,8 +127,13 @@ class NewProduct extends Component {
         return (
             <div>
                 <Row className="is-hidden-tablet" style={{marginTop: "10px"}}><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></Row>
-                <Center style={{marginBottom: '20px', marginTop: "10px"}}><p className="is-size-5-tablet is-size-6-mobile title">Создать новый продукт</p></Center>
-                <Row>
+                <BreadCrumbs className="is-hidden-mobile">
+                    <Breadcrumb separator=">">
+                        <Breadcrumb.Item><Link to="/admin">Управление</Link></Breadcrumb.Item>
+                        <Breadcrumb.Item><Link to='#' className="active-link">Создать новый продукт</Link></Breadcrumb.Item>
+                    </Breadcrumb>
+                </BreadCrumbs>
+                <Row style={{marginTop: '35px'}}>
                     <Col xs={{ span: 22, offset: 1 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }} >
                         <Center>
                             <div className="Form">
@@ -168,7 +179,7 @@ class NewProduct extends Component {
                                         )}
                                     </FormItem>
                                     <figure>
-                                        <img alt="preview" src={previewImage} />
+                                        <img alt="" src={previewImage} />
                                     </figure>
                                     <FormItem >
                                         <Upload onRemove={this.handleCancel} {...props}>

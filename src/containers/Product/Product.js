@@ -1,19 +1,22 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Row, Col, Card, Breadcrumb, Icon } from 'antd';
+import { Row, Col, Card, Breadcrumb, Icon, Avatar } from 'antd';
 import ProgressiveImage from "react-progressive-bg-image";
 import styled, { keyframes } from 'styled-components';
 import { zoomIn } from 'react-animations';
 import config from "../../config";
 import { invokeOpenApi } from "../../libs/awsLib";
 import "./Product.css";
-import Center from "react-center";
+
+const { Meta } = Card;
+const avatar = require(`../../public/logobw.png`);
 
 const zoomInAnimation = keyframes`${zoomIn}`;
 
-const bgImg = require(`../../public/bg.jpg`);
+const bgImg = require(`../../public/logo.png`);
 
 const ProductRow = styled(Row)`
+    margin-top: 30px;
     @media only screen and (max-width: 480px) {
         margin: 25% 0;
     } 
@@ -37,7 +40,7 @@ const ProductCard = styled(Card)`
     animation: 1s ${zoomInAnimation};
 `;
 const Breadcrumbs = styled(Row)`
-    margin: 10px 0;
+    margin-top: 35px;
 `;
 
 export default class Product extends Component {
@@ -68,14 +71,13 @@ export default class Product extends Component {
     renderProduct(product) {
         return(
             <Col xs={{ span: 20, offset: 2 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }} >
-                <ProductCard title={product && product.productName}>
-                    <Center><ProductImage src={`${config.s3.URL}/500x500/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" /></Center>
-                    <div>
-                        <Row>
-                            <Col xs={12}><p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{textAlign: 'left', color: '#331507'}}><span style={{color: '#EACCB2'}}>Вес: </span>{product && product.weight}</p></Col>
-                            <Col xs={12}><p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{textAlign: 'right', color: '#331507'}}><span style={{color: '#EACCB2'}}>Цена: </span>{product && product.price} руб.</p></Col>
-                        </Row>
-                    </div>
+                <ProductCard 
+                    cover={<ProductImage src={`${config.s3.URL}/500x500/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
+                    actions={[<p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{product && product.weight}</p>, <p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{product && product.price} руб.</p>]}>
+                    <Meta 
+                        title={product && product.productName}
+                        avatar={<Avatar src={avatar} />}
+                        description={product && product.content} />
                 </ProductCard>
             </Col>
         );
@@ -90,7 +92,7 @@ export default class Product extends Component {
                         <Breadcrumb.Item><Link to="/">Новинки</Link></Breadcrumb.Item>
                         <Breadcrumb.Item><Link to="/products">Ассортимент</Link></Breadcrumb.Item>
                         <Breadcrumb.Item><Link to={`/products/${this.props.match.params.category}`}>{this.props.match.params.category === "bread" ? "Хлеб и булки" : this.props.match.params.category === "coffee" ?  "Кофе и другие напитки" : this.props.match.params.category === "cakes" ? "Кондитерские изделия" : "Торты на заказ"}</Link></Breadcrumb.Item>
-                        <Breadcrumb.Item>{this.state.product &&  this.state.product.productName}</Breadcrumb.Item>
+                        <Breadcrumb.Item><Link to='#'>{this.state.product &&  this.state.product.productName}</Link></Breadcrumb.Item>
                     </Breadcrumb>
                 </Breadcrumbs>
                 <ProductRow>

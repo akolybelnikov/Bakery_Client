@@ -64,7 +64,7 @@ const CategoryImage = styled(ProgressiveImage)`
   background-size: cover;
   background-position: center center;
   @media only screen and (max-width: 767px) {
-    min-height: 65px;
+    min-height: 135px;
   }
 `;
 
@@ -122,7 +122,7 @@ export default class Home extends Component {
   renderCategories(categories) {
     return categories.map(
       (category) =>
-        <CategoryCard key={category.categoryId} href={`/products/${category.categoryName}`} onClick={this.handleCategoryClick} xs={6}>
+        <CategoryCard key={category.categoryId} href={`/products/${category.categoryName}`} onClick={this.handleCategoryClick} xs={12} sm={6}>
           <Card hoverable id="category" title={category.categoryId === "1" ? "Хлеб" : category.categoryId === "2" ? "Кофе" : category.categoryId === "3" ? "Выпечка" : "Торты"}>
             <CategoryImage 
               placeholder={bgImg} 
@@ -212,7 +212,7 @@ export default class Home extends Component {
             </article>
           </div>
         </div>
-        <div style={{marginBottom: "20px", background: "#EAE2C8", padding: ".7rem"}}>
+        <div style={{marginTop: "25px", marginBottom: "35px", background: "rgba(234,204,178,.5)", padding: ".7rem"}}>
           <Card style={{cursor: "pointer"}} title="Наши новости" bordered="false">            
             <Carousel autoplay autoplaySpeed={5000}>
               {this.state.news && this.renderNews(this.state.news)}

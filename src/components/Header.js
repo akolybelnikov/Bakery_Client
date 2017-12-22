@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Input } from 'antd';
+import { Input, Icon, Button } from 'antd';
 import styled from "styled-components";
 
 const logo = require(`../public/logo.png`);
@@ -8,7 +8,7 @@ const Logo = styled.img`
     max-width: 150px;
     padding-top: 5px;
     @media only screen and (max-width: 480px) {
-        max-width: 120px;
+        max-width: 130px;
     }
 `
 const Search = styled(Input.Search)`
@@ -20,6 +20,7 @@ export default class Header extends React.Component {
     componentDidMount() {
 
         var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        var $menuIcon = document.getElementById('menu-icon');
         
         // Check if there are any navbar burgers
         if ($navbarBurgers.length > 0) {
@@ -32,9 +33,17 @@ export default class Header extends React.Component {
                     var target = $el.dataset.target;
                     var $target = document.getElementById(target);
                    
-                    // Toggle the class on both the "navbar-burger" and the "navbar-menu"
-                    $el.classList.toggle('is-active');
+                    // Toggle the class on the "navbar-menu"                  
                     $target.classList.toggle('is-active');
+
+                    // Togglethe class on the menu icon
+                    if ($menuIcon.classList.contains('anticon-menu-unfold')) {
+                        $menuIcon.classList.remove('anticon-menu-unfold');
+                        $menuIcon.classList.add('anticon-close');
+                    } else {
+                        $menuIcon.classList.remove('anticon-close');
+                        $menuIcon.classList.add('anticon-menu-unfold'); 
+                    }
             
                 });
             });
@@ -44,14 +53,13 @@ export default class Header extends React.Component {
 
     render() {
         return (            
-            <nav className="navbar is-fixed-top is-transparent" aria-label="main navigation" style={{zIndex: "30"}}>
-                <div className="navbar-brand">
-                    <NavLink to="/"><Logo className="image is-hidden-tablet navbar-item" src={logo} alt="logo"/></NavLink>
-                    <button className="button navbar-burger" data-target="navMenu">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
+            <nav className="navbar is-fixed-top" aria-label="main navigation" style={{zIndex: "30", background: "rgba(255, 255, 255, 0.8)"}}>
+                <div className="navbar-brand level" style={{marginBottom: 0}}>
+                    <p className="level-item is-hidden-tablet"><Icon style={{ fontSize: 28, color: '#52082D' }} type="search" className="navbar-item"/></p>
+                    <p className="level-item is-hidden-tablet"><NavLink to="/"><Logo className="image navbar-item" src={logo} alt="logo"/></NavLink></p>
+                    <p className="level-item is-hidden-tablet">
+                        <Button style={{ fontSize: 26}} className="button navbar-burger" data-target="navMenu"><Icon type="menu-unfold" id="menu-icon"/></Button>
+                    </p>
                 </div>
                 <div className="navbar-menu level" id="navMenu">                    
                     <p className="level-item has-text-centered">

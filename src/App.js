@@ -19,9 +19,10 @@ const AffixBounce = styled(Affix)`
   `;
 const AffixMobile = styled(Affix)`
   animation: 1.5s ${bounceAnimation};
-  position: absolute;
-  top: 60px;
   right: 5%;
+  @media only screen and (min-width: 768px) {
+    bottom: 40px;
+  }  
 `;
 const PhoneButton = styled(Button)`
   z-index: 50;
@@ -146,12 +147,13 @@ class App extends Component {
               <AffixBounce className="is-hidden-mobile" offsetTop={105}>
                 <PhoneButton type="primary" className="is-size-6"><Icon type="phone" /> +7 (926) 629 87 26</PhoneButton>
               </AffixBounce>
-              <AffixMobile className="is-hidden-tablet" offsetTop={60}>
-                <PhoneButton type="primary" className="is-size-7"><Icon type="phone" /> +7 (926) 629 87 26</PhoneButton>
-              </AffixMobile>
+          
               <InnerContainer>
                 <Header onClick={this.handleClick} selectedKeys={[this.state.current]} />
                 <Routes childProps={childProps} />
+                <AffixMobile className="is-hidden-tablet" offsetBottom={30}>
+                <PhoneButton type="primary" className="is-size-7"><Icon type="phone" /> +7 (926) 629 87 26</PhoneButton>
+              </AffixMobile>
               </InnerContainer>
               <footer className="footer is-hidden-mobile">
                 <div className="container">
@@ -189,7 +191,7 @@ class App extends Component {
             <Affix offsetBottom={0} id="footer" style={{ zIndex: 20 }} className="is-hidden-tablet">
               <Container>
                 <Level>
-                  <nav className="level is-mobile">            
+                  <nav className="level is-mobile is-fixed-bottom">            
                     <div className="level-item">
                         <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer" className="has-text-danger"><i ref={instaicon => this.instaicon = instaicon} className="fa fa-instagram"></i></a>
                     </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Icon, Input, Upload, Button, Col } from 'antd';
+import { Form, Icon, Input, Upload, Button, Col, notification } from 'antd';
 import LoaderButton from "../../components/LoaderButton";
 import Center from 'react-center';
 import config from "../../config";
@@ -75,9 +75,8 @@ class ProductForm extends React.Component {
                         attachment: uploadedFileLocation || this.props.product.attachment,
                         image: uploadedFileName || this.props.product.image
                     });
-                    setTimeout(() => {
-                        this.props.history.push("/admin");
-                    }, 500);
+                    this.openNotification();
+                    this.props.history.push("/admin");
                 }
             });
 
@@ -86,6 +85,14 @@ class ProductForm extends React.Component {
             this.setState({ loading: false});
         }
     }
+
+    openNotification = () => {
+        notification.open({
+          message: 'Всё прошло успешно!',
+          description: 'Загрузка завершена.',
+          icon: <Icon type="smile-circle" style={{ color: "#52082D" }} />,
+        });
+    };
 
     handleCancel = () => {
         this.file = null;
