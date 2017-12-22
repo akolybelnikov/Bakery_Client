@@ -171,7 +171,7 @@ class UpdateNews extends React.Component {
         const contentError = isFieldTouched('content') && getFieldError('content');
         return (
             <div>
-                <Row style={{marginTop: "10px"}}><Icon onClick={this.props.history.goBack} className="icon-back is-hidden-tablet" type="left" /></Row>
+                <Row style={{marginTop: "25px"}}><Icon onClick={this.props.history.goBack} className="icon-back is-hidden-tablet" type="left" /></Row>
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/admin">Управление</Link></Breadcrumb.Item>

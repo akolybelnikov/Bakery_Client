@@ -44,7 +44,7 @@ export default class UpdateProduct extends React.Component {
     render() {
         return this.state.product && 
             <div>
-                <Row className="is-hidden-tablet" style={{marginTop: "10px"}}>
+                <Row className="is-hidden-tablet" style={{marginTop: "25px"}}>
                     <Icon onClick={this.props.history.goBack} className="icon-back" type="left" />
                 </Row>
                 <BreadCrumbs className="is-hidden-mobile">

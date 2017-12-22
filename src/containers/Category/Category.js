@@ -72,7 +72,7 @@ export default class Product extends React.Component {
     render() {
         return (
             <div>
-                <Row className="is-hidden-tablet" style={{marginTop: "10px"}}><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></Row>
+                <Row className="is-hidden-tablet" style={{marginTop: "25px"}}><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></Row>
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/">Новинки</Link></Breadcrumb.Item>

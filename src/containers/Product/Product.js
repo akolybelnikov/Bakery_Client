@@ -18,7 +18,7 @@ const bgImg = require(`../../public/logo.png`);
 const ProductRow = styled(Row)`
     margin-top: 30px;
     @media only screen and (max-width: 480px) {
-        margin: 25% 0;
+        margin-top: 10px;
     } 
     @media only screen and (min-width: 680px) and (max-width: 768px) {
         margin: 17.5% 0;
@@ -31,8 +31,8 @@ const ProductImage = styled(ProgressiveImage)`
     height: 500px;
     width: 500px;
     @media only screen and (max-width: 480px) {
-        width: 300px;
-        height: 300px;
+        width: 250px;
+        height: 250px;
     }
 `
 
@@ -86,7 +86,7 @@ export default class Product extends Component {
     render() {
         return (
             <div>
-                <Row className="is-hidden-tablet" style={{marginTop: "35px"}}><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></Row>
+                <Row className="is-hidden-tablet" style={{marginTop: "25px"}}><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></Row>
                 <Breadcrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/">Новинки</Link></Breadcrumb.Item>
