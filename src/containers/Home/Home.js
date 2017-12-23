@@ -5,6 +5,7 @@ import { invokeOpenApi } from "../../libs/awsLib";
 import styled, { keyframes } from "styled-components";
 import { bounceInUp, bounceIn } from "react-animations";
 import ProgressiveImage from "react-progressive-bg-image";
+import LoadingScreen from '../../components/LoadingScreen';
 import Instafeed from "../../components/Instafeed";
 import Center from "react-center";
 import "./Home.css";
@@ -79,7 +80,8 @@ export default class Home extends Component {
       news: [],
       image: `${config.s3.UPLOADS_BUCKET_URL}/bg-home.jpg`,
       modalVisible: false,
-      categories: []
+      categories: [],
+      isLoading: true
     }
   }
 
@@ -89,6 +91,12 @@ export default class Home extends Component {
 
       const result = await this.getOffer();
       const offer = result[result.length - 1];
+
+      const categories  = await this.getCategories();
+      this.setState({
+        categories: categories
+      });
+
       this.setState({ 
         offerimage: offer.image,
         offercontent: offer.content
@@ -103,13 +111,10 @@ export default class Home extends Component {
         }
       }
       this.setState({ 
-        news: news
+        news: news,
+        isLoading: false
       });
 
-      const categories  = await this.getCategories();
-      this.setState({
-        categories: categories
-      })
     } catch (e) {
       console.log(e);
     }

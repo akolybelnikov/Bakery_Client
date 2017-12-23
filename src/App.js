@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { authUser } from "./libs/awsLib";
 import Header from "./components/Header";
+import LoadingScreen from './components/LoadingScreen';
 import { Link, withRouter } from "react-router-dom";
 import { Layout, Icon, Button, Affix } from 'antd';
 import './App.css';
 import Routes from "./Routes";
 import styled, { keyframes } from 'styled-components';
 import { bounceInUp } from 'react-animations';
+import { setTimeout } from 'timers';
+
 
 const { Content } = Layout;
 const bounceAnimation = keyframes`${bounceInUp}`;
@@ -18,7 +21,6 @@ const AffixBounce = styled(Affix)`
   right: 20%;
   `;
 const AffixMobile = styled(Affix)`
-  animation: 1.5s ${bounceAnimation};
   right: 5%;
   @media only screen and (min-width: 768px) {
     bottom: 40px;
@@ -57,9 +59,10 @@ class App extends Component {
       super(props);
 
       this.state = { 
-          current: '0', 
           isAuthenticated: false,
-          isAuthenticating: true
+          isAuthenticating: true,
+          isLoading: true,
+          isLoadingAffix: true
       };
       this.toggleIconSize = this.toggleIconSize.bind(this);
       // this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
@@ -78,6 +81,35 @@ class App extends Component {
   //     this.setState({ height: window.innerHeight - 162 });
   // }
 
+  async componentDidMount() {
+    try {
+      if (await authUser()) {
+        this.userHasAuthenticated(true);
+
+        //this.updateWindowDimensions();
+       // window.addEventListener('resize', this.updateWindowDimensions);
+
+      }
+    } catch(e) {
+      console.log(e);
+    }
+
+    this.setState({ 
+      isAuthenticating: false,
+      isLoading: false
+    });
+
+    setTimeout(() => {
+      this.setState({
+        isLoadingAffix: false
+      });
+    }, 2000);
+
+    this.toggleIconSize();
+    window.addEventListener('resize', this.toggleIconSize);
+
+  }
+
   toggleIconSize() {
     const faIcons = document.getElementsByClassName('fa');
     if (window.innerWidth >= 768) {
@@ -93,43 +125,41 @@ class App extends Component {
       }
   }
 
-  handleLogoClick = (e) => {
-      this.setState({
-        current: "0"
-      });
+  renderAffix() {
+    const isLoggedIn = this.state.isAuthenticated;
+    return (
+      !this.state.isLoadingAffix &&
+      <Affix offsetBottom={0} id="footer" style={{ zIndex: 20 }} className="is-hidden-tablet">
+      <Container>
+        <Level>
+          <nav className="level is-mobile is-fixed-bottom">            
+            <div className="level-item">
+                <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer" className="has-text-danger"><i ref={instaicon => this.instaicon = instaicon} className="fa fa-instagram"></i></a>
+            </div>
+            <div className="level-item">
+                <a href="https://www.facebook.com/Confert.ru?hc_ref=ARQwxWrZK8Qop0XtLeqPjPcqJ1wPtua1EdfzTK52K7tmK-2nGd4iaI_rXNi733RwaCA&fref=nf" target='_blank' rel="noopener noreferrer" className="has-text-info"><i className="fa fa-facebook"></i></a>
+            </div>
+            <div className="level-item">
+                <Link to="/coffee" className="has-text-white"><i className="fa fa-envelope-o" aria-hidden="true"></i></Link>
+            </div>
+            <div className="level-item">
+                <Link to="/login" className="has-text-white">{
+                  isLoggedIn ? <i className="fa fa-unlock" aria-hidden="true"></i> : <i onClick={this.handleIconClick} className="fa fa-lock" aria-hidden="true"></i>}</Link>
+            </div>
+          </nav>
+        </Level>
+      </Container>
+    </Affix>
+    )
   }
 
-  handleClick = (e) => {
-      this.setState({
-        current: e.key,
-      });
-  }
-
-  handleIconClick = (e) => {
-    this.setState({
-      current: "7",
-    });
-  }
-
-  async componentDidMount() {
-    try {
-      if (await authUser()) {
-        this.userHasAuthenticated(true);
-
-        //this.updateWindowDimensions();
-       // window.addEventListener('resize', this.updateWindowDimensions);
-
-      }
-    } catch(e) {
-      console.log(e);
-    }
-    this.setState({ isAuthenticating: false });
-    if (this.props.location.pathname === '/products') {
-      this.setState({ current: "1"})
-    }
-    this.toggleIconSize();
-    window.addEventListener('resize', this.toggleIconSize);
-
+  renderAffixPhoneButton() {
+    return (
+      !this.state.isLoadingAffix &&
+      <AffixMobile className="is-hidden-tablet" offsetBottom={30}>
+        <PhoneButton type="primary" className="is-size-7"><Icon type="phone" /> +7 (926) 629 87 26</PhoneButton>
+      </AffixMobile>
+    )
   }
 
   render() {
@@ -139,6 +169,7 @@ class App extends Component {
     };
     const isLoggedIn = this.state.isAuthenticated;
     return (
+      this.state.isLoading ? <LoadingScreen /> :
       !this.state.isAuthenticating &&
         <Layout>           
           <Layout style={{ background: "white" }} >
@@ -151,9 +182,7 @@ class App extends Component {
               <InnerContainer>
                 <Header onClick={this.handleClick} selectedKeys={[this.state.current]} />
                 <Routes childProps={childProps} />
-                <AffixMobile className="is-hidden-tablet" offsetBottom={30}>
-                <PhoneButton type="primary" className="is-size-7"><Icon type="phone" /> +7 (926) 629 87 26</PhoneButton>
-              </AffixMobile>
+                {this.renderAffixPhoneButton()}
               </InnerContainer>
               <footer className="footer is-hidden-mobile">
                 <div className="container">
@@ -188,28 +217,8 @@ class App extends Component {
                 </div>
               </footer>
             </OuterContent>
-            <Affix offsetBottom={0} id="footer" style={{ zIndex: 20 }} className="is-hidden-tablet">
-              <Container>
-                <Level>
-                  <nav className="level is-mobile is-fixed-bottom">            
-                    <div className="level-item">
-                        <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer" className="has-text-danger"><i ref={instaicon => this.instaicon = instaicon} className="fa fa-instagram"></i></a>
-                    </div>
-                    <div className="level-item">
-                        <a href="https://www.facebook.com/Confert.ru?hc_ref=ARQwxWrZK8Qop0XtLeqPjPcqJ1wPtua1EdfzTK52K7tmK-2nGd4iaI_rXNi733RwaCA&fref=nf" target='_blank' rel="noopener noreferrer" className="has-text-info"><i className="fa fa-facebook"></i></a>
-                    </div>
-                    <div className="level-item">
-                        <Link to="/coffee" className="has-text-white"><i className="fa fa-envelope-o" aria-hidden="true"></i></Link>
-                    </div>
-                    <div className="level-item">
-                        <Link to="/login" className="has-text-white">{
-                          isLoggedIn ? <i className="fa fa-unlock" aria-hidden="true"></i> : <i onClick={this.handleIconClick} className="fa fa-lock" aria-hidden="true"></i>}</Link>
-                    </div>
-                  </nav>
-                </Level>
-              </Container>
-            </Affix>
           </Layout>
+          {this.renderAffix()}
         </Layout>
     );
   }

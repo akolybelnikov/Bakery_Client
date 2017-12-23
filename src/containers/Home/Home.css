@@ -159,6 +159,6 @@ input:-ms-input-placeholder {
 }
 
 .tile.is-child {
-    margin: 0 10px;
+    margin: 0 10px !important;
 }
 
