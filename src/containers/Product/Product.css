@@ -27,6 +27,13 @@
     }
 } 
 
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+
+    .ant-card-meta-description {
+        font-size: 16px !important;
+    }
+} 
+
 .ant-avatar {
     background: white;
     border-radius: 0;

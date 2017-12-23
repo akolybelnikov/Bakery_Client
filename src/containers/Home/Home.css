@@ -25,37 +25,6 @@
     text-align: center;
 }
 
-@media only screen and (min-width: 480px) {
-    .ant-card-head-title {
-        font-size: 1.2rem;
-    }
-    .ant-card-head-title:hover {
-        color: rgba(82, 8, 45, .7);
-    }
-} 
-
-@media only screen and (max-width: 480px) {
-    .ant-card-head-title {
-        font-size: .8rem;
-    }
-}
-
-@media only screen and (max-width: 460px) {
-
-    .ant-card-head {
-        line-height: 22px;
-        height: 22px;
-    }
-
-    .button {
-        font-size: .8em
-    }
-
-    .box {
-        padding: 0.5rem;
-    }
-} 
-
 input::-webkit-input-placeholder {
     color: rgba(51, 21, 7, .4) !important;
 }
@@ -99,7 +68,7 @@ input:-ms-input-placeholder {
     }
 
     .news-card-content {
-        font-size: 18px;
+        font-size: 16px;
         color: #331507;
     }
 
@@ -114,6 +83,13 @@ input:-ms-input-placeholder {
         height: 200px;
         line-height: 200px;
     }
+
+    .ant-card-head-title {
+        font-size: 1.2rem;
+    }
+    .ant-card-head-title:hover {
+        color: rgba(82, 8, 45, .7);
+    }
 }
 
 .tile.is-ancestor:first-child { 
@@ -122,6 +98,11 @@ input:-ms-input-placeholder {
 }
 
 @media only screen and (max-width: 480px) {
+
+    .tile.is-ancestor:first-child { 
+        margin: 5px 0;
+    }
+
     #category .ant-card-head-title {
         font-size: .7rem;
     }
@@ -150,9 +131,34 @@ input:-ms-input-placeholder {
     .ant-card-head-title {
         padding: 0;
     }
+
+    .ant-card-head-title {
+        font-size: .8rem;
+    }
+
+    .ant-card-head {
+        line-height: 22px;
+        height: 22px;
+    }
+
+    .button {
+        font-size: .8em
+    }
+
+    .box {
+        padding: 0.5rem;
+    }
 }
 
 .ant-carousel .slick-dots li.slick-active button, .ant-carousel .slick-dots li button {
     background: #52082D;
+}
+
+.tile.is-parent {
+    padding: .75rem 0;
+}
+
+.tile.is-child {
+    margin: 0 10px;
 }
 

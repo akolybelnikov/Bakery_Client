@@ -17,11 +17,8 @@ const bgImg = require(`../../public/logo.png`);
 
 const ProductRow = styled(Row)`
     margin-top: 30px;
-    @media only screen and (max-width: 480px) {
-        margin-top: 10px;
-    } 
-    @media only screen and (min-width: 680px) and (max-width: 768px) {
-        margin: 17.5% 0;
+    @media only screen and (max-width: 768px) {
+        margin: 5% 0 20% 0;
     }
 `;
 
@@ -31,8 +28,8 @@ const ProductImage = styled(ProgressiveImage)`
     height: 500px;
     width: 500px;
     @media only screen and (max-width: 480px) {
-        width: 250px;
-        height: 250px;
+        max-width: 100%;
+        height: 200px;
     }
 `
 
