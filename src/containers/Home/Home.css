@@ -150,6 +150,12 @@ input:-ms-input-placeholder {
     }
 }
 
+@media only screen and (max-width: 768px) {
+
+    .tile.is-ancestor:first-child { 
+        margin: 5px 0;
+}
+
 .ant-carousel .slick-dots li.slick-active button, .ant-carousel .slick-dots li button {
     background: #52082D;
 }
