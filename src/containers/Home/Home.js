@@ -5,7 +5,6 @@ import { invokeOpenApi } from "../../libs/awsLib";
 import styled, { keyframes } from "styled-components";
 import { bounceInUp, bounceIn } from "react-animations";
 import ProgressiveImage from "react-progressive-bg-image";
-import LoadingScreen from '../../components/LoadingScreen';
 import Instafeed from "../../components/Instafeed";
 import Center from "react-center";
 import "./Home.css";
@@ -129,7 +128,7 @@ export default class Home extends Component {
       (category) =>
         <CategoryCard key={category.categoryId} href={`/products/${category.categoryName}`} onClick={this.handleCategoryClick} xs={12} sm={6}>
           <Card hoverable id="category" title={category.categoryId === "1" ? "Хлеб" : category.categoryId === "2" ? "Кофе" : category.categoryId === "3" ? "Выпечка" : "Торты"}>
-            <CategoryImage 
+            <CategoryImage crossOrigin='anonymous'
               placeholder={bgImg} 
               src={`${config.s3.URL}/250x250/${category.image}`} transition="all 1s linear" />
           </Card>
@@ -148,7 +147,7 @@ export default class Home extends Component {
 
   renderOffer() {
     if (this.state.offercontent && this.state.offerimage) 
-      return <OfferCard src={`${config.s3.URL}/250x250/${this.state.offerimage}`} placeholder={offerImg} transition="all 1s linear" />;
+      return <OfferCard src={`${config.s3.URL}/250x250/${this.state.offerimage}`} placeholder={offerImg} transition="all 1s linear" crossOrigin='anonymous' />;
   }
 
   getNews() {
@@ -160,7 +159,7 @@ export default class Home extends Component {
       return news.map(
         (newsitem) => 
           <Row key={newsitem.newsId} style={{paddingLeft: "10px", paddingBottom: "10px"}}>  
-            <Col style={{paddingLeft: "10px"}} xs={6}><NewsImage className="media-left" src={`${config.s3.URL}/250x250/${newsitem.image}`} placeholder={offerImg} transition="all 1s linear"/></Col>
+            <Col style={{paddingLeft: "10px"}} xs={6}><NewsImage className="media-left" src={`${config.s3.URL}/250x250/${newsitem.image}`} placeholder={offerImg} transition="all 1s linear" crossOrigin='anonymous'/></Col>
             <Col xs={{ span: 18 }}><p className="news-card-content" style={{textAlign: "center", paddingLeft: "5px"}}>{newsitem.content}</p></Col>
           </Row>
       )
@@ -197,7 +196,7 @@ export default class Home extends Component {
               onOk={() => this.setModalVisible(false)} 
               onCancel={() => this.setModalVisible(false)}> 
               <Center>
-                <ModalImage src={`${config.s3.URL}/500x500/${this.state.offerimage}`} placeholder={offerImg} transition="all 1s linear"  />
+                <ModalImage crossOrigin='anonymous' src={`${config.s3.URL}/500x500/${this.state.offerimage}`} placeholder={offerImg} transition="all 1s linear"  />
               </Center>   
           </Modal>
         </div>

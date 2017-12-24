@@ -9,25 +9,41 @@ import { invokeOpenApi } from "../../libs/awsLib";
 
 const bounceAnimation = keyframes`${bounceIn}`;
 
+const IconRow = styled(Row)`
+    margin-top: 25px;
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+        margin-top: 35px;
+    }
+`;
+
 const BreadCrumbs = styled(Row)`
     color: #331507;
     margin-top: 35px;
 `;
 
+const CategoriesRow = styled(Row)`
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+        margin: 5% 0 10% 0;
+    }
+`;
+
 const CategoryCard = styled(Col)`
-    animation: 1.5s ${bounceAnimation};
+    animation: 1s ${bounceAnimation};
     padding: 10px;
 `;
 const Image = styled(ProgressiveImage)`
     min-height: 300px;
     background-size: cover;
     background-position: center center;
-    @media only screen and (max-width: 767px) {
+    @media only screen and (max-width: 480px) {
         min-height: 150px;
     }
 `;
 
-const bgImg = require(`../../public/bg.jpg`);
+const bread = require(`../../public/categories/bread.jpg`);
+const coffee = require(`../../public/categories/coffee.jpg`);
+const cakes = require(`../../public/categories/cakes.jpg`);
+const order = require(`../../public/categories/order.jpg`);
 
 export default class Categories extends Component {
 
@@ -64,12 +80,12 @@ export default class Categories extends Component {
     renderCategories(categories) {
         return categories.map(
             (category) =>
-            <CategoryCard key={category.categoryId} xs={24} sm={12}>
+            <CategoryCard key={category.categoryId} xs={24} md={12}>
                 <Card
                     href={`/products/${category.categoryName}`}
                     onClick={this.handleCategoryClick}
                     title={category.title}
-                    ><Image placeholder={bgImg} src={category.attachment} transition="all 1s linear"/>
+                    ><Image placeholder={category.categoryName === 'bread' ? bread : category.categoryName === 'coffee' ? coffee : category.categoryName === 'cakes' ? cakes : order} src={category.attachment} transition="all 2s linear"/>
                 </Card>
             </CategoryCard>
         )
@@ -78,16 +94,16 @@ export default class Categories extends Component {
     render() {
         return (
            <div>
-                <Row className="is-hidden-tablet" style={{marginTop: "25px"}}><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></Row>
+                <IconRow className="is-hidden-tablet"><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></IconRow>
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/">Новинки</Link></Breadcrumb.Item>
                         <Breadcrumb.Item>Ассортимент</Breadcrumb.Item>
                     </Breadcrumb>
                 </BreadCrumbs>
-                <Row>
+                <CategoriesRow>
                     {this.state.categories && this.renderCategories(this.state.categories)}
-                </Row>
+                </CategoriesRow>
            </div>
         );
     }

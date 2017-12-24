@@ -32,7 +32,7 @@ export default class Header extends React.Component {
                     // Get the target from the "data-target" attribute
                     var target = $el.dataset.target;
                     var $target = document.getElementById(target);
-                   
+                    console.log($target)
                     // Toggle the class on the "navbar-menu"                  
                     $target.classList.toggle('is-active');
 
@@ -51,6 +51,12 @@ export default class Header extends React.Component {
         
     }
 
+    handleMenuClick() {
+         var $menu = document.getElementById('navMenu');
+
+         $menu.classList.toggle('is-active');
+    }
+
     render() {
         return (            
             <nav className="navbar is-fixed-top" aria-label="main navigation" style={{zIndex: "30", background: "rgba(255, 255, 255, 0.8)"}}>
@@ -58,12 +64,12 @@ export default class Header extends React.Component {
                     <p className="level-item is-hidden-tablet"><Icon style={{ fontSize: 28, color: '#52082D' }} type="search" className="navbar-item"/></p>
                     <p className="level-item is-hidden-tablet"><NavLink to="/"><Logo className="image navbar-item" src={logo} alt="logo"/></NavLink></p>
                     <p className="level-item is-hidden-tablet">
-                        <Button style={{ fontSize: 26}} className="button navbar-burger" data-target="navMenu"><Icon type="menu-unfold" id="menu-icon"/></Button>
+                        <Button style={{ fontSize: 26, background: 'transparent'}} className="button navbar-burger" data-target="navMenu"><Icon type="menu-unfold" id="menu-icon"/></Button>
                     </p>
                 </div>
                 <div className="navbar-menu level" id="navMenu">                    
                     <p className="level-item has-text-centered">
-                        <NavLink key="0" className="menu-item" to="/">Новинки</NavLink>
+                        <NavLink onClick={this.handleMenuClick} key="0" className="menu-item" to="/">Новинки</NavLink>
                     </p>
                     <p className="level-item has-text-centered">
                         <NavLink key="1" className="menu-item" to="/products">Ассортимент</NavLink>
