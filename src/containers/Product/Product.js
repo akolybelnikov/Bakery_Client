@@ -6,7 +6,11 @@ import styled, { keyframes } from 'styled-components';
 import { zoomIn } from 'react-animations';
 import config from "../../config";
 import { invokeOpenApi } from "../../libs/awsLib";
+import Responsive from 'react-responsive';
 import "./Product.css";
+
+const Desktop = props => <Responsive {...props} minWidth={992} />;
+const Tablet = props => <Responsive {...props} maxWidth={991} />;
 
 const { Meta } = Card;
 const avatar = require(`../../public/logobw.png`);
@@ -67,15 +71,27 @@ export default class Product extends Component {
 
     renderProduct(product) {
         return(
-            <Col xs={{ span: 20, offset: 2 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }} >
-                <ProductCard 
-                    cover={<ProductImage src={`${config.s3.URL}/500x500/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
-                    actions={[<p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{product && product.weight}</p>, <p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{product && product.price} руб.</p>]}>
-                    <Meta 
-                        title={product && product.productName}
-                        avatar={<Avatar src={avatar} />}
-                        description={product && product.content} />
-                </ProductCard>
+            <Col xs={{ span: 20, offset: 2 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }} lg={{span: 14, offset: 5 }}>
+                <Tablet>
+                    <ProductCard 
+                        cover={<ProductImage src={`${config.s3.URL}/500x500/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
+                        actions={[<p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{product && product.weight}</p>, <p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{product && product.price} руб.</p>]}>
+                        <Meta 
+                            title={product && product.productName}
+                            avatar={<Avatar src={avatar} />}
+                            description={product && product.content} />
+                    </ProductCard>
+                </Tablet>
+                <Desktop>
+                    <ProductCard 
+                        cover={<ProductImage src={`${config.s3.URL}/750x750/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
+                        actions={[<p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{product && product.weight}</p>, <p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{product && product.price} руб.</p>]}>
+                        <Meta 
+                            title={product && product.productName}
+                            avatar={<Avatar src={avatar} />}
+                            description={product && product.content} />
+                    </ProductCard>
+                </Desktop>
             </Col>
         );
     }

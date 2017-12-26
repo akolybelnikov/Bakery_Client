@@ -12,13 +12,17 @@ import "./Home.css";
 const bounceAnimation = keyframes`${bounceInUp}`;
 const bounceInAnimation = keyframes`${bounceIn}`;
 
-const bgImg = require(`../../public/logo.png`);
+const bgImg = require(`../../public/bg.jpg`);
+const bread = require(`../../public/categories/bread.jpg`);
+const coffee = require(`../../public/categories/coffee.jpg`);
+const cakes = require(`../../public/categories/cakes.jpg`);
+const order = require(`../../public/categories/order.jpg`);
 const offerImg = require(`../../public/logo.png`);
 
 const ImageCard = styled(ProgressiveImage)`
-  background-size: contain;
-  background-position: right;
-  height: 250px;
+  background-size: cover;
+  background-position: center;
+  height: 450px;
 `
 const OfferCard = styled(ProgressiveImage)`
   background-size: cover;
@@ -129,7 +133,7 @@ export default class Home extends Component {
         <CategoryCard key={category.categoryId} href={`/products/${category.categoryName}`} onClick={this.handleCategoryClick} xs={12} sm={6}>
           <Card hoverable id="category" title={category.categoryId === "1" ? "Хлеб" : category.categoryId === "2" ? "Кофе" : category.categoryId === "3" ? "Выпечка" : "Торты"}>
             <CategoryImage crossOrigin='anonymous'
-              placeholder={bgImg} 
+              placeholder={category.categoryName === 'bread' ? bread : category.categoryName === 'coffee' ? coffee : category.categoryName === 'cakes' ? cakes : order} 
               src={`${config.s3.URL}/250x250/${category.image}`} transition="all 1s linear" />
           </Card>
         </CategoryCard>
@@ -208,11 +212,10 @@ export default class Home extends Component {
           </div>
           <div className="tile is-vertical is-parent">
             <article className="tile is-child box">
-              <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer">
-                <Instacard title="Мы на Instagram" bordered="false">                         
+                <Instacard title="Мы на Instagram" bordered="true">                         
                     <Instafeed />  
                 </Instacard>
-              </a> 
+              
             </article>
           </div>
         </div>

@@ -34,7 +34,7 @@ const PhoneButton = styled(Button)`
 `
 
 const Container = styled.div`
-    max-width: 1200px;
+    max-width: 1024px;
     margin: 0 auto;
 `;
 const Level = styled.div`
@@ -45,7 +45,7 @@ const OuterContent = styled(Content)`
     padding: 0 24px;
 `;
 const InnerContainer = styled.div`
-  max-width: 1200px;
+  max-width: 1024px;
   @media only screen and (min-width: 992px) {
       margin: 0 auto;
       padding: 20px 0;
@@ -211,7 +211,7 @@ class App extends Component {
                       </div>
                     </nav>
                     <p>
-                      <strong>© 2014 VSE BULOCHKU TUT.</strong> by <a target='_blank' rel="noopener noreferrer" href="https://akolybelnikov.github.io/">Andrey Kolybelnikov</a>. The source code is licensed.
+                      <strong>© 2017 Все булочки тут.</strong> by <a target='_blank' rel="noopener noreferrer" href="https://akolybelnikov.github.io/">Андрей Колыбельников</a>. Программный код страницы защищён лицензией.
                     </p>
                   </div>
                 </div>
