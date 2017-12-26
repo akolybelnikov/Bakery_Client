@@ -22,9 +22,9 @@ import NotFound from "./containers/NotFound";
 export default ({ childProps }) =>
   <Switch>
     <AppliedRoute path="/" exact component={Home} props={childProps} />
-    <AppliedRoute path="/products/:category/:id" exact component={Product} />
-    <AppliedRoute path="/products/:category" exact component={Category} />
-    <AppliedRoute path="/products" exact component={Categories} />
+    <AppliedRoute path="/products/:category/:id" exact component={Product} props={childProps} />
+    <AppliedRoute path="/products/:category" exact component={Category} props={childProps} />
+    <AppliedRoute path="/products" exact component={Categories} props={childProps} />
     <UnauthenticatedRoute path="/login" component={LoginForm} props={childProps} />
     <UnauthenticatedRoute path="/signup" component={Signup} props={childProps} />
     <AuthenticatedRoute path="/admin/:category" exact component={CategoryView} props={childProps} />

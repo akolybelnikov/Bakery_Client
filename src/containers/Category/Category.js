@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Row, Col, Card, Breadcrumb, Icon } from 'antd';
 import styled from 'styled-components';
 import { invokeOpenApi } from "../../libs/awsLib";
@@ -26,7 +26,7 @@ const ProductImage = styled(ProgressiveImage)`
     }
 `
 
-export default class Product extends React.Component {
+class Category extends React.Component {
     constructor(props) {
         super(props);
     
@@ -46,13 +46,36 @@ export default class Product extends React.Component {
         }
     }
 
+    async shouldComponentUpdate() {
+        if (this.props.location !== this.props.history.location) {
+            try { 
+                const results = await this.getProductsAgain();
+                this.setState({
+                    products: results,
+                });
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        return true;
+    }
+
     getProducts() {
         return invokeOpenApi({ path: `/categories/${this.props.match.params.category}` });
+    }
+
+    getProductsAgain() {
+        return invokeOpenApi({ path: `/categories/${this.props.history.location.pathname.split('/')[2]}` });
     }
 
     handleProductClick = event => {
         event.preventDefault();
         this.props.history.push(event.currentTarget.getAttribute("href"));
+    }
+
+    handleClick = event => {
+        event.preventDefault();
+        this.props.history.push('/products');
     }
 
     renderProducts(products) {
@@ -72,7 +95,7 @@ export default class Product extends React.Component {
     render() {
         return (
             <div>
-                <Row className="is-hidden-tablet" style={{marginTop: "25px"}}><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></Row>
+                <Row className="is-hidden-tablet" style={{marginTop: "35px"}}><Icon onClick={this.handleClick} className="icon-back" type="left" /></Row>
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/">Новинки</Link></Breadcrumb.Item>
@@ -81,10 +104,11 @@ export default class Product extends React.Component {
                     </Breadcrumb>
                 </BreadCrumbs>
                 <ProductsRow>
-                    {this.renderProducts(this.state.products)}
+                    {this.state.products && this.renderProducts(this.state.products)}
                 </ProductsRow>
             </div>
         );
     }
-
 }
+
+export default withRouter(Category);

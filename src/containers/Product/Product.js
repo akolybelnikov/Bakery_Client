@@ -20,9 +20,11 @@ const zoomInAnimation = keyframes`${zoomIn}`;
 const bgImg = require(`../../public/logo.png`);
 
 const ProductRow = styled(Row)`
-    margin-top: 30px;
     @media only screen and (max-width: 768px) {
-        margin: 5% 0 20% 0;
+        margin: 10% 0 35% 0;
+    }
+    @media only screen and (min-width: 769px) {
+        margin: 5% 0 45% 0;
     }
 `;
 
@@ -99,7 +101,7 @@ export default class Product extends Component {
     render() {
         return (
             <div>
-                <Row className="is-hidden-tablet" style={{marginTop: "25px"}}><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></Row>
+                <Row className="is-hidden-tablet" style={{marginTop: "35px"}}><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></Row>
                 <Breadcrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/">Новинки</Link></Breadcrumb.Item>

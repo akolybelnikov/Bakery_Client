@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { authUser } from "./libs/awsLib";
 import Header from "./components/Header";
 import LoadingScreen from './components/LoadingScreen';
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Layout, Icon, Button, Affix } from 'antd';
 import './App.css';
 import Routes from "./Routes";
 import styled, { keyframes } from 'styled-components';
 import { bounceInUp } from 'react-animations';
 import { setTimeout } from 'timers';
-
 
 const { Content } = Layout;
 const bounceAnimation = keyframes`${bounceInUp}`;
@@ -53,7 +52,7 @@ const InnerContainer = styled.div`
   }  
 `;
 
-class App extends Component {
+export default class App extends React.Component {
 
   constructor(props) {
       super(props);
@@ -85,7 +84,6 @@ class App extends Component {
     try {
       if (await authUser()) {
         this.userHasAuthenticated(true);
-
         //this.updateWindowDimensions();
        // window.addEventListener('resize', this.updateWindowDimensions);
 
@@ -180,7 +178,7 @@ class App extends Component {
               </AffixBounce>
           
               <InnerContainer>
-                <Header onClick={this.handleClick} selectedKeys={[this.state.current]} />
+                <Header location={this.props.location} />
                 <Routes childProps={childProps} />
                 {this.renderAffixPhoneButton()}
               </InnerContainer>
@@ -211,7 +209,7 @@ class App extends Component {
                       </div>
                     </nav>
                     <p>
-                      <strong>© 2017 Все булочки тут.</strong> by <a target='_blank' rel="noopener noreferrer" href="https://akolybelnikov.github.io/">Андрей Колыбельников</a>. Программный код страницы защищён лицензией.
+                      <strong>© 2017 Все булочки тут.</strong> | Услуги разработчика: <a target='_blank' rel="noopener noreferrer" href="https://akolybelnikov.github.io/">Андрей Колыбельников</a>. | Программный код страницы защищён лицензией.
                     </p>
                   </div>
                 </div>
@@ -223,5 +221,3 @@ class App extends Component {
     );
   }
 }
-
-export default withRouter(App);

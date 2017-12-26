@@ -25,6 +25,9 @@ const CategoriesRow = styled(Row)`
     @media only screen and (min-width: 481px) and (max-width: 768px) {
         margin: 5% 0 10% 0;
     }
+    @media only screen and (min-width: 769px) and (max-width: 1024px) {
+        margin: 5% 0 20% 0;
+    }
 `;
 
 const CategoryCard = styled(Col)`
@@ -32,11 +35,14 @@ const CategoryCard = styled(Col)`
     padding: 10px;
 `;
 const Image = styled(ProgressiveImage)`
-    min-height: 300px;
+    min-height: 500px;
     background-size: cover;
     background-position: center center;
-    @media only screen and (max-width: 480px) {
-        min-height: 150px;
+    @media only screen and (min-width: 321px) and (max-width: 768px) {
+        min-height: 300px;
+    }
+    @media only screen and (max-width: 320px) {
+        min-height: 250px;
     }
 `;
 
@@ -77,6 +83,11 @@ export default class Categories extends Component {
         this.props.history.push(event.currentTarget.getAttribute("href"));
     }
 
+    handleClick = event => {
+        event.preventDefault();
+        this.props.history.push('/');
+    }
+
     renderCategories(categories) {
         return categories.map(
             (category) =>
@@ -94,7 +105,7 @@ export default class Categories extends Component {
     render() {
         return (
            <div>
-                <IconRow className="is-hidden-tablet"><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></IconRow>
+                <IconRow className="is-hidden-tablet"><Icon onClick={this.handleClick} className="icon-back" type="left" /></IconRow>
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/">Новинки</Link></Breadcrumb.Item>
