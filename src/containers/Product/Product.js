@@ -10,7 +10,8 @@ import Responsive from 'react-responsive';
 import "./Product.css";
 
 const Desktop = props => <Responsive {...props} minWidth={992} />;
-const Tablet = props => <Responsive {...props} maxWidth={991} />;
+const Tablet = props => <Responsive {...props} minWidth={481} maxWidth={991} />;
+const Mobile = props => <Responsive {...props} maxWidth={480} />;
 
 const { Meta } = Card;
 const avatar = require(`../../public/logobw.png`);
@@ -24,7 +25,7 @@ const ProductRow = styled(Row)`
         margin: 10% 0 35% 0;
     }
     @media only screen and (min-width: 769px) {
-        margin: 5% 0 45% 0;
+        margin: 5% 0 20% 0;
     }
 `;
 
@@ -33,9 +34,14 @@ const ProductImage = styled(ProgressiveImage)`
     background-position: center center;
     height: 500px;
     width: 500px;
+    max-width: 100%;
     @media only screen and (max-width: 480px) {
         max-width: 100%;
         height: 200px;
+    }
+    @media only screen and (min-width: 992px) {
+        width: 750px;
+        max-width: 100%;
     }
 `
 
@@ -43,7 +49,7 @@ const ProductCard = styled(Card)`
     animation: 1s ${zoomInAnimation};
 `;
 const Breadcrumbs = styled(Row)`
-    margin-top: 35px;
+    margin-top: 5%;
 `;
 
 export default class Product extends Component {
@@ -73,7 +79,17 @@ export default class Product extends Component {
 
     renderProduct(product) {
         return(
-            <Col xs={{ span: 20, offset: 2 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }} lg={{span: 14, offset: 5 }}>
+            <Col xs={{ span: 20, offset: 2 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }}>
+                <Mobile>
+                    <ProductCard 
+                        cover={<ProductImage src={`${config.s3.URL}/300x300/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
+                        actions={[<p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{product && product.weight}</p>, <p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{product && product.price} руб.</p>]}>
+                        <Meta 
+                            title={product && product.productName}
+                            avatar={<Avatar src={avatar} />}
+                            description={product && product.content} />
+                    </ProductCard>
+                </Mobile>
                 <Tablet>
                     <ProductCard 
                         cover={<ProductImage src={`${config.s3.URL}/500x500/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}

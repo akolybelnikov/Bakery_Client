@@ -18,6 +18,9 @@ const AffixBounce = styled(Affix)`
   position: absolute;
   top: 70px;
   right: 20%;
+  @media only screen and (max-width: 1366px) {
+    right: 10%;
+  } 
   `;
 const AffixMobile = styled(Affix)`
   right: 5%;
