@@ -33,29 +33,27 @@ export default class Instafeed extends React.Component {
        try {
            await axios.get(`https://api.instagram.com/v1/users/${config.instagram.REACT_APP_INSTAGRAM_USER_ID_0}/media/recent/?access_token=${config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN_0}&&count=4`)
                 .then(res => {
-                    
-                    if (res.data) {
-                        const posts = res.data.data;
+                    const posts = res.data.data;
                     for (let i = 0; i < posts.length; i++) {
                         posts[i]['key'] = i;
                     }
-                    this.setState({ posts: posts});
-                    } else {
-                         axios.get(`https://api.instagram.com/v1/users/${config.instagram.REACT_APP_INSTAGRAM_USER_ID_1}/media/recent/?access_token=${config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN_1}&&count=4`)
-                            .then(res => {
-                                if (res.data) {
-                                    const posts = res.data.data;
-                                for (let i = 0; i < posts.length; i++) {
-                                    posts[i]['key'] = i;
-                                }
-                                this.setState({ posts: posts});
-                                }
-                            });
-                    }
+                    this.setState({ posts: posts});                
                 });         
 
        } catch (e) {
-           console.log(e);
+            try {
+                    await axios.get(`https://api.instagram.com/v1/users/${config.instagram.REACT_APP_INSTAGRAM_USER_ID_1}/media/recent/?access_token=${config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN_1}&&count=4`)
+                    .then(res => {
+                        const posts = res.data.data;
+                        for (let i = 0; i < posts.length; i++) {
+                            posts[i]['key'] = i;
+                        }
+                        this.setState({ posts: posts});               
+                    });
+
+            } catch (e) {
+                    console.log(e);
+            }
        }
 
        this.setState({ loading: false});
