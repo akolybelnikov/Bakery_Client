@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Row, Col, Card, Breadcrumb, Icon, Avatar } from 'antd';
+import { Row, Col, Card, Breadcrumb, Icon, Avatar, Spin } from 'antd';
 import ProgressiveImage from "react-progressive-bg-image";
 import styled, { keyframes } from 'styled-components';
 import { zoomIn } from 'react-animations';
@@ -132,7 +132,7 @@ export default class Product extends Component {
                     </Breadcrumb>
                 </Breadcrumbs>
                 <ProductRow>
-                    {this.state.product && this.renderProduct(this.state.product)}
+                    {this.state.product ? this.renderProduct(this.state.product) : <Spin style={{display: 'block', margin: '15% 0 25% 0'}} size="large" />}
                 </ProductRow>
             </div>
         );

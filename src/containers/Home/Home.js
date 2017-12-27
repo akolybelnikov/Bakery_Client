@@ -3,14 +3,14 @@ import { Card, Modal, Row, Col, Carousel } from "antd";
 import config from "../../config";
 import { invokeOpenApi } from "../../libs/awsLib";
 import styled, { keyframes } from "styled-components";
-import { bounceInUp, bounceIn } from "react-animations";
+import { bounceInUp, zoomIn } from "react-animations";
 import ProgressiveImage from "react-progressive-bg-image";
 import Instafeed from "../../components/Instafeed";
 import Center from "react-center";
 import "./Home.css";
 
 const bounceAnimation = keyframes`${bounceInUp}`;
-const bounceInAnimation = keyframes`${bounceIn}`;
+const zoomInAnimation = keyframes`${zoomIn}`;
 
 const bgImg = require(`../../public/bg.jpg`);
 const bread = require(`../../public/categories/bread.jpg`);
@@ -60,7 +60,7 @@ const NewsImage = styled(ProgressiveImage)`
   }
 `
 const CategoryCard = styled(Col)`
-  animation: 1.5s ${bounceInAnimation};
+  animation: 1.5s ${zoomInAnimation};
   cursor: pointer;
 `;
 const CategoryImage = styled(ProgressiveImage)`

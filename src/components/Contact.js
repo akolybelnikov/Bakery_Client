@@ -11,8 +11,17 @@ const zoomInAnimation = keyframes`${zoomIn}`;
 const ContactCard = styled(Card)`
     animation: 1.5s ${zoomInAnimation};
     margin: 55% 0 5% 0 !important;
+    @media only screen and (max-width: 320px) {
+        margin: 150% 0 0 0 !important;
+    }
     @media only screen and (min-width: 321px) and (max-width: 375px) {
-        margin: 75% 0 0 0 !important;
+        margin: 105% 0 0 0 !important;
+    }
+    @media only screen and (min-width: 376px) and (max-width: 414px) {
+        margin: 95% 0 0 0 !important;
+    }
+    @media only screen and (min-width: 415px) and (max-width: 840px) {
+        margin: 70% 0 0 0 !important;
     }
 `
 
@@ -29,12 +38,18 @@ const BreadCrumbs = styled(Row)`
 `;
 
 const CardRow = styled(Row)`
-    margin: 13% 0 20% 0;
+    
     @media only screen and (max-width: 320px) {
         margin: 7% 0 5% 0;
     }
     @media only screen and (min-width: 321px) and (max-width: 375px) {
         margin: 7% 0 10% 0;
+    }
+    @media only screen and (min-width: 768px) and (max-width: 1024px) {
+        margin: 10% 0 15% 0;
+    }
+    @media only screen and (min-width: 1025px) {
+        margin: 5% 0 15% 0;
     }
 `
 
@@ -50,12 +65,15 @@ const ActionSpan = styled.span`
 const TableCell = styled.p`
     color: #331507;
     margin-bottom: 0;
-    margin-top: 5px;
+    @media only screen and (min-width: 769px) {
+        margin-top: 5px;
+    }
 `
 
 const GoogleMap = styled(Map)`
     animation: 1.5s ${zoomInAnimation};
     height: 50% !important;
+    
 `
 
 const FbIcon = styled(Icon)`
@@ -155,7 +173,7 @@ class Contact extends React.Component {
                             </table>
                         </ContactCard>
                         <Row className='has-text-centered'>
-                            <p>Найдите нас в социальных сетях и отправьте нам сообщение: мы обязательно ответим!</p>
+                            <p className='is-size-7-mobile is-size-6-tablet'>Найдите нас в социальных сетях и отправьте нам сообщение: мы обязательно ответим!</p>
                         </Row>
                     </Col>
                 </CardRow>

@@ -168,6 +168,10 @@ input:-ms-input-placeholder {
     background: #52082D;
 }
 
+.ant-carousel .slick-dots {
+    margin: 0 0 0 12.5%;
+}
+
 .tile.is-parent {
     padding: .75rem 0;
 }

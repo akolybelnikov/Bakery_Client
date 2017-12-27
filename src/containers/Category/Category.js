@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import { Row, Col, Card, Breadcrumb, Icon } from 'antd';
+import { Row, Col, Card, Breadcrumb, Icon, Spin } from 'antd';
 import styled from 'styled-components';
 import { invokeOpenApi } from "../../libs/awsLib";
 import ProgressiveImage from 'react-progressive-bg-image';
@@ -104,7 +104,7 @@ class Category extends React.Component {
                     </Breadcrumb>
                 </BreadCrumbs>
                 <ProductsRow>
-                    {this.state.products && this.renderProducts(this.state.products)}
+                    {this.state.products ? this.renderProducts(this.state.products) : <Spin style={{display: 'block', marginTop: '45px'}} size="large" />}
                 </ProductsRow>
             </div>
         );

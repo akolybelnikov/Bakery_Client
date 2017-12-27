@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Row, Col, Card, Breadcrumb, Icon } from 'antd';
+import { Row, Col, Card, Breadcrumb, Icon, Spin } from 'antd';
 import "./Categories.css";
 import styled, { keyframes } from 'styled-components';
 import { bounceIn } from 'react-animations';
@@ -113,7 +113,7 @@ export default class Categories extends Component {
                     </Breadcrumb>
                 </BreadCrumbs>
                 <CategoriesRow>
-                    {this.state.categories && this.renderCategories(this.state.categories)}
+                    {this.state.categories ? this.renderCategories(this.state.categories) : <Spin style={{display: 'block', marginTop: '45px'}} size="large" />}
                 </CategoriesRow>
            </div>
         );
