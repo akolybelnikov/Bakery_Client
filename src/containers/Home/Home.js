@@ -162,10 +162,12 @@ export default class Home extends Component {
     if (this.state.news) 
       return news.map(
         (newsitem) => 
-          <Row key={newsitem.newsId} style={{paddingLeft: "10px", paddingBottom: "10px"}}>  
-            <Col style={{paddingLeft: "10px"}} xs={6}><NewsImage className="media-left" src={`${config.s3.URL}/250x250/${newsitem.image}`} placeholder={offerImg} transition="all 1s linear" crossOrigin='anonymous'/></Col>
-            <Col xs={{ span: 18 }}><p className="news-card-content" style={{textAlign: "center", paddingLeft: "5px"}}>{newsitem.content}</p></Col>
-          </Row>
+          <a key={newsitem.newsId} href='/news'>
+            <Row style={{paddingLeft: "10px", paddingBottom: "10px"}}>  
+              <Col style={{paddingLeft: "10px"}} xs={6}><NewsImage className="media-left" src={`${config.s3.URL}/250x250/${newsitem.image}`} placeholder={offerImg} transition="all 1s linear" crossOrigin='anonymous'/></Col>
+              <Col xs={{ span: 18 }}><p className="news-card-content" style={{textAlign: "center", paddingLeft: "5px"}}>{newsitem.content}</p></Col>
+            </Row>
+          </a>
       )
   }
 

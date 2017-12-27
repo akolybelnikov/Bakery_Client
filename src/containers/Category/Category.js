@@ -7,7 +7,7 @@ import ProgressiveImage from 'react-progressive-bg-image';
 import config from "../../config";
 import "./Category.css";
 
-const bgImg = require(`../../public/logo.png`);
+const bgImg = require(`../../public/logo-300.png`);
 
 const ProductsRow = styled(Row)`
     margin: 5% 0;
