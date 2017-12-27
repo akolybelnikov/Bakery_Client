@@ -191,17 +191,17 @@ export default class App extends React.Component {
                     <nav className="level">
                       <div className="level-item has-text-centered">
                         <div>
-                          <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer" className="has-text-danger"><i ref={instaicon => this.instaicon = instaicon} className="fa fa-instagram"></i></a>
+                          <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer"><i ref={instaicon => this.instaicon = instaicon} className="fa fa-instagram" style={{ color: '#fb3958' }}></i></a>
                         </div>
                       </div>
                       <div className="level-item has-text-centered">
                         <div>
-                          <a href="https://www.facebook.com/Confert.ru?hc_ref=ARQwxWrZK8Qop0XtLeqPjPcqJ1wPtua1EdfzTK52K7tmK-2nGd4iaI_rXNi733RwaCA&fref=nf" target='_blank' rel="noopener noreferrer" className="facebook"><i className="fa fa-facebook"></i></a>
+                          <a href="https://www.facebook.com/Confert.ru?hc_ref=ARQwxWrZK8Qop0XtLeqPjPcqJ1wPtua1EdfzTK52K7tmK-2nGd4iaI_rXNi733RwaCA&fref=nf" target='_blank' rel="noopener noreferrer" className="facebook"><Icon type="facebook" style={{ fontSize: 28, color: '#3b5998' }} /></a>
                         </div>
                       </div>
                       <div className="level-item has-text-centered">
                         <div>
-                          <Link to="/coffee" className="has-text-grey"><i className="fa fa-envelope-o" aria-hidden="true"></i></Link>
+                          <Link to="/contact" className="has-text-grey"><i className="fa fa-envelope-o" aria-hidden="true"></i></Link>
                         </div>
                       </div>
                       <div className="level-item has-text-centered">

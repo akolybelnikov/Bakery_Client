@@ -17,6 +17,7 @@ import NewOffer from "./containers/Admin/NewOffer";
 import NewsForm from "./containers/Admin/NewsForm";
 import NewsView from "./containers/Admin/NewsView";
 import UpdateNews from "./containers/Admin/UpdateNews";
+import Contact from "./components/Contact";
 import NotFound from "./containers/NotFound";
 
 export default ({ childProps }) =>
@@ -25,6 +26,7 @@ export default ({ childProps }) =>
     <AppliedRoute path="/products/:category/:id" exact component={Product} props={childProps} />
     <AppliedRoute path="/products/:category" exact component={Category} props={childProps} />
     <AppliedRoute path="/products" exact component={Categories} props={childProps} />
+    <AppliedRoute path="/contact" exact component={Contact} props={childProps} />
     <UnauthenticatedRoute path="/login" component={LoginForm} props={childProps} />
     <UnauthenticatedRoute path="/signup" component={Signup} props={childProps} />
     <AuthenticatedRoute path="/admin/:category" exact component={CategoryView} props={childProps} />

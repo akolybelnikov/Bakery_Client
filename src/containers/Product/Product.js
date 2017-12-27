@@ -77,6 +77,11 @@ export default class Product extends Component {
         return invokeOpenApi({ path: `/products/${this.props.match.params.id}/${this.props.location.pathname.split('/')[2]}` });
     }
 
+    handleClick = event => {
+        event.preventDefault();
+        this.props.history.push(`/products/${this.state.product.category}`);
+    }
+
     renderProduct(product) {
         return(
             <Col xs={{ span: 20, offset: 2 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }}>
