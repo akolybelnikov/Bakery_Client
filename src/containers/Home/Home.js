@@ -169,9 +169,9 @@ export default class Home extends Component {
       return news.map(
         (newsitem) => 
           <a key={newsitem.newsId} href='/news'>
-            <Row style={{paddingLeft: "10px", paddingBottom: "10px"}}>  
-              <Col style={{paddingLeft: "10px"}} xs={6}><Card bordered={false} cover={<NewsImage src={`${config.s3.URL}/200x200/${newsitem.image}`} placeholder={offerImg} transition="all 1s linear" crossOrigin='anonymous'/>}></Card></Col>
-              <Col xs={{ span: 16, offset: 2 }} sm={{ span: 17, offset: 1 }}><Card className='news-card' bordered={false}><p className='is-size-7-mobile is-size-6-tablet is-size-5-desktop' style={{textAlign: "left"}}><Mobile>{newsitem.content.substring(0, 150)} ... </Mobile><Tablet>{newsitem.content.substring(0, 550)} ... </Tablet><Desktop>{newsitem.content.substring(0, 340)} ... </Desktop></p></Card></Col>
+            <Row style={{marginRight: '20px'}}>  
+              <Col xs={6}><Card bordered={false} cover={<NewsImage src={`${config.s3.URL}/200x200/${newsitem.image}`} placeholder={offerImg} transition="all 1s linear" crossOrigin='anonymous'/>}></Card></Col>
+              <Col xs={{ span: 16, offset: 2 }} sm={{ span: 17, offset: 1 }}><Card className='news-card' bordered={false}><p className='is-size-7-mobile is-size-5-tablet news-text' style={{textAlign: "center"}}><Mobile>{newsitem.content.substring(0, 100)} ... </Mobile><Tablet>{newsitem.content.substring(0, 250)} ... </Tablet><Desktop>{newsitem.content.substring(0, 300)} ... </Desktop></p></Card></Col>
             </Row>
           </a>
       )

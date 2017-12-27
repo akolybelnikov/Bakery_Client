@@ -10,7 +10,7 @@ import "./Category.css";
 const bgImg = require(`../../public/logo-300.png`);
 
 const ProductsRow = styled(Row)`
-    margin: 5% 0;
+    margin: 5% 0 0 0;
 `;
 
 const BreadCrumbs = styled(Row)`
@@ -94,7 +94,7 @@ class Category extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{height: '100vh'}}>
                 <Row className="is-hidden-tablet" style={{marginTop: "35px"}}><Icon onClick={this.handleClick} className="icon-back" type="left" /></Row>
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">

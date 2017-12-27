@@ -6,11 +6,12 @@ import ProgressiveImage from 'react-progressive-bg-image';
 import Responsive from 'react-responsive';
 import { invokeOpenApi } from "../../libs/awsLib";
 import config from "../../config";
+import Time from 'react-time'
 import "./News.css";
 
 const Desktop = props => <Responsive {...props} minWidth={992} />;
-const Tablet = props => <Responsive {...props} minWidth={481} maxWidth={991} />;
-const Mobile = props => <Responsive {...props} maxWidth={480} />;
+const Tablet = props => <Responsive {...props} minWidth={482} maxWidth={991} />;
+const Mobile = props => <Responsive {...props} maxWidth={481} />;
 
 const bgImg = require(`../../public/logo-300.png`);
 
@@ -85,6 +86,7 @@ export default class News extends Component {
     }
 
     renderNews(news) {
+        let time = new Date(news.createdAt);
         return (
             <NewsCard key={news.newsId} className='media'>
                 <figure className='media-left'>
@@ -94,6 +96,7 @@ export default class News extends Component {
                 </figure>
                 <div className='medi-content'>
                     <div className='content'>
+                        <p className='has-text-weight-semibold is-size-5-desktop is-size-6-tablet is-size-7-mobile'><Time value={time} format='DD/MM/YYYY' /></p>
                         <p className='is-size-5-desktop is-size-6-tablet is-size-7-mobile'>{news.content}</p>
                     </div>
                 </div>

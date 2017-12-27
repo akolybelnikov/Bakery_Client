@@ -100,6 +100,12 @@ class Header extends React.Component {
                     <p className="level-item has-text-centered is-hidden-mobile">
                         <NavLink className="menu-item" to="/contact">Контакт</NavLink>
                     </p>
+                    <p className="level-item has-text-centered is-hidden-desktop">
+                        <NavLink onClick={this.handleMenuClick} className="menu-item" to="/news">Новости</NavLink>
+                    </p>
+                    <p className="level-item has-text-centered is-hidden-mobile">
+                        <NavLink className="menu-item" to="/news">Новости</NavLink>
+                    </p>
                     <p className="level-item has-text-centered is-hidden-mobile">
                         <Search placeholder="поиск по сайту" onSearch={value => console.log(value)} />
                     </p>                 

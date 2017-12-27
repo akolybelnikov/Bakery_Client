@@ -158,9 +158,21 @@ input:-ms-input-placeholder {
     .tile.is-ancestor:first-child { 
         margin: 5px 0;
     }
+
+    .ant-carousel .slick-dots {
+        bottom: 0;
+    }
 }
 
-@media only screen and (min-width: 481px) and (max-width: 768px) {
+@media only screen and (min-width: 768px) {
+
+    .ant-card-wider-padding .ant-card-body {
+        margin-right: 45px;
+    }
+
+    .news-text {
+        font-size: 1.2rem !important;
+    }
 
     .tile.is-ancestor:first-child { 
         margin: 15px 0;

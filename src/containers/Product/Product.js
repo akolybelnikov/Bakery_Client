@@ -22,10 +22,10 @@ const bgImg = require(`../../public/logo.png`);
 
 const ProductRow = styled(Row)`
     @media only screen and (max-width: 768px) {
-        margin: 10% 0 35% 0;
+        margin: 10% 0 0 0;
     }
     @media only screen and (min-width: 769px) {
-        margin: 5% 0 20% 0;
+        margin: 5% 0 0 0;
     }
 `;
 
@@ -121,7 +121,7 @@ export default class Product extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{height: '100vh'}}>
                 <Row className="is-hidden-tablet" style={{marginTop: "35px"}}><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></Row>
                 <Breadcrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
