@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Icon, Input, Upload, Button, Select, Col, Breadcrumb, Row, notification } from 'antd';
+import { Form, Icon, Input, Upload, Button, Col, Breadcrumb, Row, notification } from 'antd';
 import LoaderButton from "../../components/LoaderButton";
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
@@ -9,7 +9,13 @@ import { invokeOpenApi, invokeApig, s3Upload, s3Delete } from "../../libs/awsLib
 
 const FormItem = Form.Item;   
 const {TextArea} = Input;
-const Option = Select.Option;
+
+const IconRow = styled(Row)`
+    margin-top: 25px;
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+        margin-top: 35px;
+    }
+`;
 
 const BreadCrumbs = styled(Row)`
     margin-top: 35px;
@@ -29,7 +35,8 @@ class UpdateNews extends React.Component {
         this.state = {
             deleting: false,
             loading: false,
-            news: null
+            news: null,
+            previewImage: ''
         };
     }
 
@@ -37,9 +44,9 @@ class UpdateNews extends React.Component {
         try {
             const result = await this.getNews();
             this.setState({
-                news: result
+                news: result,
+                previewImage: `${config.s3.URL}/250x250/${result.image}`
             });
-
             this.props.form.setFieldsValue({content: this.state.news.content});
             this.props.form.validateFields();
         } catch (e) {
@@ -72,6 +79,10 @@ class UpdateNews extends React.Component {
         this.setState({ previewImage: '' });
     }
 
+    handleFormCancel = () => {
+        this.props.history.push('/admin/news');
+    }
+
     handleSubmit = async event => {
         
           let uploadedFileLocation;
@@ -98,14 +109,14 @@ class UpdateNews extends React.Component {
               await this.props.form.validateFields((err, values) => {
                   if (!err) {
                         this.saveNews({
-                            archived: values['archived'],
                             content: values['content'],
                             attachment: uploadedFileLocation || this.state.news.attachment,
                             image: uploadedFileName || this.state.news.image
+                        }).then(res => {
+                            this.openNotification();
+                            this.props.history.push("/admin");
                         });
-                        this.openNotification();
-                        this.props.history.push("/admin");
-                  }
+                  } 
               });
   
           } catch (e) {
@@ -142,12 +153,17 @@ class UpdateNews extends React.Component {
             }
 
             await this.deleteNews();
-            this.props.history.push("/admin");
+            this.props.history.push("/admin/news");
 
         } catch (e) {
             console.log(e);
             this.setState({ deleting: false});
         }
+    }
+
+    handleClick = event => {
+        event.preventDefault();
+        this.props.history.push('/admin/news');
     }
 
     render() {
@@ -166,39 +182,29 @@ class UpdateNews extends React.Component {
             }
         }
         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
-
-        const archivedError = isFieldTouched('archived') && getFieldError('archived');
         const contentError = isFieldTouched('content') && getFieldError('content');
         return (
-            <div>
-                <Row style={{marginTop: "25px"}}><Icon onClick={this.props.history.goBack} className="icon-back is-hidden-tablet" type="left" /></Row>
+            <div style={{height: '100vh'}}>
+                <IconRow className="is-hidden-desktop">
+                    <Icon onClick={this.handleClick} className="icon-back" type="left" />
+                </IconRow>
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/admin">Управление</Link></Breadcrumb.Item>
                         <Breadcrumb.Item><Link className="active-link" to="#">Изменить продукт</Link></Breadcrumb.Item>
                     </Breadcrumb>
                 </BreadCrumbs>
-                <Row style={{marginTop: '35px'}}>
-                    <Col xs={{span: 20, offset: 2}} md={{ span: 18, offset: 3 }} lg={{ span: 14, offset: 5 }}>
-                        <Center style={{margin: '20px 0'}}><p style={{color: "#331507"}} className="is-size-6-mobile is-size-5-tablet title">Внесите изменения или удалите продукт из категории.</p></Center>
+                <Row>
+                    <Col xs={{span: 22, offset: 1}} md={{ span: 18, offset: 3 }} lg={{ span: 16, offset: 4 }}>
+                        <Center style={{margin: '20px 0'}}><p style={{color: "#331507"}} className="is-size-7-mobile is-size-6-tablet title">Внесите изменения или удалите новость</p></Center>
                         <Center>
                             <div style={{width: "100%"}} >
                                 <Form onSubmit={this.handleSubmit}>
-                                <FormItem validateStatus={archivedError ? 'error' : ''} help={archivedError || ''}>
-                                    {getFieldDecorator('archived', {
-                                        rules: [{ required: true, message: 'Архивировать новость?' }],
-                                    })(
-                                        <Select placeholder="Статус">
-                                        <Option value="false">Активировать</Option>
-                                        <Option value="true">Деактивировать</Option>
-                                    </Select>
-                                    )}
-                                </FormItem>
                                     <FormItem validateStatus={contentError ? 'error' : ''} help={contentError || ''}>
                                         {getFieldDecorator('content', {
-                                            rules: [{ required: true, message: 'Внесите описание продукта' }],
+                                            rules: [{ required: true, message: 'Внесите описание новости' }],
                                         })(
-                                            <TextArea type="string" rows={4} placeholder="Описание продукта" />
+                                            <TextArea type="string" rows={4} placeholder="Описание новости" />
                                         )}
                                     </FormItem>
                                     <figure>
@@ -213,6 +219,7 @@ class UpdateNews extends React.Component {
                                         <LoaderButton style={{width: "100%"}} className="button is-warning is-inverted" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Сохранить изменения" loadingText="Logging in ..." />
                                     </FormItem>
                                 </Form>
+                                <LoaderButton style={{width: "100%", marginBottom: '20px'}} className="button is-primary" loading={this.state.loading} text="Отменить" onClick={this.handleFormCancel}/>
                                 <LoaderButton style={{width: "100%"}} className="button is-danger" loading={this.state.deleting} text="Удалить новость" loadingText="Deleting ..." 
                                 onClick={this.handleDelete}/>
                             </div>

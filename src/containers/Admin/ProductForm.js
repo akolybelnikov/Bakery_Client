@@ -99,6 +99,10 @@ class ProductForm extends React.Component {
         this.setState({ previewImage: '' });
     }
 
+    handleFormCancel = () => {
+        this.props.history.push(`/admin/${this.props.product.category}`);
+    }
+
     deleteProduct() {
         return invokeApig({
             path: `/products/${this.props.product.productId}/${this.props.location}`,
@@ -157,7 +161,7 @@ class ProductForm extends React.Component {
         const weightError = isFieldTouched('weight') && getFieldError('weight');
         return (
             <Col xs={{span: 20, offset: 2}} md={{ span: 18, offset: 3 }} lg={{ span: 14, offset: 5 }}>
-                <Center style={{margin: '20px 0'}}><p style={{color: "#331507"}} className="is-size-6-mobile is-size-5-tablet title">Внесите изменения или удалите продукт из категории.</p></Center>
+                <Center style={{margin: '20px 0 0 0'}}><p style={{color: "#331507"}} className="is-size-7-mobile is-size-6-tablet title">Внесите изменения или удалите продукт из категории.</p></Center>
                 <Center>
                     <div style={{width: "100%"}} >
                         <Form onSubmit={this.handleSubmit}>
@@ -201,6 +205,7 @@ class ProductForm extends React.Component {
                                 <LoaderButton style={{width: "100%"}} className="button is-warning is-inverted" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Сохранить изменения" loadingText="Загрузка ..." />
                             </FormItem>
                         </Form>
+                        <LoaderButton style={{width: "100%", marginBottom: '20px'}} className="button is-primary" loading={this.state.loading} text="Отменить" onClick={this.handleFormCancel}/>
                         <LoaderButton style={{width: "100%"}} className="button is-danger" loading={this.state.deleting} text="Удалить продукт" loadingText="Удаляется ..." 
                         onClick={this.handleDelete}/>
                     </div>

@@ -27,7 +27,7 @@ const BreadCrumbs = styled(Row)`
 `;
 
 const NewsRow = styled(Row)`
-    margin: 7.5% 0 0 0;
+    margin: 7.5% 0;
 `;
 
 const NewsCard = styled.article`
@@ -94,7 +94,7 @@ export default class News extends Component {
                 </figure>
                 <div className='medi-content'>
                     <div className='content'>
-                        <p>{news.content}</p>
+                        <p className='is-size-5-desktop is-size-6-tablet is-size-7-mobile'>{news.content}</p>
                     </div>
                 </div>
             </NewsCard>
@@ -109,7 +109,7 @@ export default class News extends Component {
 
     render() {
         return (
-           <div style={{height: '100vh'}}>
+           <div>
                 <IconRow className="is-hidden-tablet"><Icon onClick={this.handleClick} className="icon-back" type="left" /></IconRow>
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">

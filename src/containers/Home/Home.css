@@ -62,14 +62,17 @@ input:-ms-input-placeholder {
     padding: 0 5px;
 }
 
+.news-card p {
+    color: #331507;
+}
+
+.ant-card-wider-padding .ant-card-body {
+    padding: 0 16px 0 0 !important;
+}
+
 @media only screen and (min-width: 480px) {
     #category .ant-card-head-title {
         font-size: .9rem;
-    }
-
-    .news-card-content {
-        font-size: 16px;
-        color: #331507;
     }
 
     .ant-carousel .slick-slide {
@@ -164,12 +167,14 @@ input:-ms-input-placeholder {
     }
 }
 
-.ant-carousel .slick-dots li.slick-active button, .ant-carousel .slick-dots li button {
-    background: #52082D;
+@media only screen and (min-width: 769px) {
+    .ant-carousel .slick-dots {
+        bottom: 10px;
+    }
 }
 
-.ant-carousel .slick-dots {
-    margin: 0 0 0 12.5%;
+.ant-carousel .slick-dots li.slick-active button, .ant-carousel .slick-dots li button {
+    background: #52082D;
 }
 
 .tile.is-parent {

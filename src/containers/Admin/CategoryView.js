@@ -7,10 +7,17 @@ import { invokeOpenApi } from "../../libs/awsLib";
 import ProgressiveImage from 'react-progressive-bg-image';
 import "./Admin.css";
 
-const bgImg = require(`../../public/bg.jpg`);
+const bgImg = require(`../../public/logo-300.png`);
 
 const BreadCrumbs = styled(Row)`
     margin-top: 35px;
+`;
+
+const IconRow = styled(Row)`
+    margin-top: 25px;
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+        margin-top: 35px;
+    }
 `;
 
 const Image = styled(ProgressiveImage)`
@@ -21,7 +28,7 @@ const Image = styled(ProgressiveImage)`
 `;
 
 const columns = [{
-    title: '',
+    title: 'Выберите продукт',
     dataIndex: 'image',
     key: 'image',
     render: image => <Image placeholder={bgImg} src={`${config.s3.URL}/100x100/${image}`} transition="all 1s linear"/>
@@ -29,10 +36,6 @@ const columns = [{
     title: 'Название',
     dataIndex: 'productName',
     key: 'productName',
-} , {
-    title: 'Описание',
-    dataIndex: 'content',
-    key: 'content'
 } , {
     title: 'Цена',
     dataIndex: 'price',
@@ -89,20 +92,24 @@ export default class CategoryView extends React.Component {
         }
     };
 
+    handleClick = event => {
+        event.preventDefault();
+        this.props.history.push('/admin');
+    }
+
     render() {
         return (
-            <div>
-                <Row className="is-hidden-tablet" style={{marginTop: "10px"}}>
-                    <Icon onClick={this.props.history.goBack} className="icon-back" type="left" />
-                </Row>
+            <div style={{height: '100vh'}}>
+                <IconRow className="is-hidden-desktop">
+                    <Icon onClick={this.handleClick} className="icon-back" type="left" />
+                </IconRow>
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/admin">Управление</Link></Breadcrumb.Item>
                         <Breadcrumb.Item><Link to='#' className="active-link">{this.props.match.params.category === "bread" ? "Хлеб и булки" : this.props.match.params.category === "coffee" ?  "Кофе и другие напитки" : this.props.match.params.category === "cakes" ? "Кондитерские изделия" : this.props.match.params.category === "order" ? "Торты на заказ" : "Новости"}</Link></Breadcrumb.Item>
                     </Breadcrumb>
                 </BreadCrumbs>
-                <Row style={{marginTop: "20px"}}>
-                    <p style={{color: "#331507"}} className="is-size-7-mobile is-size-6-tablet">Выберите продукт.</p>
+                <Row style={{marginTop: '20px'}}>
                     {this.state.products && this.renderProducts(this.state.products)}
                 </Row>
             </div>

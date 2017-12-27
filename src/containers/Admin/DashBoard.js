@@ -1,8 +1,20 @@
 import React from "react";
 import { signOutUser } from "../../libs/awsLib";
-import { Row, Col } from 'antd';
+import { Row, Col, Icon, Breadcrumb } from 'antd';
 import { Link } from "react-router-dom";
+import styled from 'styled-components';
 import "./Admin.css";
+
+const IconRow = styled(Row)`
+    margin-top: 25px;
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+        margin-top: 35px;
+    }
+`;
+
+const BreadCrumbs = styled(Row)`
+    margin-top: 35px;
+`;
 
 export default class AdminDashBoard extends React.Component {
 
@@ -56,12 +68,23 @@ export default class AdminDashBoard extends React.Component {
         )
     }
 
+    handleClick = event => {
+        event.preventDefault();
+        this.props.history.push('/');
+    }
+
     render() {
         return (
             <div>
-                <Row style={{marginTop: "20px"}}>
-                    <p style={{color: "#52082D"}} className="is-size-7-mobile is-size-5-tablet">Управление продуктами</p>
-                </Row>
+                <IconRow className="is-hidden-desktop">
+                    <Icon onClick={this.handleClick} className="icon-back" type="left" />
+                </IconRow>
+                <BreadCrumbs className="is-hidden-mobile">
+                    <Breadcrumb separator=">">
+                        <Breadcrumb.Item><Link to="/">Новинки</Link></Breadcrumb.Item>
+                        <Breadcrumb.Item><Link to='#' className="active-link">Управление продуктами</Link></Breadcrumb.Item>
+                    </Breadcrumb>
+                </BreadCrumbs>
                 <Row style={{marginTop: "10px"}}>
                     <Col xs={24} sm={8} className="has-text-centered btn-new">
                         <Link to="/create" className="button is-small-mobile is-medium-tablet is-warning is-inverted">

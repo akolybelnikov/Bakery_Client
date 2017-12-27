@@ -41,11 +41,16 @@ export default class UpdateProduct extends React.Component {
         return invokeOpenApi({ path: `/products/${this.props.match.params.id}/${this.props.location.pathname.split('/')[2]}` });
     }
 
+    handleClick = event => {
+        event.preventDefault();
+        this.props.history.push(`/admin/${this.state.product.category}`);
+    }
+
     render() {
         return this.state.product && 
-            <div>
+            <div style={{height: '100vh'}}>
                 <Row className="is-hidden-tablet" style={{marginTop: "25px"}}>
-                    <Icon onClick={this.props.history.goBack} className="icon-back" type="left" />
+                    <Icon onClick={this.handleClick} className="icon-back" type="left" />
                 </Row>
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
@@ -54,7 +59,7 @@ export default class UpdateProduct extends React.Component {
                         <Breadcrumb.Item>{this.state.product && this.state.product.productName}</Breadcrumb.Item>
                     </Breadcrumb>
                 </BreadCrumbs>
-                <Row style={{marginBottom: "30px"}}>
+                <Row>
                     <ProductForm location={this.props.location.pathname.split('/')[2]} history={this.props.history} product={this.state.product}/>
                 </Row>
             </div>

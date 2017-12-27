@@ -31,14 +31,14 @@ export default ({ childProps }) =>
     <AppliedRoute path="/news" exact component={News} props={childProps} />
     <UnauthenticatedRoute path="/login" component={LoginForm} props={childProps} />
     <UnauthenticatedRoute path="/signup" component={Signup} props={childProps} />
+    <AuthenticatedRoute path="/admin/news" exact component={NewsView} props={childProps} />
+    <AuthenticatedRoute path="/admin/news/:id" component={UpdateNews} props={childProps} />
     <AuthenticatedRoute path="/admin/:category" exact component={CategoryView} props={childProps} />
     <AuthenticatedRoute path="/admin/:category/:id" exact component={UpdateProduct} props={childProps} />
     <AuthenticatedRoute path="/admin" exact component={AdminDashBoard} props={childProps} />
     <AuthenticatedRoute path="/create" component={NewProduct} props={childProps} />
     <AuthenticatedRoute path="/newoffer" component={NewOffer} props={childProps} />
     <AuthenticatedRoute path="/createnews" component={NewsForm} props={childProps} />
-    <AuthenticatedRoute path="/admin/news" exact component={NewsView} props={childProps} />
-    <AuthenticatedRoute path="/updatenews" component={UpdateNews} props={childProps} />
     
     { /* Finally, catch all unmatched routes */ }
     <Route component={NotFound} />
