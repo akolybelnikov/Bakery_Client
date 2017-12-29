@@ -56,21 +56,18 @@ class NewOffer extends React.Component {
                         content: values['content'],
                         attachment: uploadedFileLocation,
                         image: uploadedFileName
-                    });
-                    this.openNotification();
-                    this.props.history.push("/admin");
+                    })
+                    .then(this.openNotification())
+                    .then(this.props.history.push("/admin"));
                 }
             });
 
         } catch (e) {
-            console.log(e);
-            alert("Ошибка при загрузке изображения. Спецпредложение не создано.");
+            this.failureNotification();
             this.setState({ loading: false });
         } 
 
         this.props.form.resetFields();
-        
-        this.props.form.validateFields();
     }
 
     openNotification = () => {
@@ -80,6 +77,14 @@ class NewOffer extends React.Component {
           icon: <Icon type="smile-circle" style={{ color: "#52082D" }} />,
         });
     };
+
+    failureNotification = () => {
+        notification.open({
+            message: 'Ошибка при загрузке изображения.',
+            description: 'Спецпредложение не создано.',
+            icon: <Icon type="frown-o" style={{ color: "#52082D" }} />,
+        });
+    }
 
     handleCancel = () => {
         this.file = null;

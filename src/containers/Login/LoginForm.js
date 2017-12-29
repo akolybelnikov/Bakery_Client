@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { CognitoUserPool, AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
-import { Form, Icon, Input } from 'antd';
+import { Form, Icon, Input, Row, Col, notification } from 'antd';
 import Center from 'react-center';
 import config from "../../config";
 import LoaderButton from "../../components/LoaderButton";
@@ -33,9 +33,17 @@ class LoginForm extends Component {
         return new Promise((resolve, reject) => 
             user.authenticateUser(authenticationDetails, {
                 onSuccess: result => resolve(),
-                onFailure: err => {reject(err); alert(err.message)}
+                onFailure: err => {reject(err); this.failureNotification(err)}
             })
         );
+    }
+
+    failureNotification = (e) => {
+        notification.open({
+            message: 'Ошибка при входе!',
+            description: e.message,
+            icon: <Icon type="frown-o" style={{ color: "#52082D" }} />
+        });
     }
 
     componentDidMount() {
@@ -51,13 +59,12 @@ class LoginForm extends Component {
         try {
             await this.props.form.validateFields((err, values) => {
                 if (!err) {
-                    this.login(values['userName'], values['password']);  
-                    this.props.userHasAuthenticated(true);                   
-                }
-            });
+                    this.login(values['userName'], values['password']);                    
+                } else (alert(err));
+            })
+            .then(this.props.userHasAuthenticated(true)); 
 
         } catch (e) {
-            alert(e.message);
             this.setState({ loading: false });
         }  
 
@@ -73,31 +80,32 @@ class LoginForm extends Component {
         const passwordError = isFieldTouched('password') && getFieldError('password');
 
         return (
-            <div>
-                <Center><p className="is-size-7-mobile is-size-5-tablet has-text-grey title Admin">Войти как администратор</p></Center>
-                <Center>
-                    <div className="Form">
-                        <Form style={{ width: "250px"}} onSubmit={this.handleSubmit}>
+            <div style={{height: '60vh'}}>
+                <Row style={{marginTop: '25vh'}}>
+                    <Col xs={24} sm={{ span: 16, offset: 4 }} md={{ span: 16, offset: 4 }} lg={{ span: 12, offset: 6 }}>
+                        <Form onSubmit={this.handleSubmit}>
                             <FormItem validateStatus={userNameError ? 'error' : ''} help={userNameError || ''}>
                                 {getFieldDecorator('userName', {
                                     rules: [{ required: true, message: 'Please provide your email' }],
                                 })(
-                                    <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} type="email" placeholder="Username" autoFocus/>
+                                    <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} type="email" placeholder="Пользователь" autoFocus/>
                                 )}
                             </FormItem>
                             <FormItem validateStatus={passwordError ? 'error' : ''} help={passwordError || ''}>
                                 {getFieldDecorator('password', {
                                     rules: [{ required: true, message: 'Please provide your password' }],
                                 })(
-                                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="string" placeholder="Password" />
+                                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="string" placeholder="Пароль" />
                                 )}
                             </FormItem>
-                            <FormItem>
-                                <LoaderButton type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Login" loadingText="Logging in ..." />
-                            </FormItem>
+                            <Center>
+                                <FormItem>
+                                    <LoaderButton id='login-button' type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Войти" loadingText="Logging in ..." />
+                                </FormItem>
+                            </Center>
                         </Form>
-                    </div>
-                </Center>
+                    </Col>
+                </Row>
             </div>
         );                 
     }
