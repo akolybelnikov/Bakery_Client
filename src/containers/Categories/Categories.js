@@ -6,6 +6,7 @@ import styled, { keyframes } from 'styled-components';
 import { bounceIn } from 'react-animations';
 import ProgressiveImage from 'react-progressive-bg-image';
 import { invokeOpenApi } from "../../libs/awsLib";
+import config from "../../config";
 
 const bounceAnimation = keyframes`${bounceIn}`;
 
@@ -96,7 +97,7 @@ export default class Categories extends Component {
                     href={`/products/${category.categoryName}`}
                     onClick={this.handleCategoryClick}
                     title={category.title}
-                    ><Image placeholder={category.categoryName === 'bread' ? bread : category.categoryName === 'coffee' ? coffee : category.categoryName === 'cakes' ? cakes : order} src={category.attachment} transition="all 2s linear"/>
+                    ><Image placeholder={category.categoryName === 'bread' ? bread : category.categoryName === 'coffee' ? coffee : category.categoryName === 'cakes' ? cakes : order} src={`${config.s3.URL}/500x500/${category.image}`} transition="all 2s linear"/>
                 </Card>
             </CategoryCard>
         )
