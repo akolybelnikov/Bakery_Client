@@ -8,18 +8,21 @@ import "./LoginForm.css";
 
 const FormItem = Form.Item;   
 
-function hasErrors(fieldsError) {
-    return Object.keys(fieldsError).some(field => fieldsError[field]);
-}
-
-class LoginForm extends Component {
+export default class LoginForm extends Component {
     constructor(props) {
         super(props);
-    
+
         this.state = {
+          userName: '',
+          password: '',
           loading: false,
         };
     }
+
+    validateForm() {    
+        return this.state.userName.length > 0 && this.state.password.length > 0;  
+    }
+ 
 
     login(email, password) {
         const userPool = new CognitoUserPool({
@@ -46,9 +49,16 @@ class LoginForm extends Component {
         });
     }
 
-    componentDidMount() {
-        // To disabled submit button at the beginning.
-        this.props.form.validateFields();
+    handleUsernameChange = (e) => {
+        this.setState({
+            userName: e.target.value
+        });
+    }
+
+    handlePasswordChange = (e) => {
+        this.setState({
+            password: e.target.value
+        });
     }
 
     handleSubmit = async e => {
@@ -57,50 +67,35 @@ class LoginForm extends Component {
         this.setState({ loading: true });
 
         try {
-            await this.props.form.validateFields((err, values) => {
-                if (!err) {
-                    this.login(values['userName'], values['password']);                    
-                } else (alert(err));
-            })
-            .then(this.props.userHasAuthenticated(true)); 
+            await this.login(this.state.userName, this.state.password);                    
+            this.props.userHasAuthenticated(true);
+            this.props.history.push('/admin');
 
         } catch (e) {
-            this.setState({ loading: false });
+            this.setState({ 
+                loading: false,
+                userName: '',
+                password: ''
+            });
         }  
-
-        this.props.form.resetFields();
-        
-        this.props.form.validateFields();
     }
 
     render() {
-        const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
-        // Show errors only if a field was touched.
-        const userNameError = isFieldTouched('userName') && getFieldError('userName');
-        const passwordError = isFieldTouched('password') && getFieldError('password');
 
         return (
-            <div style={{height: '60vh'}}>
+            <div style={{height: '70vh'}}>
                 <Row style={{marginTop: '25vh'}}>
                     <Col xs={24} sm={{ span: 16, offset: 4 }} md={{ span: 16, offset: 4 }} lg={{ span: 12, offset: 6 }}>
                         <Form onSubmit={this.handleSubmit}>
-                            <FormItem validateStatus={userNameError ? 'error' : ''} help={userNameError || ''}>
-                                {getFieldDecorator('userName', {
-                                    rules: [{ required: true, message: 'Please provide your email' }],
-                                })(
-                                    <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} type="email" placeholder="Пользователь" autoFocus/>
-                                )}
+                            <FormItem>
+                                <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} type="email" placeholder="Пользователь" value={this.state.userName} onChange={this.handleUsernameChange} autoFocus/>
                             </FormItem>
-                            <FormItem validateStatus={passwordError ? 'error' : ''} help={passwordError || ''}>
-                                {getFieldDecorator('password', {
-                                    rules: [{ required: true, message: 'Please provide your password' }],
-                                })(
-                                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="string" placeholder="Пароль" />
-                                )}
+                            <FormItem>
+                                <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Пароль" value={this.state.password} onChange={this.handlePasswordChange} />
                             </FormItem>
                             <Center>
                                 <FormItem>
-                                    <LoaderButton id='login-button' type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Войти" loadingText="Logging in ..." />
+                                    <LoaderButton id='login-button' type="primary" htmlType="submit" loading={this.state.loading} text="Войти" disabled={!this.validateForm()} loadingText="Выполняется вход ..." />
                                 </FormItem>
                             </Center>
                         </Form>
@@ -110,4 +105,3 @@ class LoginForm extends Component {
         );                 
     }
 }
-export default Form.create()(LoginForm);
