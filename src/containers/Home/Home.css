@@ -96,7 +96,7 @@ input:-ms-input-placeholder {
 }
 
 .tile.is-ancestor:first-child { 
-    margin-top: 75px;
+    margin-top: 45px;
     margin-bottom: 25px;
 }
 
@@ -150,13 +150,6 @@ input:-ms-input-placeholder {
 
     .box {
         padding: 0.5rem;
-    }
-}
-
-@media only screen and (max-width: 480px) {
-
-    .tile.is-ancestor:first-child { 
-        margin: 5px 0;
     }
 
     .ant-carousel .slick-dots {
