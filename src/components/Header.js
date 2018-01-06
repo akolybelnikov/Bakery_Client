@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { Input, Icon, Button } from 'antd';
 import styled from "styled-components";
+import { invokeOpenApi } from "../libs/awsLib";
 
 const logo = require(`../public/logo.png`);
 const Logo = styled.img`
@@ -62,6 +63,10 @@ class Header extends React.Component {
         $menuIcon.classList.add('anticon-menu-unfold');
     }
 
+    handleSearch(value) {
+        return invokeOpenApi({ path: '/search/'+value });
+    }
+
     render() {
         return (            
             <nav className="navbar is-fixed-top" aria-label="main navigation" style={{zIndex: "30", background: "rgba(255, 255, 255, 0.8)", maxWidth: '1024px', margin: '0 auto'}}>
@@ -107,7 +112,7 @@ class Header extends React.Component {
                         <NavLink className="menu-item" to="/news">Новости</NavLink>
                     </p>
                     <p className="level-item has-text-centered is-hidden-mobile">
-                        <Search placeholder="поиск по сайту" onSearch={value => console.log(value)} />
+                        <Search placeholder="поиск по сайту" onSearch={value => this.handleSearch(value)} />
                     </p>                 
                 </div>
             </nav>         
