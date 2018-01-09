@@ -196,7 +196,7 @@ export default class App extends React.Component {
                       </div>
                       <div className="level-item has-text-centered">
                         <div>
-                          <a href="https://www.facebook.com/Confert.ru?hc_ref=ARQwxWrZK8Qop0XtLeqPjPcqJ1wPtua1EdfzTK52K7tmK-2nGd4iaI_rXNi733RwaCA&fref=nf" target='_blank' rel="noopener noreferrer" className="facebook"><Icon type="facebook" style={{ fontSize: 28, color: '#3b5998' }} /></a>
+                          <a href="https://www.facebook.com/CONFERTRU.RU" target='_blank' rel="noopener noreferrer" className="facebook"><Icon type="facebook" style={{ fontSize: 28, color: '#3b5998' }} /></a>
                         </div>
                       </div>
                       <div className="level-item has-text-centered">

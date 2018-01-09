@@ -142,7 +142,7 @@ class Contact extends React.Component {
                       </GoogleMap>
                         <ContactCard
                             title={<p>"БУЛОЧНАЯ" Рязанский Пр-т 58/1</p>}
-                            actions={[<a href='https://www.facebook.com/Confert.ru' target='_blank' rel="noopener noreferrer"><FbIcon type="facebook" /><ActionSpan className='is-hidden-mobile'>Irina Khmelniker</ActionSpan></a>, <a href='https://www.instagram.com/confertru.ru/' target='_blank' rel="noopener noreferrer"><i className="fa fa-instagram" style={{ color: '#fb3958' }} /> <ActionSpan className='is-hidden-mobile'>confertru.ru</ActionSpan></a>, <a href='https://www.instagram.com/vse_bulochki_tut/' target='_blank' rel="noopener noreferrer"><i className="fa fa-instagram" style={{ color: '#fb3958' }}/><ActionSpan className='is-hidden-mobile'>vse_bulochki_tut</ActionSpan></a>]}>
+                            actions={[<a href='https://www.facebook.com/CONFERTRU.RU/' target='_blank' rel="noopener noreferrer"><FbIcon type="facebook" /><ActionSpan className='is-hidden-mobile'>Все булочки</ActionSpan></a>, <a href='https://www.instagram.com/confertru.ru/' target='_blank' rel="noopener noreferrer"><i className="fa fa-instagram" style={{ color: '#fb3958' }} /> <ActionSpan className='is-hidden-mobile'>confertru.ru</ActionSpan></a>, <a href='https://www.instagram.com/vse_bulochki_tut/' target='_blank' rel="noopener noreferrer"><i className="fa fa-instagram" style={{ color: '#fb3958' }}/><ActionSpan className='is-hidden-mobile'>vse_bulochki_tut</ActionSpan></a>]}>
                             <table style={{margin: '0 auto'}} className='table is-hoverable'>
                                 <tbody>
                                     <tr>
