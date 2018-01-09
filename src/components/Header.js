@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
-import { Input, Icon, Button, List, Avatar, Row, Col } from 'antd';
+import { Input, Icon, Button, List, Avatar, Row, Col, message } from 'antd';
 import styled from "styled-components";
 import { invokeOpenApi } from "../libs/awsLib";
 import config from "../config";
@@ -120,15 +120,21 @@ class Header extends React.Component {
                 listData.push(product);
             }
         }
-        var $modal = document.getElementById('search-modal');
-        $modal.classList.toggle('is-active');
+        if (listData.length > 0) {
+            var $modal = document.getElementById('search-modal');
+            $modal.classList.toggle('is-active');
 
-        var $searchButton = Array.prototype.slice.call(document.querySelectorAll('.ant-input-search-button'), 0);
-        $searchButton.forEach(function($el) {
-            $el.disabled = true;
-        });
+            var $searchButton = Array.prototype.slice.call(document.querySelectorAll('.ant-input-search-button'), 0);
+            $searchButton.forEach(function($el) {
+                $el.disabled = true;
+            });
 
-        this.setState({searchValue: '', disabled: true});
+            this.setState({disabled: true});
+        } else {
+            message.error('Наименований не найдено! Попробуйте изменить условия поиска.', 5);
+        }
+
+        this.setState({searchValue: ''});
     }
 
     handleProductClick = (e) => {
