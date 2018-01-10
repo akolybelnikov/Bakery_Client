@@ -67,7 +67,6 @@ export default class App extends React.Component {
           isLoadingAffix: true
       };
       this.toggleIconSize = this.toggleIconSize.bind(this);
-      // this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
 
   userHasAuthenticated = authenticated => {
@@ -75,21 +74,13 @@ export default class App extends React.Component {
   }
 
   componentWillUnmount() {
-      // window.removeEventListener('resize', this.updateWindowDimensions);
       window.removeEventListener('resize', this.toggleIconSize);
   }
-
-  // updateWindowDimensions() {
-  //     this.setState({ height: window.innerHeight - 162 });
-  // }
 
   async componentDidMount() {
     try {
       if (await authUser()) {
         this.userHasAuthenticated(true);
-        //this.updateWindowDimensions();
-       // window.addEventListener('resize', this.updateWindowDimensions);
-
       }
     } catch(e) {
       console.log(e);
@@ -141,7 +132,7 @@ export default class App extends React.Component {
                 <a href="https://www.facebook.com/Confert.ru?hc_ref=ARQwxWrZK8Qop0XtLeqPjPcqJ1wPtua1EdfzTK52K7tmK-2nGd4iaI_rXNi733RwaCA&fref=nf" target='_blank' rel="noopener noreferrer" className="has-text-info"><i className="fa fa-facebook"></i></a>
             </div>
             <div className="level-item">
-                <Link to="/coffee" className="has-text-white"><i className="fa fa-envelope-o" aria-hidden="true"></i></Link>
+                <Link to="/contact" className="has-text-white"><i className="fa fa-envelope-o" aria-hidden="true"></i></Link>
             </div>
             <div className="level-item">
                 <Link to="/login" className="has-text-white">{
