@@ -8,6 +8,36 @@
 // To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
 // This link also includes instructions on opting out of this behavior.
 
+import { notification } from 'antd';
+
+function openUpdateNotification () {
+  notification['success']({
+    message: 'В приложении появились обновления!',
+    description: 'Пожалуйста, перезагрузите.'
+  });
+};
+
+function openCacheNotification () {
+  notification['success']({
+    message: 'Загрузка прошла успешно.',
+    description: 'Содержание приложения сохранено для доступа в оффлайн режиме.'
+  });
+};
+
+function openFailureNotification () {
+  notification['warning']({
+    message: 'Ошибка при загрузке.',
+    description: 'Содержание приложения не сохранено для доступа в оффлайн режиме.'
+  });
+};
+
+function openOfflineNotification () {
+  notification['warning']({
+    message: 'Нет соединения с интернетом.',
+    description: 'Приложение продолжит работу в оффлаийн режиме.'
+  });
+};
+
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -56,19 +86,19 @@ function registerValidSW(swUrl) {
               // the fresh content will have been added to the cache.
               // It's the perfect time to display a "New content is
               // available; please refresh." message in your web app.
-              console.log('New content is available; please refresh.');
+              openUpdateNotification();
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a
               // "Content is cached for offline use." message.
-              console.log('Content is cached for offline use.');
+              openCacheNotification();
             }
           }
         };
       };
     })
     .catch(error => {
-      console.error('Error during service worker registration:', error);
+      openFailureNotification();
     });
 }
 
@@ -93,9 +123,7 @@ function checkValidServiceWorker(swUrl) {
       }
     })
     .catch(() => {
-      console.log(
-        'No internet connection found. App is running in offline mode.'
-      );
+      openOfflineNotification();
     });
 }
 
