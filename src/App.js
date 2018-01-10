@@ -11,7 +11,6 @@ import { bounceInUp } from 'react-animations';
 import { setTimeout } from 'timers';
 import Responsive from 'react-responsive';
 
-const Desktop = props => <Responsive {...props} minWidth={769} />;
 const Tablet = props => <Responsive {...props} minWidth={481} maxWidth={768} />;
 const Mobile = props => <Responsive {...props} maxWidth={480} />;
 
@@ -123,16 +122,16 @@ export default class App extends React.Component {
       <MobileFooter className="navbar is-hidden-tablet is-fixed-bottom">            
         <div className="level is-mobile">
           <div className="level-item">
-            <a style={{ padding: 5 }} href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer" className="has-text-danger"><i ref={instaicon => this.instaicon = instaicon} className="fa fa-instagram"></i></a>
+            <a aria-label="Instagram link" style={{ padding: 5 }} href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer" className="has-text-danger"><i ref={instaicon => this.instaicon = instaicon} className="fa fa-instagram"></i></a>
         </div>
         <div className="level-item">
-            <a href="https://www.facebook.com/Confert.ru?hc_ref=ARQwxWrZK8Qop0XtLeqPjPcqJ1wPtua1EdfzTK52K7tmK-2nGd4iaI_rXNi733RwaCA&fref=nf" target='_blank' rel="noopener noreferrer" className="has-text-info"><i className="fa fa-facebook"></i></a>
+            <a aria-label="Facebook link" href="https://www.facebook.com/Confert.ru?hc_ref=ARQwxWrZK8Qop0XtLeqPjPcqJ1wPtua1EdfzTK52K7tmK-2nGd4iaI_rXNi733RwaCA&fref=nf" target='_blank' rel="noopener noreferrer" className="has-text-info"><i className="fa fa-facebook"></i></a>
         </div>
         <div className="level-item">
-            <Link to="/contact" className="has-text-white"><i className="fa fa-envelope-o" aria-hidden="true"></i></Link>
+            <Link aria-label="Contact link" to="/contact" className="has-text-white"><i className="fa fa-envelope-o" aria-hidden="true"></i></Link>
         </div>
         <div className="level-item">
-            <Link to="/login" className="has-text-white">{
+            <Link aria-label="Login link" to="/login" className="has-text-white">{
               isLoggedIn ? <i className="fa fa-unlock" aria-hidden="true"></i> : <i onClick={this.handleIconClick} className="fa fa-lock" aria-hidden="true"></i>}</Link>
         </div>
         </div>

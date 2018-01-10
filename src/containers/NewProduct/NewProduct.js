@@ -64,13 +64,12 @@ class NewProduct extends Component {
                         attachment: uploadedFileLocation,
                         image: uploadedFileName
                     });
-                    this.openNotification();
-                    this.props.history.push("/admin");
                 }
             });
+            this.openNotification();
+            this.props.history.push("/admin");
 
         } catch (e) {
-            console.log(e);
             alert("Ошибка при загрузке изображения. Продукт не создан.");
             this.setState({ loading: false });
         } 
@@ -187,7 +186,7 @@ class NewProduct extends Component {
                                         </Upload>
                                     </FormItem>
                                     <FormItem>
-                                        <LoaderButton type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Создать продукт" loadingText="Logging in ..." />
+                                        <LoaderButton type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Создать продукт" loadingText="Идёт загрузка ..." />
                                     </FormItem>
                                 </Form>
                             </div>

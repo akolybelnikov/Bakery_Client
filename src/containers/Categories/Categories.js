@@ -23,11 +23,12 @@ const BreadCrumbs = styled(Row)`
 `;
 
 const CategoriesRow = styled(Row)`
+    margin: 7% 0;
     @media only screen and (min-width: 481px) and (max-width: 768px) {
         margin: 5% 0 10% 0;
     }
     @media only screen and (min-width: 769px) and (max-width: 1024px) {
-        margin: 5% 0 20% 0;
+        margin: 7% 0 20% 0;
     }
 `;
 
@@ -110,7 +111,7 @@ export default class Categories extends Component {
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/">Новинки</Link></Breadcrumb.Item>
-                        <Breadcrumb.Item>Ассортимент</Breadcrumb.Item>
+                        <Breadcrumb.Item><Link className="active-link" to='#'>Ассортимент</Link></Breadcrumb.Item>
                     </Breadcrumb>
                 </BreadCrumbs>
                 <CategoriesRow>

@@ -137,7 +137,7 @@ export default class Home extends Component {
     return categories.map(
       (category) =>
         <CategoryCard key={category.categoryId} href={`/products/${category.categoryName}`} onClick={this.handleCategoryClick} xs={12} sm={6}>
-          <Card hoverable id="category" title={category.categoryId === "1" ? "Хлеб" : category.categoryId === "2" ? "Кофе" : category.categoryId === "3" ? "Выпечка" : "Торты"}>
+          <Card hoverable id="category-card" title={category.categoryId === "1" ? "Хлеб" : category.categoryId === "2" ? "Кофе" : category.categoryId === "3" ? "Выпечка" : "Торты"}>
             <CategoryImage crossOrigin='anonymous'
               placeholder={category.categoryName === 'bread' ? bread : category.categoryName === 'coffee' ? coffee : category.categoryName === 'cakes' ? cakes : order} 
               src={`${config.s3.URL}/250x250/${category.image}`} transition="all 1s linear" />

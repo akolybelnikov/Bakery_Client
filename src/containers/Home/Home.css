@@ -58,7 +58,7 @@ input:-ms-input-placeholder {
     color: #52082D;
 }
 
-#category .ant-card-head {
+#category-card .ant-card-head {
     padding: 0 5px;
 }
 
@@ -71,7 +71,7 @@ input:-ms-input-placeholder {
 }
 
 @media only screen and (min-width: 480px) {
-    #category .ant-card-head-title {
+    #category-card .ant-card-head-title {
         font-size: .9rem;
     }
 
@@ -106,11 +106,11 @@ input:-ms-input-placeholder {
         margin: 5px 0;
     }
 
-    #category .ant-card-head-title {
+    #category-card .ant-card-head-title {
         font-size: .7rem;
     }
 
-    #category .ant-card-head {
+    #category-card .ant-card-head {
         line-height: 16px;
         height: 16px;
         min-height: 22px;

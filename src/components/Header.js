@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
-import { Input, Icon, Button, List, Avatar, Row, Col, message } from 'antd';
+import { Input, Icon, Button, List, Row, Col, message } from 'antd';
 import styled from "styled-components";
 import { invokeOpenApi } from "../libs/awsLib";
 import config from "../config";
@@ -165,7 +165,7 @@ class Header extends React.Component {
                         <p className="level-item is-hidden-desktop"><Icon style={{ fontSize: 28, color: '#52082D' }} type="search" className="navbar-item"/></p>
                         <p className="level-item is-hidden-desktop"><NavLink to="/"><Logo className="image navbar-item" src={logo} alt="logo"/></NavLink></p>
                         <p className="level-item is-hidden-desktop">
-                            <Button style={{ fontSize: 26, background: 'transparent'}} className="button navbar-burger" data-target="navMenu"><Icon type="menu-unfold" id="menu-icon"/></Button>
+                            <Button name="menu button" style={{ fontSize: 26, background: 'transparent'}} className="button navbar-burger" data-target="navMenu"><Icon type="menu-unfold" id="menu-icon"/></Button>
                         </p>
                     </div>
                     <div className="navbar-menu level" id="navMenu">                    
@@ -210,10 +210,10 @@ class Header extends React.Component {
                 <div className="modal is-hidden-mobile" id="search-modal" style={{zIndex: 100}}>
                     <div id="modal-background" onClick={this.closeModal} className="modal-background"></div>
                     <div className="modal-card" style={{position: 'absolute', top: 30}}>
-                        <header classList="modal-card-head" style={{textAlign: 'right'}}>
+                        <header className="modal-card-head" style={{textAlign: 'right'}}>
                             <button style={{backgroundColor: '#52082D', marginBottom: 10}} onClick={this.closeModal} className="delete is-large" aria-label="close"></button>
                         </header>
-                        <div classList="modal-card-body">
+                        <div className="modal-card-body">
                             <List
                                 itemLayout="vertical"
                                 size="large"
@@ -230,7 +230,7 @@ class Header extends React.Component {
                                 />
                                     <Row>
                                         <Col xs={16}>{item.content}</Col>
-                                        <Col xs={8}><img src={`${config.s3.URL}/200x200/${item.image}`} /></Col>
+                                        <Col xs={8}><img alt="" src={`${config.s3.URL}/200x200/${item.image}`} /></Col>
                                     </Row>
                                 </List.Item>
                                 )}

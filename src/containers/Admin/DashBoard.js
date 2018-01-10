@@ -14,6 +14,7 @@ const IconRow = styled(Row)`
 
 const BreadCrumbs = styled(Row)`
     margin-top: 35px;
+    font-size: 18px;
 `;
 
 export default class AdminDashBoard extends React.Component {
@@ -85,7 +86,7 @@ export default class AdminDashBoard extends React.Component {
                         <Breadcrumb.Item><Link to='#' className="active-link">Управление продуктами</Link></Breadcrumb.Item>
                     </Breadcrumb>
                 </BreadCrumbs>
-                <Row style={{marginTop: "10px"}}>
+                <Row style={{marginTop: "20px"}}>
                     <Col xs={24} sm={8} className="has-text-centered btn-new">
                         <Link to="/create" className="button is-small-mobile is-medium-tablet is-warning is-inverted">
                             <span className="icon is-small"><i className="fa fa-plus"></i></span>
