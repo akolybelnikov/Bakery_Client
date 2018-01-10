@@ -9,6 +9,11 @@ import Routes from "./Routes";
 import styled, { keyframes } from 'styled-components';
 import { bounceInUp } from 'react-animations';
 import { setTimeout } from 'timers';
+import Responsive from 'react-responsive';
+
+const Desktop = props => <Responsive {...props} minWidth={769} />;
+const Tablet = props => <Responsive {...props} minWidth={481} maxWidth={768} />;
+const Mobile = props => <Responsive {...props} maxWidth={480} />;
 
 const { Content } = Layout;
 const bounceAnimation = keyframes`${bounceInUp}`;
@@ -23,24 +28,20 @@ const AffixBounce = styled(Affix)`
   } 
   `;
 const AffixMobile = styled(Affix)`
+  animation: 1.5s ${bounceAnimation};
   right: 5%;
-  @media only screen and (min-width: 768px) {
-    bottom: 40px;
-  }  
+  font-size: 1rem;
 `;
 const PhoneButton = styled(Button)`
+  padding: 5px;
   z-index: 50;
   @media only screen and (max-width: 768px) {
     z-index: 20;
   }
-`
-
-const Container = styled.div`
-    max-width: 1024px;
-    margin: 0 auto;
 `;
-const Level = styled.div`
-    background-color: rgba(51, 5, 28, .9);
+const MobileFooter = styled.nav`
+    background-color: rgba(51, 5, 28, .8);
+    min-height: 2.25rem;
 `;
 const OuterContent = styled(Content)`
     z-index: 10;
@@ -63,8 +64,7 @@ export default class App extends React.Component {
       this.state = { 
           isAuthenticated: false,
           isAuthenticating: true,
-          isLoading: true,
-          isLoadingAffix: true
+          isLoading: true
       };
       this.toggleIconSize = this.toggleIconSize.bind(this);
   }
@@ -120,37 +120,40 @@ export default class App extends React.Component {
   renderAffix() {
     const isLoggedIn = this.state.isAuthenticated;
     return (
-      !this.state.isLoadingAffix &&
-      <Affix offsetBottom={0} id="footer" style={{ zIndex: 20 }} className="is-hidden-tablet">
-      <Container>
-        <Level>
-          <nav className="level is-mobile is-fixed-bottom">            
-            <div className="level-item">
-                <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer" className="has-text-danger"><i ref={instaicon => this.instaicon = instaicon} className="fa fa-instagram"></i></a>
-            </div>
-            <div className="level-item">
-                <a href="https://www.facebook.com/Confert.ru?hc_ref=ARQwxWrZK8Qop0XtLeqPjPcqJ1wPtua1EdfzTK52K7tmK-2nGd4iaI_rXNi733RwaCA&fref=nf" target='_blank' rel="noopener noreferrer" className="has-text-info"><i className="fa fa-facebook"></i></a>
-            </div>
-            <div className="level-item">
-                <Link to="/contact" className="has-text-white"><i className="fa fa-envelope-o" aria-hidden="true"></i></Link>
-            </div>
-            <div className="level-item">
-                <Link to="/login" className="has-text-white">{
-                  isLoggedIn ? <i className="fa fa-unlock" aria-hidden="true"></i> : <i onClick={this.handleIconClick} className="fa fa-lock" aria-hidden="true"></i>}</Link>
-            </div>
-          </nav>
-        </Level>
-      </Container>
-    </Affix>
+      <MobileFooter className="navbar is-hidden-tablet is-fixed-bottom">            
+        <div className="level is-mobile">
+          <div className="level-item">
+            <a style={{ padding: 5 }} href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer" className="has-text-danger"><i ref={instaicon => this.instaicon = instaicon} className="fa fa-instagram"></i></a>
+        </div>
+        <div className="level-item">
+            <a href="https://www.facebook.com/Confert.ru?hc_ref=ARQwxWrZK8Qop0XtLeqPjPcqJ1wPtua1EdfzTK52K7tmK-2nGd4iaI_rXNi733RwaCA&fref=nf" target='_blank' rel="noopener noreferrer" className="has-text-info"><i className="fa fa-facebook"></i></a>
+        </div>
+        <div className="level-item">
+            <Link to="/contact" className="has-text-white"><i className="fa fa-envelope-o" aria-hidden="true"></i></Link>
+        </div>
+        <div className="level-item">
+            <Link to="/login" className="has-text-white">{
+              isLoggedIn ? <i className="fa fa-unlock" aria-hidden="true"></i> : <i onClick={this.handleIconClick} className="fa fa-lock" aria-hidden="true"></i>}</Link>
+        </div>
+        </div>
+      </MobileFooter>
     )
   }
 
   renderAffixPhoneButton() {
     return (
-      !this.state.isLoadingAffix &&
-      <AffixMobile className="is-hidden-tablet" offsetBottom={30}>
-        <PhoneButton type="primary" className="is-size-7"><Icon type="phone" /> +7 (926) 629 87 26</PhoneButton>
-      </AffixMobile>
+     <div>
+      <Mobile>
+        <AffixMobile offsetBottom={40}>
+          <PhoneButton name="phone number" type="primary" className="is-size-6"><Icon type="phone" /> +7 (926) 629 87 26</PhoneButton>
+        </AffixMobile>
+      </Mobile>
+      <Tablet>
+        <AffixMobile offsetBottom={55}>
+          <PhoneButton name="phone number" type="primary" className="is-size-5"><Icon type="phone" /> +7 (926) 629 87 26</PhoneButton>
+        </AffixMobile>
+      </Tablet>
+     </div>
     )
   }
 
@@ -164,11 +167,10 @@ export default class App extends React.Component {
       this.state.isLoading ? <LoadingScreen /> :
       !this.state.isAuthenticating &&
         <Layout>           
-          <Layout style={{ background: "white" }} >
-            
-            <OuterContent ref={div => this.container = div}>     
+          <Layout style={{ background: "white" }} >            
+            <OuterContent>     
               <AffixBounce className="is-hidden-mobile" offsetTop={105}>
-                <PhoneButton type="primary" className="is-size-6"><Icon type="phone" /> +7 (926) 629 87 26</PhoneButton>
+                <PhoneButton name="phone number" type="primary" className="is-size-5"><Icon type="phone" /> +7 (926) 629 87 26</PhoneButton>
               </AffixBounce>
           
               <InnerContainer>

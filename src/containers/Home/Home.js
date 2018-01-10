@@ -87,7 +87,7 @@ export default class Home extends Component {
       offerimage: '',
       offercontent: '',
       news: [],
-      image: `${config.s3.URL}/500x500/photo-1498049281100-cb3c002220f5.jpg`,
+      image: `${config.s3.URL}/300x450/photo-1498049281100-cb3c002220f5.jpg`,
       modalVisible: false,
       categories: [],
       isLoading: true
