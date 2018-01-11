@@ -128,7 +128,7 @@ export default class Product extends Component {
                         <Breadcrumb.Item><Link to="/">Новинки</Link></Breadcrumb.Item>
                         <Breadcrumb.Item><Link to="/products">Ассортимент</Link></Breadcrumb.Item>
                         <Breadcrumb.Item><Link to={`/products/${this.props.match.params.category}`}>{this.props.match.params.category === "bread" ? "Хлеб и булки" : this.props.match.params.category === "coffee" ?  "Кофе и другие напитки" : this.props.match.params.category === "cakes" ? "Кондитерские изделия" : "Торты на заказ"}</Link></Breadcrumb.Item>
-                        <Breadcrumb.Item><Link to='#'>{this.state.product &&  this.state.product.productName}</Link></Breadcrumb.Item>
+                        <Breadcrumb.Item><Link className="active-link" to='#'>{this.state.product &&  this.state.product.productName}</Link></Breadcrumb.Item>
                     </Breadcrumb>
                 </Breadcrumbs>
                 <ProductRow>

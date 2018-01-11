@@ -38,19 +38,7 @@ const BreadCrumbs = styled(Row)`
 `;
 
 const CardRow = styled(Row)`
-    
-    @media only screen and (max-width: 320px) {
-        margin: 7% 0 5% 0;
-    }
-    @media only screen and (min-width: 321px) and (max-width: 375px) {
-        margin: 7% 0 10% 0;
-    }
-    @media only screen and (min-width: 768px) and (max-width: 1024px) {
-        margin: 10% 0 15% 0;
-    }
-    @media only screen and (min-width: 1025px) {
-        margin: 5% 0 15% 0;
-    }
+    margin: 5% 0 20% 0;
 `
 
 const ActionSpan = styled.span` 
@@ -117,12 +105,12 @@ class Contact extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{height: '100vh'}}>
                 <IconRow className="is-hidden-tablet"><Icon onClick={this.handleClick} className="icon-back" type="left" /></IconRow>
                 <BreadCrumbs className="is-hidden-mobile">
-                    <Breadcrumb separator=">">
+                    <Breadcrumb style={{fontSize: 17}} separator=">">
                         <Breadcrumb.Item><Link to="/">Новинки</Link></Breadcrumb.Item>
-                        <Breadcrumb.Item>Контакт</Breadcrumb.Item>
+                        <Breadcrumb.Item><Link className="active-link" to='#'>Контакт</Link></Breadcrumb.Item>
                     </Breadcrumb>
                 </BreadCrumbs>
                 <CardRow>

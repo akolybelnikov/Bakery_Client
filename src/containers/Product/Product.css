@@ -6,12 +6,6 @@
     color: #331507;
 }
 
-@media only screen and (min-width: 480px) {
-    .ant-breadcrumb a, .ant-breadcrumb-link {
-        font-size: 1.2em;
-    }
-} 
-
 @media only screen and (max-width: 480px) {
     .ant-card-meta-avatar {
         visibility: hidden;

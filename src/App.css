@@ -60,3 +60,7 @@
   color: #eaccb2;
   cursor: default;
 }
+
+.menu-item {
+  font-size: 18px;
+}

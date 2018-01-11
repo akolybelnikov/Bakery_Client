@@ -25,10 +25,11 @@ const IconRow = styled(Row)`
 const BreadCrumbs = styled(Row)`
     color: #331507;
     margin-top: 35px;
+    font-size: 18px;
 `;
 
 const NewsRow = styled(Row)`
-    margin: 7.5% 0;
+    margin: 5% 0;
 `;
 
 const NewsCard = styled.article`

@@ -23,18 +23,13 @@ const BreadCrumbs = styled(Row)`
 `;
 
 const CategoriesRow = styled(Row)`
-    margin: 7% 0;
-    @media only screen and (min-width: 481px) and (max-width: 768px) {
-        margin: 5% 0 10% 0;
-    }
-    @media only screen and (min-width: 769px) and (max-width: 1024px) {
-        margin: 7% 0 20% 0;
-    }
+    margin: 3% 0;
 `;
 
 const CategoryCard = styled(Col)`
     animation: 1s ${bounceAnimation};
     padding: 10px;
+    cursor: pointer;
 `;
 const Image = styled(ProgressiveImage)`
     min-height: 500px;
