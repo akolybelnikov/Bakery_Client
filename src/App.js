@@ -163,7 +163,7 @@ export default class App extends React.Component {
                 <Routes childProps={childProps} />
                 
               </InnerContainer>
-              <footer className="footer is-fixed-bottom navbar is-hidden-mobile" style={{background: 'rgba(255, 255, 255, 0.8)', maxWidth: 1024, margin: '0px auto', padding: '.5rem'}}>
+              <footer className="footer navbar is-hidden-mobile" style={{background: 'rgba(255, 255, 255, 0.8)', maxWidth: 1024, margin: '0px auto', padding: '.5rem'}}>
                 
                     <div className="container">
                       <div className="content has-text-centered">
