@@ -21,12 +21,7 @@ const zoomInAnimation = keyframes`${zoomIn}`;
 const bgImg = require(`../../public/logo.png`);
 
 const ProductRow = styled(Row)`
-    @media only screen and (max-width: 768px) {
-        margin: 10% 0 0 0;
-    }
-    @media only screen and (min-width: 769px) {
-        margin: 5% 0 0 0;
-    }
+    margin: 5% 0;
 `;
 
 const ProductImage = styled(ProgressiveImage)`
@@ -84,33 +79,32 @@ export default class Product extends Component {
 
     renderProduct(product) {
         return(
-            <Col xs={{ span: 20, offset: 2 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }}>
+            <Col xs={24} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }}>
                 <Mobile>
                     <ProductCard 
-                        cover={<ProductImage src={`${config.s3.URL}/300x300/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
+                        title={product && product.productName}
+                        cover={<ProductImage src={`${config.s3.URL}/350x350/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
                         actions={[<p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{product && product.weight}</p>, <p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{product && product.price} руб.</p>]}>
                         <Meta 
-                            title={product && product.productName}
-                            avatar={<Avatar src={avatar} />}
                             description={product && product.content} />
                     </ProductCard>
                 </Mobile>
                 <Tablet>
                     <ProductCard 
+                        title={product && product.productName}
                         cover={<ProductImage src={`${config.s3.URL}/500x500/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
                         actions={[<p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{product && product.weight}</p>, <p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{product && product.price} руб.</p>]}>
-                        <Meta 
-                            title={product && product.productName}
+                        <Meta
                             avatar={<Avatar src={avatar} />}
                             description={product && product.content} />
                     </ProductCard>
                 </Tablet>
                 <Desktop>
                     <ProductCard 
+                        title={product && product.productName}
                         cover={<ProductImage src={`${config.s3.URL}/750x750/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
                         actions={[<p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{product && product.weight}</p>, <p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{product && product.price} руб.</p>]}>
                         <Meta 
-                            title={product && product.productName}
                             avatar={<Avatar src={avatar} />}
                             description={product && product.content} />
                     </ProductCard>

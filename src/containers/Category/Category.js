@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import { Row, Col, Card, Breadcrumb, Icon, Spin } from 'antd';
+import { Row, Card, Breadcrumb, Icon, Spin, List } from 'antd';
 import styled from 'styled-components';
 import { invokeOpenApi } from "../../libs/awsLib";
 import ProgressiveImage from 'react-progressive-bg-image';
@@ -10,7 +10,7 @@ import "./Category.css";
 const bgImg = require(`../../public/logo-300.png`);
 
 const ProductsRow = styled(Row)`
-    margin: 5% 0 0 0;
+    margin: 5% 0;
 `;
 
 const BreadCrumbs = styled(Row)`
@@ -21,9 +21,6 @@ const ProductImage = styled(ProgressiveImage)`
     background-size: cover;
     background-position: center center;
     min-height: 200px;
-    @media only screen and (max-width: 480px) {
-        min-height: 100px;
-    }
 `
 
 class Category extends React.Component {
@@ -78,17 +75,22 @@ class Category extends React.Component {
         this.props.history.push('/products');
     }
 
-    renderProducts(products) {
-        return products.map(
-            (product) =>
-            <Col key={product.productId} xs={8} sm={6} xl={6}>
-                <Card style={{ cursor: 'pointer'}}              
-                    href={`/products/${this.props.match.params.category}/${product.productId}`}
-                    onClick={this.handleProductClick}
-                    title={product.productName}>
-                    <ProductImage src={`${config.s3.URL}/200x200/${product.image}`} placeholder={bgImg} transition="all 1s linear" />
-                </Card>
-            </Col>
+    renderProductsList(products) {
+        return (
+            <List 
+                grid={{ gutter: 16, xs: 1, sm: 2, lg: 3 }}
+                dataSource={products}
+                renderItem={product => (
+                    <List.Item>
+                        <Card style={{ cursor: 'pointer'}}              
+                            href={`/products/${this.props.match.params.category}/${product.productId}`}
+                            onClick={this.handleProductClick}
+                            title={product.productName}>
+                            <ProductImage src={`${config.s3.URL}/200x200/${product.image}`} placeholder={bgImg} transition="all 1s linear" />
+                        </Card>
+                    </List.Item>
+                )}
+            />
         )
     }
 
@@ -104,7 +106,7 @@ class Category extends React.Component {
                     </Breadcrumb>
                 </BreadCrumbs>
                 <ProductsRow>
-                    {this.state.products ? this.renderProducts(this.state.products) : <Spin style={{display: 'block', marginTop: '45px'}} size="large" />}
+                    {this.state.products ? this.renderProductsList(this.state.products) : <Spin style={{display: 'block', marginTop: '45px'}} size="large" />}
                 </ProductsRow>
             </div>
         );

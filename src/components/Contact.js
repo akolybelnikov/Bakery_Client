@@ -129,7 +129,7 @@ class Contact extends React.Component {
                             <Marker />
                       </GoogleMap>
                         <ContactCard
-                            title={<p>"БУЛОЧНАЯ" Рязанский Пр-т 58/1</p>}
+                            title={<p style={{textAlign: 'center', whiteSpace: 'normal', marginBottom: 0}}>"БУЛОЧНАЯ" Рязанский Пр-т 58/1</p>}
                             actions={[<a href='https://www.facebook.com/CONFERTRU.RU/' target='_blank' rel="noopener noreferrer"><FbIcon type="facebook" /><ActionSpan className='is-hidden-mobile'>Все булочки</ActionSpan></a>, <a href='https://www.instagram.com/confertru.ru/' target='_blank' rel="noopener noreferrer"><i className="fa fa-instagram" style={{ color: '#fb3958' }} /> <ActionSpan className='is-hidden-mobile'>confertru.ru</ActionSpan></a>, <a href='https://www.instagram.com/vse_bulochki_tut/' target='_blank' rel="noopener noreferrer"><i className="fa fa-instagram" style={{ color: '#fb3958' }}/><ActionSpan className='is-hidden-mobile'>vse_bulochki_tut</ActionSpan></a>]}>
                             <table style={{margin: '0 auto'}} className='table is-hoverable'>
                                 <tbody>
@@ -151,7 +151,7 @@ class Contact extends React.Component {
                                     </tr>
                                     <tr>
                                         <td>
-                                            <p><MailIcon className="fa fa-envelope-o" /></p>
+                                            <p style={{marginBottom: 0}}><MailIcon className="fa fa-envelope-o" /></p>
                                         </td>
                                         <td>
                                             <TableCell>confert76.gmail.com</TableCell>

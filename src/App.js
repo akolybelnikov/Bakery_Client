@@ -13,31 +13,23 @@ import Responsive from 'react-responsive';
 
 const Tablet = props => <Responsive {...props} minWidth={481} maxWidth={768} />;
 const Mobile = props => <Responsive {...props} maxWidth={480} />;
+const Desktop = props => <Responsive {...props} minWidth={769} />
 
 const { Content } = Layout;
 const bounceAnimation = keyframes`${bounceInUp}`;
 
 const AffixBounce = styled(Affix)`
   animation: 1.5s ${bounceAnimation};
-  position: absolute;
-  top: 70px;
-  right: 20%;
-  @media only screen and (max-width: 1366px) {
-    right: 10%;
-  } 
-  `;
-const AffixMobile = styled(Affix)`
-  animation: 1.5s ${bounceAnimation};
-  right: 5%;
-  font-size: 1rem;
-`;
-const PhoneButton = styled(Button)`
-  padding: 5px;
-  z-index: 50;
+  position: absolute; 
+  right: 2%;
   @media only screen and (max-width: 768px) {
-    z-index: 20;
+    right: 5%;
+  }
+  @media only screen and (min-width: 1300px) {
+    right: 15%;
   }
 `;
+
 const MobileFooter = styled.nav`
     background-color: rgba(51, 5, 28, .8);
     min-height: 2.25rem;
@@ -139,23 +131,6 @@ export default class App extends React.Component {
     )
   }
 
-  renderAffixPhoneButton() {
-    return (
-     <div>
-      <Mobile>
-        <AffixMobile offsetBottom={40}>
-          <PhoneButton name="phone number" type="primary" className="is-size-6"><Icon type="phone" /> +7 (926) 629 87 26</PhoneButton>
-        </AffixMobile>
-      </Mobile>
-      <Tablet>
-        <AffixMobile offsetBottom={55}>
-          <PhoneButton name="phone number" type="primary" className="is-size-5"><Icon type="phone" /> +7 (926) 629 87 26</PhoneButton>
-        </AffixMobile>
-      </Tablet>
-     </div>
-    )
-  }
-
   render() {
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
@@ -168,46 +143,60 @@ export default class App extends React.Component {
         <Layout>           
           <Layout style={{ background: "white" }} >            
             <OuterContent>     
-              <AffixBounce className="is-hidden-mobile" offsetTop={105}>
-                <PhoneButton name="phone number" type="primary" className="is-size-5"><Icon type="phone" /> +7 (926) 629 87 26</PhoneButton>
-              </AffixBounce>
-          
+              <Mobile>
+                <AffixBounce offsetTop={80}>
+                  <Button name="phone number" type="primary" className="is-size-7"><Icon type="phone" /> +7 (926) 629 87 26</Button>
+                </AffixBounce>
+              </Mobile>
+              <Tablet>
+                <AffixBounce offsetTop={100}>
+                  <Button name="phone number" type="primary" className="is-size-6"><Icon type="phone" /> +7 (926) 629 87 26</Button>
+                </AffixBounce>
+              </Tablet>
+              <Desktop>
+                <AffixBounce offsetTop={110}>
+                  <Button name="phone number" type="primary" className="is-size-5"><Icon type="phone" /> +7 (926) 629 87 26</Button>
+                </AffixBounce>
+              </Desktop>
               <InnerContainer>
                 <Header location={this.props.location} />
                 <Routes childProps={childProps} />
-                {this.renderAffixPhoneButton()}
+                
               </InnerContainer>
-              <footer className="footer is-hidden-mobile">
-                <div className="container">
-                  <div className="content has-text-centered">
-                    <nav className="level">
-                      <div className="level-item has-text-centered">
-                        <div>
-                          <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer"><i ref={instaicon => this.instaicon = instaicon} className="fa fa-instagram" style={{ color: '#fb3958' }}></i></a>
-                        </div>
-                      </div>
-                      <div className="level-item has-text-centered">
-                        <div>
-                          <a href="https://www.facebook.com/CONFERTRU.RU" target='_blank' rel="noopener noreferrer" className="facebook"><Icon type="facebook" style={{ fontSize: 28, color: '#3b5998' }} /></a>
-                        </div>
-                      </div>
-                      <div className="level-item has-text-centered">
-                        <div>
-                          <Link to="/contact" className="has-text-grey"><i className="fa fa-envelope-o" aria-hidden="true"></i></Link>
-                        </div>
-                      </div>
-                      <div className="level-item has-text-centered">
-                        <div>
-                          <Link to="/login" className="has-text-brown">{
-                            isLoggedIn ? <i className="fa fa-unlock" aria-hidden="true"></i> : <i onClick={this.handleIconClick} className="fa fa-lock" aria-hidden="true"></i>}</Link>
+              <footer className="footer is-fixed-bottom navbar is-hidden-mobile" style={{background: 'rgba(255, 255, 255, 0.8)', maxWidth: 1024, margin: '0px auto', padding: '.5rem'}}>
+                
+                    <div className="container">
+                      <div className="content has-text-centered">
+                        <nav className="level is-mobile">
+                          <div className="level-item has-text-centered">
+                            <div>
+                              <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer"><i ref={instaicon => this.instaicon = instaicon} className="fa fa-instagram" style={{ color: '#fb3958' }}></i></a>
+                            </div>
                           </div>
+                          <div className="level-item has-text-centered">
+                            <div>
+                              <a href="https://www.facebook.com/CONFERTRU.RU" target='_blank' rel="noopener noreferrer" className="facebook"><Icon type="facebook" style={{ fontSize: 28, color: '#3b5998' }} /></a>
+                            </div>
+                          </div>
+                          <div className="level-item has-text-centered">
+                            <div>
+                              <Link to="/contact" className="has-text-grey"><i className="fa fa-envelope-o" aria-hidden="true"></i></Link>
+                            </div>
+                          </div>
+                          <div className="level-item has-text-centered">
+                            <div>
+                              <Link to="/login" className="has-text-brown">{
+                                isLoggedIn ? <i className="fa fa-unlock" aria-hidden="true"></i> : <i onClick={this.handleIconClick} className="fa fa-lock" aria-hidden="true"></i>}</Link>
+                              </div>
+                          </div>
+                        </nav>
+
+                        <p>
+                          <strong>© 2017 Все булочки тут.</strong> | Услуги разработчика: <a target='_blank' rel="noopener noreferrer" href="https://akolybelnikov.github.io/">Андрей Колыбельников</a>. | Программный код страницы защищён лицензией.
+                        </p>
                       </div>
-                    </nav>
-                    <p>
-                      <strong>© 2017 Все булочки тут.</strong> | Услуги разработчика: <a target='_blank' rel="noopener noreferrer" href="https://akolybelnikov.github.io/">Андрей Колыбельников</a>. | Программный код страницы защищён лицензией.
-                    </p>
-                  </div>
-                </div>
+                    </div>
+               
               </footer>
             </OuterContent>
           </Layout>
