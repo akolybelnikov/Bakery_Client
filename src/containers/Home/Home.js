@@ -6,8 +6,8 @@ import styled, { keyframes } from "styled-components";
 import { zoomIn } from "react-animations";
 import ProgressiveImage from "react-progressive-bg-image";
 import Instafeed from "../../components/Instafeed";
-import Center from "react-center";
 import Responsive from 'react-responsive';
+import LazyLoad from 'react-lazyload';
 import "./Home.css";
 
 const zoomInAnimation = keyframes`${zoomIn}`;
@@ -87,7 +87,6 @@ export default class Home extends Component {
       offerimage: '',
       offercontent: '',
       news: [],
-      image: `${config.s3.URL}/300x450/photo-1498049281100-cb3c002220f5.jpg`,
       modalVisible: false,
       categories: [],
       isLoading: true
@@ -207,32 +206,33 @@ export default class Home extends Component {
               visible={this.state.modalVisible}  
               onOk={() => this.setModalVisible(false)} 
               onCancel={() => this.setModalVisible(false)}> 
-              <Center>
-                <ModalImage crossOrigin='anonymous' src={`${config.s3.URL}/500x500/${this.state.offerimage}`} placeholder={offerImg} transition="all 1s linear"  />
-              </Center>   
+              <ModalImage crossOrigin='anonymous' src={`${config.s3.URL}/500x500/${this.state.offerimage}`} placeholder={offerImg} transition="all 1s linear"  />  
           </Modal>
         </div>
         <div className="tile is-ancestor">
           <div className="tile is-parent is-3 is-hidden-mobile">
             <article className="tile is-child box">
-              <ImageCard src={this.state.image} placeholder={bgImg} transition="all 1s linear" />  
+              <LazyLoad once height={200}>
+                <ImageCard src={`${config.s3.URL}/300x450/photo-1498049281100-cb3c002220f5.jpg`} placeholder={bgImg} transition="all 1s linear" /> 
+              </LazyLoad> 
             </article>
           </div>
           <div className="tile is-vertical is-parent">
-            <article className="tile is-child box">
-                <Instacard title="Мы на Instagram" bordered="true">                         
-                    <Instafeed />  
-                </Instacard>
-              
+          <LazyLoad once height={200}>
+            <article className="tile is-child box">              
+              <Instacard title="Мы на Instagram" bordered="true">                         
+                <Instafeed />
+              </Instacard>   
             </article>
+            </LazyLoad> 
           </div>
         </div>
         <div style={{marginTop: "25px", marginBottom: "35px", background: "rgba(234,204,178,.5)", padding: ".7rem"}}>
-          <Card style={{cursor: "pointer"}} title="Наши новости" bordered="false">            
-            <Carousel autoplaySpeed={5000} autoplay>
-              {this.state.news ? this.renderNews(this.state.news) : <Spin style={{display: 'block'}} size="small" />}
-            </Carousel>           
-          </Card>
+            <Card style={{cursor: "pointer"}} title="Наши новости" bordered="false">            
+              <Carousel autoplaySpeed={5000} autoplay>
+                {this.state.news ? this.renderNews(this.state.news) : <Spin style={{display: 'block'}} size="small" />}
+              </Carousel>           
+            </Card>
         </div>
       </div>
     );

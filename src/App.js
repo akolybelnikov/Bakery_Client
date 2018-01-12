@@ -141,39 +141,34 @@ export default class App extends React.Component {
                 <Routes childProps={childProps} />                
               </InnerContainer>
               <footer className="footer navbar is-hidden-mobile" style={{background: 'rgba(255, 255, 255, 0.8)', maxWidth: 1024, margin: '0px auto', padding: '.5rem'}}>
-                
-                
-                      <div className="content has-text-centered">
-                        <nav className="level is-mobile">
-                          <div className="level-item has-text-centered">
-                            <div>
-                              <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer"><i className="fa fa-2x fa-instagram" style={{ color: '#fb3958' }}></i></a>
-                            </div>
-                          </div>
-                          <div className="level-item has-text-centered">
-                            <div>
-                              <a href="https://www.facebook.com/CONFERTRU.RU" target='_blank' rel="noopener noreferrer" className="facebook"><Icon type="facebook" style={{ fontSize: 28, color: '#3b5998' }} /></a>
-                            </div>
-                          </div>
-                          <div className="level-item has-text-centered">
-                            <div>
-                              <Link to="/contact" className="has-text-grey"><i className="fa fa-2x fa-envelope-o" aria-hidden="true"></i></Link>
-                            </div>
-                          </div>
-                          <div className="level-item has-text-centered">
-                            <div>
-                              <Link className="icon-link" to="/login">
-                                { isLoggedIn ? <FaIcon size="2x" name="unlock" /> : <FaIcon size="2x" name="lock" /> }</Link>
-                              </div>
-                          </div>
-                        </nav>
-
-                        <p>
-                          <strong>© 2017 Все булочки тут.</strong> | Услуги разработчика: <a target='_blank' rel="noopener noreferrer" href="https://akolybelnikov.github.io/">Андрей Колыбельников</a>. | Программный код страницы защищён лицензией.
-                        </p>
+                <div className="content has-text-centered">
+                  <nav className="level is-mobile">
+                    <div className="level-item has-text-centered">
+                      <div>
+                        <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer"><i className="fa fa-2x fa-instagram" style={{ color: '#fb3958' }}></i></a>
                       </div>
-             
-               
+                    </div>
+                    <div className="level-item has-text-centered">
+                      <div>
+                        <a href="https://www.facebook.com/CONFERTRU.RU" target='_blank' rel="noopener noreferrer" className="facebook"><Icon type="facebook" style={{ fontSize: 28, color: '#3b5998' }} /></a>
+                      </div>
+                    </div>
+                    <div className="level-item has-text-centered">
+                      <div>
+                        <Link to="/contact" className="has-text-grey"><i className="fa fa-2x fa-envelope-o" aria-hidden="true"></i></Link>
+                      </div>
+                    </div>
+                    <div className="level-item has-text-centered">
+                      <div>
+                        <Link className="icon-link" to="/login">
+                          { isLoggedIn ? <FaIcon size="2x" name="unlock" /> : <FaIcon size="2x" name="lock" /> }</Link>
+                        </div>
+                    </div>
+                  </nav>
+                  <p>
+                    <strong>© 2017 Все булочки тут.</strong> | Услуги разработчика: <a target='_blank' rel="noopener noreferrer" href="https://akolybelnikov.github.io/">Андрей Колыбельников</a>. | Программный код страницы защищён лицензией.
+                  </p>
+                </div>
               </footer>
             </OuterContent>
           </Layout>
