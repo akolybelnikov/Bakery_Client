@@ -168,39 +168,39 @@ class Header extends React.Component {
                             <Button name="menu button" style={{ fontSize: 26, background: 'transparent'}} className="button navbar-burger" data-target="navMenu"><Icon type="menu-unfold" id="menu-icon"/></Button>
                         </p>
                     </div>
-                    <div className="navbar-menu level" id="navMenu">                    
-                        <p className="level-item has-text-centered is-hidden-mobile">
-                            <NavLink className="menu-item" to="/">Новинки</NavLink>
-                        </p>
-                        <p className="level-item has-text-centered is-hidden-desktop">
-                            <NavLink onClick={this.handleMenuClick} className="menu-item" to="/products/bread">Хлеб и Булки</NavLink>
-                        </p>
-                        <p className="level-item has-text-centered is-hidden-desktop">
-                            <NavLink onClick={this.handleMenuClick} className="menu-item" to="/products/coffee">Кофе и Напитки</NavLink>
-                        </p>
-                        <p className="level-item has-text-centered is-hidden-desktop">
-                            <NavLink onClick={this.handleMenuClick} className="menu-item" to="/products/cakes">Кондитерские изделия</NavLink>
-                        </p>
-                        <p className="level-item has-text-centered is-hidden-desktop">
-                            <NavLink onClick={this.handleMenuClick} className="menu-item" to="/products/order">Торты на заказ</NavLink>
-                        </p>
-                        <p className="level-item has-text-centered is-hidden-mobile">
-                            <NavLink className="menu-item" to="/products">Ассортимент</NavLink>
-                        </p>
+                    <div className="navbar-menu level" id="navMenu"> 
                         <p className="level-item has-text-centered is-hidden-mobile">
                             <NavLink to="/"><Logo className="image" src={logo} alt="logo"/></NavLink> 
+                        </p>                   
+                        <p className="level-item has-text-centered is-hidden-mobile">
+                            <NavLink className="menu-item header-link" to="/">Новинки</NavLink>
                         </p>
                         <p className="level-item has-text-centered is-hidden-desktop">
-                            <NavLink onClick={this.handleMenuClick} className="menu-item" to="/contact">Контакт</NavLink>
-                        </p>
-                        <p className="level-item has-text-centered is-hidden-mobile">
-                            <NavLink className="menu-item" to="/contact">Контакт</NavLink>
+                            <NavLink onClick={this.handleMenuClick} className="menu-item header-link" to="/products/bread">Хлеб и Булки</NavLink>
                         </p>
                         <p className="level-item has-text-centered is-hidden-desktop">
-                            <NavLink onClick={this.handleMenuClick} className="menu-item" to="/news">Новости</NavLink>
+                            <NavLink onClick={this.handleMenuClick} className="menu-item header-link" to="/products/coffee">Кофе и Напитки</NavLink>
+                        </p>
+                        <p className="level-item has-text-centered is-hidden-desktop">
+                            <NavLink onClick={this.handleMenuClick} className="menu-item header-link" to="/products/cakes">Кондитерские изделия</NavLink>
+                        </p>
+                        <p className="level-item has-text-centered is-hidden-desktop">
+                            <NavLink onClick={this.handleMenuClick} className="menu-item header-link" to="/products/order">Торты на заказ</NavLink>
                         </p>
                         <p className="level-item has-text-centered is-hidden-mobile">
-                            <NavLink className="menu-item" to="/news">Новости</NavLink>
+                            <NavLink className="menu-item header-link" to="/products">Ассортимент</NavLink>
+                        </p>
+                        <p className="level-item has-text-centered is-hidden-desktop">
+                            <NavLink onClick={this.handleMenuClick} className="menu-item header-link" to="/contact">Контакт</NavLink>
+                        </p>
+                        <p className="level-item has-text-centered is-hidden-mobile">
+                            <NavLink className="menu-item header-link" to="/contact">Контакт</NavLink>
+                        </p>
+                        <p className="level-item has-text-centered is-hidden-desktop">
+                            <NavLink onClick={this.handleMenuClick} className="menu-item header-link" to="/news">Новости</NavLink>
+                        </p>
+                        <p className="level-item has-text-centered is-hidden-mobile">
+                            <NavLink className="menu-item header-link" to="/news">Новости</NavLink>
                         </p>
                         <p className="level-item has-text-centered is-hidden-mobile">
                             <InputSearch disabled={this.state.disabled} value={this.state.searchValue} placeholder="поиск по сайту" onChange={this.handleChange} onSearch={value => this.handleSearch(value)} enterButton/>

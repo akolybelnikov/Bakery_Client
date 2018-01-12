@@ -10,6 +10,8 @@ import styled, { keyframes } from 'styled-components';
 import { bounceInUp } from 'react-animations';
 import { setTimeout } from 'timers';
 import Responsive from 'react-responsive';
+import 'bulma/css/bulma.css';
+import {Icon as FaIcon} from 'react-fa'
 
 const Tablet = props => <Responsive {...props} minWidth={481} maxWidth={768} />;
 const Mobile = props => <Responsive {...props} maxWidth={480} />;
@@ -31,8 +33,8 @@ const AffixBounce = styled(Affix)`
 `;
 
 const MobileFooter = styled.nav`
-    background-color: rgba(51, 5, 28, .8);
-    min-height: 2.25rem;
+    background-color: rgba(51, 5, 28, .8) !important;
+    min-height: 2.25rem !important;
 `;
 const OuterContent = styled(Content)`
     z-index: 10;
@@ -57,15 +59,10 @@ export default class App extends React.Component {
           isAuthenticating: true,
           isLoading: true
       };
-      this.toggleIconSize = this.toggleIconSize.bind(this);
   }
 
   userHasAuthenticated = authenticated => {
       this.setState({ isAuthenticated: authenticated });    
-  }
-
-  componentWillUnmount() {
-      window.removeEventListener('resize', this.toggleIconSize);
   }
 
   async componentDidMount() {
@@ -87,25 +84,6 @@ export default class App extends React.Component {
         isLoadingAffix: false
       });
     }, 2000);
-
-    this.toggleIconSize();
-    window.addEventListener('resize', this.toggleIconSize);
-
-  }
-
-  toggleIconSize() {
-    const faIcons = document.getElementsByClassName('fa');
-    if (window.innerWidth >= 768) {
-      for (let icon of faIcons) {
-        icon.classList.add('fa-2x');
-      }
-    } else {
-        for (let icon of faIcons) {
-          if (icon.classList.contains('fa-2x')) {
-            icon.classList.remove('fa-2x');
-          }
-        }        
-      }
   }
 
   renderAffix() {
@@ -114,17 +92,17 @@ export default class App extends React.Component {
       <MobileFooter className="navbar is-hidden-tablet is-fixed-bottom">            
         <div className="level is-mobile">
           <div className="level-item">
-            <a aria-label="Instagram link" style={{ padding: 5 }} href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer" className="has-text-danger"><i ref={instaicon => this.instaicon = instaicon} className="fa fa-instagram"></i></a>
+            <a aria-label="Instagram link" style={{ padding: 5 }} href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer" className="has-text-danger"><i className="fa fa-instagram"></i></a>
         </div>
         <div className="level-item">
-            <a aria-label="Facebook link" href="https://www.facebook.com/Confert.ru?hc_ref=ARQwxWrZK8Qop0XtLeqPjPcqJ1wPtua1EdfzTK52K7tmK-2nGd4iaI_rXNi733RwaCA&fref=nf" target='_blank' rel="noopener noreferrer" className="has-text-info"><i className="fa fa-facebook"></i></a>
+            <a aria-label="Facebook link" href="https://www.facebook.com/Confert.ru?hc_ref=ARQwxWrZK8Qop0XtLeqPjPcqJ1wPtua1EdfzTK52K7tmK-2nGd4iaI_rXNi733RwaCA&fref=nf" target='_blank' rel="noopener noreferrer" className="has-text-info"><Icon type="facebook" /></a>
         </div>
         <div className="level-item">
-            <Link aria-label="Contact link" to="/contact" className="has-text-white"><i className="fa fa-envelope-o" aria-hidden="true"></i></Link>
+            <Link aria-label="Contact link" to="/contact" className="has-text-white"><Icon type="mail" /></Link>
         </div>
         <div className="level-item">
             <Link aria-label="Login link" to="/login" className="has-text-white">{
-              isLoggedIn ? <i className="fa fa-unlock" aria-hidden="true"></i> : <i onClick={this.handleIconClick} className="fa fa-lock" aria-hidden="true"></i>}</Link>
+              isLoggedIn ? <FaIcon name="unlock" /> : <FaIcon name="lock" />}</Link>
         </div>
         </div>
       </MobileFooter>
@@ -160,17 +138,16 @@ export default class App extends React.Component {
               </Desktop>
               <InnerContainer>
                 <Header location={this.props.location} />
-                <Routes childProps={childProps} />
-                
+                <Routes childProps={childProps} />                
               </InnerContainer>
               <footer className="footer navbar is-hidden-mobile" style={{background: 'rgba(255, 255, 255, 0.8)', maxWidth: 1024, margin: '0px auto', padding: '.5rem'}}>
                 
-                    <div className="container">
+                
                       <div className="content has-text-centered">
                         <nav className="level is-mobile">
                           <div className="level-item has-text-centered">
                             <div>
-                              <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer"><i ref={instaicon => this.instaicon = instaicon} className="fa fa-instagram" style={{ color: '#fb3958' }}></i></a>
+                              <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer"><i className="fa fa-2x fa-instagram" style={{ color: '#fb3958' }}></i></a>
                             </div>
                           </div>
                           <div className="level-item has-text-centered">
@@ -180,13 +157,13 @@ export default class App extends React.Component {
                           </div>
                           <div className="level-item has-text-centered">
                             <div>
-                              <Link to="/contact" className="has-text-grey"><i className="fa fa-envelope-o" aria-hidden="true"></i></Link>
+                              <Link to="/contact" className="has-text-grey"><i className="fa fa-2x fa-envelope-o" aria-hidden="true"></i></Link>
                             </div>
                           </div>
                           <div className="level-item has-text-centered">
                             <div>
-                              <Link to="/login" className="has-text-brown">{
-                                isLoggedIn ? <i className="fa fa-unlock" aria-hidden="true"></i> : <i onClick={this.handleIconClick} className="fa fa-lock" aria-hidden="true"></i>}</Link>
+                              <Link className="icon-link" to="/login">
+                                { isLoggedIn ? <FaIcon size="2x" name="unlock" /> : <FaIcon size="2x" name="lock" /> }</Link>
                               </div>
                           </div>
                         </nav>
@@ -195,7 +172,7 @@ export default class App extends React.Component {
                           <strong>© 2017 Все булочки тут.</strong> | Услуги разработчика: <a target='_blank' rel="noopener noreferrer" href="https://akolybelnikov.github.io/">Андрей Колыбельников</a>. | Программный код страницы защищён лицензией.
                         </p>
                       </div>
-                    </div>
+             
                
               </footer>
             </OuterContent>

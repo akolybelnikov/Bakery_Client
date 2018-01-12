@@ -1,10 +1,13 @@
-#Content {
-  margin: 20px 0;
+.icon-link, .ant-breadcrumb a {
+  color: #52082D !important; 
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.header-link {
+  color: #52082D !important; 
+}
+
+.header-link:hover {
+  color: #eaccb2 !important; 
 }
 
 .navbar-burger {
@@ -21,9 +24,14 @@
   background-color: white;
 }
 
-.button:focus:not(:active) {
-  -webkit-box-shadow: none;
-  box-shadow: none;
+.button:focus:not(:active), .button.is-focused:not(:active) {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  outline: none;
+}
+
+.button:focus, .button.is-focused {
+  border-color: white;
 }
 
 .ant-input-affix-wrapper .ant-input-suffix {
@@ -49,7 +57,7 @@
 }
 
 .ant-breadcrumb a.active-link {
-  color: #eaccb2;
+  color: #eaccb2 !important;
 }
 
 .ant-breadcrumb a.active-link:focus{

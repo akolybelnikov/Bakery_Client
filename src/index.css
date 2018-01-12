@@ -1,13 +1,9 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "Open Sans", sans-serif;
+  font-family: sans-serif;
   font-size: 16px;
-  color: #333;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: "PT Serif", serif;
+  color: rgba(82, 8, 45, 0.85);
 }
 
 select.form-control,

@@ -14,7 +14,6 @@ const IconRow = styled(Row)`
 
 const BreadCrumbs = styled(Row)`
     margin-top: 35px;
-    font-size: 18px;
 `;
 
 export default class AdminDashBoard extends React.Component {
@@ -82,8 +81,8 @@ export default class AdminDashBoard extends React.Component {
                 </IconRow>
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
-                        <Breadcrumb.Item><Link to="/">Новинки</Link></Breadcrumb.Item>
-                        <Breadcrumb.Item><Link to='#' className="active-link">Управление продуктами</Link></Breadcrumb.Item>
+                        <Breadcrumb.Item><Link style={{fontSize: 17}} to="/">Новинки</Link></Breadcrumb.Item>
+                        <Breadcrumb.Item><Link style={{fontSize: 17}} to='#' className="active-link">Управление продуктами</Link></Breadcrumb.Item>
                     </Breadcrumb>
                 </BreadCrumbs>
                 <Row style={{marginTop: "20px"}}>
@@ -109,7 +108,7 @@ export default class AdminDashBoard extends React.Component {
                 <Row style={{marginTop: "10px", textAlign: "center"}}>
                     {this.renderCategories(this.state.categories)}
                 </Row>
-                <Row style={{marginBottom: "35px"}}>
+                <Row style={{marginBottom: "15%"}}>
                     <a  onClick={this.handleLogout} className="button is-small-mobile is-outlined is-medium-tablet is-danger is-pulled-right">
                         <span className="icon is-small" ><i className="fa fa-sign-out"></i></span>
                         <span>Выйдти</span>
