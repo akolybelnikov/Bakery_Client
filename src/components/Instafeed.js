@@ -3,7 +3,14 @@ import config from "../config";
 import axios from "axios";
 import { Row, Col, Card } from 'antd';
 import ProgressiveImage from 'react-progressive-bg-image';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import { zoomIn } from "react-animations";
+
+const zoomInAnimation = keyframes`${zoomIn}`;
+
+const Instacard = styled(Card)`
+  animation: 2s ${zoomInAnimation};
+`
 
 const Image = styled(ProgressiveImage)`
     min-height: 150px;
@@ -75,10 +82,14 @@ export default class Instafeed extends React.Component {
 
     render() {
         return (
-            <div>
-                <Row>
-                    {this.state.posts && this.renderPosts(this.state.posts)}
-                </Row>
+            <div className="tile is-vertical is-parent">
+                <article className="tile is-child box">              
+                    <Instacard title="Мы на Instagram" bordered="true">
+                        <Row>
+                            {this.state.posts && this.renderPosts(this.state.posts)}
+                        </Row>                             
+                    </Instacard>   
+                </article>
             </div>
         );
     }
