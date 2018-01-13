@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import styled from 'styled-components'
 import config from "../../config";
 import LoaderButton from "../../components/LoaderButton";
-import Center from 'react-center';
 import { invokeApig, s3Upload } from "../../libs/awsLib";
 import "./Admin.css";
 
@@ -118,8 +117,8 @@ class NewOffer extends React.Component {
         // Show errors only if a field was touched.
         const contentError = isFieldTouched('content') && getFieldError('content');
         return (
-            <div>
-                <Row style={{marginTop: "10px"}}><Icon onClick={this.props.history.goBack} className="icon-back is-hidden-tablet" type="left" /></Row>
+            <div style={{height: '100vh'}}>
+                <Row style={{marginTop: "25px"}}><Icon onClick={this.props.history.goBack} className="icon-back is-hidden-tablet" type="left" /></Row>
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item><Link to="/admin">Управление</Link></Breadcrumb.Item>
@@ -128,30 +127,28 @@ class NewOffer extends React.Component {
                 </BreadCrumbs>
                 <Row style={{marginTop: "35px"}}>
                     <Col xs={{ span: 22, offset: 1 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }} >
-                        <Center>
-                            <div className="Form">
-                                <Form onSubmit={this.handleSubmit}>
-                                    <FormItem validateStatus={contentError ? 'error' : ''} help={contentError || ''}>
-                                        {getFieldDecorator('content', {
-                                            rules: [{ required: true, message: 'Внесите описание спецпредложения' }],
-                                        })(
-                                            <TextArea type="string" rows={4} placeholder="Описание спецпредложения" />
-                                        )}
-                                    </FormItem>
-                                    <figure>
-                                        <img alt="" src={previewImage} />
-                                    </figure>
-                                    <FormItem >
-                                        <Upload onRemove={this.handleCancel} {...props}>
-                                            <Button className="button is-info is-outlined"><Icon type="upload" />Выбрать изображение</Button>
-                                        </Upload>
-                                    </FormItem>
-                                    <FormItem>
-                                        <LoaderButton style={{width: "100%"}} type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Сохранить спецпредложение" loadingText="Logging in ..." />
-                                    </FormItem>
-                                </Form>
-                            </div>
-                        </Center>
+                        <div className="Form">
+                            <Form onSubmit={this.handleSubmit}>
+                                <FormItem validateStatus={contentError ? 'error' : ''} help={contentError || ''}>
+                                    {getFieldDecorator('content', {
+                                        rules: [{ required: true, message: 'Внесите описание спецпредложения' }],
+                                    })(
+                                        <TextArea type="string" rows={4} placeholder="Описание спецпредложения" />
+                                    )}
+                                </FormItem>
+                                <figure>
+                                    <img alt="" src={previewImage} />
+                                </figure>
+                                <FormItem >
+                                    <Upload onRemove={this.handleCancel} {...props}>
+                                        <Button className="button is-info is-outlined"><Icon type="upload" />Выбрать изображение</Button>
+                                    </Upload>
+                                </FormItem>
+                                <FormItem>
+                                    <LoaderButton style={{width: "100%"}} type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Сохранить спецпредложение" loadingText="Logging in ..." />
+                                </FormItem>
+                            </Form>
+                        </div>
                     </Col>
                 </Row>
             </div>

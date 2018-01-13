@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import styled from 'styled-components';
 import config from "../../config";
 import LoaderButton from "../../components/LoaderButton";
-import Center from 'react-center';
 import { invokeApig, s3Upload } from "../../libs/awsLib";
 import "./Admin.css";
 
@@ -123,30 +122,28 @@ class NewsForm extends React.Component {
                 </BreadCrumbs>
                 <Row style={{marginTop: '35px'}}>
                     <Col xs={{ span: 22, offset: 1 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }} >
-                        <Center>
-                            <div className="Form">
-                                <Form onSubmit={this.handleSubmit}>
-                                    <FormItem validateStatus={contentError ? 'error' : ''} help={contentError || ''}>
-                                        {getFieldDecorator('content', {
-                                            rules: [{ required: true, message: 'Внесите описание' }],
-                                        })(
-                                            <TextArea type="string" rows={4} placeholder="Описаниe" />
-                                        )}
-                                    </FormItem>
-                                    <figure>
-                                        <img alt="" src={previewImage} />
-                                    </figure>
-                                    <FormItem >
-                                        <Upload onRemove={this.handleCancel} {...props}>
-                                            <Button className="button is-info is-outlined"><Icon type="upload" />Выбрать изображение</Button>
-                                        </Upload>
-                                    </FormItem>
-                                    <FormItem>
-                                        <LoaderButton style={{width: "100%"}} type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Сохранить" loadingText="Logging in ..." />
-                                    </FormItem>
-                                </Form>
-                            </div>
-                        </Center>
+                        <div className="Form">
+                            <Form onSubmit={this.handleSubmit}>
+                                <FormItem validateStatus={contentError ? 'error' : ''} help={contentError || ''}>
+                                    {getFieldDecorator('content', {
+                                        rules: [{ required: true, message: 'Внесите описание' }],
+                                    })(
+                                        <TextArea type="string" rows={4} placeholder="Описаниe" />
+                                    )}
+                                </FormItem>
+                                <figure>
+                                    <img alt="" src={previewImage} />
+                                </figure>
+                                <FormItem >
+                                    <Upload onRemove={this.handleCancel} {...props}>
+                                        <Button className="button is-info is-outlined"><Icon type="upload" />Выбрать изображение</Button>
+                                    </Upload>
+                                </FormItem>
+                                <FormItem>
+                                    <LoaderButton style={{width: "100%"}} type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Сохранить" loadingText="Logging in ..." />
+                                </FormItem>
+                            </Form>
+                        </div>
                     </Col>
                 </Row>
             </div>

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { CognitoUserPool, AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
 import { Form, Icon, Input, Row, Col, notification } from 'antd';
-import Center from 'react-center';
 import config from "../../config";
 import LoaderButton from "../../components/LoaderButton";
 import "./LoginForm.css";
@@ -85,7 +84,7 @@ export default class LoginForm extends Component {
         return (
             <div style={{height: '70vh'}}>
                 <Row style={{marginTop: '25vh'}}>
-                    <Col xs={24} sm={{ span: 16, offset: 4 }} md={{ span: 16, offset: 4 }} lg={{ span: 12, offset: 6 }}>
+                    <Col xs={{ span: 20, offset: 2 }} sm={{ span: 16, offset: 4 }} md={{ span: 16, offset: 4 }} lg={{ span: 12, offset: 6 }}>
                         <Form onSubmit={this.handleSubmit}>
                             <FormItem>
                                 <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} type="email" placeholder="Пользователь" value={this.state.userName} onChange={this.handleUsernameChange} autoFocus/>
@@ -93,11 +92,9 @@ export default class LoginForm extends Component {
                             <FormItem>
                                 <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Пароль" value={this.state.password} onChange={this.handlePasswordChange} />
                             </FormItem>
-                            <Center>
-                                <FormItem>
-                                    <LoaderButton id='login-button' type="primary" htmlType="submit" loading={this.state.loading} text="Войти" disabled={!this.validateForm()} loadingText="Выполняется вход ..." />
-                                </FormItem>
-                            </Center>
+                            <FormItem style={{textAlign: "center"}}>
+                                <LoaderButton style={{width: '200px'}} id='login-button' type="primary" htmlType="submit" loading={this.state.loading} text="Войти" disabled={!this.validateForm()} loadingText="Выполняется вход ..." />
+                            </FormItem>
                         </Form>
                     </Col>
                 </Row>

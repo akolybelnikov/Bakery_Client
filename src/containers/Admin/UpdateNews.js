@@ -3,7 +3,6 @@ import { Form, Icon, Input, Upload, Button, Col, Breadcrumb, Row, notification }
 import LoaderButton from "../../components/LoaderButton";
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
-import Center from 'react-center';
 import config from "../../config";
 import { invokeOpenApi, invokeApig, s3Upload, s3Delete } from "../../libs/awsLib";
 
@@ -161,11 +160,6 @@ class UpdateNews extends React.Component {
         }
     }
 
-    handleClick = event => {
-        event.preventDefault();
-        this.props.history.push('/admin/news');
-    }
-
     render() {
         const { previewImage } = this.state;
         const props = {
@@ -184,9 +178,9 @@ class UpdateNews extends React.Component {
         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
         const contentError = isFieldTouched('content') && getFieldError('content');
         return (
-            <div style={{height: '100vh'}}>
+            <div style={{height: '100vh', margin: '40px 0'}}>
                 <IconRow className="is-hidden-desktop">
-                    <Icon onClick={this.handleClick} className="icon-back" type="left" />
+                    <Icon onClick={this.props.history.goBack} className="icon-back" type="left" />
                 </IconRow>
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
@@ -196,34 +190,32 @@ class UpdateNews extends React.Component {
                 </BreadCrumbs>
                 <Row>
                     <Col xs={{span: 22, offset: 1}} md={{ span: 18, offset: 3 }} lg={{ span: 16, offset: 4 }}>
-                        <Center style={{margin: '20px 0'}}><p style={{color: "#331507"}} className="is-size-7-mobile is-size-6-tablet title">Внесите изменения или удалите новость</p></Center>
-                        <Center>
-                            <div style={{width: "100%"}} >
-                                <Form onSubmit={this.handleSubmit}>
-                                    <FormItem validateStatus={contentError ? 'error' : ''} help={contentError || ''}>
-                                        {getFieldDecorator('content', {
-                                            rules: [{ required: true, message: 'Внесите описание новости' }],
-                                        })(
-                                            <TextArea type="string" rows={4} placeholder="Описание новости" />
-                                        )}
-                                    </FormItem>
-                                    <figure>
-                                        <img alt="" src={previewImage} />
-                                    </figure>
-                                    <FormItem>
-                                        <Upload onRemove={this.handleCancel} {...props}>
-                                            <Button className="button is-info"><Icon type="upload" />Изменить изображение</Button>
-                                        </Upload>
-                                    </FormItem>
-                                    <FormItem>
-                                        <LoaderButton style={{width: "100%"}} className="button is-warning is-inverted" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Сохранить изменения" loadingText="Logging in ..." />
-                                    </FormItem>
-                                </Form>
-                                <LoaderButton style={{width: "100%", marginBottom: '20px'}} className="button is-primary" loading={this.state.loading} text="Отменить" onClick={this.handleFormCancel}/>
-                                <LoaderButton style={{width: "100%"}} className="button is-danger" loading={this.state.deleting} text="Удалить новость" loadingText="Deleting ..." 
-                                onClick={this.handleDelete}/>
-                            </div>
-                        </Center>
+                        <p style={{color: "#331507", margin: '0 auto'}} className="is-size-7-mobile is-size-6-tablet title">Внесите изменения или удалите новость</p>
+                        <div style={{width: "100%"}} >
+                            <Form onSubmit={this.handleSubmit}>
+                                <FormItem validateStatus={contentError ? 'error' : ''} help={contentError || ''}>
+                                    {getFieldDecorator('content', {
+                                        rules: [{ required: true, message: 'Внесите описание новости' }],
+                                    })(
+                                        <TextArea type="string" rows={4} placeholder="Описание новости" />
+                                    )}
+                                </FormItem>
+                                <figure>
+                                    <img alt="" src={previewImage} />
+                                </figure>
+                                <FormItem>
+                                    <Upload onRemove={this.handleCancel} {...props}>
+                                        <Button className="button is-info"><Icon type="upload" />Изменить изображение</Button>
+                                    </Upload>
+                                </FormItem>
+                                <FormItem>
+                                    <LoaderButton style={{width: "100%"}} className="button is-warning is-inverted" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Сохранить изменения" loadingText="Logging in ..." />
+                                </FormItem>
+                            </Form>
+                            <LoaderButton style={{width: "100%", marginBottom: '20px'}} className="button is-primary" loading={this.state.loading} text="Отменить" onClick={this.handleFormCancel}/>
+                            <LoaderButton style={{width: "100%"}} className="button is-danger" loading={this.state.deleting} text="Удалить новость" loadingText="Deleting ..." 
+                            onClick={this.handleDelete}/>
+                        </div>
                     </Col>
                 </Row>
             </div>

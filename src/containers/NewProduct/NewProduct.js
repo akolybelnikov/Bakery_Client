@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Form, Icon, Input, Upload, Button, Select, Row, Col, notification, Breadcrumb } from 'antd';
-import Center from 'react-center';
 import config from "../../config";
 import styled from 'styled-components';
 import LoaderButton from "../../components/LoaderButton";
@@ -124,7 +123,7 @@ class NewProduct extends Component {
         const priceError = isFieldTouched('price') && getFieldError('price');
         const weightError = isFieldTouched('weight') && getFieldError('weight');
         return (
-            <div>
+            <div style={{height: '100vh'}}>
                 <Row className="is-hidden-tablet" style={{marginTop: "25px"}}><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></Row>
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
@@ -132,65 +131,63 @@ class NewProduct extends Component {
                         <Breadcrumb.Item><Link to='#' className="active-link">Создать новый продукт</Link></Breadcrumb.Item>
                     </Breadcrumb>
                 </BreadCrumbs>
-                <Row style={{marginTop: '15px'}}>
+                <Row style={{margin: '15px 0'}}>
                     <Col xs={{ span: 22, offset: 1 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }} >
-                        <Center>
-                            <div className="Form">
-                                <Form onSubmit={this.handleSubmit}>
-                                    <FormItem validateStatus={categoryError ? 'error' : ''} help={categoryError || ''}>
-                                        {getFieldDecorator('category', {
-                                            rules: [{ required: true, message: 'Выберите категорию продукта' }],
-                                        })(
-                                            <Select placeholder="Категория">
-                                            <Option value="bread">Хлеб и булки</Option>
-                                            <Option value="coffee">Кофе и другие напитки</Option>
-                                            <Option value="cakes">Кондитерские изделия</Option>
-                                            <Option value="order">Торты на заказ</Option>
-                                        </Select>
-                                        )}
-                                    </FormItem>
-                                    <FormItem validateStatus={nameError ? 'error' : ''} help={nameError || ''}>
-                                        {getFieldDecorator('name', {
-                                            rules: [{ required: true, message: 'Внесите название продукта' }],
-                                        })(
-                                            <Input type="string" placeholder="Название продукта" />
-                                        )}
-                                    </FormItem>
-                                    <FormItem validateStatus={contentError ? 'error' : ''} help={contentError || ''}>
-                                        {getFieldDecorator('content', {
-                                            rules: [{ required: true, message: 'Внесите описание продукта' }],
-                                        })(
-                                            <TextArea type="string" rows={4} placeholder="Описание продукта" />
-                                        )}
-                                    </FormItem>
-                                    <FormItem validateStatus={priceError ? 'error' : ''} help={priceError || ''}>
-                                        {getFieldDecorator('price', {
-                                            rules: [{ required: true, message: 'Внесите цену продукта' }],
-                                        })(
-                                            <Input type="number" placeholder="Цена продукта: 00.00" />
-                                        )}
-                                    </FormItem>
-                                    <FormItem validateStatus={weightError ? 'error' : ''} help={weightError || ''}>
-                                        {getFieldDecorator('weight', {
-                                            rules: [{ required: true, message: 'Внесите вес продукта' }],
-                                        })(
-                                            <Input type="string" placeholder="Вес продукта: 130гр. / 150 мл." />
-                                        )}
-                                    </FormItem>
-                                    <figure>
-                                        <img alt="" src={previewImage} />
-                                    </figure>
-                                    <FormItem >
-                                        <Upload onRemove={this.handleCancel} {...props}>
-                                            <Button className="button is-info is-outlined"><Icon type="upload" />Выбрать изображение</Button>
-                                        </Upload>
-                                    </FormItem>
-                                    <FormItem>
-                                        <LoaderButton type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Создать продукт" loadingText="Идёт загрузка ..." />
-                                    </FormItem>
-                                </Form>
-                            </div>
-                        </Center>
+                        <div className="Form">
+                            <Form onSubmit={this.handleSubmit}>
+                                <FormItem validateStatus={categoryError ? 'error' : ''} help={categoryError || ''}>
+                                    {getFieldDecorator('category', {
+                                        rules: [{ required: true, message: 'Выберите категорию продукта' }],
+                                    })(
+                                        <Select placeholder="Категория">
+                                        <Option value="bread">Хлеб и булки</Option>
+                                        <Option value="coffee">Кофе и другие напитки</Option>
+                                        <Option value="cakes">Кондитерские изделия</Option>
+                                        <Option value="order">Торты на заказ</Option>
+                                    </Select>
+                                    )}
+                                </FormItem>
+                                <FormItem validateStatus={nameError ? 'error' : ''} help={nameError || ''}>
+                                    {getFieldDecorator('name', {
+                                        rules: [{ required: true, message: 'Внесите название продукта' }],
+                                    })(
+                                        <Input type="string" placeholder="Название продукта" />
+                                    )}
+                                </FormItem>
+                                <FormItem validateStatus={contentError ? 'error' : ''} help={contentError || ''}>
+                                    {getFieldDecorator('content', {
+                                        rules: [{ required: true, message: 'Внесите описание продукта' }],
+                                    })(
+                                        <TextArea type="string" rows={4} placeholder="Описание продукта" />
+                                    )}
+                                </FormItem>
+                                <FormItem validateStatus={priceError ? 'error' : ''} help={priceError || ''}>
+                                    {getFieldDecorator('price', {
+                                        rules: [{ required: true, message: 'Внесите цену продукта' }],
+                                    })(
+                                        <Input type="float" placeholder="Цена продукта: 00.00" />
+                                    )}
+                                </FormItem>
+                                <FormItem validateStatus={weightError ? 'error' : ''} help={weightError || ''}>
+                                    {getFieldDecorator('weight', {
+                                        rules: [{ required: true, message: 'Внесите вес продукта' }],
+                                    })(
+                                        <Input type="string" placeholder="Вес продукта: 130гр. / 150 мл." />
+                                    )}
+                                </FormItem>
+                                <figure>
+                                    <img alt="" src={previewImage} />
+                                </figure>
+                                <FormItem >
+                                    <Upload onRemove={this.handleCancel} {...props}>
+                                        <Button className="button is-info is-outlined"><Icon type="upload" />Выбрать изображение</Button>
+                                    </Upload>
+                                </FormItem>
+                                <FormItem>
+                                    <LoaderButton type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Создать продукт" loadingText="Идёт загрузка ..." />
+                                </FormItem>
+                            </Form>
+                        </div>
                     </Col>
                 </Row>
             </div>

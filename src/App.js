@@ -11,7 +11,7 @@ import { bounceInUp } from 'react-animations';
 import { setTimeout } from 'timers';
 import Responsive from 'react-responsive';
 import 'bulma/css/bulma.css';
-import {Icon as FaIcon} from 'react-fa'
+import instaIcon from './public/instagram.svg';
 
 const Tablet = props => <Responsive {...props} minWidth={481} maxWidth={768} />;
 const Mobile = props => <Responsive {...props} maxWidth={480} />;
@@ -39,6 +39,11 @@ const MobileFooter = styled.nav`
 const OuterContent = styled(Content)`
     z-index: 10;
     padding: 0 24px;
+    @media only screen and (max-width: 767px) {
+      padding: 0 6px;
+    }
+  }
+
 `;
 const InnerContainer = styled.div`
   max-width: 1024px;
@@ -92,7 +97,7 @@ export default class App extends React.Component {
       <MobileFooter className="navbar is-hidden-tablet is-fixed-bottom">            
         <div className="level is-mobile">
           <div className="level-item">
-            <a aria-label="Instagram link" style={{ padding: 5 }} href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer" className="has-text-danger"><i className="fa fa-instagram"></i></a>
+            <a aria-label="Instagram link" style={{ padding: 5 }} href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer" className="has-text-danger"><img src={instaIcon} className="insta-icon" alt="instagram" /></a>
         </div>
         <div className="level-item">
             <a aria-label="Facebook link" href="https://www.facebook.com/Confert.ru?hc_ref=ARQwxWrZK8Qop0XtLeqPjPcqJ1wPtua1EdfzTK52K7tmK-2nGd4iaI_rXNi733RwaCA&fref=nf" target='_blank' rel="noopener noreferrer" className="has-text-info"><Icon type="facebook" /></a>
@@ -102,7 +107,7 @@ export default class App extends React.Component {
         </div>
         <div className="level-item">
             <Link aria-label="Login link" to="/login" className="has-text-white">{
-              isLoggedIn ? <FaIcon name="unlock" /> : <FaIcon name="lock" />}</Link>
+              isLoggedIn ? <Icon type="unlock" /> : <Icon type="lock" />}</Link>
         </div>
         </div>
       </MobileFooter>
@@ -145,7 +150,7 @@ export default class App extends React.Component {
                   <nav className="level is-mobile">
                     <div className="level-item has-text-centered">
                       <div>
-                        <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer"><i className="fa fa-2x fa-instagram" style={{ color: '#fb3958' }}></i></a>
+                        <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer"><img src={instaIcon} style={{ width: 26, marginTop: -3 }} alt="instagram" /></a>
                       </div>
                     </div>
                     <div className="level-item has-text-centered">
@@ -155,13 +160,13 @@ export default class App extends React.Component {
                     </div>
                     <div className="level-item has-text-centered">
                       <div>
-                        <Link to="/contact" className="has-text-grey"><i className="fa fa-2x fa-envelope-o" aria-hidden="true"></i></Link>
+                        <Link to="/contact" className="has-text-grey"><Icon style={{ fontSize: 28}} type="mail"/></Link>
                       </div>
                     </div>
                     <div className="level-item has-text-centered">
                       <div>
                         <Link className="icon-link" to="/login">
-                          { isLoggedIn ? <FaIcon size="2x" name="unlock" /> : <FaIcon size="2x" name="lock" /> }</Link>
+                          { isLoggedIn ? <Icon style={{ fontSize: 28}} type="unlock" /> : <Icon style={{ fontSize: 28}} type="lock" /> }</Link>
                         </div>
                     </div>
                   </nav>

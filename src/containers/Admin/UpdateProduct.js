@@ -48,7 +48,7 @@ export default class UpdateProduct extends React.Component {
 
     render() {
         return this.state.product && 
-            <div style={{height: '100vh'}}>
+            <div style={{height: '100vh', margin: '40px 0'}}>
                 <Row className="is-hidden-tablet" style={{marginTop: "25px"}}>
                     <Icon onClick={this.handleClick} className="icon-back" type="left" />
                 </Row>

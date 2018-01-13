@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, Icon, Input, Upload, Button, Col, notification } from 'antd';
 import LoaderButton from "../../components/LoaderButton";
-import Center from 'react-center';
 import config from "../../config";
 import { invokeApig, s3Upload, s3Delete } from "../../libs/awsLib";
 
@@ -161,55 +160,53 @@ class ProductForm extends React.Component {
         const weightError = isFieldTouched('weight') && getFieldError('weight');
         return (
             <Col xs={{span: 20, offset: 2}} md={{ span: 18, offset: 3 }} lg={{ span: 14, offset: 5 }}>
-                <Center style={{margin: '20px 0 0 0'}}><p style={{color: "#331507"}} className="is-size-7-mobile is-size-6-tablet title">Внесите изменения или удалите продукт из категории.</p></Center>
-                <Center>
-                    <div style={{width: "100%"}} >
-                        <Form onSubmit={this.handleSubmit}>
-                            <FormItem validateStatus={nameError ? 'error' : ''} help={nameError || ''}>
-                                {getFieldDecorator('name', {
-                                    rules: [{ required: true, message: 'Внесите название продукта' }],
-                                })(
-                                    <Input type="string" placeholder="Название продукта" />
-                                )}
-                            </FormItem>
-                            <FormItem validateStatus={contentError ? 'error' : ''} help={contentError || ''}>
-                                {getFieldDecorator('content', {
-                                    rules: [{ required: true, message: 'Внесите описание продукта' }],
-                                })(
-                                    <TextArea type="string" rows={4} placeholder="Описание продукта" />
-                                )}
-                            </FormItem>
-                            <FormItem validateStatus={priceError ? 'error' : ''} help={priceError || ''}>
-                                {getFieldDecorator('price', {
-                                    rules: [{ required: true, message: 'Внесите цену продукта' }],
-                                })(
-                                    <Input type="number" placeholder="Цена продукта: 00.00" />
-                                )}
-                            </FormItem>
-                            <FormItem validateStatus={weightError ? 'error' : ''} help={weightError || ''}>
-                                {getFieldDecorator('weight', {
-                                    rules: [{ required: true, message: 'Внесите вес продукта' }],
-                                })(
-                                    <Input type="string" placeholder="Вес продукта: 130гр. / 150 мл." />
-                                )}
-                            </FormItem>
-                            <figure>
-                                <img alt="" src={previewImage} />
-                            </figure>
-                            <FormItem>
-                                <Upload onRemove={this.handleCancel} {...props}>
-                                    <Button className="button is-info"><Icon type="upload" />Изменить изображение</Button>
-                                </Upload>
-                            </FormItem>
-                            <FormItem>
-                                <LoaderButton style={{width: "100%"}} className="button is-warning is-inverted" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Сохранить изменения" loadingText="Загрузка ..." />
-                            </FormItem>
-                        </Form>
-                        <LoaderButton style={{width: "100%", marginBottom: '20px'}} className="button is-primary" loading={this.state.loading} text="Отменить" onClick={this.handleFormCancel}/>
-                        <LoaderButton style={{width: "100%"}} className="button is-danger" loading={this.state.deleting} text="Удалить продукт" loadingText="Удаляется ..." 
-                        onClick={this.handleDelete}/>
-                    </div>
-                </Center>
+                <p style={{color: "#331507", margin: '0 auto'}} className="is-size-7-mobile is-size-6-tablet title">Внесите изменения или удалите продукт из категории.</p>            
+                <div style={{width: "100%"}} >
+                    <Form onSubmit={this.handleSubmit}>
+                        <FormItem validateStatus={nameError ? 'error' : ''} help={nameError || ''}>
+                            {getFieldDecorator('name', {
+                                rules: [{ required: true, message: 'Внесите название продукта' }],
+                            })(
+                                <Input type="string" placeholder="Название продукта" />
+                            )}
+                        </FormItem>
+                        <FormItem validateStatus={contentError ? 'error' : ''} help={contentError || ''}>
+                            {getFieldDecorator('content', {
+                                rules: [{ required: true, message: 'Внесите описание продукта' }],
+                            })(
+                                <TextArea type="string" rows={4} placeholder="Описание продукта" />
+                            )}
+                        </FormItem>
+                        <FormItem validateStatus={priceError ? 'error' : ''} help={priceError || ''}>
+                            {getFieldDecorator('price', {
+                                rules: [{ required: true, message: 'Внесите цену продукта' }],
+                            })(
+                                <Input type="number" placeholder="Цена продукта: 00.00" />
+                            )}
+                        </FormItem>
+                        <FormItem validateStatus={weightError ? 'error' : ''} help={weightError || ''}>
+                            {getFieldDecorator('weight', {
+                                rules: [{ required: true, message: 'Внесите вес продукта' }],
+                            })(
+                                <Input type="string" placeholder="Вес продукта: 130гр. / 150 мл." />
+                            )}
+                        </FormItem>
+                        <figure>
+                            <img alt="" src={previewImage} />
+                        </figure>
+                        <FormItem>
+                            <Upload onRemove={this.handleCancel} {...props}>
+                                <Button className="button is-info"><Icon type="upload" />Изменить изображение</Button>
+                            </Upload>
+                        </FormItem>
+                        <FormItem>
+                            <LoaderButton style={{width: "100%"}} className="button is-warning is-inverted" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Сохранить изменения" loadingText="Загрузка ..." />
+                        </FormItem>
+                    </Form>
+                    <LoaderButton style={{width: "100%", marginBottom: '20px'}} className="button is-primary" loading={this.state.loading} text="Отменить" onClick={this.handleFormCancel}/>
+                    <LoaderButton style={{width: "100%"}} className="button is-danger" loading={this.state.deleting} text="Удалить продукт" loadingText="Удаляется ..." 
+                    onClick={this.handleDelete}/>
+                </div>         
             </Col>
         );
     }

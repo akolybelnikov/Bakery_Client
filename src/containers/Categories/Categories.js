@@ -43,10 +43,10 @@ const Image = styled(ProgressiveImage)`
     }
 `;
 
-const bread = require(`../../public/categories/bread.jpg`);
-const coffee = require(`../../public/categories/coffee.jpg`);
-const cakes = require(`../../public/categories/cakes.jpg`);
-const order = require(`../../public/categories/order.jpg`);
+const bread = require(`../../public/tiny_bread.png`);
+const coffee = require(`../../public/tiny_coffee.png`);
+const cakes = require(`../../public/tiny_cakes.png`);
+const order = require(`../../public/tiny_order.png`);
 
 export default class Categories extends Component {
 

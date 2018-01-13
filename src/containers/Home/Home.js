@@ -10,18 +10,22 @@ import NewsFeed from "../../components/NewsFeed";
 import Responsive from 'react-responsive';
 import LazyLoad from 'react-lazyload';
 import "./Home.css";
+import tinyBread from '../../public/tiny_bread.png';
+import bread from '../../public/bread.png';
+import tinyCoffee from '../../public/tiny_coffee.png';
+import coffee from '../../public/coffee.png';
+import tinyCakes from '../../public/tiny_cakes.png';
+import cakes from '../../public/cakes.png';
+import tinyOrder from '../../public/tiny_order.png';
+import order from '../../public/order.png';
 
 const zoomInAnimation = keyframes`${zoomIn}`;
 
 const bgImg = require(`../../public/bg.jpg`);
-const bread = require(`../../public/categories/bread.jpg`);
-const coffee = require(`../../public/categories/coffee.jpg`);
-const cakes = require(`../../public/categories/cakes.jpg`);
-const order = require(`../../public/categories/order.jpg`);
 const logoImg = require(`../../public/logo.png`);
 
-const Tablet = props => <Responsive {...props} minWidth={481} />;
-const Mobile = props => <Responsive {...props} maxWidth={480} />;
+const Tablet = props => <Responsive {...props} minWidth={768} />;
+const Mobile = props => <Responsive {...props} maxWidth={767} />;
 
 const ImageCard = styled(ProgressiveImage)`
   background-size: cover;
@@ -107,8 +111,8 @@ export default class Home extends Component {
         <CategoryCard key={category.categoryId} href={`/products/${category.categoryName}`} onClick={this.handleCategoryClick} xs={12} sm={6}>
           <Card hoverable id="category-card" title={category.categoryId === "1" ? "Хлеб" : category.categoryId === "2" ? "Кофе" : category.categoryId === "3" ? "Выпечка" : "Торты"}>
             <CategoryImage crossOrigin='anonymous'
-              placeholder={category.categoryName === 'bread' ? bread : category.categoryName === 'coffee' ? coffee : category.categoryName === 'cakes' ? cakes : order} 
-              src={`${config.s3.URL}/250x250/${category.image}`} transition="all 1s linear" />
+              placeholder={category.categoryName === 'bread' ? tinyBread : category.categoryName === 'coffee' ? tinyCoffee : category.categoryName === 'cakes' ? tinyCakes : tinyOrder} 
+              src={category.categoryName === 'bread' ? bread : category.categoryName === 'coffee' ? coffee : category.categoryName === 'cakes' ? cakes : order} transition="all 1.5s linear" />
           </Card>
         </CategoryCard>
     )
