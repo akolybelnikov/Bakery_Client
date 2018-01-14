@@ -200,10 +200,10 @@ export default class Home extends Component {
               <div className="tile is-child box">          
                 <Row>
                   <Col xs={12} style={{textAlign: 'center'}}>
-                    <GoButton name="go to news" href="/news" className="button is-inverted">Новости</GoButton>
+                    <GoButton name="go to news" href="/news" className="button is-rounded">Новости</GoButton>
                   </Col>
                   <Col xs={12} style={{textAlign: 'center'}}>
-                    <GoButton onClick={this.openInstafeed} name="go to instagram" className="button">На Инстаграм</GoButton>
+                    <GoButton onClick={this.openInstafeed} name="go to instagram" className="button is-rounded">На Инстаграм</GoButton>
                   </Col>
                 </Row>          
               </div>

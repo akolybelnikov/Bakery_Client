@@ -4,6 +4,8 @@ import config from "../config";
 import { Row, Col, Icon, Card, Breadcrumb } from 'antd';
 import styled, { keyframes } from 'styled-components';
 import { zoomIn } from 'react-animations';
+import instaIcon from '../public/instagram.svg';
+import './Contact.css';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 
 const zoomInAnimation = keyframes`${zoomIn}`;
@@ -75,13 +77,14 @@ const FbIcon = styled(Icon)`
     }
 `
 
-const MailIcon = styled.i`
+const MailIcon = styled(Icon)`
     font-size: 28px;
     @media only screen and (min-width: 481px) and (max-width: 768px) {
         font-size: 26px;
     }
     @media only screen and (max-width: 480px) {
         font-size: 18px;
+        margin-top: 2px;
     }
 `
 
@@ -130,7 +133,7 @@ class Contact extends React.Component {
                       </GoogleMap>
                         <ContactCard
                             title={<p style={{textAlign: 'center', whiteSpace: 'normal', marginBottom: 0}}>"БУЛОЧНАЯ" Рязанский Пр-т 58/1</p>}
-                            actions={[<a href='https://www.facebook.com/CONFERTRU.RU/' target='_blank' rel="noopener noreferrer"><FbIcon type="facebook" /><ActionSpan className='is-hidden-mobile'>Все булочки</ActionSpan></a>, <a href='https://www.instagram.com/confertru.ru/' target='_blank' rel="noopener noreferrer"><i className="fa fa-instagram" style={{ color: '#fb3958' }} /> <ActionSpan className='is-hidden-mobile'>confertru.ru</ActionSpan></a>, <a href='https://www.instagram.com/vse_bulochki_tut/' target='_blank' rel="noopener noreferrer"><i className="fa fa-instagram" style={{ color: '#fb3958' }}/><ActionSpan className='is-hidden-mobile'>vse_bulochki_tut</ActionSpan></a>]}>
+                            actions={[<a href='https://www.facebook.com/CONFERTRU.RU/' target='_blank' rel="noopener noreferrer"><FbIcon type="facebook" /><ActionSpan className='is-hidden-mobile'>Все булочки</ActionSpan></a>, <a href='https://www.instagram.com/confertru.ru/' target='_blank' rel="noopener noreferrer"><img src={instaIcon} style={{ width: 16, marginTop: -5 }} alt="instagram" /><ActionSpan className='is-hidden-mobile'>confertru.ru</ActionSpan></a>, <a href='https://www.instagram.com/vse_bulochki_tut/' target='_blank' rel="noopener noreferrer"><img src={instaIcon} style={{ width: 16, marginTop: -5 }} alt="instagram" /><ActionSpan className='is-hidden-mobile'>vse_bulochki_tut</ActionSpan></a>]}>
                             <table style={{margin: '0 auto'}} className='table is-hoverable'>
                                 <tbody>
                                     <tr>
@@ -151,7 +154,7 @@ class Contact extends React.Component {
                                     </tr>
                                     <tr>
                                         <td>
-                                            <p style={{marginBottom: 0}}><MailIcon className="fa fa-envelope-o" /></p>
+                                            <p style={{marginBottom: 0}}><MailIcon type="mail" /></p>
                                         </td>
                                         <td>
                                             <TableCell>confert76.gmail.com</TableCell>
