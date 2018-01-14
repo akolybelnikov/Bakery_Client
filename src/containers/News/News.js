@@ -37,14 +37,10 @@ const NewsCard = styled.article`
 `;
 
 const Image = styled(ProgressiveImage)`
-    height: 500px;
-    width: 500px;
+    height: 300px;
+    width: 300px;
     background-size: cover;
     background-position: center center;
-    @media only screen and (min-width: 415px) and (max-width: 768px) {
-        height: 300px;
-        width: 300px;
-    }
     @media only screen and (max-width: 414px) {
         height: 100px;
         width: 100px;
@@ -94,7 +90,7 @@ export default class News extends Component {
                 <figure className='media-left'>
                     <Mobile><Image crossOrigin='anonymous' src={`${config.s3.URL}/200x200/${news.image}`} placeholder={bgImg} transition="all 1s linear" /></Mobile>
                     <Tablet><Image crossOrigin='anonymous' src={`${config.s3.URL}/300x300/${news.image}`} placeholder={bgImg} transition="all 1s linear" /></Tablet>
-                    <Desktop><Image crossOrigin='anonymous' src={`${config.s3.URL}/500x500/${news.image}`} placeholder={bgImg} transition="all 1s linear" /></Desktop>
+                    <Desktop><Image crossOrigin='anonymous' src={`${config.s3.URL}/300x300/${news.image}`} placeholder={bgImg} transition="all 1s linear" /></Desktop>
                 </figure>
                 <div className='medi-content'>
                     <div className='content'>
@@ -114,7 +110,7 @@ export default class News extends Component {
 
     render() {
         return (
-           <div style={{height: '100vh'}}>
+           <div>
                 <IconRow className="is-hidden-tablet"><Icon onClick={this.handleClick} className="icon-back" type="left" /></IconRow>
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">

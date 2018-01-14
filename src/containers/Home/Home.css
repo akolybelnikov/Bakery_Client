@@ -92,17 +92,21 @@ input:-ms-input-placeholder {
   .tile.is-parent {
     padding: .4rem 0 !important; } }
 
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+  .tile.is-ancestor:first-child {
+    margin: 8% 0 0 0; } }
+
 @media only screen and (min-width: 768px) {
   .ant-card-wider-padding .ant-card-body {
     margin-right: 45px; }
   .news-text {
-    font-size: 1.2rem !important; }
-  .tile.is-ancestor:first-child {
-    margin: 8% 0 0 0; } }
+    font-size: 1.2rem !important; } }
 
 @media only screen and (min-width: 769px) {
   .ant-carousel .slick-dots {
-    bottom: 10px; } }
+    bottom: 10px; }
+  .tile.is-ancestor:first-child {
+    margin: 3% 0 0 0; } }
 
 .ant-carousel .slick-dots li.slick-active button, .ant-carousel .slick-dots li button {
   background: #52082D; }

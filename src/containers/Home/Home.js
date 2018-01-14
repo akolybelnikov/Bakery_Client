@@ -167,7 +167,7 @@ export default class Home extends Component {
 
   render() {   
     return (       
-      <div id="root-div" style={{height: '100vh'}}>
+      <div id="root-div">
         <div className="tile is-ancestor">
           <div className="tile is-parent">
             <div className="tile is-parent is-8">              

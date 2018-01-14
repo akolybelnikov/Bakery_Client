@@ -10,7 +10,6 @@ import styled, { keyframes } from 'styled-components';
 import { bounceInUp } from 'react-animations';
 import { setTimeout } from 'timers';
 import Responsive from 'react-responsive';
-import 'bulma/css/bulma.css';
 import instaIcon from './public/instagram.svg';
 
 const Tablet = props => <Responsive {...props} minWidth={481} maxWidth={768} />;
@@ -137,7 +136,7 @@ export default class App extends React.Component {
                 </AffixBounce>
               </Tablet>
               <Desktop>
-                <AffixBounce offsetTop={110}>
+                <AffixBounce offsetTop={105}>
                   <Button name="phone number" type="primary" className="is-size-5"><Icon type="phone" /> +7 (926) 629 87 26</Button>
                 </AffixBounce>
               </Desktop>
