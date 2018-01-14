@@ -3,12 +3,15 @@ body {
   padding: 0;
   font-family: sans-serif;
   font-size: 16px;
-  color: rgba(82, 8, 45, 0.85); }
+  color: rgba(82, 8, 45, 0.85);
+}
 
 select.form-control,
 textarea.form-control,
 input.form-control {
-  font-size: 16px; }
+  font-size: 16px;
+}
 
 input[type=file] {
-  width: 100%; }
+  width: 100%;
+}

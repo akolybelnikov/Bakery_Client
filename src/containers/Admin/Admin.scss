@@ -1,0 +1,21 @@
+.hero:hover {
+    background: lightgrey;
+}
+
+.ant-table-selection {
+    visibility: hidden;
+}
+
+@media only screen and (max-width: 480px) {
+    .hero-body {
+        padding: 2em 1.5em;
+    }
+} 
+
+.btn-new{
+    margin: 5px 0;
+}
+
+.Form {
+    width: 100%;
+}

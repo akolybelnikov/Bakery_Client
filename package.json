@@ -12,6 +12,7 @@
     "google-maps-react": "^1.1.2",
     "instafeed.js": "^1.4.1",
     "jquery": "^3.2.1",
+    "node-sass-chokidar": "^0.0.3",
     "react": "^16.0.0",
     "react-animations": "^0.1.0",
     "react-dom": "^16.0.0",
@@ -24,6 +25,8 @@
     "styled-components": "^2.2.2"
   },
   "scripts": {
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",

@@ -1,80 +1,55 @@
 .ant-breadcrumb-link {
-    color: #331507;
-}
+  color: #331507; }
 
 .ant-breadcrumb a {
-    color: #331507;
-}
+  color: #331507; }
 
 .ant-card-head-title {
-    color: rgba(82, 8, 45, 0.85);
-    text-align: center;
-}
+  color: rgba(82, 8, 45, 0.85);
+  text-align: center; }
 
 @media only screen and (max-width: 480px) {
-    .ant-card-meta-avatar {
-        visibility: hidden;
-        display: none;
-    }
-
-    .ant-card-head-title {
-        font-size: 16px;
-        
-    }
-    
-    .ant-card-meta-description {
-        font-size: 16px;
-    }
-
-    .ant-card-head {
-        padding: 0 5px;
-    }
-} 
+  .ant-card-meta-avatar {
+    visibility: hidden;
+    display: none; }
+  .ant-card-head-title {
+    font-size: 16px; }
+  .ant-card-meta-description {
+    font-size: 16px; }
+  .ant-card-head {
+    padding: 0 5px; } }
 
 @media only screen and (min-width: 481px) and (max-width: 767px) {
-    .ant-card-head-title {
-        font-size: 18px;
-    }
-    .ant-card-meta-description {
-        font-size: 17px;;
-    }
-} 
+  .ant-card-head-title {
+    font-size: 18px; }
+  .ant-card-meta-description {
+    font-size: 17px; } }
 
 @media only screen and (min-width: 768px) {
-    .ant-card-head-title {
-        font-size: 18px;
-    }
-
-    .ant-card-meta-description {
-        font-size: 18px;;
-    }
-} 
+  .ant-card-head-title {
+    font-size: 18px; }
+  .ant-card-meta-description {
+    font-size: 18px; } }
 
 .ant-avatar {
-    background: white;
-    border-radius: 0;
-    width: 85px;
-    height: 50px;
-}
+  background: white;
+  border-radius: 0;
+  width: 85px;
+  height: 50px; }
 
 .ant-card-meta-avatar {
-    padding: 20px 0 0 20px;
-}
+  padding: 20px 0 0 20px; }
 
 .ant-card-meta-description {
-    color: #331507;
-    text-align: center;
-    padding: 10px 0 20px 0;
-}
+  color: #331507;
+  text-align: center;
+  padding: 10px 0 20px 0; }
 
 .ant-card-body {
-    padding: 5px;
-}
+  padding: 5px; }
 
 .ant-card-meta-title {
-    white-space: normal;
-}
+  white-space: normal; }
 
 .ant-breadcrumb {
-    font-size: 17px;
-}
+  font-size: 17px; }
