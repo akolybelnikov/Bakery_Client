@@ -129,7 +129,7 @@ input:-ms-input-placeholder {
     }
 
     #root-div {
-        margin-top: 15%;
+        margin: 15% 0;
         height: 100vh;
     }
 

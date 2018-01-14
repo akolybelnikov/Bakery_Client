@@ -195,14 +195,14 @@ export default class Home extends Component {
         </div>
         <Mobile>
           {!this.state.instafeed &&
-            <div style={{marginBottom: '15%'}} className="tile is-parent">
+            <div style={{marginBottom: '25%'}} className="tile is-parent">
             <div className="tile is-child box">
               <Row>
                 <Col xs={12} style={{textAlign: 'center'}}>
-                  <GoButton name="go to news" href="/news" className="button is-inverted">Наши новости</GoButton>
+                  <GoButton name="go to news" href="/news" className="button is-inverted">Новости</GoButton>
                 </Col>
                 <Col xs={12} style={{textAlign: 'center'}}>
-                  <GoButton onClick={this.openInstafeed} name="go to instagram" className="button">Мы на Инстаграм</GoButton>
+                  <GoButton onClick={this.openInstafeed} name="go to instagram" className="button">На Инстаграм</GoButton>
                 </Col>
               </Row>
             </div>
