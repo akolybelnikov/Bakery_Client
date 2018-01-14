@@ -114,7 +114,7 @@ export default class News extends Component {
 
     render() {
         return (
-           <div>
+           <div style={{height: '100vh'}}>
                 <IconRow className="is-hidden-tablet"><Icon onClick={this.handleClick} className="icon-back" type="left" /></IconRow>
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
@@ -123,7 +123,7 @@ export default class News extends Component {
                     </Breadcrumb>
                 </BreadCrumbs>
                 <NewsRow>
-                   <Col>
+                   <Col style={{marginBottom: '15%'}}>
                         {this.state.news ? this.renderAllNews(this.state.news) : <Spin style={{display: 'block', margin: '15% 0 25% 0'}} size="large" />}
                    </Col>
                 </NewsRow>

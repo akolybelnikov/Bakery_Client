@@ -79,7 +79,7 @@ export default class Product extends Component {
 
     renderProduct(product) {
         return(
-            <Col xs={24} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }}>
+            <Col style={{marginBottom: '15%'}} xs={24} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }}>
                 <Mobile>
                     <ProductCard 
                         title={product && product.productName}
@@ -106,7 +106,7 @@ export default class Product extends Component {
                         actions={[<p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{product && product.weight}</p>, <p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{product && product.price} руб.</p>]}>
                         <Meta 
                             avatar={<Avatar src={avatar} />}
-                            description={product && product.content} />
+                            description={product && <p>{product.content}</p>} />
                     </ProductCard>
                 </Desktop>
             </Col>

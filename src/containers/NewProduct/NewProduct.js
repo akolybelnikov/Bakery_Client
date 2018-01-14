@@ -165,7 +165,7 @@ class NewProduct extends Component {
                                     {getFieldDecorator('price', {
                                         rules: [{ required: true, message: 'Внесите цену продукта' }],
                                     })(
-                                        <Input type="float" placeholder="Цена продукта: 00.00" />
+                                        <Input type="string" placeholder="Цена продукта: 00.00" />
                                     )}
                                 </FormItem>
                                 <FormItem validateStatus={weightError ? 'error' : ''} help={weightError || ''}>

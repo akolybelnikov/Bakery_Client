@@ -43,6 +43,7 @@ const ModalImage = styled(ProgressiveImage)`
   background-position: center;
   height: 500px;
   width: 500px;
+  max-width: 100%;
   @media only screen and (max-width: 480px) {
     width: 300px;
     height: 300px;
@@ -166,7 +167,7 @@ export default class Home extends Component {
 
   render() {   
     return (       
-      <div id="root-div">
+      <div id="root-div" style={{height: '100vh'}}>
         <div className="tile is-ancestor">
           <div className="tile is-parent">
             <div className="tile is-parent is-8">              
@@ -195,18 +196,18 @@ export default class Home extends Component {
         </div>
         <Mobile>
           {!this.state.instafeed &&
-            <div style={{marginBottom: '25%'}} className="tile is-parent">
-            <div className="tile is-child box">
-              <Row>
-                <Col xs={12} style={{textAlign: 'center'}}>
-                  <GoButton name="go to news" href="/news" className="button is-inverted">Новости</GoButton>
-                </Col>
-                <Col xs={12} style={{textAlign: 'center'}}>
-                  <GoButton onClick={this.openInstafeed} name="go to instagram" className="button">На Инстаграм</GoButton>
-                </Col>
-              </Row>
-            </div>
-          </div>}
+            <div className="tile is-parent" style={{marginBottom: '15%'}}>
+              <div className="tile is-child box">          
+                <Row>
+                  <Col xs={12} style={{textAlign: 'center'}}>
+                    <GoButton name="go to news" href="/news" className="button is-inverted">Новости</GoButton>
+                  </Col>
+                  <Col xs={12} style={{textAlign: 'center'}}>
+                    <GoButton onClick={this.openInstafeed} name="go to instagram" className="button">На Инстаграм</GoButton>
+                  </Col>
+                </Row>          
+              </div>
+            </div>}
           {this.state.instafeed && <div style={{marginBottom: '15%'}}><Instafeed /></div>}
         </Mobile>
         <Tablet>

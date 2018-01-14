@@ -88,8 +88,7 @@ input:-ms-input-placeholder {
   .ant-carousel .slick-dots {
     bottom: 0; }
   #root-div {
-    margin: 15% 0;
-    height: 100vh; }
+    margin: 15% 0; }
   .tile.is-parent {
     padding: .4rem 0 !important; } }
 

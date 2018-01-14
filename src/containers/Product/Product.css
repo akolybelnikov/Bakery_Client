@@ -4,10 +4,6 @@
 .ant-breadcrumb a {
   color: #331507; }
 
-.ant-card-head-title {
-  color: rgba(82, 8, 45, 0.85);
-  text-align: center; }
-
 @media only screen and (max-width: 480px) {
   .ant-card-meta-avatar {
     visibility: hidden;
@@ -38,12 +34,12 @@
   height: 50px; }
 
 .ant-card-meta-avatar {
-  padding: 20px 0 0 20px; }
+  padding: 20px; }
 
 .ant-card-meta-description {
   color: #331507;
-  text-align: center;
-  padding: 10px 0 20px 0; }
+  text-align: justify;
+  padding: 10px; }
 
 .ant-card-body {
   padding: 5px; }
