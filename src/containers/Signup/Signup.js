@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Form, Icon, Input } from 'antd';
-import Center from 'react-center';
 import LoaderButton from "../../components/LoaderButton";
 import styled from 'styled-components';
 
@@ -57,23 +56,21 @@ class Signup extends Component {
         const confirmationCodeError = isFieldTouched('confirmationCode') && getFieldError('confirmationCode');
         return(
             <div>
-                <Center><p className="is-size-4 has-text-dark title Admin">Confirmation</p></Center>
-                <Center>
-                    <div className="Form">
-                        <Form onSubmit={this.handleConfirmationSubmit}>
-                            <FormItem validateStatus={confirmationCodeError ? 'error' : ''} help={confirmationCodeError || ''}>
-                                {getFieldDecorator('confirmationCode', {
-                                    rules: [{ required: true, message: 'Please provide the code you received in the confirmation email' }],
-                                })(
-                                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="text" placeholder="Confirmation Code" autoFocus/>
-                                )}
-                            </FormItem>
-                            <FormItem>
-                                <LoaderButton type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Verify" loadingText="Verifying ..." />
-                            </FormItem>
-                        </Form>
-                    </div>
-                </Center>
+                <p className="is-size-4 has-text-dark title Admin">Confirmation</p>
+                <div className="Form">
+                    <Form onSubmit={this.handleConfirmationSubmit}>
+                        <FormItem validateStatus={confirmationCodeError ? 'error' : ''} help={confirmationCodeError || ''}>
+                            {getFieldDecorator('confirmationCode', {
+                                rules: [{ required: true, message: 'Please provide the code you received in the confirmation email' }],
+                            })(
+                                <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="text" placeholder="Confirmation Code" autoFocus/>
+                            )}
+                        </FormItem>
+                        <FormItem>
+                            <LoaderButton type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Verify" loadingText="Verifying ..." />
+                        </FormItem>
+                    </Form>
+                </div>
             </div>
         )
     }
@@ -85,38 +82,36 @@ class Signup extends Component {
         const passwordError = isFieldTouched('password') && getFieldError('password');
         const confirmPasswordError = isFieldTouched('confirmPassword') && getFieldError('confirmPassword');
         return (
-            <div>
-                <Center><p className="is-size-4 has-text-dark title Admin">Signup</p></Center>
-                <Center>
-                    <div className="Form">
-                        <Form onSubmit={this.handleSubmit}>
-                            <FormItem validateStatus={userNameError ? 'error' : ''} help={userNameError || ''}>
-                                {getFieldDecorator('userName', {
-                                    rules: [{ required: true, message: 'Please provide your email' }],
-                                })(
-                                    <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} type="email" placeholder="Username" autoFocus/>
-                                )}
-                            </FormItem>
-                            <FormItem validateStatus={passwordError ? 'error' : ''} help={passwordError || ''}>
-                                {getFieldDecorator('password', {
-                                    rules: [{ required: true, message: 'Please provide your password' }],
-                                })(
-                                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password" />
-                                )}
-                            </FormItem>
-                            <FormItem validateStatus={confirmPasswordError ? 'error' : ''} help={confirmPasswordError || ''}>
-                                {getFieldDecorator('confirmPassword', {
-                                    rules: [{ required: true, message: 'Please confirm your password' }],
-                                })(
-                                    <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Confirm password" />
-                                )}
-                            </FormItem>
-                            <FormItem>
-                                <LoaderButton type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Signup" loadingText="Signing up ..." />
-                            </FormItem>
-                        </Form>
-                    </div>
-                </Center>
+            <div style={{height: "100vh"}}>
+                <p className="is-size-4 has-text-dark title Admin">Signup</p>
+                <div className="Form">
+                    <Form onSubmit={this.handleSubmit}>
+                        <FormItem validateStatus={userNameError ? 'error' : ''} help={userNameError || ''}>
+                            {getFieldDecorator('userName', {
+                                rules: [{ required: true, message: 'Please provide your email' }],
+                            })(
+                                <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} type="email" placeholder="Username" autoFocus/>
+                            )}
+                        </FormItem>
+                        <FormItem validateStatus={passwordError ? 'error' : ''} help={passwordError || ''}>
+                            {getFieldDecorator('password', {
+                                rules: [{ required: true, message: 'Please provide your password' }],
+                            })(
+                                <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password" />
+                            )}
+                        </FormItem>
+                        <FormItem validateStatus={confirmPasswordError ? 'error' : ''} help={confirmPasswordError || ''}>
+                            {getFieldDecorator('confirmPassword', {
+                                rules: [{ required: true, message: 'Please confirm your password' }],
+                            })(
+                                <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Confirm password" />
+                            )}
+                        </FormItem>
+                        <FormItem>
+                            <LoaderButton type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} loading={this.state.loading} text="Signup" loadingText="Signing up ..." />
+                        </FormItem>
+                    </Form>
+                </div> 
             </div>
         );
     }

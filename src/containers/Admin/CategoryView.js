@@ -7,7 +7,7 @@ import { invokeOpenApi } from "../../libs/awsLib";
 import ProgressiveImage from 'react-progressive-bg-image';
 import "./Admin.css";
 
-const bgImg = require(`../../public/logo-300.png`);
+const bgImg = require(`../../public/logo.png`);
 
 const BreadCrumbs = styled(Row)`
     margin-top: 35px;

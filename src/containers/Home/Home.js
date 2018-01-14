@@ -64,6 +64,11 @@ const CategoryImage = styled(ProgressiveImage)`
   }
 `;
 
+const GoButton = styled.a`
+  color: #52082D !important;
+  font-size: 1em !important;
+`;
+
 export default class Home extends Component {
 
   constructor(props) {
@@ -74,8 +79,34 @@ export default class Home extends Component {
       offercontent: '',
       news: [],
       modalVisible: false,
-      categories: [],
-      isLoading: true
+      categories: [
+        {
+          categoryId: "1",
+          categoryName: "bread",
+          image: "bread_new.jpg",
+          title: "Хлеб и булки"
+        },
+        {
+          categoryId: "2",
+          categoryName: "coffee",
+          image: "coffee_new.jpg",
+          title: "Кофе и другие напитки"
+        },
+        {
+          categoryId: "3",
+          categoryName: "cakes",
+          image: "cakes_new.jpg",
+          title: "Кондитерские изделия"
+        },
+        {
+          categoryId: "4",
+          categoryName: "order",
+          image: "order_new.jpg",
+          title: "Торты на заказ"
+        }
+      ],
+      isLoading: true,
+      instafeed: false
     }
   }
 
@@ -86,11 +117,6 @@ export default class Home extends Component {
       const result = await this.getOffer();
       const offer = result[result.length - 1];
 
-      const categories  = await this.getCategories();
-      this.setState({
-        categories: categories
-      });
-
       this.setState({ 
         offerimage: offer.image,
         offercontent: offer.content
@@ -99,10 +125,6 @@ export default class Home extends Component {
     } catch (e) {
       console.log(e);
     }
-  }
-
-  getCategories() {
-    return invokeOpenApi({ path: "/categories"});
   }
 
   renderCategories(categories) {
@@ -129,11 +151,17 @@ export default class Home extends Component {
 
   renderOffer() {
     if (this.state.offercontent && this.state.offerimage) 
-      return <OfferCard src={`${config.s3.URL}/250x250/${this.state.offerimage}`} placeholder={logoImg} transition="all 1s linear" crossOrigin='anonymous' />;
+      return <OfferCard src={`${config.s3.URL}/350x350/${this.state.offerimage}`} placeholder={logoImg} transition="all 1s linear" crossOrigin='anonymous' />;
   }
 
   setModalVisible(modalVisible) {
     this.setState({ modalVisible });
+  }
+
+  openInstafeed = () => {
+    this.setState({
+      instafeed: true
+    })
   }
 
   render() {   
@@ -165,6 +193,22 @@ export default class Home extends Component {
               <ModalImage crossOrigin='anonymous' src={`${config.s3.URL}/500x500/${this.state.offerimage}`} placeholder={logoImg} transition="all 1s linear"  />  
           </Modal>
         </div>
+        <Mobile>
+          {!this.state.instafeed &&
+            <div style={{marginBottom: '15%'}} className="tile is-parent">
+            <div className="tile is-child box">
+              <Row>
+                <Col xs={12} style={{textAlign: 'center'}}>
+                  <GoButton name="go to news" href="/news" className="button is-inverted">Наши новости</GoButton>
+                </Col>
+                <Col xs={12} style={{textAlign: 'center'}}>
+                  <GoButton onClick={this.openInstafeed} name="go to instagram" className="button">Мы на Инстаграм</GoButton>
+                </Col>
+              </Row>
+            </div>
+          </div>}
+          {this.state.instafeed && <div style={{marginBottom: '15%'}}><Instafeed /></div>}
+        </Mobile>
         <Tablet>
           <div className="tile is-ancestor">
             <div className="tile is-parent is-3 is-hidden-mobile">

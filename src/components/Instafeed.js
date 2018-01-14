@@ -23,7 +23,7 @@ const Image = styled(ProgressiveImage)`
         min-height: 150px;
     } 
 `
-const bgImg = require(`../public/logo-300.png`);
+const bgImg = require(`../public/logo.png`);
 
 export default class Instafeed extends React.Component {
 

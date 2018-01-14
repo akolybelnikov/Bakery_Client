@@ -13,7 +13,7 @@ const Desktop = props => <Responsive {...props} minWidth={992} />;
 const Tablet = props => <Responsive {...props} minWidth={482} maxWidth={991} />;
 const Mobile = props => <Responsive {...props} maxWidth={481} />;
 
-const bgImg = require(`../../public/logo-300.png`);
+const bgImg = require(`../../public/logo.png`);
 
 const IconRow = styled(Row)`
     margin-top: 25px;
@@ -68,6 +68,7 @@ export default class News extends Component {
         try {
 
           const results = await this.getNews();
+          results.reverse();
           this.setState({ news: results });
 
         } catch (e) {

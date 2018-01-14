@@ -35,22 +35,6 @@ class Header extends React.Component {
 
     async componentDidMount() {
 
-        const products = [];
-
-        try {
-            const bread = await this.getBread();
-            const coffee = await this.getCoffee();
-            const cakes = await this.getCakes();
-            const order = await this.getOrder();
-            products.push(bread, coffee, cakes, order);
-            const allProducts = products.reduce((a, b) => a.concat(b), []);
-            this.setState({
-                products: allProducts
-            });
-        } catch (e) {
-            console.log(e);
-        }
-
         var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
         var $menuIcon = document.getElementById('menu-icon');
         
@@ -114,7 +98,24 @@ class Header extends React.Component {
         this.setState({searchValue: e.target.value});
     }
 
-    handleSearch(value) {
+    async handleSearch(value) {
+
+        const products = [];
+
+        try {
+            const bread = await this.getBread();
+            const coffee = await this.getCoffee();
+            const cakes = await this.getCakes();
+            const order = await this.getOrder();
+            products.push(bread, coffee, cakes, order);
+            const allProducts = products.reduce((a, b) => a.concat(b), []);
+            this.setState({
+                products: allProducts
+            });
+        } catch (e) {
+            message.error(e, 5);
+        }
+
         for (let product of this.state.products) {
             if (product.productName.toLowerCase().match(value.toLowerCase()) || product.content.toLowerCase().match(value.toLowerCase())) {
                 listData.push(product);
@@ -130,6 +131,7 @@ class Header extends React.Component {
             });
 
             this.setState({disabled: true});
+
         } else {
             message.error('Наименований не найдено! Попробуйте изменить условия поиска.', 5);
         }
