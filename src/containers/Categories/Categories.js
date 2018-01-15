@@ -2,11 +2,15 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Card, Breadcrumb, Icon, Spin } from 'antd';
 import "./Categories.css";
+import Responsive from 'react-responsive';
 import styled, { keyframes } from 'styled-components';
 import { bounceIn } from 'react-animations';
 import ProgressiveImage from 'react-progressive-bg-image';
 import { invokeOpenApi } from "../../libs/awsLib";
 import config from "../../config";
+
+const Tablet = props => <Responsive {...props} maxWidth={768} />;
+const Desktop = props => <Responsive {...props} minWidth={769} />;
 
 const bounceAnimation = keyframes`${bounceIn}`;
 
@@ -24,6 +28,9 @@ const BreadCrumbs = styled(Row)`
 
 const CategoriesRow = styled(Row)`
     margin: 3% 0;
+    @media only screen and (max-width: 768px) {
+        margin-bottom: 10%;
+    }
 `;
 
 const CategoryCard = styled(Col)`
@@ -32,14 +39,14 @@ const CategoryCard = styled(Col)`
     cursor: pointer;
 `;
 const Image = styled(ProgressiveImage)`
-    min-height: 500px;
+    height: 450px;
     background-size: cover;
     background-position: center center;
-    @media only screen and (min-width: 321px) and (max-width: 768px) {
-        min-height: 300px;
+    @media only screen and (min-width: 668px) and (max-width: 768px) {
+        height: 300px;
     }
-    @media only screen and (max-width: 320px) {
-        min-height: 250px;
+    @media only screen and (max-width: 667px) {
+        height: 250px;
     }
 `;
 
@@ -88,12 +95,17 @@ export default class Categories extends Component {
     renderCategories(categories) {
         return categories.map(
             (category) =>
-            <CategoryCard key={category.categoryId} xs={24} md={12}>
+            <CategoryCard key={category.categoryId} xs={24} sm={12}>
                 <Card
                     href={`/products/${category.categoryName}`}
                     onClick={this.handleCategoryClick}
-                    title={category.title}
-                    ><Image placeholder={category.categoryName === 'bread' ? bread : category.categoryName === 'coffee' ? coffee : category.categoryName === 'cakes' ? cakes : order} src={`${config.s3.URL}/500x500/${category.image}`} transition="all 2s linear"/>
+                    title={category.title}>
+                    <Tablet>
+                        <Image placeholder={category.categoryName === 'bread' ? bread : category.categoryName === 'coffee' ? coffee : category.categoryName === 'cakes' ? cakes : order} src={`${config.s3.URL}/300x300/${category.image}`} transition="all 2s linear"/>
+                    </Tablet>
+                    <Desktop>
+                        <Image placeholder={category.categoryName === 'bread' ? bread : category.categoryName === 'coffee' ? coffee : category.categoryName === 'cakes' ? cakes : order} src={`${config.s3.URL}/450x450/${category.image}`} transition="all 2s linear"/>
+                    </Desktop>
                 </Card>
             </CategoryCard>
         )
