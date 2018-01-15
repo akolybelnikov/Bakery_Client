@@ -37,6 +37,9 @@ const CategoryCard = styled(Col)`
     animation: 1s ${bounceAnimation};
     padding: 10px;
     cursor: pointer;
+    .ant-card-head{
+        background-color: rgba(234, 204, 178, .75);
+    }
 `;
 const Image = styled(ProgressiveImage)`
     height: 450px;

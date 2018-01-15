@@ -5,7 +5,12 @@ import styled from 'styled-components';
 import { invokeOpenApi } from "../../libs/awsLib";
 import ProgressiveImage from 'react-progressive-bg-image';
 import config from "../../config";
+import Responsive from 'react-responsive';
 import "./Category.css";
+import { DH_NOT_SUITABLE_GENERATOR } from "constants";
+
+const Mobile = props => <Responsive {...props} maxWidth={767} />;
+const Desktop = props => <Responsive {...props} minWidth={768} />;
 
 const bgImg = require(`../../public/logo.png`);
 
@@ -17,10 +22,24 @@ const BreadCrumbs = styled(Row)`
     margin-top: 35px;
 `;
 
+const ProductCard = styled(Card)`
+    .ant-card-head{
+        background-color: rgba(234, 204, 178, .75);
+    }
+    @media only screen and (min-width: 768px) {
+        .ant-card-head-title {
+            font-size: 17px;
+        }
+    }
+`
+
 const ProductImage = styled(ProgressiveImage)`
-    background-size: cover;
+    background-size: contain;
     background-position: center center;
     min-height: 200px;
+    @media only screen and (min-width: 768px) {
+        min-height: 350px;
+    }
 `
 
 class Category extends React.Component {
@@ -82,12 +101,12 @@ class Category extends React.Component {
                 dataSource={products}
                 renderItem={product => (
                     <List.Item>
-                        <Card style={{ cursor: 'pointer'}}              
+                        <ProductCard style={{ cursor: 'pointer'}}              
                             href={`/products/${this.props.match.params.category}/${product.productId}`}
                             onClick={this.handleProductClick}
                             title={product.productName}>
-                            <ProductImage src={`${config.s3.URL}/200x200/${product.image}`} placeholder={bgImg} transition="all 1s linear" />
-                        </Card>
+                            <ProductImage src={`${config.s3.URL}/350x350/${product.image}`} placeholder={bgImg} transition="all 1s linear" />
+                        </ProductCard>
                     </List.Item>
                 )}
             />

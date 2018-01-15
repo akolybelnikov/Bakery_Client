@@ -22,6 +22,9 @@ const bgImg = require(`../../public/logo.png`);
 
 const ProductRow = styled(Row)`
     margin: 5% 0;
+    @media only screen and (max-width: 480px) {
+        margin-bottom: 10%;
+    }
 `;
 
 const ProductImage = styled(ProgressiveImage)`
@@ -31,6 +34,7 @@ const ProductImage = styled(ProgressiveImage)`
     width: 500px;
     max-width: 100%;
     @media only screen and (max-width: 480px) {
+        background-size: cover;
         max-width: 100%;
         height: 200px;
     }
@@ -42,6 +46,12 @@ const ProductImage = styled(ProgressiveImage)`
 
 const ProductCard = styled(Card)`
     animation: 1s ${zoomInAnimation};
+    .ant-card-head{
+        background: rgba(234, 204, 178, .75);
+    }
+    .ant-card-actions {
+        background: rgba(234, 204, 178, .75);
+    }
 `;
 const Breadcrumbs = styled(Row)`
     margin-top: 5%;
@@ -115,7 +125,7 @@ export default class Product extends Component {
 
     render() {
         return (
-            <div style={{height: '100vh'}}>
+            <div>
                 <Row className="is-hidden-tablet" style={{marginTop: "35px"}}><Icon onClick={this.props.history.goBack} className="icon-back" type="left" /></Row>
                 <Breadcrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">
