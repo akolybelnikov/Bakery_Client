@@ -116,7 +116,7 @@ export default class Product extends Component {
 
     renderProduct(product) {
         return(
-            <Col style={{marginBottom: '15%'}} xs={24} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }}>
+            <Col style={{marginBottom: '15%'}} xs={{ span: 22, offset: 1 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }}>
                 <Mobile>
                     <ProductCard 
                         title={product && product.productName}
