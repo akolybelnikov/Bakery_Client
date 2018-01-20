@@ -27,6 +27,7 @@ class ProductForm extends React.Component {
     componentDidMount() {
         this.props.form.setFieldsValue({name: this.props.product.productName});
         this.props.form.setFieldsValue({content: this.props.product.content});
+        this.props.form.setFieldsValue({sort: this.props.product.sort});
         this.props.form.setFieldsValue({price: this.props.product.price});
         this.props.form.setFieldsValue({weight: this.props.product.weight});
         // To disabled submit button at the beginning.
@@ -69,20 +70,25 @@ class ProductForm extends React.Component {
                     this.saveProduct({
                         productname: values['name'],
                         content: values['content'],
+                        productsort: values['sort'],
                         price: values['price'],
                         weight: values['weight'],
                         attachment: uploadedFileLocation || this.props.product.attachment,
                         image: uploadedFileName || this.props.product.image
                     });
-                    this.openNotification();
-                    this.props.history.push("/admin");
                 }
             });
 
+            this.openNotification();
+            this.props.history.push("/admin");
+
         } catch (e) {
             console.log(e.message);
+            this.openFailureNotification(e.message);
             this.setState({ loading: false});
         }
+
+        this.props.form.resetFields();  
     }
 
     openNotification = () => {
@@ -90,6 +96,14 @@ class ProductForm extends React.Component {
           message: 'Всё прошло успешно!',
           description: 'Загрузка завершена.',
           icon: <Icon type="smile-circle" style={{ color: "#52082D" }} />,
+        });
+    };
+
+    openFailureNotification = (msg) => {
+        notification.open({
+          message: 'Ошибка при загрузке!',
+          description: {msg},
+          icon: <Icon type="frown-circle" style={{ color: "#52082D" }} />,
         });
     };
 
@@ -156,6 +170,7 @@ class ProductForm extends React.Component {
         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
         const nameError = isFieldTouched('name') && getFieldError('name');
         const contentError = isFieldTouched('content') && getFieldError('content');
+        const sortError = isFieldTouched('sort') && getFieldError('sort');
         const priceError = isFieldTouched('price') && getFieldError('price');
         const weightError = isFieldTouched('weight') && getFieldError('weight');
         return (
@@ -177,6 +192,13 @@ class ProductForm extends React.Component {
                                 <TextArea type="string" rows={4} placeholder="Описание продукта" />
                             )}
                         </FormItem>
+                        <FormItem validateStatus={sortError ? 'error' : ''} help={sortError || ''}>
+                            {getFieldDecorator('sort', {
+                                rules: [{ required: false }],
+                            })(
+                                <TextArea type="string" rows={4} placeholder="Начинки / сорта продукта: вводить через точку-запятую (;) (!)" />
+                            )}
+                        </FormItem>
                         <FormItem validateStatus={priceError ? 'error' : ''} help={priceError || ''}>
                             {getFieldDecorator('price', {
                                 rules: [{ required: true, message: 'Внесите цену продукта' }],
@@ -191,8 +213,8 @@ class ProductForm extends React.Component {
                                 <Input type="string" placeholder="Вес продукта: 130гр. / 150 мл." />
                             )}
                         </FormItem>
-                        <figure>
-                            <img alt="" src={previewImage} />
+                        <figure className="ant-row ant-form-item">
+                            <img style={{maxWidth: '100%'}} alt="" src={previewImage} />
                         </figure>
                         <FormItem>
                             <Upload onRemove={this.handleCancel} {...props}>

@@ -58,6 +58,7 @@ class NewProduct extends Component {
                         category: values['category'],
                         productname: values['name'],
                         content: values['content'],
+                        productsort: values['sort'],
                         price: values['price'],
                         weight: values['weight'],
                         attachment: uploadedFileLocation,
@@ -73,8 +74,7 @@ class NewProduct extends Component {
             this.setState({ loading: false });
         } 
 
-        this.props.form.resetFields();
-        
+        this.props.form.resetFields();        
         this.props.form.validateFields();
     }
 
@@ -120,6 +120,7 @@ class NewProduct extends Component {
         const categoryError = isFieldTouched('category') && getFieldError('category');
         const nameError = isFieldTouched('name') && getFieldError('name');
         const contentError = isFieldTouched('content') && getFieldError('content');
+        const sortError = isFieldTouched('sort') && getFieldError('sort');
         const priceError = isFieldTouched('price') && getFieldError('price');
         const weightError = isFieldTouched('weight') && getFieldError('weight');
         return (
@@ -161,6 +162,13 @@ class NewProduct extends Component {
                                         <TextArea type="string" rows={4} placeholder="Описание продукта" />
                                     )}
                                 </FormItem>
+                                <FormItem validateStatus={sortError ? 'error' : ''} help={sortError || ''}>
+                                    {getFieldDecorator('sort', {
+                                        rules: [{ required: false }],
+                                    })(
+                                        <TextArea type="string" rows={4} placeholder="Начинки / сорта продукта: вводить через точку-запятую (;) (!)" />
+                                    )}
+                                </FormItem>
                                 <FormItem validateStatus={priceError ? 'error' : ''} help={priceError || ''}>
                                     {getFieldDecorator('price', {
                                         rules: [{ required: true, message: 'Внесите цену продукта' }],
@@ -176,7 +184,7 @@ class NewProduct extends Component {
                                     )}
                                 </FormItem>
                                 <figure>
-                                    <img alt="" src={previewImage} />
+                                    <img style={{maxWidth: '100%'}} alt="" src={previewImage} />
                                 </figure>
                                 <FormItem >
                                     <Upload onRemove={this.handleCancel} {...props}>

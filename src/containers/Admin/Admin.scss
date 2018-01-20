@@ -19,3 +19,17 @@
 .Form {
     width: 100%;
 }
+
+.panel-block {
+    justify-content: center;
+    color: rgba(82, 8, 45, 0.85);
+    border-color: rgba(234, 204, 178, .75);
+    a {
+        text-decoration: none;
+    }
+    
+}
+
+.panel-block:first-child {
+    border-color: rgba(234, 204, 178, .75);
+}

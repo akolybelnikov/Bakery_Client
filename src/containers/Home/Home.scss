@@ -48,10 +48,6 @@ input:-ms-input-placeholder {
     color: #52082D;
 }
 
-#category-card .ant-card-head {
-    padding: 0 5px;
-}
-
 .news-card p {
     color: #331507;
 }
@@ -91,29 +87,8 @@ input:-ms-input-placeholder {
         margin: 5% 0 0 0;
     }
 
-    #category-card .ant-card-head {
-        line-height: 16px;
-        height: 16px;
-        min-height: 22px;
-    }
-
-    .ant-card-head { 
-        line-height: 16px;
-        height: 16px;
-        min-height: 24px;
-    }
-
     .ant-card {
         margin: 5px 1px;
-    }
-
-    .ant-card-head-title {
-        padding: 0;
-    }
-
-    .ant-card-head {
-        line-height: 22px;
-        height: 22px;
     }
 
     .button {

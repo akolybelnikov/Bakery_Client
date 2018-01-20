@@ -51,9 +51,24 @@ const ModalImage = styled(ProgressiveImage)`
   }
 `
 
+const RowCard = styled(Card)`
+  .ant-card-head-title {
+    padding: 0;
+  }
+  .ant-card-head { 
+    padding 10px 0;
+  }
+`;
+
 const CategoryCard = styled(Col)`
   animation: 1.5s ${zoomInAnimation};
   cursor: pointer;
+  .ant-card-head-title {
+    padding: 0;
+  }
+  .ant-card-head { 
+    padding 10px 0;
+  }
 `;
 
 const CategoryImage = styled(ProgressiveImage)`
@@ -171,9 +186,9 @@ export default class Home extends Component {
         <div className="tile is-ancestor">
           <div className="tile is-parent">
             <div className="tile is-parent is-8">              
-               <Card title="Наш ассортимент" className="tile is-child box">
+               <RowCard title="Наш ассортимент" className="tile is-child box">
                   <Row>{this.state.categories && this.renderCategories(this.state.categories)}</Row>
-               </Card>        
+               </RowCard>        
             </div>
             <div className="tile is-parent">
               <div className="tile is-child box">

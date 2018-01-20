@@ -122,7 +122,7 @@ export default class App extends React.Component {
     return (
       this.state.isLoading ? <LoadingScreen /> :
       !this.state.isAuthenticating &&
-        <Layout>           
+        <Layout style={{height: '100vh'}}>           
           <Layout style={{ background: "white" }} >            
             <OuterContent>     
               <Mobile>

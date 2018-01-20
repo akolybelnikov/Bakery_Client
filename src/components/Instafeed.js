@@ -14,8 +14,8 @@ const Instacard = styled(Card)`
 
 const Image = styled(ProgressiveImage)`
     min-height: 150px;
-    background-size: cover;
-    background-position: center top;
+    background-size: contain;
+    background-position: center center;
     @media only screen and (max-width: 1300px) {
         min-height: 175px;
     }

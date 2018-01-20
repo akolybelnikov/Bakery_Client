@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import "./Admin.css";
 
 const IconRow = styled(Row)`
-    margin-top: 25px;
+    margin-top: 35px;
     @media only screen and (min-width: 481px) and (max-width: 768px) {
         margin-top: 35px;
     }
@@ -48,24 +48,15 @@ export default class AdminDashBoard extends React.Component {
         this.props.history.push('/');
     }
 
-    handleCategoryClick = event => {
-        event.preventDefault();
-        this.props.history.push(event.currentTarget.getAttribute("href"));
-    }
-
     renderCategories(categories) {
-        return categories.map(
-            (category) =>
-            <section style={{ cursor: 'pointer'}} href={`/admin/${category.key}`} onClick={this.handleCategoryClick} className="hero" key={category.title}>
-                <div className="hero-body">
-                    <div className="hero-container">
-                        <p className="subtitle">
-                            {category.title}
-                        </p>
-                    </div>
-                </div>
-            </section>
-        )
+        return (
+            <nav className="panel" style={{marginTop: "30px", textAlign: "center"}}>
+                {categories.map(
+                    (category) =>
+                    <a style={{ cursor: 'pointer'}} href={`/admin/${category.key}`} className="panel-block" key={category.title}>{category.title}</a>
+                )}    
+            </nav>
+        );
     }
 
     handleClick = event => {
@@ -105,9 +96,7 @@ export default class AdminDashBoard extends React.Component {
                         </Link>
                     </Col>
                 </Row>
-                <Row style={{marginTop: "10px", textAlign: "center"}}>
-                    {this.renderCategories(this.state.categories)}
-                </Row>
+                <Row><Col xs={24} sm={{span: 16, offset: 4}}>{this.renderCategories(this.state.categories)}</Col></Row>
                 <Row style={{marginBottom: "15%"}}>
                     <a  onClick={this.handleLogout} className="button is-small-mobile is-outlined is-medium-tablet is-danger is-pulled-right">
                         <span className="icon is-small" ><i className="fa fa-sign-out"></i></span>

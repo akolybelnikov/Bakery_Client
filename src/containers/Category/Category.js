@@ -5,12 +5,7 @@ import styled from 'styled-components';
 import { invokeOpenApi } from "../../libs/awsLib";
 import ProgressiveImage from 'react-progressive-bg-image';
 import config from "../../config";
-import Responsive from 'react-responsive';
 import "./Category.css";
-import { DH_NOT_SUITABLE_GENERATOR } from "constants";
-
-const Mobile = props => <Responsive {...props} maxWidth={767} />;
-const Desktop = props => <Responsive {...props} minWidth={768} />;
 
 const bgImg = require(`../../public/logo.png`);
 
@@ -26,6 +21,17 @@ const ProductCard = styled(Card)`
     .ant-card-head{
         background-color: rgba(234, 204, 178, .75);
     }
+
+    .ant-card-head-wrapper {
+        max-width: 270px;
+    }
+
+    @media only screen and (max-width: 480px) {
+        .ant-card-head {
+            min-height: 24px;
+        }
+    }
+
     @media only screen and (min-width: 768px) {
         .ant-card-head-title {
             font-size: 17px;
@@ -34,11 +40,15 @@ const ProductCard = styled(Card)`
 `
 
 const ProductImage = styled(ProgressiveImage)`
-    background-size: contain;
+    background-size: cover;
     background-position: center center;
-    min-height: 200px;
+    height: 200px;
     @media only screen and (min-width: 768px) {
         min-height: 350px;
+    }
+    @media only screen and (max-width: 480px) {
+        width: 350px;
+        height: 350px;
     }
 `
 
@@ -115,7 +125,7 @@ class Category extends React.Component {
 
     render() {
         return (
-            <div style={{height: '100vh'}}>
+            <div>
                 <Row className="is-hidden-tablet" style={{marginTop: "35px"}}><Icon onClick={this.handleClick} className="icon-back" type="left" /></Row>
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb separator=">">

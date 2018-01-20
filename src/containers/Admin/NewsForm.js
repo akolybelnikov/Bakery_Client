@@ -132,7 +132,7 @@ class NewsForm extends React.Component {
                                     )}
                                 </FormItem>
                                 <figure>
-                                    <img alt="" src={previewImage} />
+                                    <img style={{ maxWidth: '100%'}} alt="" src={previewImage} />
                                 </figure>
                                 <FormItem >
                                     <Upload onRemove={this.handleCancel} {...props}>

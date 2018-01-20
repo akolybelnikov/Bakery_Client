@@ -36,7 +36,7 @@ const ProductImage = styled(ProgressiveImage)`
     @media only screen and (max-width: 480px) {
         background-size: cover;
         max-width: 100%;
-        height: 200px;
+        width: 350px;
     }
     @media only screen and (min-width: 992px) {
         width: 750px;
@@ -87,6 +87,33 @@ export default class Product extends Component {
         this.props.history.push(`/products/${this.state.product.category}`);
     }
 
+    renderMobileSorts(sorts) {
+        let parsedSorts = sorts.split(';');
+        return (
+            parsedSorts.map((sort) =>
+                <span style={{color: "rgba(234, 204, 178, 1)", backgroundColor: "rgba(51, 21, 7, 1)"}} className="tag is-rounded">{sort}</span>          
+            )
+        );
+    }
+
+    renderTabletSorts(sorts) {
+        let parsedSorts = sorts.split(';');
+        return (
+            parsedSorts.map((sort) =>
+                <span style={{color: "rgba(234, 204, 178, 1)", backgroundColor: "rgba(51, 21, 7, 1)"}} className="tag is-medium is-rounded">{sort}</span>          
+            )
+        );
+    }
+
+    renderDesktopSorts(sorts) {
+        let parsedSorts = sorts.split(';');
+        return (
+            parsedSorts.map((sort) =>
+                <span style={{color: "rgba(234, 204, 178, 1)", backgroundColor: "rgba(51, 21, 7, 1)"}} className="tag is-medium is-rounded">{sort}</span>          
+            )
+        );
+    }
+
     renderProduct(product) {
         return(
             <Col style={{marginBottom: '15%'}} xs={24} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }}>
@@ -96,7 +123,7 @@ export default class Product extends Component {
                         cover={<ProductImage src={`${config.s3.URL}/350x350/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
                         actions={[<p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{product && product.weight}</p>, <p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{product && product.price} руб.</p>]}>
                         <Meta 
-                            description={product && product.content} />
+                            description={product && <div>{product.sort && product.sort !== "" && this.renderMobileSorts(product.sort)}<p>{product.content}</p></div>} />
                     </ProductCard>
                 </Mobile>
                 <Tablet>
@@ -106,7 +133,7 @@ export default class Product extends Component {
                         actions={[<p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{product && product.weight}</p>, <p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{product && product.price} руб.</p>]}>
                         <Meta
                             avatar={<Avatar src={avatar} />}
-                            description={product && product.content} />
+                            description={product && <div>{product.sort && product.sort !== "" && this.renderTabletSorts(product.sort)}<p>{product.content}</p></div>} />
                     </ProductCard>
                 </Tablet>
                 <Desktop>
@@ -116,7 +143,7 @@ export default class Product extends Component {
                         actions={[<p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{product && product.weight}</p>, <p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{product && product.price} руб.</p>]}>
                         <Meta 
                             avatar={<Avatar src={avatar} />}
-                            description={product && <p>{product.content}</p>} />
+                            description={product && <div className="tags">{product.sort && product.sort !== "" && this.renderDesktopSorts(product.sort)}<p>{product.content}</p></div>}/>
                     </ProductCard>
                 </Desktop>
             </Col>

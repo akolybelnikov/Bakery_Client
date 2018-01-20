@@ -14,7 +14,7 @@ const BreadCrumbs = styled(Row)`
 `;
 
 const IconRow = styled(Row)`
-    margin-top: 25px;
+    margin-top: 35px;
     @media only screen and (min-width: 481px) and (max-width: 768px) {
         margin-top: 35px;
     }
@@ -99,7 +99,7 @@ export default class CategoryView extends React.Component {
 
     render() {
         return (
-            <div style={{height: '100vh'}}>
+            <div>
                 <IconRow className="is-hidden-desktop">
                     <Icon onClick={this.handleClick} className="icon-back" type="left" />
                 </IconRow>
