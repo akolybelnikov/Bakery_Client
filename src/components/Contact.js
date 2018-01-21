@@ -30,25 +30,29 @@ const ContactCard = styled(Card)`
 const IconRow = styled(Row)`
     margin-top: 25px;
     @media only screen and (min-width: 481px) and (max-width: 768px) {
-        margin-top: 35px;
+        margin-top: 50px;
     }
 `;
 
 const BreadCrumbs = styled(Row)`
     color: #331507;
-    margin-top: 35px;
+    margin-top: 50px;
 `;
 
 const CardRow = styled(Row)`
     margin: 5% 0 20% 0;
 `
 
-const ActionSpan = styled.span` 
-    margin-left: 15px;
+const ActionSpan = styled.p` 
+    margin: 15px;
     font-size: 1.2rem;
     color: #331507;
     @media only screen and (max-width: 768px) {
         font-size: 1rem;
+    }
+    @media only screen and (max-width: 480px) {
+        font-size: .7rem;
+        margin: 0;
     }
 `
 
@@ -99,6 +103,14 @@ const PhIcon = styled(Icon)`
     }
 `
 
+const InstaIcon = styled.img`
+    width: 26px;
+
+    @media only screen and (max-width: 480px) {
+        width: 16px;
+    }
+`
+
 class Contact extends React.Component {
 
     handleClick = event => {
@@ -133,7 +145,7 @@ class Contact extends React.Component {
                       </GoogleMap>
                         <ContactCard
                             title={<p style={{textAlign: 'center', whiteSpace: 'normal', marginBottom: 0}}>"БУЛОЧНАЯ" Рязанский Пр-т 58/1</p>}
-                            actions={[<a href='https://www.facebook.com/CONFERTRU.RU/' target='_blank' rel="noopener noreferrer"><FbIcon type="facebook" /><ActionSpan className='is-hidden-mobile'>Все булочки</ActionSpan></a>, <a href='https://www.instagram.com/confertru.ru/' target='_blank' rel="noopener noreferrer"><img src={instaIcon} style={{ width: 16, marginTop: -5 }} alt="instagram" /><ActionSpan className='is-hidden-mobile'>confertru.ru</ActionSpan></a>, <a href='https://www.instagram.com/vse_bulochki_tut/' target='_blank' rel="noopener noreferrer"><img src={instaIcon} style={{ width: 16, marginTop: -5 }} alt="instagram" /><ActionSpan className='is-hidden-mobile'>vse_bulochki_tut</ActionSpan></a>]}>
+                            actions={[<a href='https://www.facebook.com/CONFERTRU.RU/' target='_blank' rel="noopener noreferrer"><FbIcon type="facebook" /><ActionSpan>все булочки тут</ActionSpan></a>, <a href='https://www.instagram.com/confertru.ru/' target='_blank' rel="noopener noreferrer"><InstaIcon src={instaIcon} alt="instagram" /><ActionSpan>confertru.ru</ActionSpan></a>, <a href='https://www.instagram.com/vse_bulochki_tut/' target='_blank' rel="noopener noreferrer"><InstaIcon src={instaIcon} alt="instagram" /><ActionSpan>vse_bulochki_tut</ActionSpan></a>]}>
                             <table style={{margin: '0 auto'}} className='table is-hoverable'>
                                 <tbody>
                                     <tr>
@@ -157,7 +169,7 @@ class Contact extends React.Component {
                                             <p style={{marginBottom: 0}}><MailIcon type="mail" /></p>
                                         </td>
                                         <td>
-                                            <TableCell>confert76.gmail.com</TableCell>
+                                            <TableCell>confert76@gmail.com</TableCell>
                                         </td>
                                     </tr>
                                 </tbody>

@@ -17,13 +17,13 @@ const bounceAnimation = keyframes`${bounceIn}`;
 const IconRow = styled(Row)`
     margin-top: 25px;
     @media only screen and (min-width: 481px) and (max-width: 768px) {
-        margin-top: 35px;
+        margin-top: 50px;
     }
 `;
 
 const BreadCrumbs = styled(Row)`
     color: #331507;
-    margin-top: 35px;
+    margin-top: 50px;
 `;
 
 const CategoriesRow = styled(Row)`
@@ -35,10 +35,14 @@ const CategoriesRow = styled(Row)`
 
 const CategoryCard = styled(Col)`
     animation: 1s ${bounceAnimation};
-    padding: 10px;
     cursor: pointer;
-    .ant-card-head{
+    .ant-card-head {
         background-color: rgba(234, 204, 178, .75);
+    }
+    @media only screen and (max-width: 667px) {
+        .ant-card-body {
+            padding: 0px;
+        }
     }
 `;
 const Image = styled(ProgressiveImage)`
@@ -99,7 +103,7 @@ export default class Categories extends Component {
         return categories.map(
             (category) =>
             <CategoryCard key={category.categoryId} xs={24} sm={12}>
-                <Card
+                <Card style={{margin: "10px"}}
                     href={`/products/${category.categoryName}`}
                     onClick={this.handleCategoryClick}
                     title={category.title}>

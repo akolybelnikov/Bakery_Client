@@ -6,14 +6,14 @@ import styled from 'styled-components';
 import "./Admin.css";
 
 const IconRow = styled(Row)`
-    margin-top: 35px;
+    margin-top: 50px;
     @media only screen and (min-width: 481px) and (max-width: 768px) {
-        margin-top: 35px;
+        margin-top: 50px;
     }
 `;
 
 const BreadCrumbs = styled(Row)`
-    margin-top: 35px;
+    margin-top: 50px;
 `;
 
 export default class AdminDashBoard extends React.Component {

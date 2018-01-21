@@ -114,7 +114,7 @@
             "type": "image\/png"
         }
     ],
-    "start_url": "./index.html",
+    "start_url": "./index.html?utm_source=homescreen",
     "display": "standalone",
     "theme_color": "#52082D",
     "background_color": "#331507"

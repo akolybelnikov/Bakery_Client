@@ -81,7 +81,7 @@ export default class NewsFeed extends Component {
         return (
             <div style={{marginTop: "25px", marginBottom: "35px", background: "rgba(234,204,178,.5)", padding: ".7rem"}}>
                 <Card style={{cursor: "pointer"}} title="Наши новости" bordered="false">            
-                    <Carousel autoplaySpeed={5000} autoplay>
+                    <Carousel autoplaySpeed={10000} autoplay>
                         {this.state.news ? this.renderNews(this.state.news) : <Spin style={{display: 'block'}} size="small" />}
                     </Carousel>           
                 </Card>

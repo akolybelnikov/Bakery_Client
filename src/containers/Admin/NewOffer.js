@@ -8,7 +8,7 @@ import { invokeApig, s3Upload } from "../../libs/awsLib";
 import "./Admin.css";
 
 const BreadCrumbs = styled(Row)`
-    margin-top: 35px;
+    margin-top: 50px;
 `;
 
 const FormItem = Form.Item;   

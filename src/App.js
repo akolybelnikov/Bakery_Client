@@ -2,15 +2,16 @@ import React from 'react';
 import { authUser } from "./libs/awsLib";
 import Header from "./components/Header";
 import LoadingScreen from './components/LoadingScreen';
+import SearchModal from './components/SearchModal';
 import { Link } from "react-router-dom";
 import { Layout, Icon, Button, Affix } from 'antd';
-import './App.css';
 import Routes from "./Routes";
 import styled, { keyframes } from 'styled-components';
 import { bounceInUp } from 'react-animations';
 import { setTimeout } from 'timers';
 import Responsive from 'react-responsive';
 import instaIcon from './public/instagram.svg';
+import './App.css';
 
 const Tablet = props => <Responsive {...props} minWidth={481} maxWidth={768} />;
 const Mobile = props => <Responsive {...props} maxWidth={480} />;
@@ -61,8 +62,13 @@ export default class App extends React.Component {
       this.state = { 
           isAuthenticated: false,
           isAuthenticating: true,
-          isLoading: true
+          isLoading: true,
+          mobileSearchVisible: false
       };
+  }
+
+  handleMobileSearch = () => {
+    this.state.mobileSearchVisible ? this.setState({ mobileSearchVisible: false }) : this.setState({ mobileSearchVisible: true });
   }
 
   userHasAuthenticated = authenticated => {
@@ -136,12 +142,13 @@ export default class App extends React.Component {
                 </AffixBounce>
               </Tablet>
               <Desktop>
-                <AffixBounce offsetTop={105}>
+                <AffixBounce offsetTop={110}>
                   <Button name="phone number" type="primary" className="is-size-5"><Icon type="phone" /> +7 (926) 629 87 26</Button>
                 </AffixBounce>
               </Desktop>
               <InnerContainer>
-                <Header location={this.props.location} />
+                <Header location={this.props.location} setMobileSearchModalVisible={this.handleMobileSearch} />
+                <SearchModal mobileModalVisible={this.state.mobileSearchVisible} setMobileSearchModalVisible={this.handleMobileSearch} />
                 <Routes childProps={childProps} />                
               </InnerContainer>
               <footer className="footer navbar is-hidden-mobile" style={{background: 'rgba(255, 255, 255, 0.8)', maxWidth: 1024, margin: '0px auto', padding: '.5rem'}}>

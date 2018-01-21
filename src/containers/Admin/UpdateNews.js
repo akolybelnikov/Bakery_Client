@@ -12,12 +12,12 @@ const {TextArea} = Input;
 const IconRow = styled(Row)`
     margin-top: 25px;
     @media only screen and (min-width: 481px) and (max-width: 768px) {
-        margin-top: 35px;
+        margin-top: 50px;
     }
 `;
 
 const BreadCrumbs = styled(Row)`
-    margin-top: 35px;
+    margin-top: 50px;
 `;
 
 function hasErrors(fieldsError) {

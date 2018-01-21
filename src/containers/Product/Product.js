@@ -34,13 +34,11 @@ const ProductImage = styled(ProgressiveImage)`
     width: 500px;
     max-width: 100%;
     @media only screen and (max-width: 480px) {
-        background-size: cover;
-        max-width: 100%;
-        width: 350px;
+        width: 300px;
+        max-height: 300px;
     }
     @media only screen and (min-width: 992px) {
         width: 750px;
-        max-width: 100%;
     }
 `
 
@@ -78,8 +76,26 @@ export default class Product extends Component {
         }
     }
 
+    async shouldComponentUpdate() {
+        if (this.props.location !== this.props.history.location) {
+            try { 
+                const results = await this.updateProduct();
+                this.setState({
+                    product: results,
+                });
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        return true;
+    }
+
     getProduct() {
         return invokeOpenApi({ path: `/products/${this.props.match.params.id}/${this.props.location.pathname.split('/')[2]}` });
+    }
+
+    updateProduct() {
+        return invokeOpenApi({ path: `/products/${this.props.history.location.pathname.split('/')[3]}/${this.props.history.location.pathname.split('/')[2]}` });
     }
 
     handleClick = event => {
@@ -91,7 +107,7 @@ export default class Product extends Component {
         let parsedSorts = sorts.split(';');
         return (
             parsedSorts.map((sort) =>
-                <span style={{color: "rgba(234, 204, 178, 1)", backgroundColor: "rgba(51, 21, 7, 1)"}} className="tag is-rounded">{sort}</span>          
+                <span key={sort} style={{color: "rgba(234, 204, 178, 1)", backgroundColor: "rgba(51, 21, 7, 1)"}} className="tag is-rounded">{sort}</span>          
             )
         );
     }
@@ -100,7 +116,7 @@ export default class Product extends Component {
         let parsedSorts = sorts.split(';');
         return (
             parsedSorts.map((sort) =>
-                <span style={{color: "rgba(234, 204, 178, 1)", backgroundColor: "rgba(51, 21, 7, 1)"}} className="tag is-medium is-rounded">{sort}</span>          
+                <span key={sort} style={{color: "rgba(234, 204, 178, 1)", backgroundColor: "rgba(51, 21, 7, 1)"}} className="tag is-medium is-rounded">{sort}</span>          
             )
         );
     }
@@ -109,18 +125,18 @@ export default class Product extends Component {
         let parsedSorts = sorts.split(';');
         return (
             parsedSorts.map((sort) =>
-                <span style={{color: "rgba(234, 204, 178, 1)", backgroundColor: "rgba(51, 21, 7, 1)"}} className="tag is-medium is-rounded">{sort}</span>          
+                <span key={sort} style={{color: "rgba(234, 204, 178, 1)", backgroundColor: "rgba(51, 21, 7, 1)"}} className="tag is-medium is-rounded">{sort}</span>          
             )
         );
     }
 
     renderProduct(product) {
         return(
-            <Col style={{marginBottom: '15%'}} xs={24} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }}>
+            <Col style={{marginBottom: '15%'}} xs={{ span: 22, offset: 1 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }}>
                 <Mobile>
                     <ProductCard 
                         title={product && product.productName}
-                        cover={<ProductImage src={`${config.s3.URL}/350x350/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
+                        cover={<ProductImage src={`${config.s3.URL}/300x300/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
                         actions={[<p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{product && product.weight}</p>, <p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{product && product.price} руб.</p>]}>
                         <Meta 
                             description={product && <div>{product.sort && product.sort !== "" && this.renderMobileSorts(product.sort)}<p>{product.content}</p></div>} />
