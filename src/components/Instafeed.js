@@ -12,6 +12,12 @@ const Instacard = styled(Card)`
   animation: 2s ${zoomInAnimation};
 `
 
+const PostCard = styled(Card)`
+    ul.ant-card-actions > li {
+        padding: 0 5px;
+    }
+`
+
 const Image = styled(ProgressiveImage)`
     min-height: 150px;
     background-size: contain;
@@ -71,10 +77,10 @@ export default class Instafeed extends React.Component {
             (post) => 
             <Col key={post.key} xs={12} md={6}>
                 <a href={post.link} target='_blank' rel="noopener noreferrer" className="card-image">
-                    <Card 
+                    <PostCard 
                         cover={<Image placeholder={bgImg} src={post.images.low_resolution.url} transition="all 1s linear" /> }
-                        actions={[<p className="is-size-7-mobile is-size-6-tablet" style={{color: '#331507', wordBreak: "break-all"}}>{post.caption.text.substring(0, 75)} ... </p>]}>
-                    </Card>
+                        actions={[<p className="is-size-7-mobile is-size-6-tablet" style={{color: '#331507', wordBreak: "break-word"}}>{post.caption.text.substring(0, 75)} ... </p>]}>
+                    </PostCard>
                 </a>
             </Col>
         )
