@@ -39,8 +39,8 @@ const OfferCard = styled(ProgressiveImage)`
 `
 
 const ModalImage = styled(ProgressiveImage)`
-  background-size: cover;
-  background-position: center;
+  background-size: contain;
+  background-position: center center;
   height: 500px;
   width: 500px;
   max-width: 100%;
@@ -131,7 +131,7 @@ export default class Home extends Component {
     try {
 
       const result = await this.getOffer();
-      const offer = result[result.length - 1];
+      const offer = result[0];
 
       this.setState({ 
         offerimage: offer.image,
@@ -206,7 +206,7 @@ export default class Home extends Component {
               visible={this.state.modalVisible}  
               onOk={() => this.setModalVisible(false)} 
               onCancel={() => this.setModalVisible(false)}> 
-              <ModalImage crossOrigin='anonymous' src={`${config.s3.URL}/500x500/${this.state.offerimage}`} placeholder={logoImg} transition="all 1s linear"  />  
+              <ModalImage crossOrigin='anonymous' src={`${config.s3.URL}/500x500/${this.state.offerimage}`} placeholder={logoImg} transition="all 1s linear" id="offer-modal" />  
           </Modal>
         </div>
         <Mobile>

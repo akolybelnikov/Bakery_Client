@@ -38,6 +38,12 @@ input:-ms-input-placeholder {
 
 .ant-modal-footer {
     visibility: hidden;
+    padding: 0px;
+    max-height: 0px;
+}
+
+.ant-modal-body {
+    padding: 0 10px;
 }
 
 .ant-modal-header {
@@ -46,6 +52,7 @@ input:-ms-input-placeholder {
 
 .ant-modal-title {
     color: #52082D;
+    margin: 0 10px;
 }
 
 .news-card p {
