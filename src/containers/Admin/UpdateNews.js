@@ -99,8 +99,8 @@ class UpdateNews extends React.Component {
               if (this.file) {
                   uploadedFileLocation = (await s3Upload(this.file)).Location;
                   uploadedFileName = uploadedFileLocation.split('/')[3];
-                  if (this.props.product.attachment) {
-                      const s3File = this.props.product.attachment.match(/(?:.*?\/){3}(.*)/);
+                  if (this.state.news.attachment) {
+                      const s3File = this.state.news.attachment.match(/(?:.*?\/){3}(.*)/);
                       await s3Delete(unescape(s3File[1]));
                   }
               }
@@ -201,7 +201,7 @@ class UpdateNews extends React.Component {
                                     )}
                                 </FormItem>
                                 <figure>
-                                    <img alt="" src={previewImage} />
+                                    <img style={{maxWidth: "100%"}} alt="preview" src={previewImage} />
                                 </figure>
                                 <FormItem>
                                     <Upload onRemove={this.handleCancel} {...props}>
