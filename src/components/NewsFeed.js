@@ -9,7 +9,7 @@ import Responsive from 'react-responsive';
 const logoImg = require(`../public/logo.png`);
 
 const NewsImage = styled(ProgressiveImage)`
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   min-width: 180px;
   min-height: 180px;

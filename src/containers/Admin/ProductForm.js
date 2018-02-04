@@ -83,7 +83,6 @@ class ProductForm extends React.Component {
             this.props.history.push("/admin");
 
         } catch (e) {
-            console.log(e.message);
             this.openFailureNotification(e.message);
             this.setState({ loading: false});
         }
@@ -147,7 +146,7 @@ class ProductForm extends React.Component {
             this.props.history.push("/admin");
 
         } catch (e) {
-            console.log(e);
+            this.openFailureNotification(e.message);
             this.setState({ deleting: false});
         }
     }

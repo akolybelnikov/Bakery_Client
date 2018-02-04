@@ -119,7 +119,7 @@ class UpdateNews extends React.Component {
               });
   
           } catch (e) {
-              console.log(e.message);
+              this.openFailureNotification(e.message);
               this.setState({ loading: false});
           }
       }
@@ -159,6 +159,14 @@ class UpdateNews extends React.Component {
             this.setState({ deleting: false});
         }
     }
+
+    openFailureNotification = (msg) => {
+        notification.open({
+          message: 'Ошибка при загрузке!',
+          description: {msg},
+          icon: <Icon type="frown-circle" style={{ color: "#52082D" }} />,
+        });
+    };
 
     render() {
         const { previewImage } = this.state;
