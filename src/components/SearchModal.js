@@ -130,38 +130,42 @@ class SearchModal extends React.Component {
                     onCancel={() => this.setMobileModalVisible(false)}>
                     <InputSearch style={{ top: 20, left: 20}} disabled={this.state.disabled} value={this.state.searchValue} placeholder="поиск по сайту" onChange={this.handleChange} onSearch={value => this.handleSearch(value)} enterButton/>
                 </MobileModal>
-                <StyledModal
-                    title="Результаты поиска по сайту:"
-                    wrapClassName="vertical-center-modal"
-                    visible={this.state.modalVisible}
-                    onOk={() => {
-                        this.setModalVisible(false);
-                        listData.splice(0);
-                    }}
-                    onCancel={() => {
-                        this.setModalVisible(false);
-                        listData.splice(0);
-                    }}>
+                <Row>
+                    <Col xs={{span: 22, offset: 1}} xl={24}>
+                        <StyledModal
+                            title="Результаты поиска по сайту:"
+                            wrapClassName="vertical-center-modal"
+                            visible={this.state.modalVisible}
+                            onOk={() => {
+                                this.setModalVisible(false);
+                                listData.splice(0);
+                            }}
+                            onCancel={() => {
+                                this.setModalVisible(false);
+                                listData.splice(0);
+                            }}>
 
-                    <List
-                        itemLayout="vertical"
-                        size="large"
-                        dataSource={listData}
-                        renderItem={item => (
-                            <List.Item style={{background: 'white', cursor: 'pointer', padding: 20}}
-                                href={`/products/${item.category}/${item.productId}`}
-                                onClick={this.handleProductClick}
-                                key={item.productId}
-                                actions={[<p className="is-size-7" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{item.weight}</p>, <p className="is-size-7" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{item.price} руб.</p>]}>
-                                <List.Item.Meta
-                                title={item.productName} />
-                                <Row>
-                                    <Col xs={16}>{item.content}</Col>
-                                    <Col xs={8}><img alt="" src={`${config.s3.URL}/100x1000/${item.image}`} /></Col>
-                                </Row>
-                            </List.Item>
-                        )} />
-                </StyledModal>
+                            <List
+                                itemLayout="vertical"
+                                size="large"
+                                dataSource={listData}
+                                renderItem={item => (
+                                    <List.Item style={{background: 'white', cursor: 'pointer', padding: 20}}
+                                        href={`/products/${item.category}/${item.productId}`}
+                                        onClick={this.handleProductClick}
+                                        key={item.productId}
+                                        actions={[<p className="is-size-7" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{item.weight}</p>, <p className="is-size-7" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{item.price} руб.</p>]}>
+                                        <List.Item.Meta
+                                        title={item.productName} />
+                                        <Row>
+                                            <Col xs={16}>{item.content}</Col>
+                                            <Col xs={8}><img alt="" src={`${config.s3.URL}/100x1000/${item.image}`} /></Col>
+                                        </Row>
+                                    </List.Item>
+                                )} />
+                        </StyledModal>
+                    </Col>
+                </Row>
             </Mobile>
 
             <Desktop>
