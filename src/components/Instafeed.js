@@ -72,7 +72,7 @@ export default class Instafeed extends React.Component {
     renderPosts(posts) {
         return posts.map(
             (post) => 
-            <Col key={post.key} xs={12} md={6}>
+            <Col key={post.key} xs={12} sm={6}>
                 <a href={post.link} target='_blank' rel="noopener noreferrer" className="card-image">
                     <PostCard 
                         cover={<Image placeholder={bgImg} src={post.images.low_resolution.url} transition="all 1s linear" /> }

@@ -24,6 +24,9 @@ const IconRow = styled(Row)`
 const BreadCrumbs = styled(Row)`
     color: #331507;
     margin-top: 50px;
+    .ant-breadcrumb {
+        font-size: 17px;
+    }
 `;
 
 const CategoriesRow = styled(Row)`
@@ -38,6 +41,9 @@ const CategoryCard = styled(Col)`
     cursor: pointer;
     .ant-card-head {
         background-color: rgba(234, 204, 178, .75);
+    }
+    .ant-card-bordered {
+        border: 1px solid rgba(234, 204, 178, .75);
     }
     @media only screen and (max-width: 667px) {
         .ant-card-body {
