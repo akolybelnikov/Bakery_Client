@@ -130,6 +130,11 @@ class Contact extends React.Component {
                 </BreadCrumbs>
                 <CardRow>
                     <Col xs={{ span: 22, offset: 1 }} sm={{ span: 20, offset: 2 }} md={{ span: 18, offset: 3 }}>
+                        <Row style={{marginBottom: 10, background: 'rgba(234,204,178,.5)', padding: '10px'}}>
+                            <p className="has-text-weight-semibold">Наши часы работы:</p>
+                            <p>с понедельника по субботу: с 8.00 до 20.00 часов;</p>
+                            <p>в воскресенье: с 9.00 до 18.00 часов.</p>
+                        </Row>
                         <GoogleMap 
                             google={this.props.google} 
                             zoom={15}
@@ -142,7 +147,7 @@ class Contact extends React.Component {
                                 name={'Все Булочки Тут'}
                                 position={{lat: 55.715226, lng: 37.797472}} />
                             <Marker />
-                      </GoogleMap>
+                        </GoogleMap>
                         <ContactCard
                             title={<p style={{textAlign: 'center', whiteSpace: 'normal', marginBottom: 0}}>"БУЛОЧНАЯ" Рязанский Пр-т 58/1</p>}
                             actions={[<a href='https://www.facebook.com/CONFERTRU.RU/' target='_blank' rel="noopener noreferrer"><FbIcon type="facebook" /><ActionSpan>все булочки тут</ActionSpan></a>, <a href='https://www.instagram.com/confertru.ru/' target='_blank' rel="noopener noreferrer"><InstaIcon src={instaIcon} alt="instagram" /><ActionSpan>confertru.ru</ActionSpan></a>, <a href='https://www.instagram.com/vse_bulochki_tut/' target='_blank' rel="noopener noreferrer"><InstaIcon src={instaIcon} alt="instagram" /><ActionSpan>vse_bulochki_tut</ActionSpan></a>]}>

@@ -13,9 +13,6 @@ const Instacard = styled(Card)`
 `
 
 const PostCard = styled(Card)`
-    ul.ant-card-actions > li {
-        padding: 0 5px;
-    }
 `
 
 const Image = styled(ProgressiveImage)`

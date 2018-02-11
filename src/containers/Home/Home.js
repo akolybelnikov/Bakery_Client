@@ -24,8 +24,9 @@ const zoomInAnimation = keyframes`${zoomIn}`;
 const bgImg = require(`../../public/bg.jpg`);
 const logoImg = require(`../../public/logo.png`);
 
-const Tablet = props => <Responsive {...props} minWidth={768} />;
-const Mobile = props => <Responsive {...props} maxWidth={767} />;
+const Desktop = props => <Responsive {...props} minWidth={769} />;
+const Tablet = props => <Responsive {...props} minWidth={480} maxWidth={768} />;
+const Mobile = props => <Responsive {...props} maxWidth={389} />;
 
 const ImageCard = styled(ProgressiveImage)`
   background-size: cover;
@@ -36,6 +37,9 @@ const OfferCard = styled(ProgressiveImage)`
   background-size: cover;
   background-position: center;
   min-height: 200px;
+  @media only screen and (min-width: 480px) and (max-width: 768px) {
+    min-height: 345px;
+  }
 `
 
 const ModalImage = styled(ProgressiveImage)`
@@ -44,10 +48,15 @@ const ModalImage = styled(ProgressiveImage)`
   height: 500px;
   width: 500px;
   max-width: 100%;
-  @media only screen and (max-width: 480px) {
+  @media only screen and (max-width: 389px) {
     width: 300px;
     height: 300px;
     background-position: top;
+  }
+  @media only screen and (min-width: 480px) and (max-width: 768px) {
+    width: 750px;
+    height: 750px;
+    background-position: center center;
   }
 `
 
@@ -78,11 +87,6 @@ const CategoryImage = styled(ProgressiveImage)`
   @media only screen and (max-width: 767px) {
     min-height: 135px;
   }
-`;
-
-const GoButton = styled.a`
-  color: #52082D !important;
-  font-size: 1em !important;
 `;
 
 export default class Home extends Component {
@@ -183,61 +187,137 @@ export default class Home extends Component {
   render() {   
     return (       
       <div id="root-div">
-        <div className="tile is-ancestor">
-          <div className="tile is-parent">
-            <div className="tile is-parent is-8">              
-               <RowCard title="Наш ассортимент" className="tile is-child box">
-                  <Row>{this.state.categories && this.renderCategories(this.state.categories)}</Row>
-               </RowCard>        
-            </div>
-            <div className="tile is-parent">
-              <div className="tile is-child box">
-                <a onClick={() => {this.setModalVisible(true)}}>
-                  <Card title="Спецпредложение">
-                    {this.renderOffer()}
-                  </Card>
-                </a>
-              </div>
-            </div>
-          </div>
-          <Modal 
-              title={this.state.offercontent && this.state.offercontent} 
-              wrapClassName="vertical-center-modal" 
-              visible={this.state.modalVisible}  
-              onOk={() => this.setModalVisible(false)} 
-              onCancel={() => this.setModalVisible(false)}> 
-              <ModalImage crossOrigin='anonymous' src={`${config.s3.URL}/500x500/${this.state.offerimage}`} placeholder={logoImg} transition="all 1s linear" id="offer-modal" />  
-          </Modal>
-        </div>
-        <Mobile>
-          {!this.state.instafeed &&
-            <div className="tile is-parent" style={{marginBottom: '15%'}}>
-              <div className="tile is-child box">          
-                <Row>
-                  <Col xs={12} style={{textAlign: 'center'}}>
-                    <GoButton name="go to news" href="/news" className="button is-rounded">Новости</GoButton>
-                  </Col>
-                  <Col xs={12} style={{textAlign: 'center'}}>
-                    <GoButton onClick={this.openInstafeed} name="go to instagram" className="button is-rounded">На Инстаграм</GoButton>
-                  </Col>
-                </Row>          
-              </div>
-            </div>}
-          {this.state.instafeed && <div style={{marginBottom: '15%'}}><Instafeed /></div>}
-        </Mobile>
-        <Tablet>
+        <Desktop>
           <div className="tile is-ancestor">
-            <div className="tile is-parent is-3 is-hidden-mobile">
-              <article className="tile is-child box">
-                <LazyLoad once height={200}>
-                  <ImageCard src={`${config.s3.URL}/300x450/photo-1498049281100-cb3c002220f5.jpg`} placeholder={bgImg} transition="all 1s linear" /> 
-                </LazyLoad> 
-              </article>
-            </div>      
+            <div className="tile is-parent">
+              <div className="tile is-parent is-8">              
+                <RowCard title="Наш ассортимент" className="tile is-child box">
+                    <Row>{this.state.categories && this.renderCategories(this.state.categories)}</Row>
+                </RowCard>        
+              </div>
+              <div className="tile is-parent">
+                <div className="tile is-child box">
+                  <a onClick={() => {this.setModalVisible(true)}}>
+                    <Card title="Спецпредложение">
+                      {this.renderOffer()}
+                    </Card>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <Modal 
+                title={this.state.offercontent && this.state.offercontent} 
+                wrapClassName="vertical-center-modal" 
+                visible={this.state.modalVisible}  
+                onOk={() => this.setModalVisible(false)} 
+                onCancel={() => this.setModalVisible(false)}> 
+                <ModalImage crossOrigin='anonymous' src={`${config.s3.URL}/500x500/${this.state.offerimage}`} placeholder={logoImg} transition="all 1s linear" id="offer-modal" />  
+            </Modal>
+          </div>
+          <div className="tile is-ancestor">      
+              <div className="tile is-parent is-3">
+                <article className="tile is-child is-box">
+                  <LazyLoad once height={200}>
+                    <ImageCard src={`${config.s3.URL}/300x450/photo-1498049281100-cb3c002220f5.jpg`} placeholder={bgImg} transition="all 1s linear" /> 
+                  </LazyLoad> 
+                </article>
+              </div>     
             <Instafeed /> 
           </div>       
           <NewsFeed />
+        </Desktop> 
+        <Tablet>
+          <div className="tile is-ancestor">
+            <div className="tile is-parent">          
+              <RowCard title="Наш ассортимент" className="tile is-child box">
+                  <Row>{this.state.categories && this.renderCategories(this.state.categories)}</Row>
+              </RowCard>        
+            </div> 
+            <div className="tile is-parent">
+              <Row>
+                <Col xs={8}>
+                  <div id="unsplash">
+                    <LazyLoad once height={200}>
+                      <ImageCard src={`${config.s3.URL}/300x450/photo-1498049281100-cb3c002220f5.jpg`} placeholder={bgImg} transition="all 1s linear" /> 
+                    </LazyLoad> 
+                  </div>  
+                </Col>
+                <Col xs={16}>
+                  <div className="box">
+                    <a onClick={() => {this.setModalVisible(true)}}>
+                      <Card title="Спецпредложение">
+                        {this.renderOffer()}
+                      </Card>
+                    </a>
+                  </div>
+                </Col>
+              </Row>
+            </div>
+            <Modal 
+                title={this.state.offercontent && this.state.offercontent} 
+                wrapClassName="vertical-center-modal" 
+                visible={this.state.modalVisible}  
+                onOk={() => this.setModalVisible(false)} 
+                onCancel={() => this.setModalVisible(false)}> 
+                <ModalImage crossOrigin='anonymous' src={`${config.s3.URL}/700x700/${this.state.offerimage}`} placeholder={logoImg} transition="all 1s linear" id="offer-modal" />  
+            </Modal>
+            <div className="tile is-parent">
+              <div className="tile is-child">
+                <Instafeed />
+              </div>
+            </div>
+            <div className="tile is-parent">
+              <div className="tile is-child">
+                <NewsFeed />
+              </div>
+            </div>
+          </div>
         </Tablet>
+        <Mobile>
+          <div className="tile is-ancestor">
+            <div className="tile is-parent">
+              <div className="tile is-parent is-8">              
+                <RowCard title="Наш ассортимент" className="tile is-child box">
+                    <Row>{this.state.categories && this.renderCategories(this.state.categories)}</Row>
+                </RowCard>        
+              </div>
+              <div className="tile is-parent">
+                <div className="tile is-child box">
+                  <a onClick={() => {this.setModalVisible(true)}}>
+                    <Card title="Спецпредложение">
+                      {this.renderOffer()}
+                    </Card>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <Modal 
+                title={this.state.offercontent && this.state.offercontent} 
+                wrapClassName="vertical-center-modal" 
+                visible={this.state.modalVisible}  
+                onOk={() => this.setModalVisible(false)} 
+                onCancel={() => this.setModalVisible(false)}> 
+                <ModalImage crossOrigin='anonymous' src={`${config.s3.URL}/300x300/${this.state.offerimage}`} placeholder={logoImg} transition="all 1s linear" id="offer-modal" />  
+            </Modal>
+          </div>
+          <div className="tile is-ancestor">      
+            <div className="tile is-parent">
+              <div className="tile is-child">
+                <Instafeed />
+              </div>
+            </div>
+            <div className="tile is-parent">
+              <div className="tile is-child">
+                <NewsFeed />
+              </div>
+            </div>
+          </div>       
+        </Mobile>
+          <Row style={{marginBottom: 10, background: 'rgba(234,204,178,.5)', padding: '10px', textAlign: 'center'}}>
+            <p className="has-text-weight-semibold">Наши часы работы:</p>
+            <p>с понедельника по субботу: с 8.00 до 20.00 часов;</p>
+            <p>в воскресенье: с 9.00 до 18.00 часов.</p>
+        </Row>
       </div>
     );
   }
