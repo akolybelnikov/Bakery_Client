@@ -25,8 +25,8 @@ const bgImg = require(`../../public/bg.jpg`);
 const logoImg = require(`../../public/logo.png`);
 
 const Desktop = props => <Responsive {...props} minWidth={769} />;
-const Tablet = props => <Responsive {...props} minWidth={480} maxWidth={768} />;
-const Mobile = props => <Responsive {...props} maxWidth={389} />;
+const Tablet = props => <Responsive {...props} minWidth={416} maxWidth={768} />;
+const Mobile = props => <Responsive {...props} maxWidth={415} />;
 
 const ImageCard = styled(ProgressiveImage)`
   background-size: cover;
@@ -151,7 +151,7 @@ export default class Home extends Component {
     return categories.map(
       (category) =>
         <CategoryCard key={category.categoryId} href={`/products/${category.categoryName}`} onClick={this.handleCategoryClick} xs={12} sm={6}>
-          <Card hoverable id="category-card" title={category.categoryId === "1" ? "Хлеб" : category.categoryId === "2" ? "Кофе" : category.categoryId === "3" ? "Выпечка" : "Торты"}>
+          <Card hoverable id="category-card" title={category.categoryId === "1" ? "Хлеб" : category.categoryId === "2" ? "Кофе" : category.categoryId === "3" ? "Кондитерка" : "На заказ"}>
             <CategoryImage crossOrigin='anonymous'
               placeholder={category.categoryName === 'bread' ? tinyBread : category.categoryName === 'coffee' ? tinyCoffee : category.categoryName === 'cakes' ? tinyCakes : tinyOrder} 
               src={category.categoryName === 'bread' ? bread : category.categoryName === 'coffee' ? coffee : category.categoryName === 'cakes' ? cakes : order} transition="all 1.5s linear" />

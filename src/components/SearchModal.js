@@ -25,7 +25,12 @@ const StyledModal = styled(Modal)`
 `
 
 const MobileModal = styled(Modal)`
-
+    .ant-modal-body {
+        min-height: 100px;
+    }
+    .ant-modal-footer {
+        display: none;
+    }
 `
 
 class SearchModal extends React.Component {
