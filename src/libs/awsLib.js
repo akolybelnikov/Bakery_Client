@@ -1,6 +1,7 @@
 import { CognitoUserPool } from "amazon-cognito-identity-js";
 import config from "../config";
-import AWS from "aws-sdk";
+import AWS from "aws-sdk/global";
+import S3 from 'aws-sdk/clients/s3';
 import sigV4Client from "./sigV4Client";
 
 export async function authUser() {
@@ -118,7 +119,7 @@ export async function s3Upload(file) {
         throw new Error("Для выполнения данного действия пользователь должен войти в систему как администратор");
     }
 
-    const s3 = new AWS.S3({
+    const s3 = new S3({
         params: {
             Bucket: config.s3.BUCKET
         }
@@ -140,7 +141,7 @@ export async function s3Delete(filename) {
         throw new Error("Для выполнения данного действия пользователь должен войти в систему как администратор");
     }
 
-    const s3 = new AWS.S3({
+    const s3 = new S3({
         params: {
             Bucket: config.s3.BUCKET
         }
