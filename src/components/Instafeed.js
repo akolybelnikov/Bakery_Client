@@ -77,7 +77,7 @@ export default class Instafeed extends React.Component {
                 <a href={post.link} target='_blank' rel="noopener noreferrer" className="card-image">
                     <PostCard 
                         cover={<Image placeholder={bgImg} src={post.images.low_resolution.url} transition="all 1s linear" /> }
-                        actions={[<p className="is-size-7-mobile is-size-6-tablet" style={{color: '#331507', wordBreak: "break-word"}}>{post.caption.text.substring(0, 70)} ... </p>]}>
+                        actions={[<p className="is-size-7-mobile is-size-6-tablet" style={{color: '#331507', wordBreak: "break-word"}}>{post.caption && post.caption.text.substring(0, 70)} ... </p>]}>
                     </PostCard>
                 </a>
             </Col>
