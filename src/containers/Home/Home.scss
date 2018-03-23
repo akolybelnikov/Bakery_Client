@@ -70,14 +70,12 @@ input:-ms-input-placeholder {
 
     .ant-carousel .slick-slide {
         text-align: center;
-        height: 200px;
-        line-height: 200px;
+        height: 250;
         overflow: hidden;
     }
     
     .slick-list {
-        height: 200px;
-        line-height: 200px;
+        height: 100px;
     }
 
     .ant-card-head-title {
@@ -134,6 +132,10 @@ input:-ms-input-placeholder {
 
     .news-text {
         font-size: 1.2rem !important;
+    }
+
+    .slick-list {
+        height: 300px;
     }
 }
 

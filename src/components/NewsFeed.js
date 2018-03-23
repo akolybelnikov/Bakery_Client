@@ -13,10 +13,6 @@ const NewsImage = styled(ProgressiveImage)`
   background-position: center;
   min-width: 180px;
   min-height: 180px;
-  @media only screen and (min-width: 481px) and (max-width: 768px) {
-    min-width: 150px;
-    min-height: 150px;
-  }
   @media only screen and (max-width: 480px) {
     min-width: 75px;
     min-height: 75px;
@@ -71,7 +67,7 @@ export default class NewsFeed extends Component {
               <a key={newsitem.newsId} href='/news'>
                 <Row style={{marginRight: '20px'}}>  
                   <Col xs={6}><Card bordered={false} cover={<NewsImage src={`${config.s3.URL}/200x200/${newsitem.image}`} placeholder={logoImg} transition="all 1s linear" crossOrigin='anonymous'/>}></Card></Col>
-                  <Col xs={{ span: 16, offset: 2 }} sm={{ span: 17, offset: 1 }}><Card className='news-card' bordered={false}><p className='is-size-7-mobile is-size-5-tablet news-text' style={{textAlign: "center"}}><Mobile>{newsitem.content.substring(0, 100)} ... </Mobile><Tablet>{newsitem.content.substring(0, 250)} ... </Tablet><Desktop>{newsitem.content.substring(0, 300)} ... </Desktop></p></Card></Col>
+                  <Col xs={{ span: 16, offset: 2 }} sm={{ span: 17, offset: 1 }}><Card className='news-card' bordered={false}><p className='is-size-7-mobile is-size-5-tablet news-text' style={{textAlign: "center"}}><Mobile>{newsitem.content.substring(0, 200)} ... </Mobile><Tablet>{newsitem.content.substring(0, 275)} ... </Tablet><Desktop>{newsitem.content.substring(0, 350)} ... </Desktop></p></Card></Col>
                 </Row>
               </a>
         )

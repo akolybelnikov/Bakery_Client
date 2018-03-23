@@ -11,9 +11,21 @@ const zoomInAnimation = keyframes`${zoomIn}`;
 const Instacard = styled(Card)`
   animation: 2s ${zoomInAnimation};
 `
-
-const PostCard = styled(Card)`
+const PostCard = styled.div`
     
+`
+const PostsRow = styled.div`
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    @media screen and (max-width: 320px) {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr); 
+    }
+    @media only screen and (min-width: 321px) and (max-width: 480px) {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(2, 1fr); 
+    } 
 `
 
 const Image = styled(ProgressiveImage)`
@@ -23,9 +35,13 @@ const Image = styled(ProgressiveImage)`
     @media only screen and (max-width: 1300px) {
         min-height: 175px;
     }
-    @media only screen and (max-width: 480px) {
+    @media only screen and (min-width: 321px) and (max-width: 480px) {
         min-height: 150px;
     } 
+    @media screen and (max-width: 320px) {
+        min-height: 300px;
+        background-size: cover;
+    }
 `
 const bgImg = require(`../public/logo.png`);
 
@@ -73,14 +89,14 @@ export default class Instafeed extends React.Component {
     renderPosts(posts) {
         return posts.map(
             (post) => 
-            <Col key={post.key} xs={12} sm={6}>
+            <PostCard key={post.key}>
                 <a href={post.link} target='_blank' rel="noopener noreferrer" className="card-image">
-                    <PostCard 
+                    <Card 
                         cover={<Image placeholder={bgImg} src={post.images.low_resolution.url} transition="all 1s linear" /> }
-                        actions={[<p className="is-size-7-mobile is-size-6-tablet" style={{color: '#331507', wordBreak: "break-word"}}>{post.caption && post.caption.text.substring(0, 70)} ... </p>]}>
-                    </PostCard>
+                        actions={[<p className="is-size-7-mobile is-size-6-tablet" style={{color: '#331507', wordBreak: "break-word"}}>{post.caption && post.caption.text.substring(0, 120)} ... </p>]}>
+                    </Card>
                 </a>
-            </Col>
+            </PostCard>
         )
     }
 
@@ -89,9 +105,9 @@ export default class Instafeed extends React.Component {
             <div className="tile is-vertical is-parent">
                 <article className="tile is-child box">              
                     <Instacard title="Мы на Instagram" bordered="true">
-                        <Row>
+                        <PostsRow>
                             {this.state.posts && this.renderPosts(this.state.posts)}
-                        </Row>                             
+                        </PostsRow>                             
                     </Instacard>   
                 </article>
             </div>
