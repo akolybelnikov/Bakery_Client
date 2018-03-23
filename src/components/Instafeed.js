@@ -1,7 +1,7 @@
 import React from "react";
 import config from "../config";
 import axios from "axios";
-import { Row, Col, Card } from 'antd';
+import { Card } from 'antd';
 import ProgressiveImage from 'react-progressive-bg-image';
 import styled, { keyframes } from 'styled-components';
 import { zoomIn } from "react-animations";

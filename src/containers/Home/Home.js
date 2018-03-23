@@ -34,7 +34,7 @@ const ImageCard = styled(ProgressiveImage)`
   height: 450px;
 `
 const OfferCard = styled(ProgressiveImage)`
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   min-height: 200px;
   @media only screen and (min-width: 480px) and (max-width: 768px) {
@@ -134,8 +134,9 @@ export default class Home extends Component {
 
     try {
 
-      const result = await this.getOffer();
-      const offer = result[0];
+      const offers = await this.getOffer();
+      const sorted = this.sortByDate(offers).reverse();
+      const offer = sorted[0];
 
       this.setState({ 
         offerimage: offer.image,
@@ -145,6 +146,10 @@ export default class Home extends Component {
     } catch (e) {
       console.log(e);
     }
+  }
+
+  sortByDate(array) {
+    return array.sort((a, b) => a.createdAt - b.createdAt);
   }
 
   renderCategories(categories) {
