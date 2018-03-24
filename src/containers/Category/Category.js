@@ -127,7 +127,7 @@ class Category extends React.Component {
                     <List.Item>
                             <ProductCard style={{ cursor: 'pointer'}}
                                 title={product.productName}
-                                actions={[<a href="tel:+79266298726" name="phone number"><Icon type="customer-service" /><span className="category-action">Заказать</span></a>, <a href={`/products/${this.props.match.params.category}/${product.productId}`} className="category-card-actions-link"><Icon type="select" /><span className="category-action">Посмотреть</span></a>]}>
+                                actions={[<a href="tel:+79266298726" target="_self" name="phone number"><Icon type="customer-service" /><span className="category-action">Заказать</span></a>, <a href={`/products/${this.props.match.params.category}/${product.productId}`} className="category-card-actions-link"><Icon type="select" /><span className="category-action">Посмотреть</span></a>]}>
                                 <ProductImage src={`${config.s3.URL}/300x300/${product.image}`} placeholder={bgImg} transition="all 1s linear" />
                             </ProductCard>
                     </List.Item>

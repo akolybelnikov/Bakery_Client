@@ -183,7 +183,7 @@ export default class Product extends Component {
                     <ProductCard 
                         title={product && product.productName}
                         cover={<ProductImage src={`${config.s3.URL}/300x300/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
-                        actions={[<a href="tel:+79266298726" name="phone number"><Icon type="customer-service" /><span className="product-card-action">Заказать</span></a>]}>
+                        actions={[<a href="tel:+79266298726" target="_self" name="phone number"><Icon type="customer-service" /><span className="product-card-action">Заказать</span></a>]}>
                         <Meta 
                             title={[<span className="product-card-title"><Icon type="info-circle-o" />{product && product.weight}</span>, <span className="product-card-title"><Icon type="tag-o" />{product && product.price} руб.</span>]}
                             description={product && <div>{product.sort && product.sort !== "" && this.renderMobileSorts(product.sort)}<p>{product.content}</p></div>} />
@@ -193,7 +193,7 @@ export default class Product extends Component {
                     <ProductCard 
                         title={product && product.productName}
                         cover={<ProductImage src={`${config.s3.URL}/500x500/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
-                        actions={[<div><Icon type="info-circle-o" /><span>{product && product.weight}</span></div>, <div><Icon type="tag-o" /><span className="is-size-6-tablet">{product && product.price} руб.</span></div>, <a href="tel:+79266298726" name="phone number"><Icon type="customer-service" /><span className="product-card-action">Заказать</span></a>]}>
+                        actions={[<div><Icon type="info-circle-o" /><span>{product && product.weight}</span></div>, <div><Icon type="tag-o" /><span className="is-size-6-tablet">{product && product.price} руб.</span></div>, <a href="tel:+79266298726" target="_self" name="phone number"><Icon type="customer-service" /><span className="product-card-action">Заказать</span></a>]}>
                         <Meta
                             description={product && <div>{product.sort && product.sort !== "" && this.renderTabletSorts(product.sort)}<p>{product.content}</p></div>} />
                     </ProductCard>
@@ -202,7 +202,7 @@ export default class Product extends Component {
                     <ProductCard 
                         title={product && product.productName}
                         cover={<ProductImage src={`${config.s3.URL}/750x750/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
-                        actions={[<div><Icon type="info-circle-o" />{product && product.weight}</div>, <div><Icon type="tag-o" />{product && product.price} руб.</div>, <a href="tel:+79266298726" name="phone number"><Icon type="customer-service" /><span className="product-card-action">Заказать</span></a>]}>
+                        actions={[<div><Icon type="info-circle-o" />{product && product.weight}</div>, <div><Icon type="tag-o" />{product && product.price} руб.</div>, <a href="tel:+79266298726" target="_self" name="phone number"><Icon type="customer-service" /><span className="product-card-action">Заказать</span></a>]}>
                         <Meta 
                             avatar={<Avatar src={avatar} />}
                             description={product && <div className="tags">{product.sort && product.sort !== "" && this.renderDesktopSorts(product.sort)}<p>{product.content}</p></div>}/>
