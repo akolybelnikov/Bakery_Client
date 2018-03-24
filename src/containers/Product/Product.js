@@ -33,10 +33,12 @@ const ProductImage = styled(ProgressiveImage)`
     height: 500px;
     width: 500px;
     max-width: 100%;
+
     @media only screen and (max-width: 480px) {
         width: 300px;
         max-height: 300px;
     }
+
     @media only screen and (min-width: 992px) {
         width: 750px;
     }
@@ -44,11 +46,55 @@ const ProductImage = styled(ProgressiveImage)`
 
 const ProductCard = styled(Card)`
     animation: 1s ${zoomInAnimation};
+
     .ant-card-head{
         background: rgba(234, 204, 178, .75);
     }
+
     .ant-card-actions {
         background: rgba(234, 204, 178, .75);
+    }
+
+    .ant-card-actions {
+        background: rgba(82, 8, 45, 0.85);
+        li {
+            color: rgba(234,204,178,.75);
+            span {
+                a {
+                    color: white;
+                }
+            }
+            i {
+                margin-right: 5px;
+            }
+        }
+        .product-card-action {
+            margin-left: 10px;
+        }
+    }
+
+    .ant-card-meta-title {
+        display: flex;
+    }
+
+    .product-card-title {
+        width: 50%;
+        text-align: center;
+        i {
+            margin-right: 5px;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .ant-card-actions > li > span {
+            font-size: 16px;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        .ant-card-actions > li > span {
+            font-size: 18px;
+        }
     }
 `;
 const Breadcrumbs = styled(Row)`
@@ -132,13 +178,14 @@ export default class Product extends Component {
 
     renderProduct(product) {
         return(
-            <Col style={{marginBottom: '15%'}} xs={{ span: 22, offset: 1 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }}>
+            <Col style={{marginBottom: '10%'}} xs={{ span: 22, offset: 1 }} sm={{ span: 18, offset: 3 }} md={{ span: 16, offset: 4 }}>
                 <Mobile>
                     <ProductCard 
                         title={product && product.productName}
                         cover={<ProductImage src={`${config.s3.URL}/300x300/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
-                        actions={[<p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{product && product.weight}</p>, <p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{product && product.price} руб.</p>]}>
+                        actions={[<a href="tel:+79266298726" name="phone number"><Icon type="customer-service" /><span className="product-card-action">Заказать</span></a>]}>
                         <Meta 
+                            title={[<span className="product-card-title"><Icon type="info-circle-o" />{product && product.weight}</span>, <span className="product-card-title"><Icon type="tag-o" />{product && product.price} руб.</span>]}
                             description={product && <div>{product.sort && product.sort !== "" && this.renderMobileSorts(product.sort)}<p>{product.content}</p></div>} />
                     </ProductCard>
                 </Mobile>
@@ -146,9 +193,8 @@ export default class Product extends Component {
                     <ProductCard 
                         title={product && product.productName}
                         cover={<ProductImage src={`${config.s3.URL}/500x500/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
-                        actions={[<p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{product && product.weight}</p>, <p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{product && product.price} руб.</p>]}>
+                        actions={[<div><Icon type="info-circle-o" /><span>{product && product.weight}</span></div>, <div><Icon type="tag-o" /><span className="is-size-6-tablet">{product && product.price} руб.</span></div>, <a href="tel:+79266298726" name="phone number"><Icon type="customer-service" /><span className="product-card-action">Заказать</span></a>]}>
                         <Meta
-                            avatar={<Avatar src={avatar} />}
                             description={product && <div>{product.sort && product.sort !== "" && this.renderTabletSorts(product.sort)}<p>{product.content}</p></div>} />
                     </ProductCard>
                 </Tablet>
@@ -156,7 +202,7 @@ export default class Product extends Component {
                     <ProductCard 
                         title={product && product.productName}
                         cover={<ProductImage src={`${config.s3.URL}/750x750/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
-                        actions={[<p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{product && product.weight}</p>, <p className="is-size-5-desktop is-size-7-mobile is-size-6-tablet" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{product && product.price} руб.</p>]}>
+                        actions={[<div><Icon type="info-circle-o" />{product && product.weight}</div>, <div><Icon type="tag-o" />{product && product.price} руб.</div>, <a href="tel:+79266298726" name="phone number"><Icon type="customer-service" /><span className="product-card-action">Заказать</span></a>]}>
                         <Meta 
                             avatar={<Avatar src={avatar} />}
                             description={product && <div className="tags">{product.sort && product.sort !== "" && this.renderDesktopSorts(product.sort)}<p>{product.content}</p></div>}/>

@@ -180,9 +180,6 @@ class Contact extends React.Component {
                                 </tbody>
                             </table>
                         </ContactCard>
-                        <Row className='has-text-centered'>
-                            <p className='is-size-7-mobile is-size-6-tablet'>Найдите нас в социальных сетях и отправьте нам сообщение: мы обязательно ответим!</p>
-                        </Row>
                     </Col>
                 </CardRow>
             </div>

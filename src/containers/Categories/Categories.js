@@ -50,6 +50,11 @@ const CategoryCard = styled(Col)`
             padding: 0px;
         }
     }
+    @media only screen and (min-width: 668px) {
+        .ant-card-head-title {
+            font-size: 22px;
+        }
+    }
 `;
 const Image = styled(ProgressiveImage)`
     height: 450px;

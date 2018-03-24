@@ -27,6 +27,23 @@ const ProductCard = styled(Card)`
         max-width: 290px;
     }
 
+    .ant-card-actions {
+        background: rgba(82, 8, 45, 0.85);
+        li > span {
+            font-size: 16px;
+            a {
+                color: white;
+            }
+        }
+        .category-action {
+            margin-left: 10px;
+        }
+        .category-card-actions-link {
+            color: rgba(234,204,178,.75);
+        }
+    }
+
+
     @media only screen and (max-width: 480px) {
         .ant-card-head {
             min-height: 24px;
@@ -96,11 +113,6 @@ class Category extends React.Component {
         return invokeOpenApi({ path: `/categories/${this.props.history.location.pathname.split('/')[2]}` });
     }
 
-    handleProductClick = event => {
-        event.preventDefault();
-        this.props.history.push(event.currentTarget.getAttribute("href"));
-    }
-
     handleClick = event => {
         event.preventDefault();
         this.props.history.push('/products');
@@ -113,12 +125,11 @@ class Category extends React.Component {
                 dataSource={products}
                 renderItem={product => (
                     <List.Item>
-                        <ProductCard style={{ cursor: 'pointer'}}              
-                            href={`/products/${this.props.match.params.category}/${product.productId}`}
-                            onClick={this.handleProductClick}
-                            title={product.productName}>
-                            <ProductImage src={`${config.s3.URL}/300x300/${product.image}`} placeholder={bgImg} transition="all 1s linear" />
-                        </ProductCard>
+                            <ProductCard style={{ cursor: 'pointer'}}
+                                title={product.productName}
+                                actions={[<a href="tel:+79266298726" name="phone number"><Icon type="customer-service" /><span className="category-action">Заказать</span></a>, <a href={`/products/${this.props.match.params.category}/${product.productId}`} className="category-card-actions-link"><Icon type="select" /><span className="category-action">Посмотреть</span></a>]}>
+                                <ProductImage src={`${config.s3.URL}/300x300/${product.image}`} placeholder={bgImg} transition="all 1s linear" />
+                            </ProductCard>
                     </List.Item>
                 )}
             />

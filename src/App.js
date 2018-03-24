@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import LoadingScreen from './components/LoadingScreen';
 import SearchModal from './components/SearchModal';
 import { Link } from "react-router-dom";
-import { Layout, Icon, Button, Affix } from 'antd';
+import { Layout, Icon, Affix } from 'antd';
 import Routes from "./Routes";
 import styled, { keyframes } from 'styled-components';
 import { bounceInUp } from 'react-animations';
@@ -15,7 +15,6 @@ import './App.css';
 
 const Tablet = props => <Responsive {...props} minWidth={481} maxWidth={768} />;
 const Mobile = props => <Responsive {...props} maxWidth={480} />;
-const Desktop = props => <Responsive {...props} minWidth={769} />
 
 const { Content } = Layout;
 const bounceAnimation = keyframes`${bounceInUp}`;
@@ -35,6 +34,22 @@ const AffixBounce = styled(Affix)`
 const MobileFooter = styled.nav`
     background-color: rgba(51, 5, 28, .8) !important;
     min-height: 2.25rem !important;
+
+    .insta-icon {
+      width: 16px;
+      margin-top: 3px;
+    }
+
+    @media screen and (min-width: 768px) {
+      min-height: 3rem !important;
+      .insta-icon {
+        width: 26px;
+        margin-top: 7px;
+      }
+      .level-item > a {
+        font-size: 26px;
+      }
+    }
 `;
 const OuterContent = styled(Content)`
     z-index: 10;
@@ -133,25 +148,20 @@ export default class App extends React.Component {
             <OuterContent>     
               <Mobile>
                 <AffixBounce offsetTop={80}>
-                  <Button name="phone number" type="primary" className="is-size-7"><Icon type="phone" /> +7 (926) 629 87 26</Button>
+                  <a href="tel:+79266298726" name="phone number" className="is-size-7 ant-btn ant-btn-primary"><Icon type="phone" /> +7 (926) 629 87 26</a>
                 </AffixBounce>
               </Mobile>
               <Tablet>
                 <AffixBounce offsetTop={100}>
-                  <Button name="phone number" type="primary" className="is-size-6"><Icon type="phone" /> +7 (926) 629 87 26</Button>
+                  <a href="tel:+79266298726" name="phone number" className="is-size-6 ant-btn ant-btn-primary"><Icon type="phone" /> +7 (926) 629 87 26</a>
                 </AffixBounce>
               </Tablet>
-              <Desktop>
-                <AffixBounce offsetTop={110}>
-                  <Button name="phone number" type="primary" className="is-size-5"><Icon type="phone" /> +7 (926) 629 87 26</Button>
-                </AffixBounce>
-              </Desktop>
               <InnerContainer>
                 <Header location={this.props.location} setMobileSearchModalVisible={this.handleMobileSearch} />
                 <SearchModal mobileModalVisible={this.state.mobileSearchVisible} setMobileSearchModalVisible={this.handleMobileSearch} />
                 <Routes childProps={childProps} />                
               </InnerContainer>
-              <footer className="footer navbar is-hidden-mobile" style={{background: 'rgba(255, 255, 255, 0.8)', maxWidth: 1024, margin: '0px auto', padding: '.5rem'}}>
+              <footer className="footer navbar is-hidden-mobile" style={{background: 'rgba(255, 255, 255, 0.8)', maxWidth: 1024, margin: '40px auto', padding: '.5rem'}}>
                 <div className="content has-text-centered">
                   <nav className="level is-mobile">
                     <div className="level-item has-text-centered">
@@ -177,7 +187,7 @@ export default class App extends React.Component {
                     </div>
                   </nav>
                   <p>
-                    <strong>© 2017 Все булочки тут.</strong> | Услуги разработчика: <a target='_blank' rel="noopener noreferrer" href="https://akolybelnikov.github.io/">Андрей Колыбельников</a>. | Программный код страницы защищён лицензией.
+                    <strong>© 2017 Все булочки тут.</strong> | Услуги разработчика: <strong>Андрей Колыбельников</strong>. | Программный код страницы защищён лицензией.
                   </p>
                 </div>
               </footer>
