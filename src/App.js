@@ -120,7 +120,7 @@ export default class App extends React.Component {
             <a aria-label="Instagram link" style={{ padding: 5 }} href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer" className="has-text-danger"><img src={instaIcon} className="insta-icon" alt="instagram" /></a>
         </div>
         <div className="level-item">
-            <a aria-label="Facebook link" href="https://www.facebook.com/Confert.ru?hc_ref=ARQwxWrZK8Qop0XtLeqPjPcqJ1wPtua1EdfzTK52K7tmK-2nGd4iaI_rXNi733RwaCA&fref=nf" target='_blank' rel="noopener noreferrer" className="has-text-info"><Icon type="facebook" /></a>
+            <a aria-label="Facebook link" href="https://www.facebook.com/CONFERTRU.RU" target='_blank' rel="noopener noreferrer" className="has-text-info"><Icon type="facebook" /></a>
         </div>
         <div className="level-item">
             <Link aria-label="Contact link" to="/contact" className="has-text-white"><Icon type="mail" /></Link>
