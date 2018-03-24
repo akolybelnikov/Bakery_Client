@@ -6,10 +6,6 @@
     padding: 2px;
 }
 
-.ant-card-head:hover {
-    background: rgba(234, 204, 178, .5)
-}
-
 .ant-card-head-title {
     color: #52082D;
     text-align: center;
@@ -73,10 +69,6 @@ input:-ms-input-placeholder {
         height: 250;
         overflow: hidden;
     }
-    
-    .slick-list {
-        height: 100px;
-    }
 
     .ant-card-head-title {
         font-size: 1.2rem;
@@ -132,10 +124,6 @@ input:-ms-input-placeholder {
 
     .news-text {
         font-size: 1.2rem !important;
-    }
-
-    .slick-list {
-        height: 300px;
     }
 }
 

@@ -36,11 +36,11 @@ const IconRow = styled(Row)`
 
 const BreadCrumbs = styled(Row)`
     color: #331507;
-    margin-top: 50px;
+    margin-top: 80px;
 `;
 
 const CardRow = styled(Row)`
-    margin: 5% 0 20% 0;
+    margin: 30px 0 0;
 `
 
 const ActionSpan = styled.p` 
@@ -53,6 +53,12 @@ const ActionSpan = styled.p`
     @media only screen and (max-width: 480px) {
         font-size: .7rem;
         margin: 0;
+    }
+    a {
+        text-decoration: none;
+        :visited, :active, :hover {
+            text-decoration: none;
+        }
     }
 `
 
@@ -105,9 +111,18 @@ const PhIcon = styled(Icon)`
 
 const InstaIcon = styled.img`
     width: 26px;
-
     @media only screen and (max-width: 480px) {
         width: 16px;
+    }
+`
+
+const HoursRow = styled(Row)`
+    margin: 10px;
+    background: rgba(234,204,178,.5);
+    padding: 10px;
+    text-align: center;
+    @media screen and (max-width: 768px) {
+        margin: 10px 0 80px;
     }
 `
 
@@ -120,7 +135,7 @@ class Contact extends React.Component {
 
     render() {
         return (
-            <div style={{height: '100vh'}}>
+            <div>
                 <IconRow className="is-hidden-tablet"><Icon onClick={this.handleClick} className="icon-back" type="left" /></IconRow>
                 <BreadCrumbs className="is-hidden-mobile">
                     <Breadcrumb style={{fontSize: 17}} separator=">">
@@ -130,11 +145,6 @@ class Contact extends React.Component {
                 </BreadCrumbs>
                 <CardRow>
                     <Col xs={{ span: 22, offset: 1 }} sm={{ span: 20, offset: 2 }} md={{ span: 18, offset: 3 }}>
-                        <Row style={{marginBottom: 10, background: 'rgba(234,204,178,.5)', padding: '10px'}}>
-                            <p className="has-text-weight-semibold">Наши часы работы:</p>
-                            <p>с понедельника по субботу: с 8.00 до 20.00 часов;</p>
-                            <p>в воскресенье: с 9.00 до 18.00 часов.</p>
-                        </Row>
                         <GoogleMap 
                             google={this.props.google} 
                             zoom={15}
@@ -155,26 +165,26 @@ class Contact extends React.Component {
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <p><PhIcon type="phone"/></p>
+                                            <PhIcon type="customer-service"/>
                                         </td>
                                         <td>
-                                            <TableCell>+7 926 -982-35-72</TableCell>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p><PhIcon type="phone"/></p>
-                                        </td>
-                                        <td>
-                                            <TableCell>+7 926-629-87-26</TableCell>
+                                            <TableCell><a href="tel:+79269823572" target="_self" name="phone number" className="ant-btn ant-btn-primary">+7 926 -982-35-72</a></TableCell>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <p style={{marginBottom: 0}}><MailIcon type="mail" /></p>
+                                            <PhIcon type="customer-service"/>
                                         </td>
                                         <td>
-                                            <TableCell>confert76@gmail.com</TableCell>
+                                            <TableCell><a href="tel:+79266298726" target="_self" name="phone number" className="ant-btn ant-btn-primary">+7 926-629-87-26</a></TableCell>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                           <MailIcon type="mail" />
+                                        </td>
+                                        <td>
+                                            <TableCell><a className="ant-btn ant-btn-primary" href="mailto:confert76@gmail.com?Subject=Контакт со службой поддержки" target="_self">confert76@gmail.com</a></TableCell>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -182,6 +192,11 @@ class Contact extends React.Component {
                         </ContactCard>
                     </Col>
                 </CardRow>
+                <HoursRow>
+                    <p className="has-text-weight-semibold">Наши часы работы:</p>
+                    <p>с понедельника по субботу: с 8.00 до 20.00 часов;</p>
+                    <p>в воскресенье: с 9.00 до 18.00 часов.</p>
+                </HoursRow>
             </div>
         );
     }

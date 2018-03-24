@@ -13,6 +13,7 @@ import Responsive from 'react-responsive';
 import instaIcon from './public/instagram.svg';
 import './App.css';
 
+const Desktop = props => <Responsive {...props} minWidth={769} />;
 const Tablet = props => <Responsive {...props} minWidth={481} maxWidth={768} />;
 const Mobile = props => <Responsive {...props} maxWidth={480} />;
 
@@ -28,6 +29,16 @@ const AffixBounce = styled(Affix)`
   }
   @media only screen and (min-width: 1300px) {
     right: 15%;
+  }
+  @media screen and (min-width: 768px) {
+    .ant-btn-circle.ant-btn-lg {
+      width: 52px;
+      height: 52px;
+      font-size: 28px;
+    }
+    .ant-btn > .anticon {
+      line-height: 1.8;
+    }
   }
 `;
 
@@ -147,15 +158,20 @@ export default class App extends React.Component {
           <Layout style={{ background: "white" }} >            
             <OuterContent>     
               <Mobile>
-                <AffixBounce offsetTop={80}>
-                  <a href="tel:+79266298726" name="phone number" className="is-size-7 ant-btn ant-btn-primary"><Icon type="phone" /> +7 (926) 629 87 26</a>
+                <AffixBounce offsetTop={85}>
+                  <a href="tel:+79266298726" name="phone number" target="_self" className="ant-btn ant-btn-primary ant-btn-circle ant-btn-icon-only"><Icon type="customer-service" /></a>
                 </AffixBounce>
               </Mobile>
               <Tablet>
                 <AffixBounce offsetTop={100}>
-                  <a href="tel:+79266298726" name="phone number" className="is-size-6 ant-btn ant-btn-primary"><Icon type="phone" /> +7 (926) 629 87 26</a>
+                  <a href="tel:+79266298726" name="phone number" target="_self" className="ant-btn ant-btn-primary ant-btn-circle ant-btn-icon-only ant-btn-lg"><Icon type="customer-service" /></a>
                 </AffixBounce>
               </Tablet>
+              <Desktop>
+                <AffixBounce offsetTop={120}>
+                  <a href="tel:+79266298726" name="phone number" target="_self" className="ant-btn ant-btn-primary ant-btn-circle ant-btn-icon-only ant-btn-lg"><Icon type="customer-service" /></a>
+                </AffixBounce>
+              </Desktop>
               <InnerContainer>
                 <Header location={this.props.location} setMobileSearchModalVisible={this.handleMobileSearch} />
                 <SearchModal mobileModalVisible={this.state.mobileSearchVisible} setMobileSearchModalVisible={this.handleMobileSearch} />

@@ -24,8 +24,11 @@ const IconRow = styled(Row)`
 
 const BreadCrumbs = styled(Row)`
     color: #331507;
-    margin-top: 50px;
+    margin-top: 80px;
     font-size: 18px;
+    .ant-breadcrumb {
+        font-size: 18px;
+    }
 `;
 
 const NewsRow = styled(Row)`
@@ -64,7 +67,7 @@ export default class News extends Component {
         try {
 
           const results = await this.getNews();
-          results.reverse();
+          this.sortByDate(results).reverse();
           this.setState({ news: results });
 
         } catch (e) {
@@ -77,6 +80,10 @@ export default class News extends Component {
     getNews() {
         return invokeOpenApi({ path: "/news"});
     }
+
+    sortByDate(array) {
+        return array.sort((a, b) => a.createdAt - b.createdAt);
+      }
 
     handleClick = event => {
         event.preventDefault();

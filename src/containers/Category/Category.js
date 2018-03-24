@@ -14,7 +14,7 @@ const ProductsRow = styled(Row)`
 `;
 
 const BreadCrumbs = styled(Row)`
-    margin-top: 50px;
+    margin-top: 80px;
 `;
 
 const ProductCard = styled(Card)`
@@ -28,18 +28,34 @@ const ProductCard = styled(Card)`
     }
 
     .ant-card-actions {
-        background: rgba(82, 8, 45, 0.85);
+        background: rgba(234,204,178,.75);
         li > span {
             font-size: 16px;
             a {
                 color: white;
+                text-decoration: none;
+                :hover, :active, :visited {
+                    color: rgba(234,204,178,.75);
+                }
             }
         }
         .category-action {
             margin-left: 10px;
         }
         .category-card-actions-link {
-            color: rgba(234,204,178,.75);
+            color: #52082D;
+            font-weight: 500;
+            :hover, :active, :visited {
+                color: rgba(82, 8, 45, .5);
+            }
+        }
+        @media screen and (min-width: 768px) {
+            li > span {
+                font-size: 18px;
+                a {
+                    font-size: 18px;
+                }
+            }
         }
     }
 
@@ -127,7 +143,7 @@ class Category extends React.Component {
                     <List.Item>
                             <ProductCard style={{ cursor: 'pointer'}}
                                 title={product.productName}
-                                actions={[<a href="tel:+79266298726" target="_self" name="phone number"><Icon type="customer-service" /><span className="category-action">Заказать</span></a>, <a href={`/products/${this.props.match.params.category}/${product.productId}`} className="category-card-actions-link"><Icon type="select" /><span className="category-action">Посмотреть</span></a>]}>
+                                actions={[<a href="tel:+79266298726" target="_self" name="phone number" className="ant-btn ant-btn-primary"><Icon type="customer-service" /><span className="category-action">Заказать</span></a>, <a href={`/products/${this.props.match.params.category}/${product.productId}`} className="category-card-actions-link"><Icon type="select" /><span className="category-action">Посмотреть</span></a>]}>
                                 <ProductImage src={`${config.s3.URL}/300x300/${product.image}`} placeholder={bgImg} transition="all 1s linear" />
                             </ProductCard>
                     </List.Item>

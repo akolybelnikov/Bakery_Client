@@ -21,7 +21,7 @@ const zoomInAnimation = keyframes`${zoomIn}`;
 const bgImg = require(`../../public/logo.png`);
 
 const ProductRow = styled(Row)`
-    margin: 5% 0;
+    margin: 5% 0 0;
     @media only screen and (max-width: 480px) {
         margin-bottom: 10%;
     }
@@ -53,15 +53,13 @@ const ProductCard = styled(Card)`
 
     .ant-card-actions {
         background: rgba(234, 204, 178, .75);
-    }
-
-    .ant-card-actions {
-        background: rgba(82, 8, 45, 0.85);
         li {
-            color: rgba(234,204,178,.75);
+            color: #52082D;
+            font-weight: 500;
             span {
                 a {
                     color: white;
+                    font-size: 18px;
                 }
             }
             i {
@@ -94,11 +92,14 @@ const ProductCard = styled(Card)`
     @media screen and (min-width: 768px) {
         .ant-card-actions > li > span {
             font-size: 18px;
+            a {
+                font-size: 18px;
+            }
         }
     }
 `;
 const Breadcrumbs = styled(Row)`
-    margin-top: 5%;
+    margin-top: 80px;
 `;
 
 export default class Product extends Component {
@@ -183,7 +184,7 @@ export default class Product extends Component {
                     <ProductCard 
                         title={product && product.productName}
                         cover={<ProductImage src={`${config.s3.URL}/300x300/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
-                        actions={[<a href="tel:+79266298726" target="_self" name="phone number"><Icon type="customer-service" /><span className="product-card-action">Заказать</span></a>]}>
+                        actions={[<a href="tel:+79266298726" target="_self" name="phone number" className="ant-btn ant-btn-primary"><Icon type="customer-service" /><span className="product-card-action">Заказать</span></a>]}>
                         <Meta 
                             title={[<span className="product-card-title"><Icon type="info-circle-o" />{product && product.weight}</span>, <span className="product-card-title"><Icon type="tag-o" />{product && product.price} руб.</span>]}
                             description={product && <div>{product.sort && product.sort !== "" && this.renderMobileSorts(product.sort)}<p>{product.content}</p></div>} />
@@ -193,7 +194,7 @@ export default class Product extends Component {
                     <ProductCard 
                         title={product && product.productName}
                         cover={<ProductImage src={`${config.s3.URL}/500x500/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
-                        actions={[<div><Icon type="info-circle-o" /><span>{product && product.weight}</span></div>, <div><Icon type="tag-o" /><span className="is-size-6-tablet">{product && product.price} руб.</span></div>, <a href="tel:+79266298726" target="_self" name="phone number"><Icon type="customer-service" /><span className="product-card-action">Заказать</span></a>]}>
+                        actions={[<div><Icon type="info-circle-o" /><span>{product && product.weight}</span></div>, <div><Icon type="tag-o" /><span className="is-size-6-tablet">{product && product.price} руб.</span></div>, <a href="tel:+79266298726" target="_self" name="phone number" className="ant-btn ant-btn-primary"><Icon type="customer-service" /><span className="product-card-action">Заказать</span></a>]}>
                         <Meta
                             description={product && <div>{product.sort && product.sort !== "" && this.renderTabletSorts(product.sort)}<p>{product.content}</p></div>} />
                     </ProductCard>
@@ -202,7 +203,7 @@ export default class Product extends Component {
                     <ProductCard 
                         title={product && product.productName}
                         cover={<ProductImage src={`${config.s3.URL}/750x750/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
-                        actions={[<div><Icon type="info-circle-o" />{product && product.weight}</div>, <div><Icon type="tag-o" />{product && product.price} руб.</div>, <a href="tel:+79266298726" target="_self" name="phone number"><Icon type="customer-service" /><span className="product-card-action">Заказать</span></a>]}>
+                        actions={[<div><Icon type="info-circle-o" />{product && product.weight}</div>, <div><Icon type="tag-o" />{product && product.price} руб.</div>, <a href="tel:+79266298726" target="_self" name="phone number" className="ant-btn ant-btn-primary"><Icon type="customer-service" /><span className="product-card-action">Заказать</span></a>]}>
                         <Meta 
                             avatar={<Avatar src={avatar} />}
                             description={product && <div className="tags">{product.sort && product.sort !== "" && this.renderDesktopSorts(product.sort)}<p>{product.content}</p></div>}/>
