@@ -104,7 +104,7 @@ export default class Instafeed extends React.Component {
         return (
             <div className="tile is-vertical is-parent">
                 <article className="tile is-child box">           
-                    <Instacard title={<a target="_blank" href="https://www.instagram.com/confertru.ru">Мы на Instagram</a>} bordered="true">
+                    <Instacard title={<a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/confertru.ru">Мы на Instagram</a>} bordered="true">
                         <PostsRow>
                             {this.state.posts && this.renderPosts(this.state.posts)}
                         </PostsRow>                             
