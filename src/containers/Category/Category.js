@@ -129,6 +129,11 @@ class Category extends React.Component {
         return invokeOpenApi({ path: `/categories/${this.props.history.location.pathname.split('/')[2]}` });
     }
 
+    handleProductClick = event => {
+        event.preventDefault();
+        this.props.history.push(event.currentTarget.getAttribute("href"));
+    }
+
     handleClick = event => {
         event.preventDefault();
         this.props.history.push('/products');
@@ -141,7 +146,10 @@ class Category extends React.Component {
                 dataSource={products}
                 renderItem={product => (
                     <List.Item>
-                            <ProductCard style={{ cursor: 'pointer'}}
+                            <ProductCard 
+                                href={`/products/${this.props.match.params.category}/${product.productId}`}
+                                onClick={this.handleProductClick}
+                                style={{ cursor: 'pointer'}}
                                 title={product.productName}
                                 actions={[<a href="tel:+79266298726" target="_self" name="phone number" className="ant-btn ant-btn-primary"><Icon type="customer-service" /><span className="category-action">Заказать</span></a>, <a href={`/products/${this.props.match.params.category}/${product.productId}`} className="category-card-actions-link"><Icon type="select" /><span className="category-action">Посмотреть</span></a>]}>
                                 <ProductImage src={`${config.s3.URL}/300x300/${product.image}`} placeholder={bgImg} transition="all 1s linear" />
