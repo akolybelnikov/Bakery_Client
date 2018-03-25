@@ -1,11 +1,12 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import { Row, Col, Card, Breadcrumb, Icon, Spin, List } from 'antd';
+import { Row, Col, Card, Breadcrumb, Icon, Spin, List, notification } from 'antd';
 import styled from 'styled-components';
 import { invokeOpenApi } from "../../libs/awsLib";
 import ProgressiveImage from 'react-progressive-bg-image';
 import config from "../../config";
 import "./Category.css";
+import localforage from 'localforage';
 
 const bgImg = require(`../../public/logo.png`);
 
@@ -121,12 +122,41 @@ class Category extends React.Component {
         return true;
     }
 
-    getProducts() {
-        return invokeOpenApi({ path: `/categories/${this.props.match.params.category}` });
+    async getProducts() {
+        try {
+            const products = await localforage.getItem(`${this.props.match.params.category}`);
+            if (products) {
+                return products;
+            } else {
+                const fetchedProducts = await invokeOpenApi({ path: `/categories/${this.props.match.params.category}` });
+                await localforage.setItem(`${this.props.match.params.category}`, fetchedProducts);
+                return fetchedProducts;
+            }
+        } catch (e) {
+            this.openErrorNotification(e);
+        }
     }
 
-    getProductsAgain() {
-        return invokeOpenApi({ path: `/categories/${this.props.history.location.pathname.split('/')[2]}` });
+    openErrorNotification (e) {
+        notification['error']({
+          message: 'Произошла ошибка при загрузке!',
+          description: e
+        });
+    };
+
+    async getProductsAgain() {
+        try {
+            const products = await localforage.getItem(`${this.props.history.location.pathname.split('/')[2]}`);
+            if (products) {
+                return products;
+            } else {
+                const fetchedProducts = await invokeOpenApi({ path: `/categories/${this.props.history.location.pathname.split('/')[2]}` });
+                await localforage.setItem(`${this.props.history.location.pathname.split('/')[2]}`, fetchedProducts);
+                return fetchedProducts;
+            }
+        } catch (e) {
+            this.openErrorNotification(e);
+        }
     }
 
     handleProductClick = event => {

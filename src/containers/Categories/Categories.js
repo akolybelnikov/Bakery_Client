@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Row, Col, Card, Breadcrumb, Icon, Spin } from 'antd';
+import { Row, Col, Card, Breadcrumb, Icon, Spin, notification } from 'antd';
 import "./Categories.css";
 import Responsive from 'react-responsive';
 import styled, { keyframes } from 'styled-components';
@@ -8,6 +8,7 @@ import { bounceIn } from 'react-animations';
 import ProgressiveImage from 'react-progressive-bg-image';
 import { invokeOpenApi } from "../../libs/awsLib";
 import config from "../../config";
+import localforage from 'localforage';
 
 const Tablet = props => <Responsive {...props} maxWidth={768} />;
 const Desktop = props => <Responsive {...props} minWidth={769} />;
@@ -23,7 +24,7 @@ const IconRow = styled(Row)`
 
 const BreadCrumbs = styled(Row)`
     color: #331507;
-    margin-top: 50px;
+    margin-top: 80px;
     .ant-breadcrumb {
         font-size: 17px;
     }
@@ -87,18 +88,36 @@ export default class Categories extends Component {
     async componentDidMount() {
       
         try {
-          const results = await this.categories();
+          const results = await this.getCategories();
           this.setState({ categories: results });
         } catch (e) {
-          console.log(e);
+            this.openErrorNotification(e);
         }
       
         this.setState({ loading: false });
     }
     
-    categories() {
-        return invokeOpenApi({ path: "/categories"});
+    async getCategories() {
+        try {
+            const categories = await localforage.getItem('categories');
+            if (categories) { 
+                return categories;
+            } else {
+                const fetchedCategories = await invokeOpenApi({ path: "/categories"});
+                await localforage.setItem('categories', fetchedCategories);
+                return fetchedCategories;
+            }
+        } catch (e) {
+            this.openErrorNotification(e);
+        }
     }
+
+    openErrorNotification (e) {
+        notification['error']({
+          message: 'Произошла ошибка при загрузке!',
+          description: e
+        });
+    };
 
     handleCategoryClick = event => {
         event.preventDefault();

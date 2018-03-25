@@ -62,7 +62,7 @@ export default class Header extends React.Component {
     render() {
         return (            
             <div>
-                <nav className="navbar is-fixed-top" aria-label="main navigation" style={{zIndex: "30", background: "rgba(255, 255, 255, 0.8)", maxWidth: '1024px', margin: '0 auto'}}>
+                <nav className="navbar is-fixed-top" aria-label="main navigation" style={{zIndex: "30", background: "rgba(255, 255, 255, 0.9)", maxWidth: '1024px', margin: '0 auto'}}>
                     <div className="navbar-brand level" style={{marginBottom: 0}}>
                         <p className="level-item is-hidden-desktop" onClick={this.props.setMobileSearchModalVisible}><Icon style={{ fontSize: 28, color: '#52082D' }} type="search" className="navbar-item"/></p>
                         <p className="level-item is-hidden-desktop"><NavLink to="/"><Logo className="image navbar-item" src={logo} alt="logo"/></NavLink></p>

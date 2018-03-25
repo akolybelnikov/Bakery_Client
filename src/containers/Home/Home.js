@@ -18,21 +18,15 @@ import tinyCakes from '../../public/tiny_cakes.png';
 import cakes from '../../public/cakes.png';
 import tinyOrder from '../../public/tiny_order.png';
 import order from '../../public/order.png';
+import localforage from 'localforage';
 
 const zoomInAnimation = keyframes`${zoomIn}`;
-
-const bgImg = require(`../../public/bg.jpg`);
 const logoImg = require(`../../public/logo.png`);
 
 const Desktop = props => <Responsive {...props} minWidth={769} />;
 const Tablet = props => <Responsive {...props} minWidth={416} maxWidth={768} />;
 const Mobile = props => <Responsive {...props} maxWidth={415} />;
 
-const ImageCard = styled(ProgressiveImage)`
-  background-size: cover;
-  background-position: center;
-  height: 450px;
-`
 const OfferCard = styled(ProgressiveImage)`
   background-size: contain;
   background-position: center;
@@ -134,9 +128,7 @@ export default class Home extends Component {
 
     try {
 
-      const offers = await this.getOffer();
-      const sorted = this.sortByDate(offers).reverse();
-      const offer = sorted[0];
+      const offer = await this.getOffer();
 
       this.setState({ 
         offerimage: offer.image,
@@ -146,6 +138,22 @@ export default class Home extends Component {
     } catch (e) {
       console.log(e);
     }
+  }
+
+  async getOffer() {
+    try {
+      const offer = await localforage.getItem('offer');
+      if (offer) {
+        return offer;
+      } else {
+        const offers = await invokeOpenApi({ path: "/offers"});
+        const sorted = this.sortByDate(offers).reverse();
+        const newOffer = sorted[0];
+        await localforage.setItem('offer', newOffer);
+        return newOffer;
+      }
+
+    } catch (e) { console.error(e); }
   }
 
   sortByDate(array) {
@@ -170,10 +178,6 @@ export default class Home extends Component {
       this.props.history.push(event.currentTarget.getAttribute("href"));
   }
 
-  getOffer() {
-      return invokeOpenApi({ path: "/offers"});
-  }
-
   renderOffer() {
     if (this.state.offercontent && this.state.offerimage) 
       return <OfferCard src={`${config.s3.URL}/350x350/${this.state.offerimage}`} placeholder={logoImg} transition="all 1s linear" crossOrigin='anonymous' />;
@@ -191,7 +195,7 @@ export default class Home extends Component {
 
   render() {   
     return (       
-      <div id="root-div">
+      <div>
         <Desktop>
           <div className="tile is-ancestor">
             <div className="tile is-parent">
@@ -220,13 +224,6 @@ export default class Home extends Component {
             </Modal>
           </div>
           <div className="tile is-ancestor">      
-              <div className="tile is-parent is-3">
-                <article className="tile is-child is-box">
-                  <LazyLoad once height={200}>
-                    <ImageCard src={`${config.s3.URL}/300x450/photo-1498049281100-cb3c002220f5.jpg`} placeholder={bgImg} transition="all 1s linear" /> 
-                  </LazyLoad> 
-                </article>
-              </div>     
             <Instafeed /> 
           </div>       
           <NewsFeed />
@@ -240,14 +237,7 @@ export default class Home extends Component {
             </div> 
             <div className="tile is-parent">
               <Row>
-                <Col xs={8}>
-                  <div id="unsplash">
-                    <LazyLoad once height={200}>
-                      <ImageCard src={`${config.s3.URL}/300x450/photo-1498049281100-cb3c002220f5.jpg`} placeholder={bgImg} transition="all 1s linear" /> 
-                    </LazyLoad> 
-                  </div>  
-                </Col>
-                <Col xs={16}>
+                <Col xs={24}>
                   <div className="box">
                     <a onClick={() => {this.setModalVisible(true)}}>
                       <Card title="Спецпредложение">

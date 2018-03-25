@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import LoadingScreen from './components/LoadingScreen';
 import SearchModal from './components/SearchModal';
 import { Link } from "react-router-dom";
-import { Layout, Icon, Affix } from 'antd';
+import { Layout, Icon, Affix, notification } from 'antd';
 import Routes from "./Routes";
 import styled, { keyframes } from 'styled-components';
 import { bounceInUp } from 'react-animations';
@@ -107,7 +107,7 @@ export default class App extends React.Component {
         this.userHasAuthenticated(true);
       }
     } catch(e) {
-      console.log(e);
+      this.openErrorNotification(e);
     }
 
     this.setState({ 
@@ -121,6 +121,13 @@ export default class App extends React.Component {
       });
     }, 2000);
   }
+
+  openErrorNotification (e) {
+	notification['error']({
+	  message: 'Произошла ошибка при загрузке!',
+	  description: e
+	});
+  };
 
   renderAffix() {
     const isLoggedIn = this.state.isAuthenticated;

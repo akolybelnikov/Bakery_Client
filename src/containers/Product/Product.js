@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Row, Col, Card, Breadcrumb, Icon, Avatar, Spin } from 'antd';
+import { Row, Col, Card, Breadcrumb, Icon, Avatar, Spin, notification } from 'antd';
 import ProgressiveImage from "react-progressive-bg-image";
 import styled, { keyframes } from 'styled-components';
 import { zoomIn } from 'react-animations';
@@ -8,6 +8,7 @@ import config from "../../config";
 import { invokeOpenApi } from "../../libs/awsLib";
 import Responsive from 'react-responsive';
 import "./Product.css";
+import localforage from 'localforage';
 
 const Desktop = props => <Responsive {...props} minWidth={992} />;
 const Tablet = props => <Responsive {...props} minWidth={481} maxWidth={991} />;
@@ -19,6 +20,7 @@ const avatar = require(`../../public/logobw.png`);
 const zoomInAnimation = keyframes`${zoomIn}`;
 
 const bgImg = require(`../../public/logo.png`);
+const bwlogo = require(`../../public/logobw.png`);
 
 const ProductRow = styled(Row)`
     margin: 5% 0 0;
@@ -137,18 +139,51 @@ export default class Product extends Component {
         return true;
     }
 
-    getProduct() {
-        return invokeOpenApi({ path: `/products/${this.props.match.params.id}/${this.props.location.pathname.split('/')[2]}` });
+    async getProduct() {
+        try {
+            const category = await localforage.getItem(`${this.props.location.pathname.split('/')[2]}`);
+            const product = category.filter(entry => this.isEqual(entry, this.props.match.params.id))[0];
+            if (product) {
+                return product;
+            } else {
+                const fetchedProduct = await invokeOpenApi({ path: `/products/${this.props.match.params.id}/${this.props.location.pathname.split('/')[2]}` });
+                return fetchedProduct;
+            }
+        } catch (e) {
+            this.openErrorNotification(e);
+        }
     }
 
-    updateProduct() {
-        return invokeOpenApi({ path: `/products/${this.props.history.location.pathname.split('/')[3]}/${this.props.history.location.pathname.split('/')[2]}` });
+    async updateProduct() {
+        try {
+            const category = await localforage.getItem(`${this.props.location.pathname.split('/')[2]}`);
+            const product = category.filter(entry => this.isEqual(entry, this.props.history.location.pathname.split('/')[3]))[0];
+            if (product) {
+                return product;
+            } else {
+                const fetchedProduct = await invokeOpenApi({ path: `/products/${this.props.history.location.pathname.split('/')[3]}/${this.props.history.location.pathname.split('/')[2]}` });
+                return fetchedProduct;
+            }
+        } catch (e) {
+            this.openErrorNotification(e);
+        }
+    }
+
+    isEqual(obj, id) {
+        return obj.id = id;
     }
 
     handleClick = event => {
         event.preventDefault();
         this.props.history.push(`/products/${this.state.product.category}`);
     }
+
+    openErrorNotification (e) {
+        notification['error']({
+          message: 'Произошла ошибка при загрузке!',
+          description: e
+        });
+    };
 
     renderMobileSorts(sorts) {
         let parsedSorts = sorts.split(';');
@@ -183,7 +218,7 @@ export default class Product extends Component {
                 <Mobile>
                     <ProductCard 
                         title={product && product.productName}
-                        cover={<ProductImage src={`${config.s3.URL}/300x300/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
+                        cover={<ProductImage src={`${config.s3.URL}/300x300/${this.state.product.image}` || bwlogo}  placeholder={bgImg} transition="all 1s linear" />}
                         actions={[<a href="tel:+79266298726" target="_self" name="phone number" className="ant-btn ant-btn-primary"><Icon type="customer-service" /><span className="product-card-action">Заказать</span></a>]}>
                         <Meta 
                             title={[<span className="product-card-title"><Icon type="info-circle-o" />{product && product.weight}</span>, <span className="product-card-title"><Icon type="tag-o" />{product && product.price} руб.</span>]}
@@ -193,7 +228,7 @@ export default class Product extends Component {
                 <Tablet>
                     <ProductCard 
                         title={product && product.productName}
-                        cover={<ProductImage src={`${config.s3.URL}/500x500/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
+                        cover={<ProductImage src={`${config.s3.URL}/500x500/${this.state.product.image}` || bwlogo}  placeholder={bgImg} transition="all 1s linear" />}
                         actions={[<div><Icon type="info-circle-o" /><span>{product && product.weight}</span></div>, <div><Icon type="tag-o" /><span className="is-size-6-tablet">{product && product.price} руб.</span></div>, <a href="tel:+79266298726" target="_self" name="phone number" className="ant-btn ant-btn-primary"><Icon type="customer-service" /><span className="product-card-action">Заказать</span></a>]}>
                         <Meta
                             description={product && <div>{product.sort && product.sort !== "" && this.renderTabletSorts(product.sort)}<p>{product.content}</p></div>} />
@@ -202,7 +237,7 @@ export default class Product extends Component {
                 <Desktop>
                     <ProductCard 
                         title={product && product.productName}
-                        cover={<ProductImage src={`${config.s3.URL}/750x750/${this.state.product.image}`}  placeholder={bgImg} transition="all 1s linear" />}
+                        cover={<ProductImage src={`${config.s3.URL}/750x750/${this.state.product.image}` || bwlogo}  placeholder={bgImg} transition="all 1s linear" />}
                         actions={[<div><Icon type="info-circle-o" />{product && product.weight}</div>, <div><Icon type="tag-o" />{product && product.price} руб.</div>, <a href="tel:+79266298726" target="_self" name="phone number" className="ant-btn ant-btn-primary"><Icon type="customer-service" /><span className="product-card-action">Заказать</span></a>]}>
                         <Meta 
                             avatar={<Avatar src={avatar} />}
