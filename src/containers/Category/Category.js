@@ -133,7 +133,7 @@ class Category extends React.Component {
                 return fetchedProducts;
             }
         } catch (e) {
-            this.openErrorNotification();
+            this.openWarningNotification();
         }
     }
 
@@ -141,6 +141,13 @@ class Category extends React.Component {
         notification['error']({
           message: 'Произошла ошибка при загрузке!',
           description: 'Пожалуйста, попробуйте загрузить приложение ещё раз.'
+        });
+    };
+
+    openWarningNotification () {
+        notification['warning']({
+          message: 'Произошла ошибка при загрузке! Возможно нет связи с интернетом.',
+          description: 'Пожалуйста, попробуйте загрузить приложение позже.'
         });
     };
 
@@ -155,7 +162,7 @@ class Category extends React.Component {
                 return fetchedProducts;
             }
         } catch (e) {
-            this.openErrorNotification();
+            this.openWarningNotification();
         }
     }
 
