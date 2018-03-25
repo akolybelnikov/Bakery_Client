@@ -107,7 +107,7 @@ export default class App extends React.Component {
         this.userHasAuthenticated(true);
       }
     } catch(e) {
-      this.openErrorNotification(e);
+      this.openErrorNotification();
     }
 
     this.setState({ 
@@ -122,10 +122,10 @@ export default class App extends React.Component {
     }, 2000);
   }
 
-  openErrorNotification (e) {
+  openErrorNotification () {
 	notification['error']({
 	  message: 'Произошла ошибка при загрузке!',
-	  description: e
+	  description: 'Пожалуйста, попробуйте загрузить приложение ещё раз.'
 	});
   };
 

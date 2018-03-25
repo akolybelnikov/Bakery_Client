@@ -1,7 +1,7 @@
 import React from "react";
 import config from "../config";
 import axios from "axios";
-import { Card } from 'antd';
+import { Card, notification } from 'antd';
 import ProgressiveImage from 'react-progressive-bg-image';
 import styled, { keyframes } from 'styled-components';
 import { zoomIn } from "react-animations";
@@ -71,35 +71,55 @@ export default class Instafeed extends React.Component {
     async fetchPosts() {
         try {
             const posts = await localforage.getItem('posts');
-            if (posts) {
+            if (posts && posts[0].date <= new Date()) {
                 return posts;
             } else {
-                const results = await axios.get(`https://api.instagram.com/v1/users/${config.instagram.REACT_APP_INSTAGRAM_USER_ID_0}/media/recent/?access_token=${config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN_0}&&count=4`);
-
-                const responsePosts = results.data.data;
-                for (let i = 0; i < responsePosts.length; i++)  {
-                    responsePosts[i]['key'] = i;
-                }
-                await localforage.setItem('posts', responsePosts);
-                return responsePosts;         
+                const fetchedPosts = await this.getInstagramData();
+                await localforage.setItem('posts', fetchedPosts);
+                return fetchedPosts;
             }
 
         } catch (e) { 
+            this.openErrorNotification();
+        }
+    }
+
+    async getInstagramData() {
+        try {
+            const results = await axios.get(`https://api.instagram.com/v1/users/${config.instagram.REACT_APP_INSTAGRAM_USER_ID_0}/media/recent/?access_token=${config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN_0}&&count=4`);
+
+            const responsePosts = results.data.data;
+            for (let i = 0; i < responsePosts.length; i++)  {
+                responsePosts[i]['key'] = i;
+                responsePosts[i]['date'] = new Date();
+            }
+
+            return responsePosts;
+
+        } catch (e) {
             try {
                 const replaceResults = await axios.get(`https://api.instagram.com/v1/users/${config.instagram.REACT_APP_INSTAGRAM_USER_ID_1}/media/recent/?access_token=${config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN_1}&&count=4`);
 
                 const replacePosts = replaceResults.data.data;
                 for (let i = 0; i < replacePosts.length; i++) {
                     replacePosts[i]['key'] = i;
+                    replacePosts[i]['date'] = new Date();
                 }
-                await localforage.setItem('posts', replacePosts);
                 return replacePosts;            
 
             } catch (e) {
-                console.log(e);
+                this.openErrorNotification();
             }
+
         }
     }
+
+    openErrorNotification() {
+        notification["error"]({
+          message: "Произошла ошибка при загрузке!",
+          description: "Пожалуйста, попробуйте загрузить приложение ещё раз."
+        });
+      }
 
     renderPosts(posts) {
         return posts.map(

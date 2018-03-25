@@ -91,7 +91,7 @@ export default class Categories extends Component {
           const results = await this.getCategories();
           this.setState({ categories: results });
         } catch (e) {
-            this.openErrorNotification(e);
+            this.openErrorNotification();
         }
       
         this.setState({ loading: false });
@@ -108,14 +108,14 @@ export default class Categories extends Component {
                 return fetchedCategories;
             }
         } catch (e) {
-            this.openErrorNotification(e);
+            this.openErrorNotification();
         }
     }
 
-    openErrorNotification (e) {
+    openErrorNotification () {
         notification['error']({
           message: 'Произошла ошибка при загрузке!',
-          description: e
+          description: 'Пожалуйста, попробуйте загрузить приложение ещё раз.'
         });
     };
 

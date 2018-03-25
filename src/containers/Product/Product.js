@@ -121,7 +121,7 @@ export default class Product extends Component {
                 product: results
             });
         } catch (e) {
-            console.log(e);
+            this.openErrorNotification();
         }
     }
 
@@ -133,7 +133,7 @@ export default class Product extends Component {
                     product: results,
                 });
             } catch (e) {
-                console.log(e);
+                this.openErrorNotification();
             }
         }
         return true;
@@ -142,7 +142,7 @@ export default class Product extends Component {
     async getProduct() {
         try {
             const category = await localforage.getItem(`${this.props.location.pathname.split('/')[2]}`);
-            const product = category.filter(entry => this.isEqual(entry, this.props.match.params.id))[0];
+            const product = category.find(entry => entry.productId === this.props.match.params.id);
             if (product) {
                 return product;
             } else {
@@ -150,14 +150,14 @@ export default class Product extends Component {
                 return fetchedProduct;
             }
         } catch (e) {
-            this.openErrorNotification(e);
+            this.openErrorNotification();
         }
     }
 
     async updateProduct() {
         try {
             const category = await localforage.getItem(`${this.props.location.pathname.split('/')[2]}`);
-            const product = category.filter(entry => this.isEqual(entry, this.props.history.location.pathname.split('/')[3]))[0];
+            const product = category.find(entry => entry.productId === this.props.history.location.pathname.split('/')[3]);
             if (product) {
                 return product;
             } else {
@@ -165,12 +165,8 @@ export default class Product extends Component {
                 return fetchedProduct;
             }
         } catch (e) {
-            this.openErrorNotification(e);
+            this.openErrorNotification();
         }
-    }
-
-    isEqual(obj, id) {
-        return obj.id = id;
     }
 
     handleClick = event => {
@@ -178,10 +174,10 @@ export default class Product extends Component {
         this.props.history.push(`/products/${this.state.product.category}`);
     }
 
-    openErrorNotification (e) {
+    openErrorNotification () {
         notification['error']({
           message: 'Произошла ошибка при загрузке!',
-          description: e
+          description: 'Пожалуйста, попробуйте загрузить приложение ещё раз.'
         });
     };
 

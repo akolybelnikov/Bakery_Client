@@ -104,7 +104,7 @@ class Category extends React.Component {
                 products: results,
             });
         } catch (e) {
-            console.log(e);
+            this.openErrorNotification();
         }
     }
 
@@ -116,7 +116,7 @@ class Category extends React.Component {
                     products: results,
                 });
             } catch (e) {
-                console.log(e);
+                this.openErrorNotification();
             }
         }
         return true;
@@ -133,14 +133,14 @@ class Category extends React.Component {
                 return fetchedProducts;
             }
         } catch (e) {
-            this.openErrorNotification(e);
+            this.openErrorNotification();
         }
     }
 
-    openErrorNotification (e) {
+    openErrorNotification () {
         notification['error']({
           message: 'Произошла ошибка при загрузке!',
-          description: e
+          description: 'Пожалуйста, попробуйте загрузить приложение ещё раз.'
         });
     };
 
@@ -155,7 +155,7 @@ class Category extends React.Component {
                 return fetchedProducts;
             }
         } catch (e) {
-            this.openErrorNotification(e);
+            this.openErrorNotification();
         }
     }
 

@@ -65,10 +65,9 @@ export default class News extends Component {
   async componentDidMount() {
     try {
       const results = await this.getNews();
-      this.sortByDate(results).reverse();
       this.setState({ news: results });
     } catch (e) {
-      this.openErrorNotification(e);
+      this.openErrorNotification();
     }
 
     this.setState({ isLoading: false });
@@ -80,12 +79,19 @@ export default class News extends Component {
       if (fetchedNews) {
         return fetchedNews;
       } else {
-        const results = invokeOpenApi({ path: "/news" });
-        await localforage.setItem("news", results);
-        return results;
+        const news = [];
+        const results = await invokeOpenApi({ path: "/news" });
+        await this.sortByDate(results).reverse();
+        for (let i = 0; i < 5; i++) {
+          if (results[i] !== undefined) {
+            news.push(results[i]);
+          }
+        }
+        await localforage.setItem("news", news);
+        return news;
       }
     } catch (e) {
-      this.openErrorNotification(e);
+      this.openErrorNotification();
     }
   }
 
@@ -101,7 +107,7 @@ export default class News extends Component {
   openErrorNotification(e) {
     notification["error"]({
       message: "Произошла ошибка при загрузке!",
-      description: e
+      description: 'Пожалуйста, попробуйте загрузить приложение ещё раз.'
     });
   }
 

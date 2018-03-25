@@ -85,42 +85,42 @@ export default class NewsFeed extends Component {
 
   async componentDidMount() {
     try {
-      const news = [];
-      const fetchedNews = await this.getNews();
-      this.sortByDate(fetchedNews).reverse();
-      for (let i = 0; i < 5; i++) {
-        if (fetchedNews[i] !== undefined) {
-          news.push(fetchedNews[i]);
-        }
-      }
+      const news = await this.getNews();
       this.setState({
         news: news,
         isLoading: false
       });
     } catch (e) {
-      console.log(e);
+      this.openErrorNotification();
     }
   }
 
   async getNews() {
     try {
-      const fetchedNews = await localforage.getItem("news");
-      if (fetchedNews) {
-        return fetchedNews;
+      const stored = await localforage.getItem("news");
+      if (stored) {
+        return stored;
       } else {
-        const results = invokeOpenApi({ path: "/news" });
-        await localforage.setItem("news", results);
-        return results;
+        const news = [];
+        const results = await invokeOpenApi({ path: "/news" });
+        await this.sortByDate(results).reverse();
+        for (let i = 0; i < 5; i++) {
+          if (results[i] !== undefined) {
+            news.push(results[i]);
+          }
+        }
+        await localforage.setItem("news", news);
+        return news;
       }
     } catch (e) {
-      this.openErrorNotification(e);
+      this.openErrorNotification();
     }
   }
 
-  openErrorNotification(e) {
+  openErrorNotification() {
     notification["error"]({
       message: "Произошла ошибка при загрузке!",
-      description: e
+      description: "Пожалуйста, попробуйте загрузить приложение ещё раз."
     });
   }
 
@@ -129,35 +129,34 @@ export default class NewsFeed extends Component {
   }
 
   renderNews(news) {
-    if (this.state.news)
-      return news.map(newsitem => (
-        <a key={newsitem.newsId} href="/news">
-          <Row style={{ marginRight: "20px" }}>
-            <Col xs={6}>
-              <Card
-                bordered={false}
-                cover={
-                  <NewsImage
-                    src={`${config.s3.URL}/200x200/${newsitem.image}`}
-                    placeholder={logoImg}
-                    transition="all 1s linear"
-                    crossOrigin="anonymous"
-                  />
-                }
-              />
-            </Col>
-            <Col xs={{ span: 16, offset: 2 }} sm={{ span: 17, offset: 1 }}>
-              <NewsCard className="news-card" bordered={false}>
-                <p className="news-text">
-                  <Mobile>{newsitem.content.substring(0, 200)} ... </Mobile>
-                  <Tablet>{newsitem.content.substring(0, 275)} ... </Tablet>
-                  <Desktop>{newsitem.content.substring(0, 350)} ... </Desktop>
-                </p>
-              </NewsCard>
-            </Col>
-          </Row>
-        </a>
-      ));
+    return news.map(newsitem => (
+      <a key={newsitem.newsId} href="/news">
+        <Row style={{ marginRight: "20px" }}>
+          <Col xs={6}>
+            <Card
+              bordered={false}
+              cover={
+                <NewsImage
+                  src={`${config.s3.URL}/200x200/${newsitem.image}`}
+                  placeholder={logoImg}
+                  transition="all 1s linear"
+                  crossOrigin="anonymous"
+                />
+              }
+            />
+          </Col>
+          <Col xs={{ span: 16, offset: 2 }} sm={{ span: 17, offset: 1 }}>
+            <NewsCard className="news-card" bordered={false}>
+              <p className="news-text">
+                <Mobile>{newsitem.content.substring(0, 200)} ... </Mobile>
+                <Tablet>{newsitem.content.substring(0, 275)} ... </Tablet>
+                <Desktop>{newsitem.content.substring(0, 350)} ... </Desktop>
+              </p>
+            </NewsCard>
+          </Col>
+        </Row>
+      </a>
+    ));
   }
 
   render() {
