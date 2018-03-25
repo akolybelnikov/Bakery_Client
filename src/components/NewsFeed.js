@@ -5,6 +5,7 @@ import ProgressiveImage from 'react-progressive-bg-image';
 import { invokeOpenApi } from "../libs/awsLib";
 import styled from 'styled-components';
 import Responsive from 'react-responsive';
+import localforage from 'localforage';
 
 const logoImg = require(`../public/logo.png`);
 
@@ -23,22 +24,32 @@ const NewsImage = styled(ProgressiveImage)`
   }
 `
 
+const NewsCard = styled(Card)`
+  p {
+    font-size: 16px;
+  }
+`
+
 const CarouselCard = styled(Card)`
   .ant-card-head:hover {
     background: rgba(234,204,178,.5);
   }
   .ant-card-actions {
-    background: #52082D;
-    li > span i {
-      margin-right: 5px;
-    }
-
-    li > span a {
-      color: white;
-    }
-
-    li > span a:hover {
-      color: white;
+    background: rgba(234,204,178,.5);
+    li {
+      margin: 12px 0 0;
+      span {
+        i {
+          margin-right: 5px;
+        }
+        a {
+          color: rgba(234,204,178,1);
+          font-size: 18px;
+          :hover {
+            color: white;
+          }
+        }
+      }
     }
 
     @media screen and (max-width: 480px) {
@@ -50,7 +61,6 @@ const CarouselCard = styled(Card)`
     @media screen and (min-width: 768px) {
       li > span a {
         font-size: 18px;
-        color: rgba(234,204,178,1);
       }
       .slick-list {
         height: 250px;
@@ -76,8 +86,7 @@ export default class NewsFeed extends Component {
 
     async componentDidMount() {
 
-        try {
-    
+        try {    
           const news = [];
           const fetchedNews = await this.getNews();
           this.sortByDate(fetchedNews).reverse();
@@ -96,8 +105,20 @@ export default class NewsFeed extends Component {
         }
     }
 
-    getNews() {
-        return invokeOpenApi({ path: "/news"});
+    async getNews() {
+        try {
+          const fetchedNews = await localforage.getItem('news');
+          if(fetchedNews) {
+            return fetchedNews;
+          } else {
+            const results = invokeOpenApi({ path: "/news"});
+            await localforage.setItem('news', results);
+            return results;
+          }
+
+        } catch (e) {
+            console.log(e);
+          }
     }
 
     sortByDate(array) {
@@ -117,15 +138,15 @@ export default class NewsFeed extends Component {
                     </Card>
                   </Col>
                   <Col xs={{ span: 16, offset: 2 }} sm={{ span: 17, offset: 1 }}>
-                    <Card 
+                    <NewsCard 
                       className='news-card' 
                       bordered={false}>
-                        <p className='is-size-7-mobile is-size-5-tablet news-text' style={{textAlign: "center"}}>
+                        <p className='news-text'>
                           <Mobile>{newsitem.content.substring(0, 200)} ... </Mobile>
                           <Tablet>{newsitem.content.substring(0, 275)} ... </Tablet>
                           <Desktop>{newsitem.content.substring(0, 350)} ... </Desktop>
                         </p>
-                    </Card>
+                    </NewsCard>
                   </Col>
                 </Row>
               </a>
@@ -137,7 +158,7 @@ export default class NewsFeed extends Component {
             <div style={{marginTop: "25px", marginBottom: "35px", background: "rgba(234,204,178,.5)", padding: ".7rem"}}>
                 <CarouselCard 
                   style={{cursor: "pointer"}} title="Наши новости" bordered="false"
-                  actions={[<a href="/news" className="news-button"><Icon type="select" />Посмотреть все новости</a>]}>            
+                  actions={[<a href="/news" className="news-button ant-btn ant-btn-primary"><Icon type="select" />Посмотреть все новости</a>]}>            
                     <Carousel autoplaySpeed={10000} autoplay>
                         {this.state.news ? this.renderNews(this.state.news) : <Spin style={{display: 'block'}} size="small" />}
                     </Carousel>           
