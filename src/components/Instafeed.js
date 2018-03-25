@@ -5,6 +5,7 @@ import { Card } from 'antd';
 import ProgressiveImage from 'react-progressive-bg-image';
 import styled, { keyframes } from 'styled-components';
 import { zoomIn } from "react-animations";
+import localforage from 'localforage';
 
 const zoomInAnimation = keyframes`${zoomIn}`;
 
@@ -58,32 +59,46 @@ export default class Instafeed extends React.Component {
 
     async componentDidMount() {
        try {
-           await axios.get(`https://api.instagram.com/v1/users/${config.instagram.REACT_APP_INSTAGRAM_USER_ID_0}/media/recent/?access_token=${config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN_0}&&count=4`)
-                .then(res => {
-                    const posts = res.data.data;
-                    for (let i = 0; i < posts.length; i++) {
-                        posts[i]['key'] = i;
-                    }
-                    this.setState({ posts: posts});                
-                });         
-
+           const posts = await this.fetchPosts();
+           this.setState({ posts: posts});                      
        } catch (e) {
-            try {
-                    await axios.get(`https://api.instagram.com/v1/users/${config.instagram.REACT_APP_INSTAGRAM_USER_ID_1}/media/recent/?access_token=${config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN_1}&&count=4`)
-                    .then(res => {
-                        const posts = res.data.data;
-                        for (let i = 0; i < posts.length; i++) {
-                            posts[i]['key'] = i;
-                        }
-                        this.setState({ posts: posts});               
-                    });
-
-            } catch (e) {
-                    console.log(e);
-            }
+            console.error(e);
        }
 
        this.setState({ loading: false});
+    }
+
+    async fetchPosts() {
+        try {
+            const posts = await localforage.getItem('posts');
+            if (posts) {
+                return posts;
+            } else {
+                const results = await axios.get(`https://api.instagram.com/v1/users/${config.instagram.REACT_APP_INSTAGRAM_USER_ID_0}/media/recent/?access_token=${config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN_0}&&count=4`);
+
+                const responsePosts = results.data.data;
+                for (let i = 0; i < responsePosts.length; i++)  {
+                    responsePosts[i]['key'] = i;
+                }
+                await localforage.setItem('posts', responsePosts);
+                return responsePosts;         
+            }
+
+        } catch (e) { 
+            try {
+                const replaceResults = await axios.get(`https://api.instagram.com/v1/users/${config.instagram.REACT_APP_INSTAGRAM_USER_ID_1}/media/recent/?access_token=${config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN_1}&&count=4`);
+
+                const replacePosts = replaceResults.data.data;
+                for (let i = 0; i < replacePosts.length; i++) {
+                    replacePosts[i]['key'] = i;
+                }
+                await localforage.setItem('posts', replacePosts);
+                return replacePosts;            
+
+            } catch (e) {
+                console.log(e);
+            }
+        }
     }
 
     renderPosts(posts) {
