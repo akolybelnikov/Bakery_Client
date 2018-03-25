@@ -318,10 +318,10 @@ export default class Home extends Component {
             </div>
           </div>       
         </Mobile>
-          <Row style={{marginBottom: 10, background: 'rgba(234,204,178,.5)', padding: '10px', textAlign: 'center'}}>
-            <p className="has-text-weight-semibold">Наши часы работы:</p>
-            <p>с понедельника по субботу: с 8.00 до 20.00 часов;</p>
-            <p>в воскресенье: с 9.00 до 18.00 часов.</p>
+        <Row style={{marginBottom: 45, background: 'rgba(234,204,178,.5)', padding: '10px', textAlign: 'center'}}>
+          <p className="has-text-weight-semibold">Наши часы работы:</p>
+          <p>с понедельника по субботу: с 8.00 до 20.00 часов;</p>
+          <p>в воскресенье: с 9.00 до 18.00 часов.</p>
         </Row>
       </div>
     );

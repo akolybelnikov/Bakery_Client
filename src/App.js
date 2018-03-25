@@ -23,7 +23,7 @@ const bounceAnimation = keyframes`${bounceInUp}`;
 const AffixBounce = styled(Affix)`
   animation: 1.5s ${bounceAnimation};
   position: absolute; 
-  right: 2%;
+  right: 5%;
   @media only screen and (max-width: 768px) {
     right: 5%;
   }
