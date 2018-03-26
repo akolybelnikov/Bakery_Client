@@ -129,11 +129,24 @@ export default class Home extends Component {
   }
 
   async getOffer() {
+    const hours = 3600000;
+    const timecheck = Date.now() - 24 * hours;
     try {
+      const fingerprint = await localforage.getItem("offertimestamp");
+
       const offer = await localforage.getItem("offer");
-      if (offer) {
+      if (offer && fingerprint && fingerprint.createdAt > timecheck) {
         return offer;
       } else {
+        if (!fingerprint) {
+          const timestamp = { createdAt: Date.now() };
+          await localforage.setItem("offertimestamp", timestamp);
+        }
+
+        if (offer) {
+          await localforage.removeItem("offer");
+        }
+
         const offers = await invokeOpenApi({ path: "/offers" });
         const sorted = this.sortByDate(offers).reverse();
         const newOffer = sorted[0];

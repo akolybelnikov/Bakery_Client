@@ -96,19 +96,34 @@ export default class NewsFeed extends Component {
   }
 
   async getNews() {
+    const hours = 3600000;
+    const timecheck = Date.now() - 12 * hours;
     try {
+      const fingerprint = await localforage.getItem("newstimestamp");
+
       const stored = await localforage.getItem("news");
-      if (stored) {
+      if (stored && fingerprint && fingerprint.createdAt > timecheck) {
         return stored;
       } else {
+        if (!fingerprint) {
+          const timestamp = { createdAt: Date.now() };
+          await localforage.setItem("newstimestamp", timestamp);
+        }
+
+        if (stored) {
+          await localforage.removeItem("news");
+        }
+
         const news = [];
         const results = await invokeOpenApi({ path: "/news" });
         await this.sortByDate(results).reverse();
+
         for (let i = 0; i < 5; i++) {
           if (results[i] !== undefined) {
             news.push(results[i]);
           }
         }
+
         await localforage.setItem("news", news);
         return news;
       }

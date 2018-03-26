@@ -74,19 +74,34 @@ export default class News extends Component {
   }
 
   async getNews() {
+    const hours = 3600000;
+    const timecheck = Date.now() - 12 * hours;
     try {
-      const fetchedNews = await localforage.getItem("news");
-      if (fetchedNews) {
-        return fetchedNews;
+      const fingerprint = await localforage.getItem("newstimestamp");
+
+      const stored = await localforage.getItem("news");
+      if (stored && fingerprint && fingerprint.createdAt > timecheck) {
+        return stored;
       } else {
+        if (!fingerprint) {
+          const timestamp = { createdAt: Date.now() };
+          await localforage.setItem("newstimestamp", timestamp);
+        }
+
+        if (stored) {
+          await localforage.removeItem("news");
+        }
+
         const news = [];
         const results = await invokeOpenApi({ path: "/news" });
         await this.sortByDate(results).reverse();
+
         for (let i = 0; i < 5; i++) {
           if (results[i] !== undefined) {
             news.push(results[i]);
           }
         }
+
         await localforage.setItem("news", news);
         return news;
       }
@@ -107,7 +122,7 @@ export default class News extends Component {
   openErrorNotification(e) {
     notification["error"]({
       message: "Произошла ошибка при загрузке!",
-      description: 'Пожалуйста, попробуйте загрузить приложение ещё раз.'
+      description: "Пожалуйста, попробуйте загрузить приложение ещё раз."
     });
   }
 
