@@ -16,6 +16,7 @@ import ProgressiveImage from "react-progressive-bg-image";
 import config from "../../config";
 import "./Category.css";
 import localforage from "localforage";
+import LazyLoad from 'react-lazy-load';
 
 const bgImg = require(`../../public/logo.png`);
 
@@ -260,15 +261,17 @@ class Category extends React.Component {
                 </a>
               ]}
             >
-              <ProductImage
-                href={`/products/${this.props.match.params.category}/${
-                  product.productId
-                }`}
-                onClick={this.handleProductClick}
-                src={`${config.s3.URL}/300x300/${product.image}`}
-                placeholder={bgImg}
-                transition="all 1s linear"
-              />
+              <LazyLoad offset={200}>
+                <ProductImage
+                  href={`/products/${this.props.match.params.category}/${
+                    product.productId
+                  }`}
+                  onClick={this.handleProductClick}
+                  src={`${config.s3.URL}/300x300/${product.image}`}
+                  placeholder={bgImg}
+                  transition="all 1s linear"
+                />
+              </LazyLoad>
             </ProductCard>
           </List.Item>
         )}
