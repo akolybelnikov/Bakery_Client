@@ -148,25 +148,25 @@ export default class Instafeed extends React.Component {
           rel="noopener noreferrer"
           className="card-image"
         >
-          <LazyLoad offset={300} height={150}>
-            <Card
-              cover={
+          <Card
+            cover={
+              <LazyLoad offset={100} height={150}>
                 <Image
                   placeholder={bgImg}
                   src={post.images.low_resolution.url}
                   transition="all 1s linear"
                 />
-              }
-              actions={[
-                <p
-                  className="is-size-7-mobile is-size-6-tablet"
-                  style={{ color: "#331507", wordBreak: "break-word" }}
-                >
-                  {post.caption && post.caption.text.substring(0, 120)} ...{" "}
-                </p>
-              ]}
-            />
-          </LazyLoad>
+              </LazyLoad>
+            }
+            actions={[
+              <p
+                className="is-size-7-mobile is-size-6-tablet"
+                style={{ color: "#331507", wordBreak: "break-word" }}
+              >
+                {post.caption && post.caption.text.substring(0, 120)} ...{" "}
+              </p>
+            ]}
+          />
         </a>
       </PostCard>
     ));
