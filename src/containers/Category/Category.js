@@ -261,7 +261,7 @@ class Category extends React.Component {
                 </a>
               ]}
             >
-              <LazyLoad offset={200}>
+              <LazyLoad offset={200} height={300}>
                 <ProductImage
                   href={`/products/${this.props.match.params.category}/${
                     product.productId
