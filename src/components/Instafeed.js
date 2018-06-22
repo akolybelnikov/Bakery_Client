@@ -6,6 +6,7 @@ import ProgressiveImage from "react-progressive-bg-image";
 import styled, { keyframes } from "styled-components";
 import { zoomIn } from "react-animations";
 import localforage from "localforage";
+import LazyLoad from 'react-lazy-load';
 
 const zoomInAnimation = keyframes`${zoomIn}`;
 
@@ -96,9 +97,9 @@ export default class Instafeed extends React.Component {
     try {
       const results = await axios.get(
         `https://api.instagram.com/v1/users/${
-          config.instagram.REACT_APP_INSTAGRAM_USER_ID_0
+          config.instagram.REACT_APP_INSTAGRAM_USER_ID_1
         }/media/recent/?access_token=${
-          config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN_0
+          config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN_1
         }&&count=4`
       );
 
@@ -113,9 +114,9 @@ export default class Instafeed extends React.Component {
       try {
         const replaceResults = await axios.get(
           `https://api.instagram.com/v1/users/${
-            config.instagram.REACT_APP_INSTAGRAM_USER_ID_1
+            config.instagram.REACT_APP_INSTAGRAM_USER_ID_0
           }/media/recent/?access_token=${
-            config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN_1
+            config.instagram.REACT_APP_INSTAGRAM_ACCESS_TOKEN_0
           }&&count=4`
         );
 
@@ -147,23 +148,25 @@ export default class Instafeed extends React.Component {
           rel="noopener noreferrer"
           className="card-image"
         >
-          <Card
-            cover={
-              <Image
-                placeholder={bgImg}
-                src={post.images.low_resolution.url}
-                transition="all 1s linear"
-              />
-            }
-            actions={[
-              <p
-                className="is-size-7-mobile is-size-6-tablet"
-                style={{ color: "#331507", wordBreak: "break-word" }}
-              >
-                {post.caption && post.caption.text.substring(0, 120)} ...{" "}
-              </p>
-            ]}
-          />
+          <LazyLoad offset={300} height={150}>
+            <Card
+              cover={
+                <Image
+                  placeholder={bgImg}
+                  src={post.images.low_resolution.url}
+                  transition="all 1s linear"
+                />
+              }
+              actions={[
+                <p
+                  className="is-size-7-mobile is-size-6-tablet"
+                  style={{ color: "#331507", wordBreak: "break-word" }}
+                >
+                  {post.caption && post.caption.text.substring(0, 120)} ...{" "}
+                </p>
+              ]}
+            />
+          </LazyLoad>
         </a>
       </PostCard>
     ));

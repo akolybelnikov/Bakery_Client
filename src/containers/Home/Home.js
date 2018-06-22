@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Modal, Row, Col } from "antd";
+import { Card, Modal, Row, Col, notification, Icon } from "antd";
 import config from "../../config";
 import { invokeOpenApi } from "../../libs/awsLib";
 import styled, { keyframes } from "styled-components";
@@ -8,16 +8,18 @@ import ProgressiveImage from "react-progressive-bg-image";
 import Instafeed from "../../components/Instafeed";
 import NewsFeed from "../../components/NewsFeed";
 import Responsive from "react-responsive";
-import LazyLoad from "react-lazyload";
 import "./Home.css";
 import tinyBread from "../../public/tiny_bread.png";
 import tinyCoffee from "../../public/tiny_coffee.png";
 import tinyCakes from "../../public/tiny_cakes.png";
 import tinyOrder from "../../public/tiny_order.png";
 import localforage from "localforage";
+import LazyLoad from "react-lazy-load";
 
 const zoomInAnimation = keyframes`${zoomIn}`;
 const logoImg = require(`../../public/logo.png`);
+
+const { Meta } = Card;
 
 const Desktop = props => <Responsive {...props} minWidth={769} />;
 const Tablet = props => <Responsive {...props} minWidth={416} maxWidth={768} />;
@@ -78,6 +80,46 @@ const CategoryImage = styled(ProgressiveImage)`
     min-height: 135px;
   }
 `;
+
+const OfferDesktopCard = styled(Card)`
+  .anticon.anticon-select {
+    margin-right: 5px;
+  }
+`;
+
+const TabletOfferCard = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  .ant-card-meta {
+    padding: 10px;
+  }
+  .ant-card-meta-title {
+    text-align: center;
+    font-size: 1.5rem;
+    color: rgba(82, 8, 45, 1);
+  }
+  .ant-card-meta-description {
+    font-size: 1.2rem;
+    font-weight: 600;
+    overflow: hidden;
+    white-space: normal;
+  }
+  @media screen and (max-width: 667px) {
+    .ant-card-meta-description {
+      font-size: 1.rem;
+    }
+    .ant-card-meta-title {
+      font-size: 1.2rem;
+    }
+  }
+`;
+
+const MobileOfferCard = styled(Card)`
+  .ant-btn {
+    color: rgba(82, 8, 45, 1);
+    border-color: rgba(82, 8, 45, 1);
+  }
+`
 
 export default class Home extends Component {
   constructor(props) {
@@ -154,8 +196,16 @@ export default class Home extends Component {
         return newOffer;
       }
     } catch (e) {
-      console.error(e);
+      this.openWarningNotification();
     }
+  }
+
+  openWarningNotification() {
+    notification["warning"]({
+      message:
+        "Произошла ошибка при загрузке! Возможно нет связи с интернетом.",
+      description: "Пожалуйста, попробуйте загрузить приложение позже."
+    });
   }
 
   sortByDate(array) {
@@ -215,12 +265,34 @@ export default class Home extends Component {
   renderOffer() {
     if (this.state.offercontent && this.state.offerimage)
       return (
-        <OfferCard
-          src={`${config.s3.URL}/350x350/${this.state.offerimage}`}
-          placeholder={logoImg}
-          transition="all 1s linear"
-          crossOrigin="anonymous"
-        />
+        <LazyLoad offset={100} height={200}>
+          <OfferCard
+            src={`${config.s3.URL}/350x350/${this.state.offerimage}`}
+            placeholder={logoImg}
+            transition="all 1s linear"
+            crossOrigin="anonymous"
+          />
+        </LazyLoad>
+      );
+  }
+
+  renderTabletOffer() {
+    if (this.state.offercontent && this.state.offerimage)
+      return (
+        <TabletOfferCard>
+          <OfferCard
+            src={`${config.s3.URL}/350x350/${this.state.offerimage}`}
+            placeholder={logoImg}
+            transition="all 1s linear"
+            crossOrigin="anonymous"
+          />
+          <Card>
+            <Meta
+              title="Спецпредложение"
+              description={this.state.offercontent && this.state.offercontent}
+            />
+          </Card>
+        </TabletOfferCard>
       );
   }
 
@@ -255,7 +327,20 @@ export default class Home extends Component {
                       this.setModalVisible(true);
                     }}
                   >
-                    <Card title="Спецпредложение">{this.renderOffer()}</Card>
+                    <OfferDesktopCard
+                      title={
+                        <button
+                          className="ant-btn ant-btn-primary"
+                          onClick={() => {
+                            this.setModalVisible(true);
+                          }}
+                        >
+                          <Icon type="select" />Спецпредложение
+                        </button>
+                      }
+                    >
+                      {this.renderOffer()}
+                    </OfferDesktopCard>
                   </a>
                 </div>
               </div>
@@ -282,7 +367,7 @@ export default class Home extends Component {
           <NewsFeed />
         </Desktop>
         <Tablet>
-          <div className="tile is-ancestor">
+          <div style={{marginTop: '2.25rem'}} className="tile is-ancestor">
             <div className="tile is-parent">
               <RowCard title="Наш ассортимент" className="tile is-child box">
                 <Row>
@@ -300,7 +385,7 @@ export default class Home extends Component {
                         this.setModalVisible(true);
                       }}
                     >
-                      <Card title="Спецпредложение">{this.renderOffer()}</Card>
+                      <Card>{this.renderTabletOffer()}</Card>
                     </a>
                   </div>
                 </Col>
@@ -351,7 +436,20 @@ export default class Home extends Component {
                       this.setModalVisible(true);
                     }}
                   >
-                    <Card title="Спецпредложение">{this.renderOffer()}</Card>
+                  <MobileOfferCard
+                    title={
+                      <button
+                        className="ant-btn"
+                        onClick={() => {
+                          this.setModalVisible(true);
+                        }}
+                      >
+                        <Icon type="select" />Спецпредложение
+                      </button>
+                    }
+                  >
+                    {this.renderOffer()}
+                  </MobileOfferCard>
                   </a>
                 </div>
               </div>

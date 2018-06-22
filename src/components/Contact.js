@@ -1,14 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import config from "../config";
-import { Row, Col, Icon, Card, Breadcrumb } from "antd";
-import styled, { keyframes } from "styled-components";
-import { zoomIn } from "react-animations";
-import instaIcon from "../public/instagram.svg";
-import "./Contact.css";
-import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
+import React from "react"
+import { Link } from "react-router-dom"
+import config from "../config"
+import { Row, Col, Icon, Card, Breadcrumb } from "antd"
+import styled, { keyframes } from "styled-components"
+import { zoomIn } from "react-animations"
+import "./Contact.css"
+import { Map, Marker, GoogleApiWrapper } from "google-maps-react"
 
-const zoomInAnimation = keyframes`${zoomIn}`;
+const zoomInAnimation = keyframes`${zoomIn}`
 
 const ContactCard = styled(Card)`
   animation: 1.5s ${zoomInAnimation};
@@ -25,23 +24,23 @@ const ContactCard = styled(Card)`
   @media only screen and (min-width: 415px) and (max-width: 840px) {
     margin: 70% 0 0 0 !important;
   }
-`;
+`
 
 const IconRow = styled(Row)`
   margin-top: 25px;
   @media only screen and (min-width: 481px) and (max-width: 768px) {
     margin-top: 50px;
   }
-`;
+`
 
 const BreadCrumbs = styled(Row)`
   color: #331507;
   margin-top: 80px;
-`;
+`
 
 const CardRow = styled(Row)`
   margin: 30px 0 0;
-`;
+`
 
 const ActionSpan = styled.p`
   margin: 15px;
@@ -62,7 +61,7 @@ const ActionSpan = styled.p`
       text-decoration: none;
     }
   }
-`;
+`
 
 const TableCell = styled.p`
   color: #331507;
@@ -70,12 +69,12 @@ const TableCell = styled.p`
   @media only screen and (min-width: 769px) {
     margin-top: 5px;
   }
-`;
+`
 
 const GoogleMap = styled(Map)`
   animation: 1.5s ${zoomInAnimation};
   height: 50% !important;
-`;
+`
 
 const FbIcon = styled(Icon)`
   font-size: 28px;
@@ -86,7 +85,7 @@ const FbIcon = styled(Icon)`
   @media only screen and (max-width: 480px) {
     font-size: 18px;
   }
-`;
+`
 
 const MailIcon = styled(Icon)`
   font-size: 28px;
@@ -97,7 +96,7 @@ const MailIcon = styled(Icon)`
     font-size: 18px;
     margin-top: 2px;
   }
-`;
+`
 
 const PhIcon = styled(Icon)`
   font-size: 28px;
@@ -108,14 +107,19 @@ const PhIcon = styled(Icon)`
   @media only screen and (max-width: 480px) {
     font-size: 18px;
   }
-`;
+`
 
-const InstaIcon = styled.img`
-  width: 26px;
-  @media only screen and (max-width: 480px) {
-    width: 16px;
+const InstaIcon = styled(Icon)`
+  font-size: 28px;
+  color: rgba(252,63,116,1);
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    font-size: 26px;
   }
-`;
+  @media only screen and (max-width: 480px) {
+    font-size: 18px;
+    margin-top: 2px;
+  }
+`
 
 const HoursRow = styled(Row)`
   margin: 10px;
@@ -196,7 +200,7 @@ class Contact extends React.Component {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <InstaIcon src={instaIcon} alt="instagram" />
+                  <InstaIcon type="instagram" />
                   <ActionSpan>confertru.ru</ActionSpan>
                 </a>,
                 <a
@@ -204,7 +208,7 @@ class Contact extends React.Component {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <InstaIcon src={instaIcon} alt="instagram" />
+                  <InstaIcon type="instagram" />
                   <ActionSpan>vse_bulochki_tut</ActionSpan>
                 </a>
               ]}

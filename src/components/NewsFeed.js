@@ -6,6 +6,7 @@ import { invokeOpenApi } from "../libs/awsLib";
 import styled from "styled-components";
 import Responsive from "react-responsive";
 import localforage from "localforage";
+import LazyLoad from "react-lazy-load";
 
 const logoImg = require(`../public/logo.png`);
 
@@ -151,12 +152,14 @@ export default class NewsFeed extends Component {
             <Card
               bordered={false}
               cover={
-                <NewsImage
-                  src={`${config.s3.URL}/200x200/${newsitem.image}`}
-                  placeholder={logoImg}
-                  transition="all 1s linear"
-                  crossOrigin="anonymous"
-                />
+                <LazyLoad offset={200} height={100}>
+                  <NewsImage
+                    src={`${config.s3.URL}/200x200/${newsitem.image}`}
+                    placeholder={logoImg}
+                    transition="all 1s linear"
+                    crossOrigin="anonymous"
+                  />
+                </LazyLoad>
               }
             />
           </Col>

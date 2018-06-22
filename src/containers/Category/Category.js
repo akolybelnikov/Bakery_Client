@@ -33,10 +33,6 @@ const ProductCard = styled(Card)`
     padding: 0 10px;
   }
 
-  .ant-card-head-wrapper {
-    max-width: 290px;
-  }
-
   .ant-card-actions {
     background: rgba(234, 204, 178, 0.75);
     li > span {
@@ -241,10 +237,6 @@ class Category extends React.Component {
         renderItem={product => (
           <List.Item>
             <ProductCard
-              href={`/products/${this.props.match.params.category}/${
-                product.productId
-              }`}
-              onClick={this.handleProductClick}
               style={{ cursor: "pointer" }}
               title={product.productName}
               actions={[
@@ -269,6 +261,10 @@ class Category extends React.Component {
               ]}
             >
               <ProductImage
+                href={`/products/${this.props.match.params.category}/${
+                  product.productId
+                }`}
+                onClick={this.handleProductClick}
                 src={`${config.s3.URL}/300x300/${product.image}`}
                 placeholder={bgImg}
                 transition="all 1s linear"

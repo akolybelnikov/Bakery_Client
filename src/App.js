@@ -10,7 +10,6 @@ import styled, { keyframes } from 'styled-components';
 import { bounceInUp } from 'react-animations';
 import { setTimeout } from 'timers';
 import Responsive from 'react-responsive';
-import instaIcon from './public/instagram.svg';
 import './App.css';
 
 const Desktop = props => <Responsive {...props} minWidth={769} />;
@@ -23,13 +22,8 @@ const bounceAnimation = keyframes`${bounceInUp}`;
 const AffixBounce = styled(Affix)`
   animation: 1.5s ${bounceAnimation};
   position: absolute; 
-  right: 5%;
-  @media only screen and (max-width: 768px) {
-    right: 5%;
-  }
-  @media only screen and (min-width: 1300px) {
-    right: 15%;
-  }
+  z-index: 100;
+  left: 85%;
   @media screen and (min-width: 768px) {
     .ant-btn-circle.ant-btn-lg {
       width: 52px;
@@ -135,7 +129,7 @@ export default class App extends React.Component {
       <MobileFooter className="navbar is-hidden-tablet is-fixed-bottom">            
         <div className="level is-mobile">
           <div className="level-item">
-            <a aria-label="Instagram link" style={{ padding: 5 }} href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer" className="has-text-danger"><img src={instaIcon} className="insta-icon" alt="instagram" /></a>
+            <a aria-label="Instagram link" style={{ padding: 5 }} href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer" className="has-text-danger"><Icon type="instagram" style={{ color: 'rgba(252,63,116,1'}} /></a>
         </div>
         <div className="level-item">
             <a aria-label="Facebook link" href="https://www.facebook.com/CONFERTRU.RU" target='_blank' rel="noopener noreferrer" className="has-text-info"><Icon type="facebook" /></a>
@@ -175,7 +169,7 @@ export default class App extends React.Component {
                 </AffixBounce>
               </Tablet>
               <Desktop>
-                <AffixBounce offsetTop={120}>
+                <AffixBounce offsetTop={100}>
                   <a href="tel:+79266298726" name="phone number" target="_self" className="ant-btn ant-btn-primary ant-btn-circle ant-btn-icon-only ant-btn-lg"><Icon type="customer-service" /></a>
                 </AffixBounce>
               </Desktop>
@@ -189,7 +183,7 @@ export default class App extends React.Component {
                   <nav className="level is-mobile">
                     <div className="level-item has-text-centered">
                       <div>
-                        <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer"><img src={instaIcon} style={{ width: 26, marginTop: -3 }} alt="instagram" /></a>
+                        <a href="https://www.instagram.com/confertru.ru" target='_blank' rel="noopener noreferrer"><Icon type="instagram" style={{ fontSize: 28, color: 'rgba(252,63,116,1'}} /></a>
                       </div>
                     </div>
                     <div className="level-item has-text-centered">
@@ -199,13 +193,13 @@ export default class App extends React.Component {
                     </div>
                     <div className="level-item has-text-centered">
                       <div>
-                        <Link to="/contact" className="has-text-grey"><Icon style={{ fontSize: 28}} type="mail"/></Link>
+                        <Link to="/contact" className="has-text-grey"><Icon style={{ fontSize: 28, color: 'rgba(94,32,59,1)'}} type="mail"/></Link>
                       </div>
                     </div>
                     <div className="level-item has-text-centered">
                       <div>
                         <Link className="icon-link" to="/login">
-                          { isLoggedIn ? <Icon style={{ fontSize: 28}} type="unlock" /> : <Icon style={{ fontSize: 28}} type="lock" /> }</Link>
+                          { isLoggedIn ? <Icon style={{ fontSize: 28}} type="unlock" /> : <Icon style={{ fontSize: 28, color: 'rgba(161,113,116,1)'}} type="lock" /> }</Link>
                         </div>
                     </div>
                   </nav>

@@ -164,7 +164,7 @@ class SearchModal extends React.Component {
                                         title={item.productName} />
                                         <Row>
                                             <Col xs={16}>{item.content}</Col>
-                                            <Col xs={8}><img alt="" src={`${config.s3.URL}/100x1000/${item.image}`} /></Col>
+                                            <Col xs={8}><img alt="" src={`${config.s3.URL}/100x100/${item.image}`} /></Col>
                                         </Row>
                                     </List.Item>
                                 )} />
