@@ -217,7 +217,7 @@ export default class Product extends Component {
                         cover={<ProductImage src={`${config.s3.URL}/300x300/${this.state.product.image}` || bwlogo}  placeholder={bgImg} transition="all 1s linear" />}
                         actions={[<a href="tel:+79266298726" target="_self" name="phone number" className="ant-btn ant-btn-primary"><Icon type="customer-service" /><span className="product-card-action">Заказать</span></a>]}>
                         <Meta 
-                            title={[<span className="product-card-title"><Icon type="info-circle-o" />{product && product.weight}</span>, <span className="product-card-title"><Icon type="tag-o" />{product && product.price} руб.</span>]}
+                            title={[<span key="1" className="product-card-title"><Icon type="info-circle-o" />{product && product.weight}</span>, <span key="2" className="product-card-title"><Icon type="tag-o" />{product && product.price} руб.</span>]}
                             description={product && <div>{product.sort && product.sort !== "" && this.renderMobileSorts(product.sort)}<p>{product.content}</p></div>} />
                     </ProductCard>
                 </Mobile>
