@@ -25,6 +25,7 @@ const StyledModal = styled(Modal)`
 `
 
 const MobileModal = styled(Modal)`
+    max-width: 100%;
     .ant-modal-body {
         min-height: 100px;
     }
@@ -79,6 +80,7 @@ class SearchModal extends React.Component {
     handleProductClick = (e) => {
         e.preventDefault();
         this.props.history.push(e.currentTarget.getAttribute("href"));
+        console.log(e, e.currentTarget, this.props.history)
         this.setState({ modalVisible: false });
         listData.splice(0);
         this.setState({disabled: false});
@@ -194,10 +196,9 @@ class SearchModal extends React.Component {
                         size="large"
                         dataSource={listData}
                         renderItem={item => (
+                            <a key={item.productId} href={`/products/${item.category}/${item.productId}`}>
                             <List.Item style={{background: 'white', cursor: 'pointer', padding: 20}}
-                                href={`/products/${item.category}/${item.productId}`}
-                                onClick={this.handleProductClick}
-                                key={item.productId}
+                                
                                 actions={[<p className="is-size-7" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{item.weight}</p>, <p className="is-size-7" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{item.price} руб.</p>]}>
                                 <List.Item.Meta
                                 title={item.productName} />
@@ -206,6 +207,7 @@ class SearchModal extends React.Component {
                                     <Col xs={8}><img alt="" src={`${config.s3.URL}/150x150/${item.image}`} /></Col>
                                 </Row>
                             </List.Item>
+                            </a>
                         )} />
                 </StyledModal>
             </Desktop>
