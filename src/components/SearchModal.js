@@ -121,9 +121,8 @@ class SearchModal extends React.Component {
                     listData.push(result.item)
                 }
             }
-            console.log(results, listData)
-            // listData = result
-            // this.setModalVisible(true)
+
+            this.setModalVisible(true)
         } else {
             message.error('Наименований не найдено! Попробуйте изменить условия поиска.', 3)
         }
