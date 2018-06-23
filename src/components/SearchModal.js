@@ -161,7 +161,7 @@ class SearchModal extends React.Component {
                                 size="large"
                                 dataSource={listData}
                                 renderItem={item => (
-                                    <a  href={`/products/${item.category}/${item.productId}`} key={item.productId}>
+                                    <a href={`/products/${item.category}/${item.productId}`} key={item.productId}>
                                     <List.Item style={{background: 'white', cursor: 'pointer', padding: 20}}
                                         actions={[<p className="is-size-7" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{item.weight}</p>, <p className="is-size-7" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{item.price} руб.</p>]}>
                                         <List.Item.Meta
