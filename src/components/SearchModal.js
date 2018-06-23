@@ -100,20 +100,30 @@ class SearchModal extends React.Component {
 
     handleSearch() {
 
+        listData = []
+
         const options = {
             shouldSort: true,
-            threshold: 0.6,
+            includeMatches: true,
+            minMatchCharLength: 5,
+            threshold: 0.45,
             location: 0,
-            distance: 100,
-            keys: ['productName', 'content']
+            distance: 1000,
+            keys: ['productName', 'sort', 'content']
         }
 
         const fuse = new Fuse(this.state.products, options)
-        const result = fuse.search(this.state.inputValue)
+        const results = fuse.search(this.state.inputValue)
 
-        if (result.length) {
-            listData = result
-            this.setModalVisible(true)
+        if (results.length) {
+            for (let result of results) {
+                if (result.matches.length) {
+                    listData.push(result.item)
+                }
+            }
+            console.log(results, listData)
+            // listData = result
+            // this.setModalVisible(true)
         } else {
             message.error('Наименований не найдено! Попробуйте изменить условия поиска.', 3)
         }
