@@ -144,7 +144,6 @@ class Category extends React.Component {
       );
 
       if (products && fingerprint && fingerprint.createdAt > timecheck) {
-        console.log("from storage");
         return products;
       } else {
         if (!fingerprint) {

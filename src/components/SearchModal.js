@@ -6,6 +6,7 @@ import { invokeOpenApi } from "../libs/awsLib";
 import config from "../config";
 import Responsive from 'react-responsive';
 import Fuse from "fuse.js";
+import localforage from "localforage";
 
 const Mobile = props => <Responsive {...props} maxWidth={768} />;
 const Desktop = props => <Responsive {...props} minWidth={769} />;
@@ -54,15 +55,22 @@ class SearchModal extends React.Component {
     async componentDidMount() {
         const products = [];
         try {
-            const bread = await this.getBread();
-            const coffee = await this.getCoffee();
-            const cakes = await this.getCakes();
-            const order = await this.getOrder();
-            products.push(bread, coffee, cakes, order);
-            const allProducts = products.reduce((a, b) => a.concat(b), []);
-            this.setState({
-                products: allProducts
-            });
+            const localproducts = await localforage.getItem("products")
+            if (localproducts) {
+                this.setState({
+                    products: localproducts
+                });
+            } else {
+                const bread = await this.getBread();
+                const coffee = await this.getCoffee();
+                const cakes = await this.getCakes();
+                const order = await this.getOrder();
+                products.push(bread, coffee, cakes, order);
+                const allProducts = products.reduce((a, b) => a.concat(b), []);
+                this.setState({
+                    products: allProducts
+                });
+            }
         } catch (e) {
             message.error(e, 5);
         }

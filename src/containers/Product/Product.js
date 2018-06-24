@@ -141,29 +141,33 @@ export default class Product extends Component {
 
     async getProduct() {
         try {
-            const category = await localforage.getItem(`${this.props.location.pathname.split('/')[2]}`);
-            const product = category.find(entry => entry.productId === this.props.match.params.id);
-            if (product) {
-                return product;
-            } else {
-                const fetchedProduct = await invokeOpenApi({ path: `/products/${this.props.match.params.id}/${this.props.location.pathname.split('/')[2]}` });
-                return fetchedProduct;
-            }
+            const products = await localforage.getItem("products")
+
+            if (products) {
+                const product = products.find(product => product.productId === this.props.match.params.id)
+                if (product) return product
+            }           
+
+            const fetchedProduct = await invokeOpenApi({ path: `/products/${this.props.match.params.id}/${this.props.location.pathname.split('/')[2]}` })
+   
+            return fetchedProduct
+            
         } catch (e) {
-            this.openErrorNotification();
+            this.openErrorNotification()
         }
     }
 
     async updateProduct() {
         try {
-            const category = await localforage.getItem(`${this.props.location.pathname.split('/')[2]}`);
-            const product = category.find(entry => entry.productId === this.props.history.location.pathname.split('/')[3]);
-            if (product) {
-                return product;
-            } else {
-                const fetchedProduct = await invokeOpenApi({ path: `/products/${this.props.history.location.pathname.split('/')[3]}/${this.props.history.location.pathname.split('/')[2]}` });
-                return fetchedProduct;
-            }
+            const products = await localforage.getItem("products")
+            if (products) {
+                const product = products.find(product => product.productId === this.props.match.params.id);
+                if (product) return product
+            }            
+
+            const fetchedProduct = await invokeOpenApi({ path: `/products/${this.props.history.location.pathname.split('/')[3]}/${this.props.history.location.pathname.split('/')[2]}` });
+            return fetchedProduct;
+            
         } catch (e) {
             this.openErrorNotification();
         }
@@ -176,8 +180,8 @@ export default class Product extends Component {
 
     openErrorNotification () {
         notification['error']({
-          message: 'Произошла ошибка при загрузке!',
-          description: 'Пожалуйста, попробуйте загрузить приложение ещё раз.'
+          message: 'Произошла ошибка при загрузке.',
+          description: 'Пожалуйста, попробуйте загрузить приложение позже.'
         });
     };
 
