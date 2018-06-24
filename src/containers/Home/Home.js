@@ -376,11 +376,12 @@ render() {
                   this.setModalVisible(true);
                 }}>
                   <OfferDesktopCard
-                    title={< button className = "ant-btn ant-btn-primary" onClick = {
+                    title={<button className = "ant-btn ant-btn-primary" onClick = {
                     () => {
                       this.setModalVisible(true);
                     }
-                  } > <Icon type="select"/>Спецпредложение < /button>}>
+                  }>
+                    <Icon type="select"/>Спецпредложение</button>}>
                     {this.renderOffer()}
                   </OfferDesktopCard>
                 </a>
@@ -475,11 +476,12 @@ render() {
                   this.setModalVisible(true);
                 }}>
                   <MobileOfferCard
-                    title={< button className = "ant-btn" onClick = {
+                    title={<button className = "ant-btn" onClick = {
                     () => {
                       this.setModalVisible(true);
                     }
-                  } > <Icon type="select"/>Спецпредложение < /button>}>
+                  }>
+                    <Icon type="select"/>Спецпредложение</button>}>
                     {this.renderOffer()}
                   </MobileOfferCard>
                 </a>
