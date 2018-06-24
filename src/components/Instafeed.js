@@ -150,7 +150,7 @@ export default class Instafeed extends React.Component {
         >
           <Card
             cover={
-              <LazyLoad offset={100} height={150}>
+              <LazyLoad offset={150} height={150}>
                 <Image
                   placeholder={bgImg}
                   src={post.images.low_resolution.url}

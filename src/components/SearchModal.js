@@ -5,13 +5,18 @@ import styled from "styled-components";
 import { invokeOpenApi } from "../libs/awsLib";
 import config from "../config";
 import Responsive from 'react-responsive';
+import Fuse from "fuse.js";
+import localforage from "localforage";
 
 const Mobile = props => <Responsive {...props} maxWidth={768} />;
 const Desktop = props => <Responsive {...props} minWidth={769} />;
 
+const Wrap = styled.div`
+
+`
 
 const Search = Input.Search;
-const listData = [];
+let listData = [];
 
 const InputSearch = styled(Search)`
     [disabled] {
@@ -25,6 +30,7 @@ const StyledModal = styled(Modal)`
 `
 
 const MobileModal = styled(Modal)`
+    top: 20;
     .ant-modal-body {
         min-height: 100px;
     }
@@ -38,7 +44,7 @@ class SearchModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchValue: '',
+            inputValue: '',
             products: [],
             disabled: false,
             modalVisible: false,
@@ -46,50 +52,15 @@ class SearchModal extends React.Component {
         };
     }
 
-    setModalVisible(modalVisible) {
-        this.setState({ modalVisible });
-    }
-
-    setMobileModalVisible(mobileModalVisible) {
-        this.setState({ mobileModalVisible });
-        this.props.setMobileSearchModalVisible();
-        this.setState({searchValue: ''});
-      }
-
-    handleChange = (e) => {
-        this.setState({searchValue: e.target.value});
-    }
-
-    getBread() {
-        return invokeOpenApi({ path: `/categories/bread` });
-    }
-
-    getCoffee() {
-        return invokeOpenApi({ path: `/categories/coffee` });
-    }
-
-    getCakes() {
-        return invokeOpenApi({ path: `/categories/cakes` });
-    }
-
-    getOrder() {
-        return invokeOpenApi({ path: `/categories/order` });
-    }
-
-    handleProductClick = (e) => {
-        e.preventDefault();
-        this.props.history.push(e.currentTarget.getAttribute("href"));
-        this.setState({ modalVisible: false });
-        listData.splice(0);
-        this.setState({disabled: false});
-    }
-
-    async handleSearch(value) {
-
+    async componentDidMount() {
         const products = [];
-
-        if (value !== "") {
-            try {
+        try {
+            const localproducts = await localforage.getItem("products")
+            if (localproducts) {
+                this.setState({
+                    products: localproducts
+                });
+            } else {
                 const bread = await this.getBread();
                 const coffee = await this.getCoffee();
                 const cakes = await this.getCakes();
@@ -99,41 +70,84 @@ class SearchModal extends React.Component {
                 this.setState({
                     products: allProducts
                 });
-            } catch (e) {
-                message.error(e, 5);
             }
-    
-            for (let product of this.state.products) {
-                if (product.productName.toLowerCase().match(value.toLowerCase()) || product.content.toLowerCase().match(value.toLowerCase())) {
-                    listData.push(product);
-                }
-            }
-            
-            if (listData.length > 0) {
-    
-                this.setModalVisible(true);
-    
-            } else {
-                message.error('Наименований не найдено! Попробуйте изменить условия поиска.', 3);
-            }
-        } else {
-            message.error('Наименований не найдено! Попробуйте изменить условия поиска.', 3);
+        } catch (e) {
+            message.error(e, 5);
+        }
+    }
+
+    setModalVisible(modalVisible) {
+        this.setState({ modalVisible });
+    }
+
+    setMobileModalVisible(mobileModalVisible) {
+        this.setState({ mobileModalVisible });
+        this.props.setMobileSearchModalVisible();
+        this.setState({inputValue: ''});
+      }
+
+    handleChange = (e) => {
+        this.setState({ inputValue: e.target.value, });     
+    }
+
+    getBread() {
+        return invokeOpenApi({ path: `/categories/bread` })
+    }
+
+    getCoffee() {
+        return invokeOpenApi({ path: `/categories/coffee` })
+    }
+
+    getCakes() {
+        return invokeOpenApi({ path: `/categories/cakes` })
+    }
+
+    getOrder() {
+        return invokeOpenApi({ path: `/categories/order` })
+    }
+
+    handleSearch() {
+
+        listData = []
+
+        const options = {
+            shouldSort: true,
+            includeMatches: true,
+            minMatchCharLength: 5,
+            threshold: 0.45,
+            location: 0,
+            distance: 1000,
+            keys: ['productName', 'sort', 'content']
         }
 
-        this.setState({searchValue: ''});
-        this.props.setMobileSearchModalVisible();
+        const fuse = new Fuse(this.state.products, options)
+        const results = fuse.search(this.state.inputValue)
+
+        if (results.length) {
+            for (let result of results) {
+                if (result.matches.length) {
+                    listData.push(result.item)
+                }
+            }
+
+            this.setModalVisible(true)
+        } else {
+            message.error('Наименований не найдено! Попробуйте изменить условия поиска.', 3)
+        }
+
+        this.setState({ inputValue: '' })
+        this.props.setMobileSearchModalVisible()
     }
 
     render() {
         return (
-        <div>
+        <Wrap>
             <Mobile>
                 <MobileModal
-                    style={{ top: 20 }}
                     visible={this.props.mobileModalVisible}
-                    onOk={() => this.handleSearch(this.state.value) }
+                    onOk={() => this.handleSearch(this.state.inputValue) }
                     onCancel={() => this.setMobileModalVisible(false)}>
-                    <InputSearch style={{ top: 20, left: 20}} disabled={this.state.disabled} value={this.state.searchValue} placeholder="поиск по сайту" onChange={this.handleChange} onSearch={value => this.handleSearch(value)} enterButton/>
+                    <InputSearch style={{ top: 20, left: 20}} disabled={this.state.disabled} value={this.state.inputValue} placeholder="поиск по сайту" onChange={this.handleChange} onSearch={value => this.handleSearch(value)} enterButton/>
                 </MobileModal>
                 <Row>
                     <Col xs={{span: 22, offset: 1}} xl={24}>
@@ -155,10 +169,8 @@ class SearchModal extends React.Component {
                                 size="large"
                                 dataSource={listData}
                                 renderItem={item => (
+                                    <a href={`/products/${item.category}/${item.productId}`} key={item.productId}>
                                     <List.Item style={{background: 'white', cursor: 'pointer', padding: 20}}
-                                        href={`/products/${item.category}/${item.productId}`}
-                                        onClick={this.handleProductClick}
-                                        key={item.productId}
                                         actions={[<p className="is-size-7" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{item.weight}</p>, <p className="is-size-7" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{item.price} руб.</p>]}>
                                         <List.Item.Meta
                                         title={item.productName} />
@@ -167,6 +179,7 @@ class SearchModal extends React.Component {
                                             <Col xs={8}><img alt="" src={`${config.s3.URL}/100x100/${item.image}`} /></Col>
                                         </Row>
                                     </List.Item>
+                                    </a>
                                 )} />
                         </StyledModal>
                     </Col>
@@ -174,7 +187,7 @@ class SearchModal extends React.Component {
             </Mobile>
 
             <Desktop>
-                <InputSearch style={{ top: 40, left: 20}} disabled={this.state.disabled} value={this.state.searchValue} placeholder="поиск по сайту" onChange={this.handleChange} onSearch={value => this.handleSearch(value)} enterButton/>
+                <InputSearch style={{ top: 40, left: 20}} disabled={this.state.disabled} value={this.state.inputValue} placeholder="поиск по сайту" onChange={this.handleChange} onSearch={value => this.handleSearch(value)} enterButton/>
 
                 <StyledModal
                     title="Результаты поиска по сайту:"
@@ -194,10 +207,9 @@ class SearchModal extends React.Component {
                         size="large"
                         dataSource={listData}
                         renderItem={item => (
+                            <a key={item.productId} href={`/products/${item.category}/${item.productId}`}>
                             <List.Item style={{background: 'white', cursor: 'pointer', padding: 20}}
-                                href={`/products/${item.category}/${item.productId}`}
-                                onClick={this.handleProductClick}
-                                key={item.productId}
+                                
                                 actions={[<p className="is-size-7" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Вес: </span>{item.weight}</p>, <p className="is-size-7" style={{color: '#331507'}}><span style={{color: '#52082D'}}>Цена: </span>{item.price} руб.</p>]}>
                                 <List.Item.Meta
                                 title={item.productName} />
@@ -206,10 +218,11 @@ class SearchModal extends React.Component {
                                     <Col xs={8}><img alt="" src={`${config.s3.URL}/150x150/${item.image}`} /></Col>
                                 </Row>
                             </List.Item>
+                            </a>
                         )} />
                 </StyledModal>
             </Desktop>
-        </div>
+        </Wrap>
         );
     }
 }
