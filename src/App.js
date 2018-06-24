@@ -117,10 +117,10 @@ export default class App extends React.Component {
   }
 
   openErrorNotification () {
-	notification['error']({
-	  message: 'Произошла ошибка при загрузке!',
-	  description: 'Пожалуйста, попробуйте загрузить приложение ещё раз.'
-	});
+    notification['error']({
+      message: 'Произошла ошибка при загрузке!',
+      description: 'Пожалуйста, попробуйте загрузить приложение ещё раз.'
+    });
   };
 
   renderAffix() {
