@@ -230,7 +230,7 @@ class Contact extends React.Component {
                           name="phone number"
                           className="ant-btn ant-btn-primary"
                         >
-                          +7 926 -982-35-72
+                          +7 926-982-35-72
                         </a>
                       </TableCell>
                     </td>
