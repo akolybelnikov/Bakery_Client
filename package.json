@@ -6,7 +6,7 @@
     "amazon-cognito-identity-js": "^1.21.0",
     "antd": "^3.3.1",
     "aws-sdk": "^2.141.0",
-    "axios": "^0.17.1",
+    "axios": "^0.21.1",
     "bulma": "0.6.2",
     "cra-append-sw": "^2.2.0",
     "crypto-js": "^3.1.9-1",
